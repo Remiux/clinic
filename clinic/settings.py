@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #LOCAL APPS
     'apps.accounts',
+    'apps.general',
     #THIRD APPS
     'django_cotton',
     
