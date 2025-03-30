@@ -41,9 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #LOCAL APPS
-    
+    'apps.accounts',
     #THIRD APPS
     'django_cotton',
+    
     
 ]
 
@@ -62,14 +63,20 @@ ROOT_URLCONF = 'clinic.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'APP_DIRS': False,
         'OPTIONS': {
+            "loaders": [
+                "django_cotton.cotton_loader.Loader",
+            ],
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+            ],
+            "builtins": [
+                "django_cotton.templatetags.cotton"
             ],
         },
     },
@@ -130,6 +137,10 @@ TIME_ZONE = config("TIME_ZONE",default="UTC")
 USE_I18N = True
 
 USE_TZ = True
+
+
+# User Model
+AUTH_USER_MODEL = 'accounts.User'
 
 
 # Static files (CSS, JavaScript, Images)
