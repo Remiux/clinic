@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+
+                    <c-input_text inputType="email" inputValue="juan@mailito.com" spanTitle="Email" placeholder="Introduzca su correo">                        
+                    </c-input_text>
+
+                    <c-input_text inputType="text" inputValue="Mauro" spanTitle="Nombre" placeholder="Introduzca su nombre">                        
+                    </c-input_text>
+
+                    <c-input_text inputType="password" inputValue="12345678" spanTitle="Password" placeholder="Introduzca su password">                        
+                    </c-input_text>
+
+
+                    <c-input_text inputType="date" spanTitle="Fecha">                        
+                    </c-input_text>
+
+
+
+                </div>
+            </div>
+        </div>
+    
+
+    {% comment %} <div class="container mt-4">
+        <h1>Formulario con Input Dinámico</h1>
+        <form>
+            <!-- Componente Input Dinámico -->
+            {% include "components/input_text.html" with id="username" name="username" placeholder="Nombre de usuario" class="mb-3" %}
+            
+            {% include "components/input_text.html" with id="email" name="email" placeholder="Correo electrónico" value="ejemplo@correo.com" class="mb-3" readonly=True %}
+            
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </div> {% endcomment %}
+{% endblock content %}
