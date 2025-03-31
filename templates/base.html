@@ -25,7 +25,7 @@ License: For each use you must have a valid license purchased only from above li
 		<meta property="og:url" content="https://keenthemes.com/metronic" />
 		<meta property="og:site_name" content="Metronic by Keenthemes" />
 		<link rel="canonical" href="http://preview.keenthemes.comindex.html" />
-		<link rel="shortcut icon" href="{% static "assets/media/logos/favicon.ico" %}" />
+		<link rel="shortcut icon" href="{% static "assets/extra_media/logos/favicon.ico" %}" />
 		<!--begin::Fonts(mandatory for all pages)-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
 		<!--end::Fonts-->
@@ -86,7 +86,7 @@ License: For each use you must have a valid license purchased only from above li
           <a href="index.html" class="d-lg-none">
             <img
               alt="Logo"
-              src="{% static 'assets/media/logos/default-small.svg' %}"
+              src="{% static 'assets/extra_media/logos/default-small.svg' %}"
               class="h-30px"
             />
           </a>
@@ -253,7 +253,7 @@ License: For each use you must have a valid license purchased only from above li
                 data-kt-menu-placement="bottom-end"
               >
                 <img
-                  src="{% static 'assets/media/avatars/300-3.jpg' %}"
+                  src="{% static 'assets/extra_media/avatars/300-3.jpg' %}"
                   class="rounded-3"
                   alt="user"
                 />
@@ -270,7 +270,7 @@ License: For each use you must have a valid license purchased only from above li
                     <div class="symbol symbol-50px me-5">
                       <img
                         alt="Logo"
-                        src="{% static 'assets/media/avatars/300-3.jpg' %}"
+                        src="{% static 'assets/extra_media/avatars/300-3.jpg' %}"
                       />
                     </div>
                     <!--end::Avatar-->
@@ -325,22 +325,7 @@ License: For each use you must have a valid license purchased only from above li
               <!--end::Menu wrapper-->
             </div>
             <!--end::User menu-->
-            <!--begin::Header menu toggle-->
-            <div
-              class="app-navbar-item d-lg-none ms-2 me-n2"
-              title="Show header menu"
-            >
-              <div
-                class="btn btn-flex btn-icon btn-active-color-primary w-30px h-30px"
-                id="kt_app_header_menu_toggle"
-              >
-                <i class="ki-duotone ki-element-4 fs-1">
-                  <span class="path1"></span>
-                  <span class="path2"></span>
-                </i>
-              </div>
-            </div>
-            <!--end::Header menu toggle-->
+            
             <!--begin::Aside toggle-->
             <!--end::Header menu toggle-->
           </div>
@@ -370,12 +355,12 @@ License: For each use you must have a valid license purchased only from above li
           <a href="{% url 'index' %}">
           <img
             alt="Logo"
-            src="{% static 'assets/media/logos/default-dark.svg' %}"
+            src="{% static 'assets/extra_media/logos/default-dark.svg' %}"
             class="h-25px app-sidebar-logo-default"
           />
           <img
             alt="Logo"
-            src="{% static 'assets/media/logos/default-small.svg' %}"
+            src="{% static 'assets/extra_media/logos/default-small.svg' %}"
             class="h-20px app-sidebar-logo-minimize"
           />
 
@@ -424,7 +409,7 @@ License: For each use you must have a valid license purchased only from above li
                   class="menu-item here show menu-accordion"
                 >
                   <!--begin:Menu link-->
-                  <span class="menu-link">
+                  <a href="{% url 'index' %}" class="menu-link">
                     <span class="menu-icon">
                       <i class="ki-duotone ki-element-11 fs-2">
                         <span class="path1"></span>
@@ -434,7 +419,7 @@ License: For each use you must have a valid license purchased only from above li
                       </i>
                     </span>
                     <span class="menu-title">Dashboards</span>
-                  </span>
+                  </a>
                   <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
@@ -445,7 +430,7 @@ License: For each use you must have a valid license purchased only from above li
                   class="menu-item menu-accordion"
                 >
                   <!--begin:Menu link-->
-                  <span class="menu-link">
+                  <a href="{% url 'users_view' %}" class="menu-link">
                     <span class="menu-icon">
                       <i class="ki-duotone ki-user fs-2">
                         <span class="path1"></span>
@@ -453,7 +438,7 @@ License: For each use you must have a valid license purchased only from above li
                       </i>
                     </span>
                     <span class="menu-title">Users</span>
-                  </span>
+                  </a>
                   <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
