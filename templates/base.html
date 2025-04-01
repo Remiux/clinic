@@ -538,17 +538,11 @@ License: For each use you must have a valid license purchased only from above li
 </div>
 		
 		
-        <!--end::Modal - Invite Friend-->
-		<!--end::Modals-->
-		<!--begin::Javascript-->
-		<script>var hostUrl = "assets/";</script>
-		<!--begin::Global Javascript Bundle(mandatory for all pages)-->
-		<script src="{% static 'assets/plugins/global/plugins.bundle.js' %}"></script>
-		<script src="{% static 'assets/js/scripts.bundle.js' %}"></script>
-		<!--end::Global Javascript Bundle-->
-		<!--begin::Vendors Javascript(used for this page only)-->
+
+
+    
 		<script src="{% static 'assets/plugins/custom/fullcalendar/fullcalendar.bundle.js' %} "></script>
-		<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+		{% comment %}<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
 		<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
 		<script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
 		<script src="https://cdn.amcharts.com/lib/5/radar.js"></script>
@@ -558,10 +552,8 @@ License: For each use you must have a valid license purchased only from above li
 		<script src="https://cdn.amcharts.com/lib/5/geodata/continentsLow.js"></script>
 		<script src="https://cdn.amcharts.com/lib/5/geodata/usaLow.js"></script>
 		<script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZonesLow.js"></script>
-		<script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZoneAreasLow.js"></script>
+		<script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZoneAreasLow.js"></script> {% endcomment %}
 		<script src="{% static 'assets/plugins/custom/datatables/datatables.bundle.js' %} "></script>
-		<!--end::Vendors Javascript-->
-		<!--begin::Custom Javascript(used for this page only)-->
 		<script src="{% static 'assets/js/widgets.bundle.js' %} "></script>
 		<script src="{% static 'assets/js/custom/widgets.js' %} "></script>
 		<script src="{% static 'assets/js/custom/apps/chat/chat.js' %} "></script>
@@ -569,7 +561,8 @@ License: For each use you must have a valid license purchased only from above li
 		<script src="{% static 'assets/js/custom/utilities/modals/create-app.js' %}"></script>
 		<script src="{% static 'assets/js/custom/utilities/modals/new-target.js' %}"></script>
 		<script src="{% static 'assets/js/custom/utilities/modals/users-search.js' %}"></script>
-		<!--end::Custom Javascript-->
+		<script src="{% static 'assets/plugins/global/plugins.bundle.js' %}"></script>
+		<script src="{% static 'assets/js/scripts.bundle.js' %}"></script>
 
     {% block extra_js %}
     

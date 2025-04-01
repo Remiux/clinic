@@ -1,6 +1,6 @@
 from django.shortcuts import render,get_object_or_404
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth.models import Group
 from apps.accounts.models import User 
 
 # Create your views here.
@@ -26,4 +26,5 @@ def update_user_view(request,pk):
     context={}
     if user:
         context['user']=user
+        context['items']=Group.objects.all()
     return render(request,'pages/accounts/actions/userUpdate.html',context)
