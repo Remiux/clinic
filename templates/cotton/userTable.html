@@ -158,17 +158,36 @@
                   <span class="fw-bold">{{user.email}}</span>
                 </td>
                 <td class="text-end pe-0 dt-type-numeric" data-order="22">
-                  <span class="fw-bold ms-3">04727009</span>
+                  <span class="fw-bold ms-3">{% if user.phone_number %}{{user.phone_number}}{% else %}-{% endif %}</span>
                 </td>
-                <td class="text-end pe-0 dt-type-numeric">Manager</td>
+                <td class="text-end pe-0 dt-type-numeric">
+                  {% if user.groups.all %}
+                  {{user.groups.all.0}}
+                  {% else %}
+                  -
+                  {% endif %}
+                </td>
                 <td class="text-end pe-0">
                   <!--begin::Badges-->
+                  {% if  user.sign %}
                   <div class="badge badge-light-success badge-lg">correct</div>
+                  {% else %}
+                  <div class="badge badge-light-danger badge-lg">void</div>
+                  {% endif %}
+                  
                   <!--end::Badges-->
                 </td>
                 <td class="text-end pe-0" data-order="Inactive">
                   <!--begin::Badges-->
-                  <div class="badge badge-light-danger badge-lg">inactive</div>
+                  {% if not user.is_active %}
+                  <div class="badge badge-light-danger badge-lg">
+                    inactive
+                  </div>
+                  {% else %}
+                  <div class="badge badge-light-success badge-lg">
+                    enable
+                  </div>
+                  {% endif %}
                   <!--end::Badges-->
                 </td>
                 <td class="text-end">
@@ -187,31 +206,23 @@
                   <!--begin::Menu item-->
                   <div class="menu-item px-3">
                     <a
-                      href="apps/ecommerce/catalog/edit-product.html"
+                      href="{% url "detail_user_view" pk=user.pk %}"
                       class="menu-link px-3"
                       >Detail</a
                     >
+                    
                   </div>
                   <!--end::Menu item-->
                     <!--begin::Menu item-->
                     <div class="menu-item px-3">
                       <a
-                        href="apps/ecommerce/catalog/edit-product.html"
+                        href="{% url "update_user_view" pk=user.pk %}"
                         class="menu-link px-3"
                         >Edit</a
                       >
                     </div>
                     <!--end::Menu item-->
-                    <!--begin::Menu item-->
-                    <div class="menu-item px-3">
-                      <a
-                        href="#"
-                        class="menu-link px-3"
-                        data-kt-ecommerce-product-filter="delete_row"
-                        >Delete</a
-                      >
-                    </div>
-                    <!--end::Menu item-->
+                   
                   </div>
                   <!--end::Menu-->
                 </td>

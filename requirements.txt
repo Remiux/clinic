@@ -2,6 +2,7 @@ asgiref==3.8.1
 Django==5.1.7
 django-cotton==2.0.1
 django-filter==25.1
+pillow==11.1.0
 psycopg==3.2.6
 psycopg-binary==3.2.6
 python-decouple==3.8

@@ -335,7 +335,7 @@ License: For each use you must have a valid license purchased only from above li
       <!--begin::Sidebar-->
       <div
         id="kt_app_sidebar"
-        class="app-sidebar flex-column bg-base"
+        class="app-sidebar flex-column bg-body shadow"
         data-kt-drawer="true"
         data-kt-drawer-name="app-sidebar"
         data-kt-drawer-activate="{default: true, lg: false}"
@@ -346,7 +346,7 @@ License: For each use you must have a valid license purchased only from above li
       >
         <!--begin::Logo-->
         <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
-          <a href="{% url 'index' %}">
+          
           <img
             alt="Logo"
             src="{% static 'assets/extra_media/logos/default-dark.svg' %}"
@@ -360,7 +360,7 @@ License: For each use you must have a valid license purchased only from above li
 
           <div
             id="kt_app_sidebar_toggle"
-            class="app-sidebar-toggle btn btn-icon btn-shadow btn-sm btn-color-muted btn-active-color-primary h-30px w-30px position-absolute top-50 start-100 translate-middle rotate"
+            class=" shadow  btn btn-icon btn-shadow btn-sm btn-dark  h-30px w-30px position-absolute top-50 start-100 translate-middle rotate"
             data-kt-toggle="true"
             data-kt-toggle-state="active"
             data-kt-toggle-target="body"
@@ -400,19 +400,19 @@ License: For each use you must have a valid license purchased only from above li
                 <!--begin:Menu item-->
                 <div
                   data-kt-menu-trigger="click"
-                  class="menu-item here show menu-accordion"
+                  class="menu-item  rounded {% if request.path == '/' %}bg-primary-subtle{% endif %}  menu-accordion"
                 >
                   <!--begin:Menu link-->
                   <a href="{% url 'index' %}" class="menu-link">
                     <span class="menu-icon">
-                      <i class="ki-duotone ki-element-11 fs-2">
+                      <i class="ki-duotone ki-element-11 text-primary fs-2">
                         <span class="path1"></span>
                         <span class="path2"></span>
                         <span class="path3"></span>
                         <span class="path4"></span>
                       </i>
                     </span>
-                    <span class="menu-title">Dashboards</span>
+                    <span class="menu-title text-primary">Dashboards</span>
                   </a>
                   <!--end:Menu link-->
                 </div>
@@ -421,17 +421,17 @@ License: For each use you must have a valid license purchased only from above li
                 <!--begin:Menu item-->
                 <div
                   data-kt-menu-trigger="click"
-                  class="menu-item menu-accordion"
+                  class="menu-item menu-accordion rounded  {% if request.path == '/users' %}bg-primary-subtle{% endif %}"
                 >
                   <!--begin:Menu link-->
                   <a href="{% url 'users_view' %}" class="menu-link">
                     <span class="menu-icon">
-                      <i class="ki-duotone ki-user fs-2">
+                      <i class="ki-duotone ki-user text-primary fs-2">
                         <span class="path1"></span>
                         <span class="path2"></span>
                       </i>
                     </span>
-                    <span class="menu-title">Users</span>
+                    <span class="menu-title text-primary">Users</span>
                   </a>
                   <!--end:Menu link-->
                 </div>
@@ -440,17 +440,17 @@ License: For each use you must have a valid license purchased only from above li
                 <div
                   data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
                   data-kt-menu-placement="right-start"
-                  class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention"
+                  class="menu-item menu-accordion rounded  {% if request.path == '/symptoms' %}bg-primary-subtle{% endif %}"
                 >
                   <!--begin:Menu link-->
                   <span class="menu-link">
                     <span class="menu-icon">
-                      <i class="ki-duotone ki-file fs-2">
+                      <i class="ki-duotone ki-file text-primary fs-2">
                         <span class="path1"></span>
                         <span class="path2"></span>
                       </i>
                     </span>
-                    <span class="menu-title">Symptom</span>
+                    <span class="menu-title text-primary">Symptom</span>
                   </span>
                   <!--end:Menu link-->
                 </div>
@@ -459,17 +459,17 @@ License: For each use you must have a valid license purchased only from above li
                 <!--begin:Menu item-->
                 <div
                   data-kt-menu-trigger="click"
-                  class="menu-item menu-accordion"
+                  class="menu-item menu-accordion rounded  {% if request.path == '/insurances' %}bg-primary-subtle{% endif %}"
                 >
                   <!--begin:Menu link-->
                   <span class="menu-link">
                     <span class="menu-icon">
-                      <i class="ki-duotone ki-bank fs-2">
+                      <i class="ki-duotone ki-bank text-primary fs-2">
                         <span class="path1"></span>
                         <span class="path2"></span>
                       </i>
                     </span>
-                    <span class="menu-title">Insurance</span>
+                    <span class="menu-title text-primary">Insurance</span>
                   </span>
                   <!--end:Menu link-->
                 </div>
@@ -477,18 +477,18 @@ License: For each use you must have a valid license purchased only from above li
                 <!--begin:Menu item-->
                 <div
                   data-kt-menu-trigger="click"
-                  class="menu-item menu-accordion"
+                  class="menu-item menu-accordion rounded  {% if request.path == '/reports' %}bg-primary-subtle{% endif %}"
                 >
                   <!--begin:Menu link-->
                   <span class="menu-link">
                     <span class="menu-icon">
-                      <i class="ki-duotone ki-chart-pie-3 fs-2">
+                      <i class="ki-duotone ki-chart-pie-3 text-primary fs-2">
                         <span class="path1"></span>
                         <span class="path2"></span>
                         <span class="path3"></span>
                       </i>
                     </span>
-                    <span class="menu-title">Reports</span>
+                    <span class="menu-title text-primary">Reports</span>
                   </span>
                   <!--end:Menu link-->
                 </div>
@@ -497,17 +497,17 @@ License: For each use you must have a valid license purchased only from above li
                 <!--begin:Menu item-->
                 <div
                   data-kt-menu-trigger="click"
-                  class="menu-item menu-accordion"
+                  class="menu-item menu-accordion rounded  {% if request.path == '/customers' %}bg-primary-subtle{% endif %}"
                 >
                   <!--begin:Menu link-->
                   <span class="menu-link">
                     <span class="menu-icon">
-                      <i class="ki-duotone ki-abstract-38 fs-2">
+                      <i class="ki-duotone ki-abstract-38 text-primary fs-2">
                         <span class="path1"></span>
                         <span class="path2"></span>
                       </i>
                     </span>
-                    <span class="menu-title">Customers</span>
+                    <span class="menu-title text-primary">Customers</span>
                   </span>
                   <!--end:Menu link-->
                 </div>
