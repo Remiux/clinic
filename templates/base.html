@@ -37,6 +37,9 @@ License: For each use you must have a valid license purchased only from above li
 		<link href="{% static "assets/plugins/global/plugins.bundle.css" %}" rel="stylesheet" type="text/css" />
 		<link href="{% static "assets/css/style.bundle.css" %}" rel="stylesheet" type="text/css" />
 		<!--end::Global Stylesheets Bundle-->
+    {% block extra_css %}
+    
+    {% endblock extra_css %}
 		<script>// Frame-busting to prevent site from being loaded within a frame without permission (click-jacking) if (window.top != window.self) { window.top.location.replace(window.self.location.href); }</script>
 	</head>
 	<!--end::Head-->
@@ -567,6 +570,12 @@ License: For each use you must have a valid license purchased only from above li
 		<script src="{% static 'assets/js/custom/utilities/modals/new-target.js' %}"></script>
 		<script src="{% static 'assets/js/custom/utilities/modals/users-search.js' %}"></script>
 		<!--end::Custom Javascript-->
+
+    {% block extra_js %}
+    
+    {% endblock extra_js %}
+
+
 		<!--end::Javascript-->
 	</body>
 	<!--end::Body-->
