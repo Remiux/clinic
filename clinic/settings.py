@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'apps.general',
     #THIRD APPS
     'django_cotton',
+    'django_cleanup.apps.CleanupConfig',
     
     
 ]
@@ -165,3 +166,6 @@ MEDIA_ROOT = config("MEDIA_ROOT",default=f"{BASE_DIR}/media")
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGOUT_REDIRECT_URL='/login'
+
+
+ENCRYPTION_KEY = config("ENCRYPTION_KEY",default="tu_clave_secreta_aqui")

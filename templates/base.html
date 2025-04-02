@@ -37,6 +37,9 @@ License: For each use you must have a valid license purchased only from above li
 		<link href="{% static "assets/plugins/global/plugins.bundle.css" %}" rel="stylesheet" type="text/css" />
 		<link href="{% static "assets/css/style.bundle.css" %}" rel="stylesheet" type="text/css" />
 		<!--end::Global Stylesheets Bundle-->
+    {% block extra_css %}
+    
+    {% endblock extra_css %}
 		<script>// Frame-busting to prevent site from being loaded within a frame without permission (click-jacking) if (window.top != window.self) { window.top.location.replace(window.self.location.href); }</script>
 	</head>
 	<!--end::Head-->
@@ -309,10 +312,12 @@ License: For each use you must have a valid license purchased only from above li
                   action="{% url 'logout' %}" method="post">
                   {% csrf_token %}
                     <button
+                      
                       class="btn btn-danger btn-sm w-100 px-5"
                       >Sign Out</a
                     >
                   </button>
+                  </form>
                   <!--end::Menu item-->
                 </div>
                 <!--end::User account menu-->
@@ -335,7 +340,7 @@ License: For each use you must have a valid license purchased only from above li
       <!--begin::Sidebar-->
       <div
         id="kt_app_sidebar"
-        class="app-sidebar flex-column bg-base"
+        class="app-sidebar flex-column bg-body shadow"
         data-kt-drawer="true"
         data-kt-drawer-name="app-sidebar"
         data-kt-drawer-activate="{default: true, lg: false}"
@@ -346,7 +351,7 @@ License: For each use you must have a valid license purchased only from above li
       >
         <!--begin::Logo-->
         <div class="app-sidebar-logo px-6" id="kt_app_sidebar_logo">
-          <a href="{% url 'index' %}">
+          
           <img
             alt="Logo"
             src="{% static 'assets/extra_media/logos/default-dark.svg' %}"
@@ -360,7 +365,7 @@ License: For each use you must have a valid license purchased only from above li
 
           <div
             id="kt_app_sidebar_toggle"
-            class="app-sidebar-toggle btn btn-icon btn-shadow btn-sm btn-color-muted btn-active-color-primary h-30px w-30px position-absolute top-50 start-100 translate-middle rotate"
+            class=" shadow  btn btn-icon btn-shadow btn-sm btn-dark  h-30px w-30px position-absolute top-50 start-100 translate-middle rotate"
             data-kt-toggle="true"
             data-kt-toggle-state="active"
             data-kt-toggle-target="body"
@@ -400,19 +405,19 @@ License: For each use you must have a valid license purchased only from above li
                 <!--begin:Menu item-->
                 <div
                   data-kt-menu-trigger="click"
-                  class="menu-item here show menu-accordion"
+                  class="menu-item  rounded {% if request.path == '/' %}bg-primary-subtle{% endif %}  menu-accordion"
                 >
                   <!--begin:Menu link-->
                   <a href="{% url 'index' %}" class="menu-link">
                     <span class="menu-icon">
-                      <i class="ki-duotone ki-element-11 fs-2">
+                      <i class="ki-duotone ki-element-11 text-primary fs-2">
                         <span class="path1"></span>
                         <span class="path2"></span>
                         <span class="path3"></span>
                         <span class="path4"></span>
                       </i>
                     </span>
-                    <span class="menu-title">Dashboards</span>
+                    <span class="menu-title text-primary">Dashboards</span>
                   </a>
                   <!--end:Menu link-->
                 </div>
@@ -421,17 +426,17 @@ License: For each use you must have a valid license purchased only from above li
                 <!--begin:Menu item-->
                 <div
                   data-kt-menu-trigger="click"
-                  class="menu-item menu-accordion"
+                  class="menu-item menu-accordion rounded  {% if request.path == '/users' %}bg-primary-subtle{% endif %}"
                 >
                   <!--begin:Menu link-->
                   <a href="{% url 'users_view' %}" class="menu-link">
                     <span class="menu-icon">
-                      <i class="ki-duotone ki-user fs-2">
+                      <i class="ki-duotone ki-user text-primary fs-2">
                         <span class="path1"></span>
                         <span class="path2"></span>
                       </i>
                     </span>
-                    <span class="menu-title">Users</span>
+                    <span class="menu-title text-primary">Users</span>
                   </a>
                   <!--end:Menu link-->
                 </div>
@@ -440,17 +445,17 @@ License: For each use you must have a valid license purchased only from above li
                 <div
                   data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
                   data-kt-menu-placement="right-start"
-                  class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention"
+                  class="menu-item menu-accordion rounded  {% if request.path == '/symptoms' %}bg-primary-subtle{% endif %}"
                 >
                   <!--begin:Menu link-->
                   <span class="menu-link">
                     <span class="menu-icon">
-                      <i class="ki-duotone ki-file fs-2">
+                      <i class="ki-duotone ki-file text-primary fs-2">
                         <span class="path1"></span>
                         <span class="path2"></span>
                       </i>
                     </span>
-                    <span class="menu-title">Symptom</span>
+                    <span class="menu-title text-primary">Symptom</span>
                   </span>
                   <!--end:Menu link-->
                 </div>
@@ -459,17 +464,17 @@ License: For each use you must have a valid license purchased only from above li
                 <!--begin:Menu item-->
                 <div
                   data-kt-menu-trigger="click"
-                  class="menu-item menu-accordion"
+                  class="menu-item menu-accordion rounded  {% if request.path == '/insurances' %}bg-primary-subtle{% endif %}"
                 >
                   <!--begin:Menu link-->
                   <span class="menu-link">
                     <span class="menu-icon">
-                      <i class="ki-duotone ki-bank fs-2">
+                      <i class="ki-duotone ki-bank text-primary fs-2">
                         <span class="path1"></span>
                         <span class="path2"></span>
                       </i>
                     </span>
-                    <span class="menu-title">Insurance</span>
+                    <span class="menu-title text-primary">Insurance</span>
                   </span>
                   <!--end:Menu link-->
                 </div>
@@ -477,18 +482,18 @@ License: For each use you must have a valid license purchased only from above li
                 <!--begin:Menu item-->
                 <div
                   data-kt-menu-trigger="click"
-                  class="menu-item menu-accordion"
+                  class="menu-item menu-accordion rounded  {% if request.path == '/reports' %}bg-primary-subtle{% endif %}"
                 >
                   <!--begin:Menu link-->
                   <span class="menu-link">
                     <span class="menu-icon">
-                      <i class="ki-duotone ki-chart-pie-3 fs-2">
+                      <i class="ki-duotone ki-chart-pie-3 text-primary fs-2">
                         <span class="path1"></span>
                         <span class="path2"></span>
                         <span class="path3"></span>
                       </i>
                     </span>
-                    <span class="menu-title">Reports</span>
+                    <span class="menu-title text-primary">Reports</span>
                   </span>
                   <!--end:Menu link-->
                 </div>
@@ -497,17 +502,17 @@ License: For each use you must have a valid license purchased only from above li
                 <!--begin:Menu item-->
                 <div
                   data-kt-menu-trigger="click"
-                  class="menu-item menu-accordion"
+                  class="menu-item menu-accordion rounded  {% if request.path == '/customers' %}bg-primary-subtle{% endif %}"
                 >
                   <!--begin:Menu link-->
                   <span class="menu-link">
                     <span class="menu-icon">
-                      <i class="ki-duotone ki-abstract-38 fs-2">
+                      <i class="ki-duotone ki-abstract-38 text-primary fs-2">
                         <span class="path1"></span>
                         <span class="path2"></span>
                       </i>
                     </span>
-                    <span class="menu-title">Customers</span>
+                    <span class="menu-title text-primary">Customers</span>
                   </span>
                   <!--end:Menu link-->
                 </div>
@@ -535,17 +540,11 @@ License: For each use you must have a valid license purchased only from above li
 </div>
 		
 		
-        <!--end::Modal - Invite Friend-->
-		<!--end::Modals-->
-		<!--begin::Javascript-->
-		<script>var hostUrl = "assets/";</script>
-		<!--begin::Global Javascript Bundle(mandatory for all pages)-->
-		<script src="{% static 'assets/plugins/global/plugins.bundle.js' %}"></script>
-		<script src="{% static 'assets/js/scripts.bundle.js' %}"></script>
-		<!--end::Global Javascript Bundle-->
-		<!--begin::Vendors Javascript(used for this page only)-->
+
+
+    
 		<script src="{% static 'assets/plugins/custom/fullcalendar/fullcalendar.bundle.js' %} "></script>
-		<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+		{% comment %}<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
 		<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
 		<script src="https://cdn.amcharts.com/lib/5/percent.js"></script>
 		<script src="https://cdn.amcharts.com/lib/5/radar.js"></script>
@@ -555,10 +554,8 @@ License: For each use you must have a valid license purchased only from above li
 		<script src="https://cdn.amcharts.com/lib/5/geodata/continentsLow.js"></script>
 		<script src="https://cdn.amcharts.com/lib/5/geodata/usaLow.js"></script>
 		<script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZonesLow.js"></script>
-		<script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZoneAreasLow.js"></script>
+		<script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZoneAreasLow.js"></script> {% endcomment %}
 		<script src="{% static 'assets/plugins/custom/datatables/datatables.bundle.js' %} "></script>
-		<!--end::Vendors Javascript-->
-		<!--begin::Custom Javascript(used for this page only)-->
 		<script src="{% static 'assets/js/widgets.bundle.js' %} "></script>
 		<script src="{% static 'assets/js/custom/widgets.js' %} "></script>
 		<script src="{% static 'assets/js/custom/apps/chat/chat.js' %} "></script>
@@ -566,7 +563,14 @@ License: For each use you must have a valid license purchased only from above li
 		<script src="{% static 'assets/js/custom/utilities/modals/create-app.js' %}"></script>
 		<script src="{% static 'assets/js/custom/utilities/modals/new-target.js' %}"></script>
 		<script src="{% static 'assets/js/custom/utilities/modals/users-search.js' %}"></script>
-		<!--end::Custom Javascript-->
+		<script src="{% static 'assets/plugins/global/plugins.bundle.js' %}"></script>
+		<script src="{% static 'assets/js/scripts.bundle.js' %}"></script>
+
+    {% block extra_js %}
+    
+    {% endblock extra_js %}
+
+
 		<!--end::Javascript-->
 	</body>
 	<!--end::Body-->

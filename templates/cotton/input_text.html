@@ -1,6 +1,13 @@
 <!-- Input component for text, number, password -->
-<div class="input-group mb-5">
-    <span class="input-group-text" id="inputGroup-sizing-default">{{ spanTitle }}</span>
+<div class="input-group input-group-sm">
+    {% if spanTitle %}
+        <span class="input-group-text" id="inputGroup-sizing-default">{{ spanTitle }}</span>
+    {% elif icon %}
+        <span class="input-group-text" id="basic-addon1">
+            <i class="{{ icon }} fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+        </span>
+    {% endif %}
     <input type="{{ inputType }}" class="form-control" value="{{ inputValue }}"
     aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="{{ placeholder }}"/>
 </div>
+<label class="mt-1">{{ helpText }}</label>

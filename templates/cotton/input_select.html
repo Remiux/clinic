@@ -1,0 +1,15 @@
+
+    <label class="col-lg-4 col-form-label {{required}} fw-semibold fs-6">{{selectDefault}} </label>
+    
+    <select name="{{name}}" required aria-label="Select a {{selectDefault}}" data-control="select2" data-placeholder="Select a {{selectDefault}}..." class="form-select form-select-solid form-select-lg fw-semibold">
+        <option value="">Select a {{selectDefault}}...</option>
+        {% for item in items %}
+            <option value="{{item.pk}}" {% if item.name == item_select %}selected{% endif %}>{{item}}</option>
+        {% endfor %}
+    </select>
+    <label class="fs-8 text-small">{{textHelp}}</label>
+    {% if error %}
+        <div class="alert alert-danger">
+            {{error}}
+        </div>
+    {% endif %}
