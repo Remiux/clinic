@@ -2,14 +2,12 @@ from django import forms
 from apps.accounts.models import User
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 
-class RegisterForm(UserCreationForm):
+class CreateForm(UserCreationForm):
     email = forms.EmailField(required=True)
-    first_name = forms.CharField()
-    last_name = forms.CharField()
     
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2','first_name','last_name']
+        fields = ['username', 'email', 'password1', 'password2','groups']
 
 
 class UpdateForm(forms.ModelForm):
