@@ -1,0 +1,115 @@
+<form 
+                    hx-post="{% url 'create_user_view' %}"
+                    hx-target="#UserFormCreate"
+                    hx-trigger="submit"
+                    hx-indicator="#spinnerCreate"
+                    >
+                    {% csrf_token %}    
+                        <!--begin::Header-->
+                        <div class="px-7 py-5">
+                            <div class="fs-5 text-gray-900 fw-bold">Create user</div>
+                        </div>
+                        <!--end::Header-->
+                        <!--begin::Form-->
+                        <div class="px-5 py-3">
+                            <!--begin::Input group-->
+                            <div class="mb-3">
+                                <!--begin::Label-->
+                                <label class="form-label fw-semibold">Username:</label>
+                                <!--end::Label-->
+                                <!--begin::Switch-->
+                                <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                                    <input type="text" required value="{% if form.username %}{{form.username.value}}{% endif %}" name="username" class="form-control  form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="Username"  />
+                                </div>
+                                {% if form.username.errors %}
+                                    <div class="alert alert-danger mt-2 py-1 px-2">
+                                        
+                                        {% for error in form.username.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <!--end::Switch-->
+                            </div>
+                            <div class="mb-3">
+                                <!--begin::Label-->
+                                <label class="form-label fw-semibold">Email:</label>
+                                <!--end::Label-->
+                                <!--begin::Switch-->
+                                <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                                    <input type="email" required value="{% if form.email %}{{form.email.value}}{% endif %}" name="email" class="form-control  form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="Email"  />
+                                </div>
+                                <!--end::Switch-->
+                                {% if form.email.errors %}
+                                <div class="alert alert-danger mt-2 py-1 px-2">
+                                    
+                                    {% for error in form.email.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Rol:</label>
+                                <select name="groups" required aria-label="Select a rol" data-control="select2" data-placeholder="Select a rol..." class="form-select form-select-solid form-select-sm fw-semibold">
+                                    <option value="">Select a rol...</option>
+                                    {% for group in groups %}
+                                        <option value="{{group.pk}}" >{{group}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <!--begin::Label-->
+                                <label class="form-label fw-semibold">Password:</label>
+                                <!--end::Label-->
+                                <!--begin::Switch-->
+                                <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                                    <input type="password" required name="password1" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="Password"  />
+                                </div>
+                                <!--end::Switch-->
+                            </div>
+                            <div class="mb-3">
+                                <!--begin::Label-->
+                                <label class="form-label fw-semibold">Confirm Password :</label>
+                                <!--end::Label-->
+                                <!--begin::Switch-->
+                                <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                                    <input type="password" required name="password2" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="Confirm Password"  />
+                                </div>
+                                {% comment %} <span class="text-small fs-8 ">
+                                    The password must be at least 8 characters long.
+                                    It can't just contain numbers.
+                                    It can't be too common passwords.<span/> {% endcomment %}
+                                <!--end::Switch-->
+                                {% if form.password2.errors %}
+                                    <div class="alert alert-danger mt-2 py-1 px-2">
+                                        {% for error in form.password2.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <!--begin::Actions-->
+                            {% if  message %}
+                                <div class="alert alert-success mt-2 py-1 px-2">
+                                    {{message}}
+                                </div>
+                                <div
+                                hx-get="{% url 'filter_users_view' %}"
+                                hx-target="#userTableResult"
+                                hx-trigger="load"
+                                >
+                                </div>
+                            {% endif %}
+                            <div class="d-flex justify-content-end">
+                                <button type="reset" class="btn btn-sm btn-light btn-active-light-danger me-2" >Reset</button>
+                                <button type="submit" class="btn btn-sm btn-primary d-flex justify-content-center align-items-center " >
+                                    <span id="spinnerCreate" class="htmx-indicator spinner-border spinner-border-sm me-2" ></span>
+                                    Create
+                                </button>
+                            </div>
+                            <!--end::Actions-->
+                        </div>
+                        <!--end::Form-->
+                    </form>
