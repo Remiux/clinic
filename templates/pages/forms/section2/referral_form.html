@@ -1,0 +1,281 @@
+<div class="card bg-light shadow-sm">
+    <div class="card-header">
+        <h2 class="card-title fs-1">Referral Form</h2>
+        <div class="card-toolbar">
+            <!-- Content -->
+        </div>
+    </div>
+    <div class="card-body card-scroll h-550px">
+        <div class="row">
+            <div class="col-md-8">
+                <c-input_text spanTitle="Client`s Name" inputType="text" >
+                </c-input_text >
+            </div>
+            <div class="col-md-4">
+                <c-input_text spanTitle="Date of Birth" inputType="date" >
+                </c-input_text >
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <c-input_text spanTitle="Address" inputType="text" >
+                </c-input_text >
+            </div>
+            <div class="col-md-4">
+                <c-input_text spanTitle="FL" inputType="number" >
+                </c-input_text >
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <c-input_text spanTitle="Legal Guardian (if applicable)" inputType="text" >
+                </c-input_text >
+            </div>
+            <div class="col-md-12">
+                <c-input_text spanTitle="Emergency Contact" inputType="text" >
+                </c-input_text >
+            </div>        
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <c-input_text spanTitle="Relationship" inputType="text" >
+                </c-input_text >
+            </div>
+            <div class="col-md-6">
+                <c-input_text spanTitle="Phone #" inputType="text" >
+                </c-input_text >
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <label><span class="fw-bold h4 text-decoration-underline">Insurance Information</span></label>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-6">
+                <c-input_text spanTitle="Medicaid #" inputType="text" >
+                </c-input_text >
+            </div>
+            <div class="col-md-6">
+                <c-input_text spanTitle="SS #" inputType="text" >
+                </c-input_text >
+            </div>
+            <div class="col-md-6">
+                <c-input_text spanTitle="Medicaid Gold Card #" inputType="text" >
+                </c-input_text >
+            </div>
+            <div class="col-md-6">
+                <c-input_text spanTitle="Medicare #" inputType="text" >
+                </c-input_text >
+            </div>
+            <div class="col-md-12">
+                <c-input_text spanTitle="HMO Name/ Number" inputType="text" >
+                </c-input_text >
+            </div>
+            <div class="col-md-12">
+                <label for="additionalInfo" class="form-label">Presenting Problem or Reason for Referral (briefly describe):</label>
+                <textarea class="form-control" id="additionalInfo" rows="3" style="resize: none;"></textarea>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-8">
+                <c-input_text spanTitle="Diagnosis (Axis I)" inputType="text" helpText="Code // Descriptor">
+                </c-input_text >
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <c-input_text spanTitle="Medications" inputType="text">
+                </c-input_text >
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <c-input_text spanTitle="Referred by" inputType="text">
+                </c-input_text >
+            </div>
+            <div class="col-md-6">
+                <c-input_text spanTitle="Phone #" inputType="text">
+                </c-input_text >
+            </div>
+        </div>
+
+        <div class="rounded border p-4">
+            <div class="row text-center align-items-center">
+                <div class="col-md-2 col-4 d-flex flex-column justify-content-center align-items-center">
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" />
+                    <label for="flexCheckDefault1">
+                        Psychiatrist
+                    </label>
+                    </div>
+                </div>
+                <div class="col-md-2 col-4 d-flex flex-column justify-content-center align-items-center">
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2" />
+                    <label for="flexCheckDefault2">
+                        PCP
+                    </label>
+                    </div>
+                </div>
+                <div class="col-md-2 col-4 d-flex flex-column justify-content-center align-items-center">
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3" />
+                    <label for="flexCheckDefault3">
+                        Other: 
+                    </label>
+                    </div>
+                </div>
+                <div class="col-md-6 col-12 d-flex flex-column justify-content-center align-items-center mt-3 mt-md-0">
+                    <c-input_text inputType="text" marginBottom="0">
+                    </c-input_text>
+                </div>
+            </div>
+        </div>
+
+        <div class="rounded border p-4 mt-5">
+            <div class="row text-center align-items-center">
+                <div class="col-md-4 col-4 d-flex flex-column justify-content-center align-items-center">
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault4" />
+                    <label for="flexCheckDefault4">
+                        Is the client already receiving TCM services?
+                    </label>
+                    </div>
+                </div>
+                <div class="col-md-4 col-4 d-flex flex-column justify-content-center align-items-center">
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault5" />
+                    <label for="flexCheckDefault5">
+                        Yes
+                    </label>
+                    </div>
+                </div>
+                <div class="col-md-4 col-4 d-flex flex-column justify-content-center align-items-center">
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault6" />
+                    <label for="flexCheckDefault6">
+                        No
+                    </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <c-input_text inputType="text" spanTitle="Is the client English, Spanish or Creole speaking?">
+                </c-input_text>
+            </div>
+        </div>
+
+        <div class="row mb-5">
+            <div class="col-md-12">
+                <label >Program being referred to:</label>
+            </div>
+        </div>
+        <div class="rounded border p-4">
+            <div class="row text-center align-items-center">
+                <div class="col-md-2 col-4 d-flex flex-column justify-content-center align-items-center">
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault7" />
+                    <label for="flexCheckDefault7">
+                        TCM
+                    </label>
+                    </div>
+                </div>
+                <div class="col-md-2 col-4 d-flex flex-column justify-content-center align-items-center">
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault8" />
+                    <label for="flexCheckDefault8">
+                        PSR
+                    </label>
+                    </div>
+                </div>
+                <div class="col-md-4 col-4 d-flex flex-column justify-content-center align-items-center">
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault9" />
+                    <label for="flexCheckDefault9">
+                        Individual/Family Therapy
+                    </label>
+                    </div>
+                </div>
+                <div class="col-md-2 col-4 d-flex flex-column justify-content-center align-items-center">
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault10" />
+                    <label for="flexCheckDefault10">
+                        Psychiatrist Visit
+                    </label>
+                    </div>
+                </div>
+                <div class="col-md-2 col-4 d-flex flex-column justify-content-center align-items-center">
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault11" />
+                    <label for="flexCheckDefault11">
+                        LMHC
+                    </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5 mb-5">
+            <div class="col-md-4">
+                <c-input_text inputType="text" helpText="Person completing the form">
+                </c-input_text>
+            </div>
+            <div class="col-md-4 mt-5 mb-5">
+                Client Signature: __________________________________
+            </div>
+            <div class="col-md-4">
+                <c-input_text inputType="date" helpText="Person completing the form">
+                </c-input_text>
+            </div>
+        </div>
+
+        <div class="rounded border p-4">
+            <div class="row">
+                <div class="col-md-12 mb-10">
+                    <label class="text-decoration-underline h4">For Office Use Only</label>
+                </div>
+                <div class="col-md-8">
+                    <c-input_text inputType="text" spanTitle="Assigned To" helpText="Name / Program">
+                    </c-input_text>
+                </div>
+                <div class="col-md-2 mb-5">
+                    Client Signature: ______________________
+                </div>
+                <div class="col-md-2">
+                    <c-input_text inputType="date" helpText="Date">
+                    </c-input_text>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <c-input_text inputType="text" helpText="Supervisor`s Name">
+                    </c-input_text>
+                </div>
+                <div class="col-md-3">
+                    <c-input_text inputType="text" helpText="Program">
+                    </c-input_text>
+                </div>
+                <div class="col-md-4 mt-5 mb-5">
+                    Client Signature: __________________________________
+                </div>
+                <div class="col-md-2">
+                    <c-input_text inputType="date" helpText="Date">
+                    </c-input_text>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

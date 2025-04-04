@@ -19,12 +19,10 @@ class UpdateForm(forms.ModelForm):
 
 class ProfileUpdateForm(UserChangeForm):
     phone_number = forms.IntegerField(required=False)
-    city = forms.CharField(required=False)
-    state = forms.CharField(required=False)
-
+    
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'phone_number', 'city', 'state']
+        fields = ['first_name', 'last_name', 'phone_number']
         
 
 class CustomPasswordChangeForm(forms.Form):

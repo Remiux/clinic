@@ -1,0 +1,87 @@
+{% load static %}
+        <!--end::Toolbar-->
+        <!--begin::Content-->
+        <div id="kt_app_content" class="app-content flex-column-fluid">
+            <!--begin::Content container-->
+            <div id="kt_app_content_container" class="col-12">
+                {% if message %}
+                <div class="alert alert-success bg-light-success" >
+                    {{message}}
+                </div>
+                {% endif %}
+                
+                <!--begin::Navbar-->
+                <!--end::Navbar-->
+                <!--begin::Basic info-->
+                <div class="card mb-5 mb-xl-10">
+                    <!--begin::Content-->
+                    <div id="kt_account_settings_profile_details" class="collapse show">
+                        <!--begin::Form-->
+                        <form action="{% url "user_profile_view"  %}" method="POST" id="kt_account_profile_details_form" class="form">
+                            {% csrf_token %}
+                            <!--begin::Card body-->
+                            <div class="card-body border-top p-9">
+                                
+                                
+                                <div class="row ">
+                                    <div class="col-sm-6 fv-row mb-6">
+                                        <label class="col-lg-4 col-form-label  fw-semibold fs-6">First Name</label>
+                                        <input type="text" name="first_name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="First name" value="{% if user.first_name %}{{form.first_name.value}}{% endif %}" />
+                                        {% if form.first_name.errors %}
+                                            <div class="alert alert-danger mt-2 py-1 px-2">
+                                                
+                                                {% for error in form.first_name.errors %}
+                                                    {{ error }}
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                        
+                                    <div class="col-sm-6 fv-row mb-6">
+                                        <label class="col-lg-4 col-form-label  fw-semibold fs-6">Last Name</label>
+                                        <input type="text" name="last_name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Last name" value="{% if user.last_name %}{{form.last_name.value}}{% endif %}" />
+                                        {% if form.last_name.errors %}
+                                            <div class="alert alert-danger mt-2 py-1 px-2">
+                                                
+                                                {% for error in form.last_name.errors %}
+                                                    {{ error }}
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <!--end::Input group-->
+                                <!--begin::Input group-->
+                                <div class="row ">
+                                    <div class="col-sm-6 fv-row mb-6">
+                                        <label class="col-lg-4 col-form-label  fw-semibold fs-6">Phone number</label>
+                                        <input type="text" name="phone_number"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Phone number" value="{% if user.phone_number %}{{form.phone_number.value}}{% endif %}" />
+                                        {% if form.phone_number.errors %}
+                                            <div class="alert alert-danger mt-2 py-1 px-2">
+                                                
+                                                {% for error in form.phone_number.errors %}
+                                                    {{ error }}
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+ 
+                            </div>
+                            <!--end::Card body-->
+                            <!--begin::Actions-->
+                            <div class="card-footer d-flex justify-content-end py-6 px-9">
+                                <button type="submit" class="btn btn-primary btn-sm" id="kt_account_profile_details_submit">Save Changes</button>
+                            </div>
+                            <!--end::Actions-->
+                        </form>
+                        <!--end::Form-->
+                    </div>
+                    <!--end::Content-->
+                </div>
+                <!--end::Basic info-->
+                
+            </div>
+            <!--end::Content container-->
+        </div>
+        <!--end::Content-->

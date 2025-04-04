@@ -10,4 +10,9 @@
     <input type="{{ inputType }}" class="form-control" value="{{ inputValue }}"
     aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="{{ placeholder }}"/>
 </div>
-<label class="mt-1">{{ helpText }}</label>
+<div 
+    class="d-flex justify-content-center 
+        mt-{{ marginTop|default:2 }}  
+        mb-{{ marginBottom|default:5 }}">
+    <label>{{ helpText }}</label>
+</div>
