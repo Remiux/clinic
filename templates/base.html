@@ -451,7 +451,7 @@ License: For each use you must have a valid license purchased only from above li
                   class="menu-item menu-accordion rounded  {% if request.path == '/symptoms' %}bg-primary-subtle{% endif %}"
                 >
                   <!--begin:Menu link-->
-                  <span class="menu-link">
+                  <a href="{% url 'symptoms_view' %}" class="menu-link">
                     <span class="menu-icon">
                       <i class="ki-duotone ki-file text-primary fs-2">
                         <span class="path1"></span>
@@ -459,7 +459,7 @@ License: For each use you must have a valid license purchased only from above li
                       </i>
                     </span>
                     <span class="menu-title text-primary">Symptom</span>
-                  </span>
+                  </a>
                   <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
