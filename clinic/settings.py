@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     #LOCAL APPS
     'apps.accounts',
     'apps.general',
+    'apps.symptom',
     #THIRD APPS
     'django_cotton',
     'django_cleanup.apps.CleanupConfig',
