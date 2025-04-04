@@ -3,16 +3,17 @@
                     hx-target="#UserFormCreate"
                     hx-trigger="submit"
                     hx-indicator="#spinnerCreate"
+                    class=""
                     >
                     {% csrf_token %}    
                         <!--begin::Header-->
                         <div class="px-7 py-5">
                             <div class="fs-5 text-gray-900 fw-bold">Create user</div>
                         </div>
+                        
                         <!--end::Header-->
                         <!--begin::Form-->
-                        <div class="px-5 py-3">
-                            <!--begin::Input group-->
+                        <div class="overflow-hidden  overflow-y-auto px-5 py-3 h-225px">
                             <div class="mb-3">
                                 <!--begin::Label-->
                                 <label class="form-label fw-semibold">Username:</label>
@@ -90,6 +91,12 @@
                                     </div>
                                 {% endif %}
                             </div>
+                        </div>
+                        
+                        <div class="px-5 py-3">
+                            <!--begin::Input group-->
+                            
+                           
                             <!--begin::Actions-->
                             {% if  message %}
                                 <div class="alert alert-success mt-2 py-1 px-2">

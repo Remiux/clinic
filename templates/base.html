@@ -292,7 +292,7 @@ License: For each use you must have a valid license purchased only from above li
                   <!--end::Menu separator-->
                   <!--begin::Menu item-->
                   <div class="menu-item px-5">
-                    <a href="account/overview.html" class="menu-link px-5"
+                    <a href="{% url 'user_profile_view' %}" class="menu-link px-5"
                       >My Profile</a
                     >
                   </div>
@@ -304,10 +304,11 @@ License: For each use you must have a valid license purchased only from above li
 
                   <!--begin::Menu item-->
                   <div class="menu-item px-5 my-1">
-                    <a href="account/settings.html" class="menu-link px-5"
-                      >Account Settings</a
+                    <a href="{% url 'change_password_view' %}" class="menu-link px-5"
+                      >Change Password</a
                     >
                   </div>
+                  <div class="separator my-2"></div>
                   <!--end::Menu item-->
                   <!--begin::Menu item-->
                   <form class="menu-item px-5 w-100"
