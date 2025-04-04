@@ -35,7 +35,7 @@ def create_user_view(request):
 @login_required(login_url='/login')
 def filter_users_view(request):
     context=_show_user_filter(request)
-    return render(request,'cotton/userTable.html',context)
+    return render(request,'pages/accounts/userTable.html',context)
 
 @login_required(login_url='/login')
 def detail_user_view(request,pk):
