@@ -9,4 +9,5 @@ urlpatterns = [
     path('logout',LogoutView.as_view(),name='logout'),
     path('', include('apps.accounts.urls.users_urls')),
     path('', include('apps.symptom.urls.symptom_urls')),
+    path('', include('apps.symptom.urls.insurance_urls')),
 ]

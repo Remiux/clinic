@@ -33,19 +33,19 @@ def filter_symptoms_view(request):
     context=_show_symptoms_filter(request)
     return render(request,'pages/symptoms/symptomTable.html',context)
 
-# @login_required(login_url='/login')
-# def detail_symptom_view(request,pk):
-#     symptom = get_object_or_404(Symptom,pk=pk)
+@login_required(login_url='/login')
+def detail_symptom_view(request,pk):
+    symptom = get_object_or_404(Symptom,pk=pk)
     
-#     context={}
-#     if symptom:
-#         context['symptom']=symptom
-#     return render(request,'pages/symptoms/actions/symptomDetail.html',context)
+    context={}
+    if symptom:
+        context['symptom']=symptom
+    return render(request,'pages/symptoms/actions/symptomDetail.html',context)
 
 def _show_symptoms_filter(request):
     get_copy = request.GET.copy()
     parameters = get_copy.pop('page', True) and get_copy.urlencode()
-    symptoms = SymptomFilter(request.GET, queryset=Symptom.objects.all().order_by('name'))
+    symptoms = SymptomFilter(request.GET, queryset=Symptom.objects.all().order_by('code'))
     context = _get_paginator(request, symptoms.qs)
     context['parameters'] = parameters
     return context

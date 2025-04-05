@@ -25,16 +25,29 @@
                                 <!--begin::Input group-->
                                 <div class="row ">
                                             <div class="col-sm-6 fv-row mb-6">
-                                                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Name</label>
-                                                <input type="text" name="name" required class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Name" value="{{form.name.value}}" />
-                                                {% if form.name.errors %}
+                                                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Code</label>
+                                                <input type="text" name="code" required class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Code" value="{{form.code.value}}" />
+                                                {% if form.code.errors %}
                                                     <div class="alert alert-danger mt-2 py-1 px-2">
                                                         
-                                                        {% for error in form.name.errors %}
+                                                        {% for error in form.code.errors %}
                                                             {{ error }}
                                                         {% endfor %}
                                                     </div>
                                                 {% endif %}
+                                            </div>
+                                            <div class="col-sm-6 fv-row mb-6">
+                                                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Description</label>
+                                                <textarea name="description" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Description" rows="4">{{form.description.value}}</textarea>
+                                                {% if form.description.errors %}
+                                                    <div class="alert alert-danger mt-2 py-1 px-2">
+                                                        
+                                                        {% for error in form.description.errors %}
+                                                            {{ error }}
+                                                        {% endfor %}
+                                                    </div>
+                                                {% endif %}
+                                                
                                             </div>
                                 
                                 </div>
