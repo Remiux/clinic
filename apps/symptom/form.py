@@ -1,5 +1,5 @@
 from django import forms
-from apps.symptom.models import Symptom
+from apps.symptom.models import Symptom,Insurance
 
 class SymptomForm(forms.ModelForm):
     
@@ -8,5 +8,10 @@ class SymptomForm(forms.ModelForm):
         fields = '__all__'
 
 
+class InsuranceForm(forms.ModelForm):
+    
+    class Meta:
+        model = Insurance
+        fields = '__all__'
 
 
