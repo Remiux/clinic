@@ -10,4 +10,5 @@ urlpatterns = [
     path('', include('apps.accounts.urls.users_urls')),
     path('', include('apps.symptom.urls.symptom_urls')),
     path('', include('apps.symptom.urls.insurance_urls')),
+    path('', include('apps.symptom.urls.customer_urls')),
 ]

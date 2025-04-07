@@ -1,0 +1,238 @@
+{% load static %}
+
+<div class="tab-pane fade show active row g-6 g-xl-9 mb-6 mb-xl-9" id="proccess-tab-pane" role="tabpanel" aria-labelledby="proccess-tab-pane" tabindex="0">
+    <!--begin::Col-->
+    <div class="col-12 mb-2 ">
+        
+        <div class="d-flex justify-content-end align-items-center gap-2 gap-lg-3 w-100" data-select2-id="select2-data-124-ppgx">
+            <!--begin::Filter menu-->
+            <div class="m-0" data-select2-id="select2-data-123-9c37">
+                <!--begin::Menu toggle-->
+                <a href="#" class="btn btn-sm  btn-flex btn-secondary fw-bold" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                <i class="ki-duotone ki-filter fs-6 text-muted me-1">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                </i>Filter</a>
+                <!--end::Menu toggle-->
+                <!--begin::Menu 1-->
+                <form 
+                {% comment %} hx-get="{% url 'filter_symptoms_view' %}" {% endcomment %}
+                hx-target="#symptomTableResult"
+                hx-trigger="submit"
+                hx-indicator="#spinnerFilter"
+                class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" id="kt_menu_673c0c868c157" style="" data-select2-id="select2-data-kt_menu_673c0c868c157">
+                {% csrf_token %}    
+                <!--begin::Header-->
+                    <div class="px-7 py-5">
+                        <div class="fs-5 text-gray-900 fw-bold">Filter Options</div>
+                    </div>
+                    <!--end::Header-->
+                    <!--begin::Menu separator-->
+                    <div class="separator border-gray-200"></div>
+                    <!--end::Menu separator-->
+                    <!--begin::Form-->
+                    <div class="px-7 py-3">
+                        <!--begin::Input group-->
+                        <div class="mb-3">
+                            <!--begin::Label-->
+                            <label class="form-label fw-semibold">Code:</label>
+                            <!--end::Label-->
+                            <!--begin::Switch-->
+                            <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                                <input type="text" name="code" class="form-control  form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="code"  />
+                            </div>
+                            <!--end::Switch-->
+                        </div>
+                        
+                        <!--begin::Actions-->
+                        <div class="d-flex justify-content-end">
+                            <button type="reset" class="btn btn-sm btn-light btn-active-light-danger me-2" >Reset</button>
+                            <button type="submit" class="btn btn-sm btn-primary d-flex justify-content-center align-items-center " >
+                                <span id="spinnerFilter" class="htmx-indicator spinner-border spinner-border-sm me-2" ></span>
+                                Apply
+                            </button>
+                        </div>
+                        <!--end::Actions-->
+                    </div>
+                    <!--end::Form-->
+                </form>
+                <!--end::Menu 1-->
+            </div>
+            <!--end::Filter menu-->
+            <div class="m-0" data-select2-id="select2-data-123-9c37">
+                <!--begin::Menu toggle-->
+                    <a href="#" class="btn btn-sm  btn-flex btn-success fw-bold" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                    Create</a>
+                    <!--end::Menu toggle-->
+                    <!--begin::Menu 1-->
+                    <div 
+                    class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" 
+                    data-kt-menu="true" 
+                    id="kt_menu_673c0c868c157" 
+                    style="" 
+                    data-select2-id="select2-data-kt_menu_673c0c868c157"
+                    >
+                        <div id="SymptomFormCreate">
+                            {% comment %} {% include "pages/symptoms/actions/form/symptomFormCreate.html" %} {% endcomment %}
+                        </div>
+                    </div>
+                <!--end::Menu 1-->
+            </div>
+            <!--begin::Primary button-->
+            
+            <!--end::Primary button-->
+        </div>
+    </div>
+    <div id="kt_app_content_container" class="app-container container-xxl">
+        <!--begin::Products-->
+      
+        <!--begin::Card body-->
+        <div class="card-body pt-0">
+          <!--begin::Table-->
+          <div
+            id="kt_ecommerce_products_table_wrapper"
+            class="dt-container dt-bootstrap5 dt-empty-footer"
+          >
+            <div id="" class="table-responsive">
+              <table
+                class="table align-middle table-row-dashed fs-6 gy-5 dataTable"
+                id="kt_ecommerce_products_table"
+                style="width: 100%"
+              >
+                <colgroup>
+                  <col data-dt-column="0" style="width: 393.288px" />
+                  <col data-dt-column="1" style="width: 293.288px" />
+                  
+                  
+                
+                </colgroup>
+                <thead>
+                  <tr
+                    class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0"
+                  >
+                    
+                    <th
+                      class="min-w-200px dt-orderable-asc dt-orderable-desc"
+                      data-dt-column="1"
+                      rowspan="1"
+                      colspan="1"
+                      
+                      tabindex="0"
+                    >
+                      <span class="dt-column-title" role="button">Code</span
+                      ><span class="dt-column-order"></span>
+                    </th>
+                    <th
+                      class="min-w-200px dt-orderable-asc dt-orderable-desc"
+                      data-dt-column="2"
+                      rowspan="1"
+                      colspan="1"
+                      
+                      tabindex="0"
+                    >
+                      <span class="dt-column-title" role="button">Date</span
+                      ><span class="dt-column-order"></span>
+                    </th>
+                    <th
+                      class="min-w-200px dt-orderable-asc dt-orderable-desc"
+                      data-dt-column="3"
+                      rowspan="1"
+                      colspan="1"
+                      
+                      tabindex="0"
+                    >
+                      <span class="dt-column-title" role="button">Proccess</span
+                      ><span class="dt-column-order"></span>
+                    </th>
+                    <th
+                      class="text-end min-w-70px dt-type-numeric dt-orderable-asc dt-orderable-desc"
+                      data-dt-column="4"
+                      rowspan="1"
+                      colspan="1"
+                      
+                      tabindex="0"
+                    >
+                      <span class="dt-column-title" role="button">Actions</span
+                      ><span class="dt-column-order"></span>
+                    </th>
+                    
+                  </tr>
+                 
+                  
+                  <tbody class="fw-semibold text-gray-600">
+                   
+                    <tr>
+                      
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="">
+                            <!--begin::Title-->
+                            <a
+                              {% comment %} href="{% url "detail_symptom_view" pk=symptom.pk %}" {% endcomment %}
+                              class="text-gray-800 text-hover-primary fs-5 fw-bold"
+                              data-kt-ecommerce-product-filter="symptom_code"
+                              >FS012</a
+                            >
+                            <!--end::Title-->
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="">
+                            <!--begin::Title-->
+                            <div>
+                                Jul 25, 2024
+                              </div>
+                            <!--end::Title-->
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="d-flex align-items-center">
+                          <div class="">
+                            <!--begin::Title-->
+                            <div class="badge badge-light-success badge-lg">
+                                in progress
+                              </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td class=" d-flex flex-nowrap justify-content-end gap-1 text-end">
+                        <a
+                           {% comment %} href="{% url "detail_symptom_view" pk=symptom.pk %}"  {% endcomment %}
+                          class="badge badge-light-primary bi-eye btn btn-sm btn-outline-primary btn-flex btn-center fs-5 px-2"
+                          data-kt-menu-trigger="click"
+                          data-kt-menu-placement="bottom-end"
+                          ></a>
+                        <a
+                           {% comment %} href="{% url "update_symptom_view" pk=symptom.pk %}"  {% endcomment %}
+                          class="badge badge-light-warning bi-pencil-square btn btn-sm btn-outline-warning btn-flex btn-center fs-5 px-2"
+                          data-kt-menu-trigger="click"
+                          data-kt-menu-placement="bottom-end"
+                          ></a>
+                          
+                       
+                        </div>
+                        <!--end::Menu-->
+                      </td>
+                    </tr>
+                   
+                  </tbody>
+                
+                  
+                </thead>
+                
+                <tfoot></tfoot>
+              </table>
+            </div>
+           
+          </div>
+          <!--end::Table-->
+        </div>
+        <!--end::Card body-->
+      
+        <!--end::Products-->
+      </div>
+      
+</div>

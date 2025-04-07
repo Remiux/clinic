@@ -4,7 +4,7 @@ from django.urls import path
 
 urlpatterns = [
   
-    path('symptoms', symptoms_view, name='symptoms_view'),
+    path('symptoms/', symptoms_view, name='symptoms_view'),
     path('filter-symptoms', filter_symptoms_view, name='filter_symptoms_view'),
     path('symptoms-create/', create_symptom_view, name='create_symptom_view'),
     path('symptoms-detail/<int:pk>/', detail_symptom_view, name='detail_symptom_view'),
