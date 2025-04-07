@@ -1,0 +1,13 @@
+{% extends 'pages/cryptography/base.html' %}
+{% block content %}
+<div class="container">
+    <h2>Mis Archivos</h2>
+    <ul>
+        {% for file in files %}
+        <li>
+            {{ file.file.name }} - <a href="{% url 'download_file' file.id %}">Descargar</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

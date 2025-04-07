@@ -1,4 +1,8 @@
 from django.db import models
+from apps.accounts.models import User
+from django.utils import timezone
+import uuid
+
 
 # Create your models here.
 
@@ -27,3 +31,36 @@ class Insurance(models.Model):
 
     def __str__(self):
         return self.name
+    
+
+class EncryptedFile(models.Model):
+    file = models.FileField(upload_to='uploads/')
+    file_type = models.CharField(max_length=10, choices=[('.docx', 'DOC'), ('.pdf', 'PDF'), ('.jpg', 'JPG'), ('.png', 'PNG')])
+    uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='uploaded_files')
+    belongs_to = models.ForeignKey(User, on_delete=models.CASCADE, related_name='owned_files')
+    encrypted_file = models.BinaryField()
+    created_at = models.DateTimeField(default=timezone.now)
+    process_start_date = models.DateField(default=timezone.now)
+
+    def __str__(self):
+        return f"{self.file.name} - {self.uploaded_by.username}"
+
+class Client(models.Model):
+    name = models.CharField(max_length=255)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    email = models.EmailField(unique=True)
+    address = models.TextField(max_length=500)
+    code = models.CharField(max_length=12, unique=True, editable=False)
+
+    def save(self, *args, **kwargs):
+        if not self.code:
+            self.code = uuid.uuid4().hex[:12].upper()  # Genera un código alfanumérico de 12 caracteres
+        super(Client, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = "Client"
+        verbose_name_plural = "Clients"
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
