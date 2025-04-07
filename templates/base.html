@@ -429,7 +429,7 @@ License: For each use you must have a valid license purchased only from above li
                 <!--begin:Menu item-->
                 <div
                   data-kt-menu-trigger="click"
-                  class="menu-item menu-accordion rounded  {% if request.path == '/users' %}bg-primary-subtle{% endif %}"
+                  class="menu-item menu-accordion rounded  {% if request.path == '/users/' %}bg-primary-subtle{% endif %}"
                 >
                   <!--begin:Menu link-->
                   <a href="{% url 'users_view' %}" class="menu-link">
@@ -448,7 +448,7 @@ License: For each use you must have a valid license purchased only from above li
                 <div
                   data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
                   data-kt-menu-placement="right-start"
-                  class="menu-item menu-accordion rounded  {% if request.path == '/symptoms' %}bg-primary-subtle{% endif %}"
+                  class="menu-item menu-accordion rounded  {% if request.path == '/symptoms/' %}bg-primary-subtle{% endif %}"
                 >
                   <!--begin:Menu link-->
                   <a href="{% url 'symptoms_view' %}" class="menu-link">
@@ -467,7 +467,7 @@ License: For each use you must have a valid license purchased only from above li
                 <!--begin:Menu item-->
                 <div
                   data-kt-menu-trigger="click"
-                  class="menu-item menu-accordion rounded  {% if request.path == '/insurances' %}bg-primary-subtle{% endif %}"
+                  class="menu-item menu-accordion rounded  {% if request.path == '/insurances/' %}bg-primary-subtle{% endif %}"
                 >
                   <!--begin:Menu link-->
                   <a href="{% url 'insurances_view' %}" class="menu-link">
@@ -485,7 +485,7 @@ License: For each use you must have a valid license purchased only from above li
                 <!--begin:Menu item-->
                 <div
                   data-kt-menu-trigger="click"
-                  class="menu-item menu-accordion rounded  {% if request.path == '/reports' %}bg-primary-subtle{% endif %}"
+                  class="menu-item menu-accordion rounded  {% if request.path == '/reports/' %}bg-primary-subtle{% endif %}"
                 >
                   <!--begin:Menu link-->
                   <span class="menu-link">
@@ -505,10 +505,10 @@ License: For each use you must have a valid license purchased only from above li
                 <!--begin:Menu item-->
                 <div
                   data-kt-menu-trigger="click"
-                  class="menu-item menu-accordion rounded  {% if request.path == '/customers' %}bg-primary-subtle{% endif %}"
+                  class="menu-item menu-accordion rounded  {% if request.path == '/customers/' %}bg-primary-subtle{% endif %}"
                 >
                   <!--begin:Menu link-->
-                  <span class="menu-link">
+                  <a href="{% url 'customers_view' %}" class="menu-link">
                     <span class="menu-icon">
                       <i class="ki-duotone ki-abstract-38 text-primary fs-2">
                         <span class="path1"></span>
@@ -516,7 +516,7 @@ License: For each use you must have a valid license purchased only from above li
                       </i>
                     </span>
                     <span class="menu-title text-primary">Customers</span>
-                  </span>
+                  </a>
                   <!--end:Menu link-->
                 </div>
               </div>

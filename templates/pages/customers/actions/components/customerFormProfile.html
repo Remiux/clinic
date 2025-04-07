@@ -1,0 +1,183 @@
+{% load static %}
+<div class="d-flex flex-wrap flex-sm-nowrap">
+    <!--begin: Pic-->
+    
+    <!--end::Pic-->
+    <!--begin::Info-->
+    <div class="flex-grow-1">
+        <form  method="POST" id="kt_account_profile_details_form" class="form">
+            {% csrf_token %}
+            <!--begin::Card body-->
+            <div class="card-body border-top p-9">
+                
+                <!--begin::Input group-->
+                <div class="row ">
+                            <div class="col-sm-6 fv-row mb-6">
+                                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Code</label>
+                                <input type="text" name="code" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Code" value="{{form.username.value}}" />
+                            </div>
+                
+                            <div class="col-sm-6 fv-row mb-6">
+                                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Email</label>
+                                <input type="email" name="email" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Email" value="{{form.email.value}}" />
+                            </div>
+                </div>
+                <!--end::Input group-->
+                <!--begin::Input group-->
+                <div class="row ">
+                    <div class="col-sm-6 fv-row mb-6">
+                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">First Name</label>
+                        <input type="text" name="first_name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="First name" value="{% if user.first_name %}{{form.first_name.value}}{% endif %}" />
+                    </div>
+        
+                    <div class="col-sm-6 fv-row mb-6">
+                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">Last Name</label>
+                        <input type="text" name="last_name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Last name" value="{% if user.last_name %}{{form.last_name.value}}{% endif %}" />
+                    </div>
+                </div>
+                <!--end::Input group-->
+                <!--begin::Input group-->
+                <div class="row ">
+                    <div class="col-sm-6 fv-row mb-6">
+                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">Phone number</label>
+                        <input type="text" name="phone_number"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Phone number" value="{% if user.phone_number %}{{form.phone_number.value}}{% endif %}" />
+                    </div>
+        
+                    <div class="col-sm-6 fv-row mb-6">
+                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">Address</label>
+                        <input type="text" name="address"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Address" value="{% if user.phone_number %}{{form.phone_number.value}}{% endif %}" />
+                    </div>
+                </div>
+                <!--end::Input group-->
+                <!--end::Input group-->
+                
+                
+                <!--begin::Input group-->
+               <!--begin::Input group-->
+               <div class="row ">
+                <!--begin::Label-->
+               
+                <!--end::Label-->
+                <!--begin::Col-->
+                <div class="col-sm-6 mb-6">
+                    <!--begin::Image input-->
+                    <div>
+                        <label class="col-form-label fw-semibold fs-6">Sign</label>
+                    </div>
+                    
+                    <div class="image-input bg-light-primary image-input-outline" data-kt-image-input="true" style="background-image: url('{% if user.sign %}{{user.sign.url}}{% else %}{% static "assets/extra_media/misc/image.png" %}{% endif %})">
+                        <!--begin::Preview existing avatar-->
+                        <a href="{% static "assets/extra_media/misc/image.png" %}">
+                            <div  class="image-input-wrapper w-125px h-125px m-2 border-0" style="background-image: url({% static "assets/extra_media/misc/image.png" %})"></div>
+                        </a>
+                        
+                      
+                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel sign">
+                            <i class="ki-duotone ki-cross fs-2">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                        </span>
+                        <!--end::Cancel-->
+                        <!--begin::Remove-->
+                       
+                        <!--end::Remove-->
+                    </div>
+                    
+                    <!--end::Image input-->
+                    <!--begin::Hint-->
+                   
+                    <!--end::Hint-->
+                </div>
+                <!--end::Col-->
+                <div class="col-sm-6">
+                    <!--begin::Label-->
+                    
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="row mb-6">
+                        <!--begin::Label-->
+                        <!-- En tu template HTML -->
+                        <div id="signature-pad" >
+                            <canvas id="signature-canvas"  class="border w-200px h-200px border-body border-1 rounded bg-light-primary"></canvas>
+                            <input type="hidden" name="sign" id="signature-data">
+                        </div>
+                        <div>
+                            <button type='button' class="btn btn-danger btn-sm" id="clear-button">Clear</button>
+                            
+                        </div>
+                        <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+                        <script>
+                            const canvas = document.getElementById('signature-canvas');
+                            const signaturePad = new SignaturePad(canvas);
+                            const form = document.getElementById('kt_account_profile_details_form');
+                            const signatureData = document.getElementById('signature-data');
+                            
+                            // Ajustar canvas para alta resolución
+                            function resizeCanvas() {
+                                const ratio = Math.max(window.devicePixelRatio || 1, 1);
+                                canvas.width = canvas.offsetWidth * ratio;
+                                canvas.height = canvas.offsetHeight * ratio;
+                                canvas.getContext('2d').scale(ratio, ratio);
+                                signaturePad.clear();
+                            }
+                            
+                            window.addEventListener('resize', resizeCanvas);
+                            resizeCanvas();
+                            
+                                                                    
+                            document.getElementById('clear-button').addEventListener('click', () => {
+                                signaturePad.clear();
+                            });
+                            
+                            // Antes de enviar el formulario, guardar la firma
+                            form.addEventListener('submit', function(e) {
+                                if (!signaturePad.isEmpty()) {
+                                    // Convertir a PNG y guardar en el campo oculto
+                                    signatureData.value = signaturePad.toDataURL('image/png');
+                                }
+                            });
+                            
+                        </script>
+                        <!--begin::Label-->
+                        <!--begin::Label-->
+                        
+                        <!--begin::Label-->
+                    </div>
+                    
+                    <!--end::Col-->
+                    
+                  
+                </div>
+            </div>
+            <!--end::Input group-->
+                <!--begin::Input group-->
+                <div class="row">
+                    <label class="col-lg-4 col-form-label  fw-semibold fs-6">Active</label>
+                    <!--begin::Options-->
+                    <div class="d-flex align-items-center mt-3">
+                        <!--begin::Option-->
+                        <div class="form-check form-check-solid form-switch form-check-custom fv-row">
+                            <input class="form-check-input w-45px h-30px" name="is_active" type="checkbox" id="allowmarketing" {% if user.is_active %}checked{% endif %} />
+                            <label class="form-check-label" for="allowmarketing"></label>
+                        </div>
+                        <label class="fs-8 text-small">Enamble and disabled user</label>
+                        <!--end::Option-->
+                    </div>
+                    <!--end::Options-->
+                </div>
+                <!--end::Input group-->
+                <!--begin::Input group-->
+                
+                <!--end::Input group-->
+            </div>
+            <!--end::Card body-->
+            <!--begin::Actions-->
+            <div class="card-footer d-flex justify-content-end py-6 px-9">
+                <button type="submit" class="btn btn-primary btn-sm" id="kt_account_profile_details_submit">Save Changes</button>
+            </div>
+            <!--end::Actions-->
+        </form>
+    </div>
+    <!--end::Info-->
+</div>
