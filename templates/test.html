@@ -17,34 +17,11 @@
 	{% comment %} {% include "pages/forms/section1/orientation_checklist.html" %} {% endcomment %}
 	{% comment %} {% include "pages/forms/section2/referral_form.html" %} {% endcomment %}
 	{% comment %} {% include "pages/forms/section2/fee_agreement.html" %} {% endcomment %}
-	{% include "pages/forms/section2/food_policy.html" %}
+	{% comment %} {% include "pages/forms/section2/food_policy.html" %} {% endcomment %}
+	{% include "pages/forms/section2/permission_photos_videotape.html" %}
 
     
 {% endblock content %}
 
 {% block extra_js %}
-
-        {% comment %} <script src="{% static 'assets/plugins/global/plugins.bundle.js' %}"></script>
-		<script src="{% static 'assets/js/scripts.bundle.js' %}"></script>
-		<!--end::Global Javascript Bundle-->
-		<!--begin::Vendors Javascript(used for this page only)-->
-		<script src=" {% static 'assets/plugins/custom/datatables/datatables.bundle.js' %}"></script>
-
-        <script src="{% static 'assets/js/custom/account/settings/signin-methods.js' %}"></script>
-		<script src="{% static 'assets/js/custom/account/settings/profile-details.js' %}"></script>
-		<script src="{% static 'assets/js/custom/account/settings/deactivate-account.js' %}"></script>
-		<script src="{% static 'assets/js/custom/pages/user-profile/general.js' %}"></script>
-		<script src="{% static 'assets/js/widgets.bundle.js' %}"></script>
-		<script src="{% static 'assets/js/custom/widgets.js' %}"></script>
-		<script src="{% static 'assets/js/custom/apps/chat/chat.js' %}"></script>
-		<script src="{% static 'assets/js/custom/utilities/modals/upgrade-plan.js' %}"></script>
-		<script src="{% static 'assets/js/custom/utilities/modals/create-app.js' %}"></script>
-		<script src="{% static 'assets/js/custom/utilities/modals/offer-a-deal/type.js' %}"></script>
-		<script src="{% static 'assets/js/custom/utilities/modals/offer-a-deal/details.js' %}"></script>
-		<script src="{% static 'assets/js/custom/utilities/modals/offer-a-deal/finance.js' %}"></script>
-		<script src="{% static 'assets/js/custom/utilities/modals/offer-a-deal/complete.js' %}"></script>
-		<script src="{% static 'assets/js/custom/utilities/modals/offer-a-deal/main.js' %}"></script>
-		<script src="{% static 'assets/js/custom/utilities/modals/two-factor-authentication.js' %}"></script>
-		<script src="{% static 'assets/js/custom/utilities/modals/users-search.js' %}"></script> {% endcomment %}
-
 {% endblock extra_js %}
