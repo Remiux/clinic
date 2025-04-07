@@ -1,0 +1,113 @@
+{% extends "base.html" %} {% load static %} 
+{% block title %}Insurance detail{%endblock title %} 
+{% block content %}
+<div class="row g-6">
+    <div class="col-12 w-100 d-flex justify-content-between align-items-center">
+        <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+            <!--begin::Title-->
+            <h1 class="page-heading d-flex text-gray-900 fw-bold fs-3 flex-column justify-content-center my-0">Insurance Detail</h1>
+            <!--end::Title-->
+            <!--begin::Breadcrumb-->
+            <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-muted">
+                    <a href="{% url "insurances_view" %}" class="text-muted text-hover-primary">Insurances</a>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item">
+                    <span class="bullet bg-gray-500 w-5px h-2px"></span>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-muted">Insurance Detail</li>
+                <!--end::Item-->
+            </ul>
+            <!--end::Breadcrumb-->
+        </div>
+        
+        
+        
+        
+    </div>
+    <div class="col-12 ">
+        <div class="card mb-5 mb-xl-10" >
+            <!--begin::Card header-->
+            <div class="card-header cursor-pointer">
+                <!--begin::Card title-->
+                <div class="card-title m-0">
+                    
+                </div>
+                <!--end::Card title-->
+                <!--begin::Action-->
+                <a href="{% url "update_insurance_view" pk=insurance.pk %}" class="btn btn-sm btn-primary align-self-center">Edit symptom</a>
+                <!--end::Action-->
+            </div>
+            <!--begin::Card header-->
+            <!--begin::Card body-->
+            <div class="card-body p-9">
+                <div class="row mb-7">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 fw-semibold text-muted">Abbreviated</label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-8">
+                        <span class="fw-bold fs-6 text-gray-800">{{insurance.abbreviated}}</span>
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <!--begin::Row-->
+                <div class="row mb-7">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 fw-semibold text-muted">Name</label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-8">
+                        <span class="fw-bold fs-6 text-gray-800">{{insurance.name}}</span>
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <div class="row mb-7">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 fw-semibold text-muted">Available</label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-8">
+                        <span class="fw-semibold fs-6 text-gray-800">
+                            {% if insurance.available %}
+                                <div class="badge badge-light-success badge-lg">enabled</div>
+                            {% else %}
+                            <div class="badge badge-light-danger badge-lg">disabled</div>
+                            {% endif %}
+                        </span>
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <div class="row mb-7">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 fw-semibold text-muted">Authorization</label>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-lg-8">
+                        <span class="fw-semibold fs-6 text-gray-800">
+                            {% if insurance.auth_required %}
+                                <div class="badge badge-light-success badge-lg">authorized</div>
+                            {% else %}
+                            <div class="badge badge-light-danger badge-lg">unauthorized</div>
+                            {% endif %}
+                        </span>
+                    </div>
+                    <!--end::Col-->
+                </div>
+                <!--end::Row-->
+               
+                
+            </div>
+            <!--end::Card body-->
+        </div>
+    </div>
+    
+    
+  
+</div>
+{% endblock content %}

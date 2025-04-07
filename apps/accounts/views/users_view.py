@@ -1,10 +1,11 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from apps.accounts.filters import UserFilter
-from apps.accounts.forms.user_form import CreateForm, UpdateForm
+from apps.accounts.forms.user_form import CreateForm, ProfileUpdateForm, UpdateForm
 from apps.accounts.models import User
 from utils.paginator import _get_paginator 
+from django.contrib.auth.forms import PasswordChangeForm
 
 # Create your views here.
 @login_required(login_url='/login')
@@ -34,7 +35,7 @@ def create_user_view(request):
 @login_required(login_url='/login')
 def filter_users_view(request):
     context=_show_user_filter(request)
-    return render(request,'cotton/userTable.html',context)
+    return render(request,'pages/accounts/userTable.html',context)
 
 @login_required(login_url='/login')
 def detail_user_view(request,pk):
@@ -88,3 +89,34 @@ def update_user_view(request,pk):
         context['items']=Group.objects.all()
         context['form']=form
     return render(request,'pages/accounts/actions/userUpdate.html',context)
+
+
+@login_required(login_url='/login')
+def change_password_view(request):
+    form = PasswordChangeForm(request.user)
+    context={}
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+        else:
+            pass
+    context['form']=form
+    return render(request,'pages/accounts/actions/changePassword.html',context)
+
+
+
+@login_required(login_url='/login')
+def user_profile_view(request):
+    form = ProfileUpdateForm(instance=request.user)
+    context={}
+    if request.method == 'POST':
+        form = ProfileUpdateForm( request.POST,instance=request.user)
+        if form.is_valid():
+            form.save()
+        else:
+            pass
+    context['form']=form
+    context['user']=request.user
+    return render(request,'pages/accounts/actions/userProfile.html',context)

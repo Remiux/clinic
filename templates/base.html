@@ -292,7 +292,7 @@ License: For each use you must have a valid license purchased only from above li
                   <!--end::Menu separator-->
                   <!--begin::Menu item-->
                   <div class="menu-item px-5">
-                    <a href="account/overview.html" class="menu-link px-5"
+                    <a href="{% url 'user_profile_view' %}" class="menu-link px-5"
                       >My Profile</a
                     >
                   </div>
@@ -304,10 +304,11 @@ License: For each use you must have a valid license purchased only from above li
 
                   <!--begin::Menu item-->
                   <div class="menu-item px-5 my-1">
-                    <a href="account/settings.html" class="menu-link px-5"
-                      >Account Settings</a
+                    <a href="{% url 'change_password_view' %}" class="menu-link px-5"
+                      >Change Password</a
                     >
                   </div>
+                  <div class="separator my-2"></div>
                   <!--end::Menu item-->
                   <!--begin::Menu item-->
                   <form class="menu-item px-5 w-100"
@@ -450,7 +451,7 @@ License: For each use you must have a valid license purchased only from above li
                   class="menu-item menu-accordion rounded  {% if request.path == '/symptoms' %}bg-primary-subtle{% endif %}"
                 >
                   <!--begin:Menu link-->
-                  <span class="menu-link">
+                  <a href="{% url 'symptoms_view' %}" class="menu-link">
                     <span class="menu-icon">
                       <i class="ki-duotone ki-file text-primary fs-2">
                         <span class="path1"></span>
@@ -458,7 +459,7 @@ License: For each use you must have a valid license purchased only from above li
                       </i>
                     </span>
                     <span class="menu-title text-primary">Symptom</span>
-                  </span>
+                  </a>
                   <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
@@ -469,7 +470,7 @@ License: For each use you must have a valid license purchased only from above li
                   class="menu-item menu-accordion rounded  {% if request.path == '/insurances' %}bg-primary-subtle{% endif %}"
                 >
                   <!--begin:Menu link-->
-                  <span class="menu-link">
+                  <a href="{% url 'insurances_view' %}" class="menu-link">
                     <span class="menu-icon">
                       <i class="ki-duotone ki-bank text-primary fs-2">
                         <span class="path1"></span>
@@ -477,7 +478,7 @@ License: For each use you must have a valid license purchased only from above li
                       </i>
                     </span>
                     <span class="menu-title text-primary">Insurance</span>
-                  </span>
+                  </a>
                   <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->

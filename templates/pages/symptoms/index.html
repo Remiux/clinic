@@ -1,11 +1,11 @@
 {% extends "base.html" %} {% load static %} 
-{% block title %}Users{%endblock title %} 
+{% block title %}Symptoms{%endblock title %} 
 {% block content %}
 <div class="row g-6">
     <div class="col-12 w-100 d-flex justify-content-between align-items-center">
         <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
             <!--begin::Title-->
-            <h1 class="page-heading d-flex text-gray-900 fw-bold fs-3 flex-column justify-content-center my-0">User List</h1>
+            <h1 class="page-heading d-flex text-gray-900 fw-bold fs-3 flex-column justify-content-center my-0">Symptom List</h1>
             <!--end::Title-->
             <!--begin::Breadcrumb-->
             <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
@@ -20,7 +20,7 @@
                 </li>
                 <!--end::Item-->
                 <!--begin::Item-->
-                <li class="breadcrumb-item text-muted">User List</li>
+                <li class="breadcrumb-item text-muted">Symptom List</li>
                 <!--end::Item-->
             </ul>
             <!--end::Breadcrumb-->
@@ -37,8 +37,8 @@
                 <!--end::Menu toggle-->
                 <!--begin::Menu 1-->
                 <form 
-                hx-get="{% url 'filter_users_view' %}"
-                hx-target="#userTableResult"
+                hx-get="{% url 'filter_symptoms_view' %}"
+                hx-target="#symptomTableResult"
                 hx-trigger="submit"
                 hx-indicator="#spinnerFilter"
                 class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" id="kt_menu_673c0c868c157" style="" data-select2-id="select2-data-kt_menu_673c0c868c157">
@@ -56,37 +56,15 @@
                         <!--begin::Input group-->
                         <div class="mb-3">
                             <!--begin::Label-->
-                            <label class="form-label fw-semibold">Username:</label>
+                            <label class="form-label fw-semibold">Code:</label>
                             <!--end::Label-->
                             <!--begin::Switch-->
                             <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
-                                <input type="text" name="username" class="form-control  form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="Username"  />
+                                <input type="text" name="code" class="form-control  form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="code"  />
                             </div>
                             <!--end::Switch-->
                         </div>
-                        <div class="mb-3">
-                            <!--begin::Label-->
-                            <label class="form-label fw-semibold">Phone number:</label>
-                            <!--end::Label-->
-                            <!--begin::Switch-->
-                            <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
-                                <input type="text" name="phone_number" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="Phone number"  />
-                            </div>
-                            <!--end::Switch-->
-                        </div>
-                        <!--begin::Input group-->
-                        <div class="mb-10">
-                            <!--begin::Label-->
-                            <label class=" col-form-label fw-semibold fs-6">Active</label>
-    
-                            <select name="is_active"  class="form-select form-select-solid form-select-sm fw-semibold">
-                                    <option value="">Select a option...</option>
-                                    <option value="true" >Enable</option>
-                                    <option value="false" >Disabled</option>
-                            </select>
-                            <!--end::Switch-->
-                        </div>
-                        <!--end::Input group-->
+                        
                         <!--begin::Actions-->
                         <div class="d-flex justify-content-end">
                             <button type="reset" class="btn btn-sm btn-light btn-active-light-danger me-2" >Reset</button>
@@ -115,8 +93,8 @@
                     style="" 
                     data-select2-id="select2-data-kt_menu_673c0c868c157"
                     >
-                        <div id="UserFormCreate">
-                            {% include "pages/accounts/actions/form/userFormCreate.html" %}
+                        <div id="SymptomFormCreate">
+                            {% include "pages/symptoms/actions/form/symptomFormCreate.html" %}
                         </div>
                     </div>
                 <!--end::Menu 1-->
@@ -129,8 +107,8 @@
         
     </div>
     <div class="col-12 ">
-        <div id="userTableResult">
-            {% include "pages/accounts/userTable.html" %}
+        <div id="symptomTableResult">
+            {% include "pages/symptoms/symptomTable.html" %}
         </div>
     </div>
   

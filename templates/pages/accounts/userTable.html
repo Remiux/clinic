@@ -1,0 +1,298 @@
+<div id="kt_app_content_container" class="app-container container-xxl">
+  <!--begin::Products-->
+
+  <!--begin::Card body-->
+  <div class="card-body pt-0">
+    <!--begin::Table-->
+    <div
+      id="kt_ecommerce_products_table_wrapper"
+      class="dt-container dt-bootstrap5 dt-empty-footer"
+    >
+      <div id="" class="table-responsive">
+        <table
+          class="table align-middle table-row-dashed fs-6 gy-5 dataTable"
+          id="kt_ecommerce_products_table"
+          style="width: 100%"
+        >
+          <colgroup>
+            <col data-dt-column="0" style="width: 36.4px" />
+            <col data-dt-column="1" style="width: 293.288px" />
+            <col data-dt-column="2" style="width: 146.637px" />
+            <col data-dt-column="3" style="width: 155.863px" />
+            <col data-dt-column="4" style="width: 146.637px" />
+            <col data-dt-column="5" style="width: 146.637px" />
+            <col data-dt-column="6" style="width: 146.637px" />
+          
+          </colgroup>
+          <thead>
+            <tr
+              class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0"
+            >
+              
+              <th
+                class="min-w-200px dt-orderable-asc dt-orderable-desc"
+                data-dt-column="1"
+                rowspan="1"
+                colspan="1"
+                aria-label="Product: Activate to sort"
+                tabindex="0"
+              >
+                <span class="dt-column-title" role="button">Username</span
+                ><span class="dt-column-order"></span>
+              </th>
+              
+              <th
+                class="text-end min-w-70px dt-type-numeric dt-orderable-asc dt-orderable-desc"
+                data-dt-column="2"
+                rowspan="1"
+                colspan="1"
+                aria-label="Qty: Activate to sort"
+                tabindex="0"
+              >
+                <span class="dt-column-title" role="button">Email</span
+                ><span class="dt-column-order"></span>
+              </th>
+              <th
+                class="text-end min-w-100px dt-type-numeric dt-orderable-asc dt-orderable-desc"
+                data-dt-column="3"
+                rowspan="1"
+                colspan="1"
+                aria-label="Price: Activate to sort"
+                tabindex="0"
+              >
+                <span class="dt-column-title" role="button">Phone</span
+                ><span class="dt-column-order"></span>
+              </th>
+              <th
+                class="text-end min-w-100px dt-type-numeric dt-orderable-asc dt-orderable-desc"
+                data-dt-column="4"
+                rowspan="1"
+                colspan="1"
+                aria-label="SKU: Activate to sort"
+                tabindex="0"
+              >
+                <span class="dt-column-title" role="button">Rol</span
+                ><span class="dt-column-order"></span>
+              </th>
+              <th
+                class="text-end min-w-100px dt-orderable-asc dt-orderable-desc"
+                data-dt-column="5"
+                rowspan="1"
+                colspan="1"
+                aria-label="Status: Activate to sort"
+                tabindex="0"
+              >
+                <span class="dt-column-title" role="button">Sign</span
+                ><span class="dt-column-order"></span>
+              </th>
+              
+              <th
+                class="text-end min-w-100px dt-orderable-asc dt-orderable-desc"
+                data-dt-column="5"
+                rowspan="1"
+                colspan="1"
+                aria-label="Status: Activate to sort"
+                tabindex="0"
+              >
+                <span class="dt-column-title" role="button">Active</span
+                ><span class="dt-column-order"></span>
+              </th>
+              <th
+                class="text-end min-w-70px dt-orderable-none"
+                data-dt-column="6"
+                rowspan="1"
+                colspan="1"
+                aria-label="Actions"
+              >
+                <span class="dt-column-title">Actions</span
+                ><span class="dt-column-order"></span>
+              </th>
+            </tr>
+            {% if paginator %}
+            
+            <tbody class="fw-semibold text-gray-600">
+              {% for user in paginator %}
+              <tr>
+                
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div class="">
+                      <!--begin::Title-->
+                      <a
+                        href="{% url "detail_user_view" pk=user.pk %}"
+                        class="text-gray-800 text-hover-primary fs-5 fw-bold"
+                        data-kt-ecommerce-product-filter="product_name"
+                        >{{user.username}}</a
+                      >
+                      <!--end::Title-->
+                    </div>
+                  </div>
+                </td>
+                <td class="text-end pe-0 dt-type-numeric">
+                  <span class="fw-bold">{{user.email}}</span>
+                </td>
+                <td class="text-end pe-0 dt-type-numeric" data-order="22">
+                  <span class="fw-bold ms-3">{% if user.phone_number %}{{user.phone_number}}{% else %}-{% endif %}</span>
+                </td>
+                <td class="text-end pe-0 dt-type-numeric">
+                  {% if user.groups.all %}
+                  {{user.groups.all.0}}
+                  {% else %}
+                  -
+                  {% endif %}
+                </td>
+                <td class="text-end pe-0">
+                  <!--begin::Badges-->
+                  {% if  user.sign %}
+                  <div class="badge badge-light-success badge-lg">correct</div>
+                  {% else %}
+                  <div class="badge badge-light-danger badge-lg">void</div>
+                  {% endif %}
+                  
+                  <!--end::Badges-->
+                </td>
+                <td class="text-end pe-0" data-order="Inactive">
+                  <!--begin::Badges-->
+                  {% if not user.is_active %}
+                  <div class="badge badge-light-danger badge-lg">
+                    disabled
+                  </div>
+                  {% else %}
+                  <div class="badge badge-light-success badge-lg">
+                    enable
+                  </div>
+                  {% endif %}
+                  <!--end::Badges-->
+                </td>
+                <td class=" d-flex flex-nowrap justify-content-end gap-1 text-end">
+                  <a
+                    href="{% url "detail_user_view" pk=user.pk %}"
+                    class="badge badge-light-primary bi-eye btn btn-sm btn-outline-primary btn-flex btn-center fs-5 px-2"
+                    data-kt-menu-trigger="click"
+                    data-kt-menu-placement="bottom-end"
+                    ></a>
+                  <a
+                    href="{% url "update_user_view" pk=user.pk %}"
+                    class="badge badge-light-warning bi-pencil-square btn btn-sm btn-outline-warning btn-flex btn-center fs-5 px-2"
+                    data-kt-menu-trigger="click"
+                    data-kt-menu-placement="bottom-end"
+                    ></a>
+                    
+                 
+                  </div>
+                  <!--end::Menu-->
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+            
+            {% endif %}
+            
+          </thead>
+          
+          <tfoot></tfoot>
+        </table>
+      </div>
+      {% comment %} <div id="" class="row justify-content-end">
+        
+        <div
+          id=""
+          class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end"
+        >
+          <div class="dt-paging paging_simple_numbers">
+            <nav aria-label="pagination">
+              <ul class="pagination">
+                <li class="dt-paging-button page-item disabled">
+                  <button
+                    class="page-link previous"
+                    role="link"
+                    type="button"
+                    aria-controls="kt_ecommerce_products_table"
+                    aria-disabled="true"
+                    aria-label="Previous"
+                    data-dt-idx="previous"
+                    tabindex="-1"
+                  >
+                    <i class="previous"></i>
+                  </button>
+                </li>
+                <li class="dt-paging-button page-item active">
+                  <button
+                    class="page-link"
+                    role="link"
+                    type="button"
+                    aria-controls="kt_ecommerce_products_table"
+                    aria-current="page"
+                    data-dt-idx="0"
+                  >
+                    1
+                  </button>
+                </li>
+                <li class="dt-paging-button page-item">
+                  <button
+                    class="page-link"
+                    role="link"
+                    type="button"
+                    aria-controls="kt_ecommerce_products_table"
+                    data-dt-idx="1"
+                  >
+                    2
+                  </button>
+                </li>
+                <li class="dt-paging-button page-item">
+                  <button
+                    class="page-link"
+                    role="link"
+                    type="button"
+                    aria-controls="kt_ecommerce_products_table"
+                    data-dt-idx="2"
+                  >
+                    3
+                  </button>
+                </li>
+                <li class="dt-paging-button page-item">
+                  <button
+                    class="page-link"
+                    role="link"
+                    type="button"
+                    aria-controls="kt_ecommerce_products_table"
+                    data-dt-idx="3"
+                  >
+                    4
+                  </button>
+                </li>
+                <li class="dt-paging-button page-item">
+                  <button
+                    class="page-link"
+                    role="link"
+                    type="button"
+                    aria-controls="kt_ecommerce_products_table"
+                    data-dt-idx="4"
+                  >
+                    5
+                  </button>
+                </li>
+                <li class="dt-paging-button page-item">
+                  <button
+                    class="page-link next"
+                    role="link"
+                    type="button"
+                    aria-controls="kt_ecommerce_products_table"
+                    aria-label="Next"
+                    data-dt-idx="next"
+                  >
+                    <i class="next"></i>
+                  </button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div> {% endcomment %}
+    </div>
+    <!--end::Table-->
+  </div>
+  <!--end::Card body-->
+
+  <!--end::Products-->
+</div>
