@@ -4,23 +4,110 @@
 {% block content %}
 
 
-    {% comment %} {% include "pages/forms/section1/main_form.html" %} {% endcomment %}
-	{% comment %} {% include "pages/forms/section1/conset_for_treatment.html" %} {% endcomment %}
-	{% comment %} {% include "pages/forms/section1/demographic_information.html" %} {% endcomment %}
-	{% comment %} {% include "pages/forms/section1/consent_for_release_and_request_of_information.html" %} {% endcomment %}
-	{% comment %} {% include "pages/forms/section1/consumer_rights.html" %} {% endcomment %}
-	{% comment %} {% include "pages/forms/section1/consumer_rights_(continued).html" %} {% endcomment %}
-	{% comment %} {% include "pages/forms/section1/acknowledgement_of_receipt_of_HIPPA.html" %} {% endcomment %}
-	{% comment %} {% include "pages/forms/section1/access_to_services_in_an_emergency.html" %} {% endcomment %}
-	{% comment %} {% include "pages/forms/section1/no_harm_contract.html" %} {% endcomment %}
-	{% comment %} {% include "pages/forms/section1/mental_health_advance_directive.html" %} {% endcomment %}
-	{% comment %} {% include "pages/forms/section1/orientation_checklist.html" %} {% endcomment %}
-	{% comment %} {% include "pages/forms/section2/referral_form.html" %} {% endcomment %}
-	{% comment %} {% include "pages/forms/section2/fee_agreement.html" %} {% endcomment %}
-	{% comment %} {% include "pages/forms/section2/food_policy.html" %} {% endcomment %}
-	{% comment %} {% include "pages/forms/section2/permission_photos_videotape.html" %} {% endcomment %}
-	{% comment %} {% include "pages/forms/section2/transportation_policy.html" %} {% endcomment %}
-	{% include "pages/forms/section2/recipient_financial_information.html" %}
+	<!-- Lista de Formularios -->
+    {% comment %} {% include "pages/forms/section1/main_form.html" %}
+	{% include "pages/forms/section1/conset_for_treatment.html" %}
+	{% include "pages/forms/section1/demographic_information.html" %}
+	{% include "pages/forms/section1/consent_for_release_and_request_of_information.html" %}
+	{% include "pages/forms/section1/consumer_rights.html" %}
+	{% include "pages/forms/section1/consumer_rights_(continued).html" %}
+	{% include "pages/forms/section1/acknowledgement_of_receipt_of_HIPPA.html" %}
+	{% include "pages/forms/section1/access_to_services_in_an_emergency.html" %}
+	{% include "pages/forms/section1/no_harm_contract.html" %}
+	{% include "pages/forms/section1/mental_health_advance_directive.html" %}
+	{% include "pages/forms/section1/orientation_checklist.html" %}
+	{% include "pages/forms/section2/referral_form.html" %}
+	{% include "pages/forms/section2/fee_agreement.html" %}
+	{% include "pages/forms/section2/food_policy.html" %}
+	{% include "pages/forms/section2/permission_photos_videotape.html" %}
+	{% include "pages/forms/section2/transportation_policy.html" %}
+	{% include "pages/forms/section2/recipient_financial_information.html" %} {% endcomment %}
+
+	<div class="container mt-4">
+		<!-- Pestañas -->
+		<ul class="nav nav-tabs" id="formTabs" role="tablist">
+			<!-- Section 1 -->
+			<li class="nav-item" role="presentation">
+				<button class="nav-link active" id="main-form-tab" data-bs-toggle="tab" type="button" role="tab" onclick="loadSection('main_form')">Main Form</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="consent-treatment-tab" data-bs-toggle="tab" type="button" role="tab" onclick="loadSection('conset_for_treatment')">Consent for Treatment</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="demographic-info-tab" data-bs-toggle="tab" type="button" role="tab" onclick="loadSection('demographic_information')">Demographic Information</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="consent-release-tab" data-bs-toggle="tab" type="button" role="tab" onclick="loadSection('consent_for_release_and_request_of_information')">Consent for Release and Request of Information</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="consumer-rights-tab" data-bs-toggle="tab" type="button" role="tab" onclick="loadSection('consumer_rights')">Consumer Rights</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="consumer-rights-continued-tab" data-bs-toggle="tab" type="button" role="tab" onclick="loadSection('consumer_rights_(continued)')">Consumer Rights (Continued)</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="acknowledgement-hippa-tab" data-bs-toggle="tab" type="button" role="tab" onclick="loadSection('acknowledgement_of_receipt_of_HIPPA')">Acknowledgement of Receipt of HIPPA</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="access-emergency-tab" data-bs-toggle="tab" type="button" role="tab" onclick="loadSection('access_to_services_in_an_emergency')">Access to Services in an Emergency</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="no-harm-contract-tab" data-bs-toggle="tab" type="button" role="tab" onclick="loadSection('no_harm_contract')">No Harm Contract</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="mental-health-directive-tab" data-bs-toggle="tab" type="button" role="tab" onclick="loadSection('mental_health_advance_directive')">Mental Health Advance Directive</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="orientation-checklist-tab" data-bs-toggle="tab" type="button" role="tab" onclick="loadSection('orientation_checklist')">Orientation Checklist</button>
+			</li>
+	
+			<!-- Section 2 -->
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="referral-form-tab" data-bs-toggle="tab" type="button" role="tab" onclick="loadSection('referral_form')">Referral Form</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="fee-agreement-tab" data-bs-toggle="tab" type="button" role="tab" onclick="loadSection('fee_agreement')">Fee Agreement</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="food-policy-tab" data-bs-toggle="tab" type="button" role="tab" onclick="loadSection('food_policy')">Food Policy</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="permission-photos-tab" data-bs-toggle="tab" type="button" role="tab" onclick="loadSection('permission_photos_videotape')">Permission for Photos/Videotape</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="transportation-policy-tab" data-bs-toggle="tab" type="button" role="tab" onclick="loadSection('transportation_policy')">Transportation Policy</button>
+			</li>
+			<li class="nav-item" role="presentation">
+				<button class="nav-link" id="financial-info-tab" data-bs-toggle="tab" type="button" role="tab" onclick="loadSection('recipient_financial_information')">Recipient Financial Information</button>
+			</li>
+		</ul>
+	
+		<!-- Contenedor dinámico -->
+		<div id="dynamic-content" class="mt-4">
+			<!-- Contenido de cada form -->
+		</div>
+	</div>
+	
+	<script>
+		function loadSection(sectionName) {
+			const url = `/load-section/${sectionName}/`;
+			fetch(url)
+				.then(response => {
+					if (!response.ok) {
+						throw new Error('Error al cargar el contenido');
+					}
+					return response.text();
+				})
+				.then(html => {
+					// Inserta el contenido en el contenedor dinámico
+					document.getElementById('dynamic-content').innerHTML = html;
+				})
+				.catch(error => {
+					console.error('Error:', error);
+					document.getElementById('dynamic-content').innerHTML = '<p>Error al cargar el contenido.</p>';
+				});
+		}
+	</script>
 
     
 {% endblock content %}
