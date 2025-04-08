@@ -12,8 +12,13 @@ def customers_view(request):
     context={}
     return render(request,'pages/customers/index.html',context)
 
-# Create your views here.
+
 @login_required(login_url='/login')
 def detail_customer_view(request,pk):
     context={}
     return render(request,'pages/customers/actions/detail/customerDetail.html',context)
+
+@login_required(login_url='/login')
+def sign_customer_view(request,pk):
+    context={}
+    return render(request,'pages/customers/actions/detail/customerGenerateSign.html',context)
