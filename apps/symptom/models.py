@@ -64,3 +64,18 @@ class Client(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
+
+class Diagnostic(models.Model):
+    code = models.CharField(max_length=15, unique=True)
+    description = models.TextField(max_length=500)
+    
+
+    class Meta:
+        verbose_name = "Diagnostic"
+        verbose_name_plural = "Diagnostics"
+
+    def __str__(self):
+        return self.name
+
+    

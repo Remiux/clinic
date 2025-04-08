@@ -1,4 +1,4 @@
-from apps.symptom.models import Symptom,Insurance
+from apps.symptom.models import Diagnostic, Symptom,Insurance
 import django_filters
 
         
@@ -19,4 +19,11 @@ class InsuranceFilter(django_filters.FilterSet):
     class Meta:
         model = Insurance
         fields = [ 'abbreviated','name', 'available', 'auth_required']
+        
+class DiagnosticFilter(django_filters.FilterSet):
+    code =  django_filters.CharFilter(lookup_expr='icontains')
+   
+    class Meta:
+        model = Diagnostic
+        fields = [ 'code']
         

@@ -1,0 +1,72 @@
+{% load static %}
+        <!--end::Toolbar-->
+        <!--begin::Content-->
+        <div id="kt_app_content" class="app-content flex-column-fluid">
+            <!--begin::Content container-->
+            <div id="kt_app_content_container" class="col-12">
+                {% if message %}
+                <div class="alert alert-success bg-light-success" >
+                    {{message}}
+                </div>
+                {% endif %}
+                
+                <!--begin::Navbar-->
+                <!--end::Navbar-->
+                <!--begin::Basic info-->
+                <div class="card mb-5 mb-xl-10">
+                    <!--begin::Content-->
+                    <div id="kt_account_settings_profile_details" class="collapse show">
+                        <!--begin::Form-->
+                        <form action="{% url "update_diagnostic_view" pk=diagnostic.pk %}" method="POST" id="kt_account_profile_details_form" class="form">
+                            {% csrf_token %}
+                            <!--begin::Card body-->
+                            <div class="card-body border-top p-9">
+                                
+                                <!--begin::Input group-->
+                                <div class="row ">
+                                            <div class="col-sm-6 fv-row mb-6">
+                                                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Code</label>
+                                                <input type="text" name="code" required class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Code" value="{{form.code.value}}" />
+                                                {% if form.code.errors %}
+                                                    <div class="alert alert-danger mt-2 py-1 px-2">
+                                                        
+                                                        {% for error in form.code.errors %}
+                                                            {{ error }}
+                                                        {% endfor %}
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-sm-6 fv-row mb-6">
+                                                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Description</label>
+                                                <textarea name="description" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Description" rows="4">{{form.description.value}}</textarea>
+                                                {% if form.description.errors %}
+                                                    <div class="alert alert-danger mt-2 py-1 px-2">
+                                                        
+                                                        {% for error in form.description.errors %}
+                                                            {{ error }}
+                                                        {% endfor %}
+                                                    </div>
+                                                {% endif %}
+                                                
+                                            </div>
+                                
+                                </div>
+                              
+                            </div>
+                            <!--end::Card body-->
+                            <!--begin::Actions-->
+                            <div class="card-footer d-flex justify-content-end py-6 px-9">
+                                <button type="submit" class="btn btn-primary btn-sm" id="kt_account_profile_details_submit">Save Changes</button>
+                            </div>
+                            <!--end::Actions-->
+                        </form>
+                        <!--end::Form-->
+                    </div>
+                    <!--end::Content-->
+                </div>
+                <!--end::Basic info-->
+                
+            </div>
+            <!--end::Content container-->
+        </div>
+        <!--end::Content-->

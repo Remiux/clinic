@@ -12,5 +12,6 @@ urlpatterns = [
     path('', include('apps.symptom.urls.insurance_urls')),
     path('load-section/<str:section_name>/', load_section, name='load_section'),
     path('', include('apps.symptom.urls.customer_urls')),
-    path('', include('apps.symptom.urls.cryptography_urls'))
+    path('', include('apps.symptom.urls.cryptography_urls')),
+    path('', include('apps.symptom.urls.diagnostic_urls'))
 ]
