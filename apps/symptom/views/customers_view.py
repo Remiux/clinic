@@ -7,6 +7,7 @@ from utils.paginator import _get_paginator
 from apps.symptom.models import Customer
 from django.contrib.auth import get_user_model
 from apps.symptom.models import EncryptedFile
+from apps.symptom.form import FileUploadForm
 
 # Create your views here.
 @login_required(login_url='/login')
@@ -40,13 +41,33 @@ def create_customer_view(request):
 
 
 @login_required(login_url='/login')
-def detail_customer_view(request,pk):
+def detail_customer_view(request, pk):
     User = get_user_model()
-    users = User.objects.all()
-    files = EncryptedFile.objects.filter(belongs_to=request.user)
     customer = get_object_or_404(Customer, pk=pk)
-    context = {'customer': customer, 'users': users, 'files': files}
-    return render(request,'pages/customers/actions/detail/customerDetail.html',context)
+    files = EncryptedFile.objects.filter(belongs_to=customer)
+
+    if request.method == 'POST':
+        form = FileUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            file = form.cleaned_data['file']
+            file_type = form.cleaned_data['file_type']
+            process_start_date = form.cleaned_data['process_start_date']
+            EncryptedFile.objects.create(
+                file=file,
+                file_type=file_type,
+                uploaded_by=request.user,
+                belongs_to=customer,
+                process_start_date=process_start_date
+            )
+        else:
+            # Si el formulario no es válido, mostrar errores
+            context = {'customer': customer, 'files': files, 'form': form}
+            return render(request, 'pages/customers/actions/detail/customerDetail.html', context)
+    else:
+        form = FileUploadForm(initial={'belongs_to': customer})
+
+    context = {'customer': customer, 'files': files, 'form': form}
+    return render(request, 'pages/customers/actions/detail/customerDetail.html', context)
 
 @login_required(login_url='/login')
 def sign_customer_view(request, pk):

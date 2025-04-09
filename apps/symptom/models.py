@@ -47,18 +47,6 @@ class Insurance(models.Model):
         return self.name
     
 
-class EncryptedFile(models.Model):
-    file = models.FileField(upload_to='uploads/')
-    file_type = models.CharField(max_length=10, choices=[('.docx', 'DOC'), ('.pdf', 'PDF'), ('.jpg', 'JPG'), ('.png', 'PNG')])
-    uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='uploaded_files')
-    belongs_to = models.ForeignKey(User, on_delete=models.CASCADE, related_name='owned_files')
-    encrypted_file = models.BinaryField()
-    created_at = models.DateTimeField(default=timezone.now)
-    process_start_date = models.DateField(default=timezone.now)
-
-    def __str__(self):
-        return f"{self.file.name} - {self.uploaded_by.username}"
-
 class Customer(models.Model):
     case_no = models.CharField(max_length=40, unique=True,default='FS0001')
     first_name = models.CharField(max_length=255,default='John')
@@ -117,3 +105,16 @@ class Customer(models.Model):
     @property
     def in_active(self):
         return True
+
+
+class EncryptedFile(models.Model):
+    file = models.FileField(upload_to='uploads/')
+    file_type = models.CharField(max_length=10, choices=[('.docx', 'DOC'), ('.pdf', 'PDF'), ('.jpg', 'JPG'), ('.png', 'PNG')])
+    uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='uploaded_files')
+    belongs_to = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='owned_files', default=1)
+    encrypted_file = models.BinaryField()
+    created_at = models.DateTimeField(default=timezone.now)
+    process_start_date = models.DateField(default=timezone.now)
+
+    def __str__(self):
+        return f"{self.file.name} - {self.uploaded_by.username}"
