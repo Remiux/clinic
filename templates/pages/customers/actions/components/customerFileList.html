@@ -77,8 +77,9 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form method="post" enctype="multipart/form-data" action="{% url 'upload_file' %}">
+                                    <form method="post" enctype="multipart/form-data" action="">
                                         {% csrf_token %}
+                                        <input type="hidden" name="belongs_to" value="{{ customer.id }}">  <!-- Asociar al cliente actual -->
                                         <div class="mb-3">
                                             <label for="id_file" class="form-label">File</label>
                                             <input type="file" name="file" id="id_file" class="form-control">
@@ -90,14 +91,6 @@
                                                 <option value=".pdf">PDF</option>
                                                 <option value=".jpg">JPG</option>
                                                 <option value=".png">PNG</option>
-                                            </select>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="id_belongs_to" class="form-label">Belongs To</label>
-                                            <select name="belongs_to" id="id_belongs_to" class="form-select">
-                                                {% for user in users %}
-                                                    <option value="{{ user.id }}">{{ user.username }}</option>
-                                                {% endfor %}
                                             </select>
                                         </div>
                                         <div class="mb-3">
