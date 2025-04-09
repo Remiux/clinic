@@ -47,7 +47,7 @@ def create_customer_view(request):
 def detail_customer_view(request, pk):
     User = get_user_model()
     customer = get_object_or_404(Customer, pk=pk)
-    files = EncryptedFile.objects.filter(belongs_to=customer)  # Filtrar archivos por el cliente actual
+    files = EncryptedFile.objects.filter(belongs_to=customer)
 
     if request.method == 'POST':
         form = FileUploadForm(request.POST, request.FILES)
@@ -59,9 +59,13 @@ def detail_customer_view(request, pk):
                 file=file,
                 file_type=file_type,
                 uploaded_by=request.user,
-                belongs_to=customer,  # Asociar al cliente actual
+                belongs_to=customer,
                 process_start_date=process_start_date
             )
+        else:
+            # Si el formulario no es válido, mostrar errores
+            context = {'customer': customer, 'files': files, 'form': form}
+            return render(request, 'pages/customers/actions/detail/customerDetail.html', context)
     else:
         form = FileUploadForm(initial={'belongs_to': customer})
 
