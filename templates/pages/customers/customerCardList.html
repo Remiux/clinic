@@ -2,7 +2,7 @@
   <!--begin::Products-->
   <div class="row g-6 mb-6 g-xl-9 mb-xl-9">
     <!--begin::Customers-->
-    {% for customer in customers %}
+    {% for customer in paginator %}
     <!--begin::Col-->
       <div class="col-sm-6 col-xxl-4">
         <!--begin::Card-->
@@ -13,30 +13,34 @@
             
             <!--end::Avatar-->
             <!--begin::Name-->
-            <a href="#" class="fs-4 text-gray-800 text-hover-primary fw-bold">{{customer.code}}</a>
-            <div  class="fs-4 text-hover-primary fw-bold mb-4">{{customer.name}}</div>
+            <a href="{% url "detail_customer_view" pk=customer.pk %}" class="fs-4 text-gray-800 text-hover-primary fw-bold">{{customer.case_no}}</a>
+            <div  class="fs-4 text-hover-primary fw-bold mb-4">{{customer.full_name}}</div>
             <!--end::Name-->
             <!--begin::Position-->
             <div class="d-flex flex-column fw-semibold bg-body border  mb-4 gap-2 w-100 p-2 border-2 rounded ">
               <div>
-                Phone: {{customer.phone}}
+                Phone: {{customer.movile}}
               </div>
               <div>
                 Email: {{customer.email}}
               </div>
               <div>
-                Emergency Contact Name: John Doe
+                Emergency Contact Name: {{customer.emergency_contact_person}}
               </div>
               <div>
-                Emergency Contact Phone: 1234567890
+                Emergency Contact Phone: {{customer.emergency_contact_phone_number}}
               </div>
               <div>
                 In process: 
+                {% if customer.in_active %}
                 <span class="badge badge-light-success">Yes</span>
+                {% else %}
+                <span class="badge badge-light-danger">No</span>
+                {% endif %}
               </div>
               <div>
-                Diagnosis: 
-                <span class="badge badge-light-success">Sleep disorders</span>
+                Diagnostic: 
+                <span class="badge badge-light-danger">{{customer.diagnostic.code}}</span>
               </div>
             </div>
             <!--end::Position-->
@@ -57,7 +61,7 @@
         </div>
         <!--begin::Card-->
       </div>
-      <!--end::Col-->
+    <!--end::Col-->
     {% endfor %}
     <!--end::Customers-->
   </div>

@@ -1,0 +1,289 @@
+{% load static %}
+<div class="d-flex flex-wrap flex-sm-nowrap ">
+    <!--begin: Pic-->
+    
+    <!--end::Pic-->
+    <!--begin::Info-->
+    <div class="flex-grow-1">
+        <form  method="POST" id="kt_account_profile_details_form" class="form ">
+            {% csrf_token %}
+            <!--begin::Card body-->
+            <div class="card-body border-top p-3">
+                
+                <!--begin::Input group-->
+                <div class="row ">
+                    <h2 class="mt-4">Personal Info</h2>
+                            <div class="col-sm-6 col-md-4 fv-row mb-3">
+                                <label class=" col-form-label required fw-semibold fs-6">Case No.</label>
+                                <input required type="text" name="case_no" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Case .No"  />
+                            </div>
+                
+                            <div class="col-sm-6 col-md-4 fv-row mb-3">
+                                <label class=" col-form-label required fw-semibold fs-6">Email</label>
+                                <input required type="text" name="email" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Email" />
+                            </div>
+                
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    
+                        <div class="col-sm-6 col-md-4 fv-row mb-3">
+                            <label class=" col-form-label required fw-semibold fs-6">First Name</label>
+                            <input required type="text" name="first_name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="First name"  />
+                        </div>
+            
+                        <div class="col-sm-6 col-md-4 fv-row mb-3">
+                            <label class=" col-form-label required fw-semibold fs-6">Last Name</label>
+                            <input required type="text" name="last_name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Last name"  />
+                        </div>
+                
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    
+                        <div class="col-sm-6 col-md-4 fv-row mb-3">
+                            <label class=" col-form-label  fw-semibold fs-6">Contact No.</label>
+                            <input type="text" name="contact_no"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Contact No."  />
+                        </div>
+
+                        <div class="col-sm-6 col-md-4 fv-row mb-3">
+                            <label class=" col-form-label required fw-semibold fs-6">Movile</label>
+                            <input required type="text" name="movile"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Movile"  />
+                        </div>
+
+                        <div class="col-sm-6 col-md-4 fv-row mb-3">
+                            <label class=" col-form-label  fw-semibold fs-6">Home Phone</label>
+                            <input  type="text" name="home_phone"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Home Phone"  />
+                        </div>
+
+                        <div class="col-sm-6 col-md-4 fv-row mb-3">
+                            <label class=" col-form-label required fw-semibold fs-6">Address</label>
+                            <input required type="text" name="address"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Address"  />
+                        </div>
+                
+                    <!--end::Input group-->
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    
+                    <div class="col-sm-6 col-md-4 fv-row mb-3">
+                        <label class=" col-form-label required fw-semibold fs-6">City</label>
+                        <input required type="text" name="city"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="City"  />
+                    </div>
+        
+                    <div class="col-sm-6 col-md-4 fv-row mb-3">
+                        <label class=" col-form-label required fw-semibold fs-6">State</label>
+                        <input required type="text" name="state"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="State"  />
+                    </div>
+                    
+                    <div class="col-sm-6 col-md-4 fv-row mb-3">
+                        <label class=" col-form-label required fw-semibold fs-6">Zip</label>
+                        <input required type="text" name="zip"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Zip"  />
+                    </div>
+                    <div class="col-sm-6 col-md-4 fv-row mb-3">
+                        <label class=" col-form-label required fw-semibold fs-6">Birth Date:</label>
+                        <input required type="date" name="dob"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"   />
+                    </div>
+
+                    <div class="col-sm-6 col-md-4 fv-row mb-3">
+                        <label class=" col-form-label required fw-semibold fs-6">SSN:</label>
+                        <input required type="text" name="ssn"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"  placeholder="SSN" />
+                    </div>
+
+                    <div class="col-sm-6 col-md-4 fv-row mb-3">
+                        <label class=" col-form-label  fw-semibold fs-6">MMA:</label>
+                        <input  type="text" name="mma"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"  placeholder="MMA" />
+                    </div>
+
+                    <div class="col-sm-6 col-md-4 fv-row mb-3">
+                        <label class=" col-form-label required fw-semibold fs-6">Medicaid No.:</label>
+                        <input required type="text" name="medicaid_no"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"  placeholder="Medicaid No." />
+                    </div>
+
+                    <div class="col-sm-6 col-md-4 fv-row mb-3">
+                        <label class=" col-form-label  fw-semibold fs-6">Medicare No:</label>
+                        <input  type="text" name="medicare_no"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"  placeholder="Medicare No" />
+                    </div>
+
+                    <div class="col-sm-6 col-md-4 fv-row mb-3">
+                        <label class=" col-form-label  fw-semibold fs-6">School (child):</label>
+                        <input  type="text" name="school"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"  placeholder="School" />
+                    </div>
+                    <div class="col-sm-6 col-md-4 fv-row mb-3">
+                        <label class=" col-form-label  fw-semibold fs-6">Grade (child):</label>
+                        <input  type="text" name="grade"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"  placeholder="Grade" />
+                    </div>
+
+                    <!--end::Input group-->
+                    <div class="col-sm-6 col-md-4 mb-3">
+                            
+                        <label class="col-form-label required fw-semibold fs-6">Gerder:</label>
+
+                        <select required name="gerder" required aria-label="Select a gerder" data-control="select2" data-placeholder="Select a gerder..." class="form-select form-select-solid form-select-lg fw-semibold">
+                    
+                            <option value="M" selected >Male</option>
+                            <option value="F" >Famale</option>
+                            
+                        </select>
+                    
+                    </div>
+                
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        
+                        <label class="col-form-label required fw-semibold fs-6">Race:</label>
+
+                        <select required name="race" required aria-label="Select a race" data-control="select2" data-placeholder="Select a race..." class="form-select form-select-solid form-select-lg fw-semibold">
+                    
+                            <option value="w" selected >White</option>
+                            <option value="AAB" >African American Black</option>
+                            <option value="API"  >Asian or Other Pacific Islander</option>
+                            <option value="AIAN" >American Indian-Alaskan Native</option>
+                            <option value="O"  >Other</option>
+                            
+                        </select>
+                    
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        
+                        <label class="col-form-label required fw-semibold fs-6">Ethnicity:</label>
+
+                        <select required name="ethnicity" required aria-label="Select a ethnicity" data-control="select2" data-placeholder="Select a race..." class="form-select form-select-solid form-select-lg fw-semibold">
+                    
+                            <option value="H" selected >Hispanic-latino</option>
+                            <option value="NH" >Non-Hispanic</option>
+                            <option value="O"  >Other</option>
+                            
+                        </select>
+                    
+                    </div>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    <div class="col-sm-6 col-md-4 mb-3">
+                    
+                        <label class="col-form-label required fw-semibold fs-6">Insurance:</label>
+        
+                        <select required name="insurance" required aria-label="Select a insurance" data-control="select2" data-placeholder="Select a insurance..." class="form-select form-select-solid form-select-lg fw-semibold">
+                            <option >Select a insurance...</option>
+                            {% for insurance in insurances %}
+                                <option value="{{insurance.pk}}" >{{insurance.name}}</option>
+                            {% endfor %}
+                        </select>
+                    
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                    
+                        <label class="col-form-label required fw-semibold fs-6">Principal Diagnostic:</label>
+        
+                        <select required name="diagnostic"  aria-label="Select a diagnostic" data-control="select2" data-placeholder="Select a diagnostic..." class="form-select form-select-solid form-select-lg fw-semibold">
+                            <option >Select a diagnostic...</option>
+                            {% for diagnostic in diagnostics %}
+                                <option value="{{diagnostic.pk}}" >{{diagnostic.code}}</option>
+                            {% endfor %}
+                        </select>
+                    
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                    
+                        <label class="col-form-label  fw-semibold fs-6">Diagnostic Two:</label>
+        
+                        <select  name="diagnostic_two"  aria-label="Select a diagnostic" data-control="select2" data-placeholder="Select a diagnostic..." class="form-select form-select-solid form-select-lg fw-semibold">
+                            <option >Select a diagnostic...</option>
+                            {% for diagnostic in diagnostics %}
+                                <option value="{{diagnostic.pk}}" >{{diagnostic.code}}</option>
+                            {% endfor %}
+                        </select>
+                    
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                    
+                        <label class="col-form-label  fw-semibold fs-6">Diagnostic Three:</label>
+        
+                        <select  name="diagnostic_three"  aria-label="Select a diagnostic" data-control="select2" data-placeholder="Select a diagnostic..." class="form-select form-select-solid form-select-lg fw-semibold">
+                            <option >Select a diagnostic...</option>
+                            {% for diagnostic in diagnostics %}
+                                <option value="{{diagnostic.pk}}" >{{diagnostic.code}}</option>
+                            {% endfor %}
+                        </select>
+                    
+                    </div>
+                
+               
+                </div>
+
+                <div class="separator border-gray-200 mt-4"></div>
+
+                    <div class="row ">
+                        <h2 class="mt-4">Legal Contact</h2>
+                        
+                            <div class="col-sm-6 col-md-4 fv-row mb-3">
+                                <label class=" col-form-label fw-semibold fs-6">Name</label>
+                                <input type="text" name="legal_guardian_full_name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Name"  />
+                            </div>
+                            <div class="col-sm-6 col-md-4 fv-row mb-3">
+                                <label class=" col-form-label fw-semibold fs-6">Relationship</label>
+                                <input type="text" name="legal_guardian_relationship" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Relationship"  />
+                            </div>
+                
+                            <div class="col-sm-6 col-md-4 fv-row mb-3">
+                                <label class=" col-form-label fw-semibold fs-6">Phone</label>
+                                <input type="text" name="legal_guardian_phone_number"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Phone"  />
+                            </div>
+
+
+                            <div class="col-sm-6 col-md-4 fv-row mb-3">
+                                <label class=" col-form-label fw-semibold fs-6">Address</label>
+                                <input type="text" name="legal_guardian_address"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Address"  />
+                            </div>
+                    
+                        
+                            <div class="col-sm-6 col-md-4 fv-row mb-3">
+                                <label class=" col-form-label fw-semibold fs-6">City</label>
+                                <input type="text" name="legal_guardian_city"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="City"  />
+                            </div>
+
+                            <div class="col-sm-6 col-md-4 fv-row mb-3">
+                                <label class=" col-form-label fw-semibold fs-6">State</label>
+                                <input type="text" name="legal_guardian_state"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="State"  />
+                            </div>
+                            
+                            <div class="col-sm-6 col-md-4 fv-row mb-3">
+                                <label class=" col-form-label fw-semibold fs-6">Zip</label>
+                                <input type="text" name="legal_guardian_zip"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Zip"  />
+                            </div>
+                            
+                        
+                        
+                    
+                
+                    </div>
+                    <div class="separator border-gray-200 mt-4"></div>
+                    <div class="row ">
+                        <h2 class="mt-4">Emergency Contact</h2>
+                        
+                            <div class="col-sm-6 col-md-4 fv-row mb-3">
+                                <label class=" col-form-label required fw-semibold fs-6">Name</label>
+                                <input required type="text" name="emergency_contact_person" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Name"  />
+                            </div>
+                            <div class="col-sm-6 col-md-4 fv-row mb-3">
+                                <label class=" col-form-label required fw-semibold fs-6">Relationship</label>
+                                <input required type="text" name="emergency_contact_relationship" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Relationship"  />
+                            </div>
+                
+                            <div class="col-sm-6 col-md-4 fv-row mb-3">
+                                <label class=" col-form-label required fw-semibold fs-6">Phone</label>
+                                <input required type="text" name="emergency_contact_phone_number"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Phone"  />
+                            </div>
+
+                    </div>
+            
+            </div>
+            
+            
+            <!--end::Card body-->
+            <!--begin::Actions-->
+            <div class="card-footer d-flex gap-3 justify-content-end py-6 px-3">
+                <button type="submit" class="btn btn-primary btn-sm" id="kt_account_profile_details_submit">Create and add another</button>
+                <button type="submit" class="btn btn-primary btn-sm" id="kt_account_profile_details_submit">Create</button>
+            </div>
+            <!--end::Actions-->
+        </form>
+    </div>
+    <!--end::Info-->
+</div>
