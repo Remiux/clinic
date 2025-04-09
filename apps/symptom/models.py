@@ -45,8 +45,9 @@ class EncryptedFile(models.Model):
     def __str__(self):
         return f"{self.file.name} - {self.uploaded_by.username}"
 
-class Client(models.Model):
+class Customer(models.Model):
     name = models.CharField(max_length=255)
+    phone = models.IntegerField(max_length=10, unique=True, null=True, blank=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
@@ -56,11 +57,11 @@ class Client(models.Model):
     def save(self, *args, **kwargs):
         if not self.code:
             self.code = uuid.uuid4().hex[:12].upper()  # Genera un código alfanumérico de 12 caracteres
-        super(Client, self).save(*args, **kwargs)
+        super(Customer, self).save(*args, **kwargs)
 
     class Meta:
-        verbose_name = "Client"
-        verbose_name_plural = "Clients"
+        verbose_name = "Customer"
+        verbose_name_plural = "Customers"
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

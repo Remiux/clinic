@@ -14,12 +14,12 @@
                 <div class="row ">
                             <div class="col-sm-6 fv-row mb-6">
                                 <label class="col-lg-4 col-form-label required fw-semibold fs-6">Code</label>
-                                <input type="text" name="code" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Code" value="{{form.username.value}}" />
+                                <input type="text" name="code" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Code" value="{{ customer.code }}" />
                             </div>
                 
                             <div class="col-sm-6 fv-row mb-6">
                                 <label class="col-lg-4 col-form-label required fw-semibold fs-6">Email</label>
-                                <input type="email" name="email" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Email" value="{{form.email.value}}" />
+                                <input type="email" name="email" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Email" value="{{ customer.email }}" />
                             </div>
                 </div>
                 <!--end::Input group-->
@@ -27,12 +27,12 @@
                 <div class="row ">
                     <div class="col-sm-6 fv-row mb-6">
                         <label class="col-lg-4 col-form-label required fw-semibold fs-6">First Name</label>
-                        <input type="text" name="first_name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="First name" value="{% if user.first_name %}{{form.first_name.value}}{% endif %}" />
+                        <input type="text" name="first_name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="First name" value="{{ customer.first_name }}" />
                     </div>
         
                     <div class="col-sm-6 fv-row mb-6">
                         <label class="col-lg-4 col-form-label required fw-semibold fs-6">Last Name</label>
-                        <input type="text" name="last_name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Last name" value="{% if user.last_name %}{{form.last_name.value}}{% endif %}" />
+                        <input type="text" name="last_name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Last name" value="{{ customer.last_name }}" />
                     </div>
                 </div>
                 <!--end::Input group-->
@@ -40,12 +40,12 @@
                 <div class="row ">
                     <div class="col-sm-6 fv-row mb-6">
                         <label class="col-lg-4 col-form-label required fw-semibold fs-6">Phone number</label>
-                        <input type="text" name="phone_number"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Phone number" value="{% if user.phone_number %}{{form.phone_number.value}}{% endif %}" />
+                        <input type="text" name="phone_number" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Phone number" value="{{ customer.phone }}" />
                     </div>
         
                     <div class="col-sm-6 fv-row mb-6">
                         <label class="col-lg-4 col-form-label required fw-semibold fs-6">Address</label>
-                        <input type="text" name="address"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Address" value="{% if user.phone_number %}{{form.phone_number.value}}{% endif %}" />
+                        <input type="text" name="address" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Address" value="{{ customer.address }}" />
                     </div>
                 </div>
                 <!--end::Input group-->

@@ -31,7 +31,7 @@ def upload_file(request):
             return redirect('list_files')
     else:
         form = FileUploadForm()
-    return render(request, 'pages/cryptography/upload_file.html', {'form': form})
+    return render(request, 'pages/customers/actions/components/customerFileList.html', {'form': form})
 
 @login_required
 def list_files(request):
