@@ -11,11 +11,7 @@ from apps.symptom.models import EncryptedFile
 # Create your views here.
 @login_required(login_url='/login')
 def customers_view(request):
-    customers = Customer.objects.all()
-    files = EncryptedFile.objects.filter(belongs_to=request.user)
-    context = {'customers': customers, 'files': files}
-    filtered_context = _show_customers_filter(request)
-    context.update(filtered_context)
+    context = _show_customers_filter(request)
     context['diagnostics'] = Diagnostic.objects.all()
     return render(request,'pages/customers/index.html',context)
 
