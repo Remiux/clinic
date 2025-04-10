@@ -8,6 +8,8 @@ from apps.symptom.models import Customer
 from django.contrib.auth import get_user_model
 from apps.symptom.models import EncryptedFile
 from apps.symptom.form import FileUploadForm
+from django.contrib import messages
+from django.shortcuts import redirect
 
 # Create your views here.
 @login_required(login_url='/login')
@@ -49,7 +51,7 @@ def detail_customer_view(request, pk):
     customer = get_object_or_404(Customer, pk=pk)
     files = EncryptedFile.objects.filter(belongs_to=customer)
 
-    if request.method == 'POST':
+    if request.method == 'POST' :
         form = FileUploadForm(request.POST, request.FILES)
         if form.is_valid():
             file = form.cleaned_data['file']
@@ -71,6 +73,118 @@ def detail_customer_view(request, pk):
 
     context = {'customer': customer, 'files': files, 'form': form}
     return render(request, 'pages/customers/actions/detail/customerDetail.html', context)
+
+
+@login_required(login_url='/login')
+def upload_file(request, pk):
+    # Obtener el cliente asociado
+    customer = get_object_or_404(Customer, pk=pk)
+    files = EncryptedFile.objects.filter(belongs_to=customer)
+
+    if request.method == 'POST':
+        form = FileUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            # Guardar el archivo y los datos relacionados
+            file = form.cleaned_data['file']
+            file_type = form.cleaned_data['file_type']
+            process_start_date = form.cleaned_data['process_start_date']
+
+            EncryptedFile.objects.create(
+                file=file,
+                file_type=file_type,
+                uploaded_by=request.user,
+                belongs_to=customer,
+                process_start_date=process_start_date
+            )
+
+            # Manejo de solicitudes HTMX
+            if request.headers.get('HX-Request'):
+                context = {'files': EncryptedFile.objects.filter(belongs_to=customer)}
+                return render(request, 'pages/customers/actions/components/partials/files.html', context)
+
+            # Redirigir si no es HTMX
+            messages.success(request, 'Archivo subido exitosamente.')
+            return redirect('detail_customer_view', pk=pk)
+        else:
+            # Manejo de errores del formulario
+            messages.error(request, 'Por favor corrige los errores en el formulario.')
+            if request.headers.get('HX-Request'):
+                context = {'customer': customer, 'files': files, 'form': form}
+                return render(request, 'pages/customers/actions/components/partials/files.html', context)
+
+            
+
+    else:
+        form = FileUploadForm(initial={'belongs_to': customer})
+
+    # Renderizar la página completa si no es una solicitud POST
+    context = {'customer': customer, 'files': files, 'form': form}
+    return render(request, 'pages/customers/actions/detail/customerDetail.html', context)
+
+# @login_required(login_url='/login')
+# def upload_file(request, pk):
+#     User = get_user_model()
+#     customer = get_object_or_404(Customer, pk=pk)
+#     files = EncryptedFile.objects.filter(belongs_to=customer)
+
+#     if request.method == 'POST':
+#         form = FileUploadForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             file = form.cleaned_data['file']
+#             file_type = form.cleaned_data['file_type']
+#             process_start_date = form.cleaned_data['process_start_date']
+#             EncryptedFile.objects.create(
+#                 file=file,
+#                 file_type=file_type,
+#                 uploaded_by=request.user,
+#                 belongs_to=customer,
+#                 process_start_date=process_start_date
+#             )
+#             print('is valid')
+#             context = {'customer': customer, 'files': files, 'form': form}
+#             return render(request, 'pages/customers/actions/components/partials/files.html', context)
+#         else:
+#             # Si el formulario no es válido, mostrar errores
+#             print('not valid')
+#             context = {'customer': customer, 'files': files, 'form': form}
+#             return render(request, 'pages/customers/actions/detail/customerDetail.html', context)
+#     else:
+#         form = FileUploadForm(initial={'belongs_to': customer})
+
+    # context = {'customer': customer, 'files': files, 'form': form}
+    # return render(request, 'pages/customers/actions/detail/customerDetail.html', context)
+
+
+# def upload_file(request, pk):
+#     User = get_user_model()
+#     customer = get_object_or_404(Customer, pk=pk)
+#     files = EncryptedFile.objects.filter(belongs_to=customer)
+#     if request.method == 'POST':
+#         form = FileUploadForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             file = form.cleaned_data['file']
+#             file_type = form.cleaned_data['file_type']
+#             process_start_date = form.cleaned_data['process_start_date']
+#             EncryptedFile.objects.create(
+#                 file=file,
+#                 file_type=file_type,
+#                 uploaded_by=request.user,
+#                 belongs_to=customer,
+#                 process_start_date=process_start_date
+#             )
+#             print('File uploaded successfully')
+#             messages.success(request, 'Tu perfil ha sido actualizado con éxito.')
+#             if request.headers.get('HX-Request'):
+#                 print('HTMX')
+#                 context = {'files': EncryptedFile.objects.filter(belongs_to=customer)}
+#                 return render(request, 'pages/customers/actions/components/partials/files.html', context)
+#         else:
+#             messages.error(request, 'Por favor corrige los errores a continuación.')
+#             print('Im in')
+#             context = {'customer': customer, 'files': files, 'form': form}
+#             if request.headers.get('HX-Request'):
+#                 return render(request, 'pages/customers/actions/components/partials/files.html', context)
+                
 
 @login_required(login_url='/login')
 def sign_customer_view(request, pk):
