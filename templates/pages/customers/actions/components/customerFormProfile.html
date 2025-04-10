@@ -5,78 +5,401 @@
     <!--end::Pic-->
     <!--begin::Info-->
     <div class="flex-grow-1">
-        <form  method="POST" id="kt_account_profile_details_form" class="form">
-            {% csrf_token %}
-            <!--begin::Card body-->
-            <div class="card-body border-top p-9">
-                
-                <!--begin::Input group-->
-                <div class="row ">
-                            <div class="col-sm-6 fv-row mb-6">
-                                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Code</label>
-                                <input type="text" name="code" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Code" value="{{ customer.case_no }}" />
+       
+            <div class=" p-5">
+                <h2>Personal Info</h2>
+                <div class="row mb-7">
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Case No</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.case_no}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Full Name</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.first_name}} {{customer.last_name}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Email</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.email}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Contact No</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.contact_no}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Movile</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.movile}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Home Phone</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{% if customer.home_phone %}{{customer.home_phone}}{% else %}-{% endif %}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Birth Date</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.dob}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Age</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.years_old}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">SSN</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.ssn}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    
+                    {% if customer.school %}
+                        <div class="col-sm-6 col-md-4 mb-7">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 fw-semibold text-muted">School (child)</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8">
+                                <span class="fw-bold fs-6 text-gray-800">{{customer.school}}</span>
                             </div>
-                
-                            <div class="col-sm-6 fv-row mb-6">
-                                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Email</label>
-                                <input type="email" name="email" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Email" value="{{ customer.email }}" />
+                            <!--end::Col-->
+                        </div>
+                    {% endif %}
+                    {% if customer.grade %}
+                        <div class="col-sm-6 col-md-4 mb-7">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 fw-semibold text-muted">Grade (child)</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8">
+                                <span class="fw-bold fs-6 text-gray-800">{{customer.grade}}</span>
                             </div>
-                </div>
-                <!--end::Input group-->
-                <!--begin::Input group-->
-                <div class="row ">
-                    <div class="col-sm-6 fv-row mb-6">
-                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">First Name</label>
-                        <input type="text" name="first_name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="First name" value="{{ customer.first_name }}" />
+                            <!--end::Col-->
+                        </div>
+                    {% endif %}
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Gerder</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.get_gerder_display}}</span>
+                        </div>
+                        <!--end::Col-->
                     </div>
-        
-                    <div class="col-sm-6 fv-row mb-6">
-                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">Last Name</label>
-                        <input type="text" name="last_name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Last name" value="{{ customer.last_name }}" />
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Race</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.get_race_display}}</span>
+                        </div>
+                        <!--end::Col-->
                     </div>
-                </div>
-                <!--end::Input group-->
-                <!--begin::Input group-->
-                <div class="row ">
-                    <div class="col-sm-6 fv-row mb-6">
-                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">Phone number</label>
-                        <input type="text" name="phone_number" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Phone number" value="{{ customer.contact_no }}" />
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Ethnicity</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.get_ethnicity_display}}</span>
+                        </div>
+                        <!--end::Col-->
                     </div>
-        
-                    <div class="col-sm-6 fv-row mb-6">
-                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">Address</label>
-                        <input type="text" name="address" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Address" value="{{ customer.address }}" />
+                    
+                    
+                </div>
+                <div class="separator border-gray-200 mb-8"></div>
+                <h2>Address Info</h2>
+                <div class="row mb-7">
+                    
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Address</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.address}}</span>
+                        </div>
+                        <!--end::Col-->
                     </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">City</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.city}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">State</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.state}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">ZIP</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.zip}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    
                 </div>
-                <!--end::Input group-->
-                <!--end::Input group-->
-                
-                
-                <!--begin::Input group-->
-               <!--begin::Input group-->
-               <div class="row ">
-                <!--begin::Label-->
-               
-                <!--end::Label-->
-                <!--begin::Col-->
-                <div class="col-sm-6 mb-6">
-                   
-                        <c-input_select 
-                        selectDefault="Insurence" 
-                        name="groups"
-                        required="required" 
-                        textHelp="Select insurence by user" 
-                        error=""
-                        item_select="{{user.groups.all.0}}"
-                        >
-                            {{items}}
-                        </c-input_select>
-                   
+                <div class="separator border-gray-200 mb-8"></div>
+                <h2>Insure Info</h2>
+                <div class="row mb-7">
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Insurance</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.insurance.name}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">MMA</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{% if customer.mma %}{{customer.mma}}{% else %}-{% endif %}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Medicaid No</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.medicaid_no}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Medicare No</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{% if customer.medicare_no %}{{customer.medicare_no}}{% else %}-{% endif %}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    
                 </div>
-                <!--end::Col-->
-               
-            </div>
-            
+                <div class="separator border-gray-200 mb-8"></div>
+                <h2>Diagnostics Info</h2>
+                <div class="row mb-7">
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Principal Diagnostic</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.insurance.name}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    {% if customer.diagnostic_two %}
+                        <div class="col-sm-6 col-md-4 mb-7">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 fw-semibold text-muted">Diagnostic Two</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8">
+                                <span class="fw-bold fs-6 text-gray-800">{{customer.diagnostic_two.name}}</span>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                    {% endif %}
+                    {% if customer.diagnostic_three %}
+                        <div class="col-sm-6 col-md-4 mb-7">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 fw-semibold text-muted">Diagnostic Three</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8">
+                                <span class="fw-bold fs-6 text-gray-800">{{customer.diagnostic_three.name}}</span>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                    {% endif %}
+                    
+                </div>
+                <div class="separator border-gray-200 mb-8"></div>
+                <h2>Legal Contact</h2>
+                <div class="row mb-7">
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Name</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{% if customer.legal_guardian_full_name %}{{customer.legal_guardian_full_name}}{% else %}-{% endif %}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Relationship</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{% if customer.legal_guardian_relationship %}{{customer.legal_guardian_relationship}}{% else %}-{% endif %}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Phone</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{% if customer.legal_guardian_phone_number %}{{customer.legal_guardian_phone_number}}{% else %}-{% endif %}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Address</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{% if customer.legal_guardian_address %}{{customer.legal_guardian_address}}{% else %}-{% endif %}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">City</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{% if customer.legal_guardian_city %}{{customer.legal_guardian_city}}{% else %}-{% endif %}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">State</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{% if customer.legal_guardian_state %}{{customer.legal_guardian_state}}{% else %}-{% endif %}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">ZIP</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{% if customer.legal_guardian_zip %}{{customer.legal_guardian_zip}}{% else %}-{% endif %}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    
+                </div>
+                <div class="separator border-gray-200 mb-8"></div>
+                <h2>Emergency Contact</h2>
+                <div class="row mb-7">
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Name</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{% if customer.emergency_contact_person %}{{customer.emergency_contact_person}}{% else %}-{% endif %}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Relationship</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{% if customer.emergency_contact_relationship %}{{customer.emergency_contact_relationship}}{% else %}-{% endif %}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Phone</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{% if customer.emergency_contact_phone_number %}{{customer.emergency_contact_phone_number}}{% else %}-{% endif %}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    
+                    
+                    
+                </div>
             </div>
             <!--end::Card body-->
             <!--begin::Actions-->
@@ -84,10 +407,9 @@
                 <a href="{% url 'sign_customer_view' pk=1 %}" type="submit" class="btn btn-light btn-sm" id="kt_account_profile_details_submit">
                     <i class=" bi-file-text-fill"></i> Sign
                 </a>
-                <button type="submit" class="btn btn-primary btn-sm" id="kt_account_profile_details_submit">Save Changes</button>
+                <a href="{% url "update_customer_view" pk=customer.pk %}" class="btn btn-primary btn-sm" id="kt_account_profile_details_submit">Update Data</a>
             </div>
-            <!--end::Actions-->
-        </form>
+      
     </div>
     <!--end::Info-->
 </div>

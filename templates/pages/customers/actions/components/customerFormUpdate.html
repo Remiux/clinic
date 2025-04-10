@@ -6,7 +6,7 @@
     <!--begin::Info-->
     
     <div class="flex-grow-1">
-        <form action="{% url 'create_customer_view' %}"  method="POST" id="kt_account_profile_details_form" class="form ">
+        <form action="{% url 'update_customer_view' pk=customer.pk %}"  method="POST" id="kt_account_profile_details_form" class="form ">
             {% csrf_token %}
             <!--begin::Card body-->
             {% if  message %}
@@ -112,8 +112,8 @@
 
                         
                     <div class="col-sm-6 col-md-4 fv-row mb-3">
-                        <label class=" col-form-label required fw-semibold fs-6">Birth Date</label>
-                        <input value="{% if form.dob.value %}{{form.dob.value}}{% endif %}" required type="date" name="dob"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"   />
+                        <label class=" col-form-label required fw-semibold fs-6">Birth Date {{form.dob.value}}</label>
+                        <input value="{% if form.dob.value %}{{form.dob.value|date:'Y-m-d'}}{% endif %}" required type="date" name="dob"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"   />
                         {% if form.dob.errors %}
                                     <div class="alert alert-danger mt-2 p-2" role="alert">
                                         {% for error in form.dob.errors %}
@@ -229,7 +229,6 @@
                 
                
                 </div>
-                <div class="separator border-gray-200 mt-4"></div>
                 <div class="row ">
                     <h2 class="mt-4">Address Info</h2>
                     
@@ -555,7 +554,7 @@
             <!--end::Card body-->
             <!--begin::Actions-->
             <div class="card-footer d-flex gap-3 justify-content-end py-6 px-3">
-                <button type="submit" class="btn btn-primary btn-sm" id="kt_account_profile_details_submit">Create</button>
+                <button type="submit" class="btn btn-primary btn-sm" id="kt_account_profile_details_submit">Save Changes</button>
             </div>
             <!--end::Actions-->
         </form>

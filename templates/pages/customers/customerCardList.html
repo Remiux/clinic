@@ -19,19 +19,19 @@
             <!--begin::Position-->
             <div class="d-flex flex-column fw-semibold bg-body border  mb-4 gap-2 w-100 p-2 border-2 rounded ">
               <div>
-                Phone: {{customer.movile}}
+                <i class="fs-4 bi-telephone-fill "></i> : {{customer.movile}}
               </div>
               <div>
-                Email: {{customer.email}}
+                <i class="fs-4 bi-envelope-at-fill "></i> : {{customer.email}}
               </div>
               <div>
-                Emergency Contact Name: {{customer.emergency_contact_person}}
+                <i class="fs-4 bi-person-circle"></i> Emergency : {{customer.emergency_contact_person}}
               </div>
               <div>
-                Emergency Contact Phone: {{customer.emergency_contact_phone_number}}
+                <i class="fs-4 bi-telephone-fill "></i> Emergency : {{customer.emergency_contact_phone_number}}
               </div>
               <div>
-                In process: 
+                <i class="fs-4 bi-person-lines-fill "></i> Progress : 
                 {% if customer.in_active %}
                 <span class="badge badge-light-success">Yes</span>
                 {% else %}
@@ -39,17 +39,21 @@
                 {% endif %}
               </div>
               <div>
-                Diagnostic: 
-                <span class="badge badge-light-danger">{{customer.diagnostic.code}}</span>
+                <i class="fs-4 bi-clipboard2-pulse-fill "></i> : <span class="badge badge-light-danger">{{customer.diagnostic.code}}</span>
               </div>
             </div>
             <!--end::Position-->
             
             <!--begin::Follow-->
             <div class="w-100 d-flex justify-content-end align-items-center gap-2">
-              
-                    <a
+              <a
                       href="{% url "detail_customer_view" pk=customer.pk %}" 
+                      class="badge badge-light-primary bi-eye btn btn-sm btn-outline-primary btn-flex btn-center fs-5 px-2"
+                      data-kt-menu-trigger="click"
+                      data-kt-menu-placement="bottom-end"
+                      ></a>
+                    <a
+                      href="{% url "update_customer_view" pk=customer.pk %}" 
                       class="badge badge-light-warning bi-pencil-square btn btn-sm btn-outline-warning btn-flex btn-center fs-5 px-2"
                       data-kt-menu-trigger="click"
                       data-kt-menu-placement="bottom-end"

@@ -54,3 +54,15 @@ class DiagnosticForm(forms.ModelForm):
     class Meta:
         model = Diagnostic
         fields = '__all__'
+
+class CustomerForm(forms.ModelForm):
+    
+    class Meta:
+        model = Customer
+        exclude = ['sign']
+        
+class CustomerSignForm(forms.ModelForm):
+    
+    class Meta:
+        model = Customer
+        fields = ['sign']

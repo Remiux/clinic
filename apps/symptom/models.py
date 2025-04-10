@@ -48,22 +48,22 @@ class Insurance(models.Model):
     
 
 class Customer(models.Model):
-    case_no = models.CharField(max_length=40, unique=True,default='FS0001')
-    first_name = models.CharField(max_length=255,default='John')
-    last_name = models.CharField(max_length=255,default='Doe')
-    email = models.EmailField(unique=True,default='example@gmail.com')
-    address = models.TextField(max_length=500,default='123 Main St, Springfield')
-    contact_no = models.CharField(max_length=20,default='1234567890')
+    case_no = models.CharField(max_length=40, unique=True)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    email = models.EmailField(unique=True)
+    address = models.TextField(max_length=500)
+    contact_no = models.CharField(max_length=20)
     home_phone = models.CharField(max_length=20, null=True, blank=True)
-    movile = models.CharField(max_length=20,default='1234567890')
-    city = models.CharField(max_length=50,default=' Springfield')
-    state = models.CharField(max_length=50,default='IL')
-    zip = models.CharField(max_length=50,default='62701')
-    dob = models.DateField(default=timezone.now)
+    movile = models.CharField(max_length=20)
+    city = models.CharField(max_length=50)
+    state = models.CharField(max_length=50)
+    zip = models.CharField(max_length=50)
+    dob = models.DateField()
     gerder = models.CharField(max_length=50, default='M', choices=[('M', 'MALE'), ('F', 'FAMALE')])
-    ssn = models.CharField(max_length=50, unique=True,default='1234567890')
+    ssn = models.CharField(max_length=50, unique=True)
     mma = models.CharField(max_length=50, null=True, blank=True)
-    medicaid_no = models.CharField(max_length=50, unique=True,default='1234567890')
+    medicaid_no = models.CharField(max_length=50, unique=True)
     medicare_no = models.CharField(max_length=50, null=True, blank=True)
     school = models.CharField(max_length=50, null=True, blank=True)
     grade = models.CharField(max_length=50, null=True, blank=True)
@@ -76,11 +76,12 @@ class Customer(models.Model):
     legal_guardian_city = models.CharField(max_length=80, null=True, blank=True)
     legal_guardian_state = models.CharField(max_length=80, null=True, blank=True)
     legal_guardian_zip = models.CharField(max_length=80, null=True, blank=True)
-    emergency_contact_person = models.CharField(max_length=80,default='John Doe')
-    emergency_contact_relationship = models.CharField(max_length=80,default='wife')
-    emergency_contact_phone_number = models.CharField(max_length=20,default='1234567890')
-    insurance = models.ForeignKey(Insurance, on_delete=models.CASCADE, related_name='insurances_client')
-    diagnostic = models.ForeignKey(Diagnostic, on_delete=models.CASCADE, related_name='diagnostic_client')
+    emergency_contact_person = models.CharField(max_length=80)
+    emergency_contact_relationship = models.CharField(max_length=80)
+    emergency_contact_phone_number = models.CharField(max_length=20)
+    sign = models.ImageField(upload_to='customer_sign',blank=True,null=True)
+    insurance = models.ForeignKey(Insurance, on_delete=models.CASCADE)
+    diagnostic = models.ForeignKey(Diagnostic, on_delete=models.CASCADE)
     diagnostic_two = models.ForeignKey(Diagnostic, on_delete=models.CASCADE,null=True,blank=True, related_name='diagnostic_two_client')
     diagnostic_three = models.ForeignKey(Diagnostic, on_delete=models.CASCADE,null=True,blank=True, related_name='diagnostic_three_client')
     
@@ -105,6 +106,15 @@ class Customer(models.Model):
     @property
     def in_active(self):
         return True
+    
+    @property
+    def years_old(self):
+        from datetime import date
+        today = date.today()
+        age = today.year - self.dob.year
+        if (today.month, today.day) < (self.dob.month, self.dob.day):
+            age -= 1
+        return age
 
 
 class EncryptedFile(models.Model):
