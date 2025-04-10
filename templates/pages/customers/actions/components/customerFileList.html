@@ -77,14 +77,11 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    {% comment %} <form action="{% url 'detail_customer_view' pk=customer.pk %}"  method="post" enctype="multipart/form-data"> {% endcomment %}
                                     <form hx-post="{% url 'upload_file' pk=customer.pk %}" 
                                     hx-target="#files-container" 
                                     hx-swap="outerHTML" 
                                     enctype="multipart/form-data" 
                                     method="post">
-                                        <!--  -->
-                                        <!-- hx-post="{% url 'upload_file' pk=customer.pk %}" hx-target="#files-container" hx-swap="outerHTML" -->
                                         {% csrf_token %}
                                         <input type="hidden" name="belongs_to" value="{{ customer.id }}">  <!-- Asociar al cliente actual -->
                                         

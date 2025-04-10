@@ -99,12 +99,10 @@ def upload_file(request, pk):
 
             # Manejo de solicitudes HTMX
             if request.headers.get('HX-Request'):
+                messages.success(request, 'Archivo subido exitosamente.')
                 context = {'files': EncryptedFile.objects.filter(belongs_to=customer)}
                 return render(request, 'pages/customers/actions/components/partials/files.html', context)
 
-            # Redirigir si no es HTMX
-            messages.success(request, 'Archivo subido exitosamente.')
-            return redirect('detail_customer_view', pk=pk)
         else:
             # Manejo de errores del formulario
             messages.error(request, 'Por favor corrige los errores en el formulario.')

@@ -2,11 +2,11 @@
         {% for message in messages%}
             <script>                
                 Swal.fire({
-                    position: "top-end",
+                    position: "top-center",
                     icon: '{% if "error" in message.tags %}error{% elif "success" in message.tags %}success{% elif "info" in message.tags %}info{% elif "warning" in message.tags %}warning{% else %}question{% endif %}',
                     title: "{{message}}",
                     showConfirmButton: false,
-                    timer: 2500
+                    timer: 3000
                 });
             </script>
         {% endfor %}
