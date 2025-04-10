@@ -1,0 +1,563 @@
+{% load static %}
+<div class="d-flex flex-wrap flex-sm-nowrap ">
+    <!--begin: Pic-->
+    
+    <!--end::Pic-->
+    <!--begin::Info-->
+    
+    <div class="flex-grow-1">
+        <form action="{% url 'update_customer_view' pk=customer.pk %}"  method="POST" id="kt_account_profile_details_form" class="form ">
+            {% csrf_token %}
+            <!--begin::Card body-->
+            {% if  message %}
+                <div class="alert alert-success " role="alert">
+                    {{ message }}
+                </div>
+            {% endif %}
+            
+            <div class="card-body border-top p-3">
+                
+                <!--begin::Input group-->
+                <div class="row ">
+                    <h2 class="mt-4">Personal Info</h2>
+                            <div class="col-sm-6 col-md-4 fv-row mb-3">
+                                <label class=" col-form-label required fw-semibold fs-6">Case No</label>
+                                <input required value="{% if form.case_no.value %}{{form.case_no.value}}{% endif %}" type="text" name="case_no" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Case .No"  />
+                                {% if form.case_no.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.case_no.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                
+                            <div class="col-sm-6 col-md-4 fv-row mb-3">
+                                <label class=" col-form-label required fw-semibold fs-6">Email</label>
+                                <input value="{% if form.email.value %}{{form.email.value}}{% endif %}" required type="email" name="email" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Email" />
+                                {% if form.email.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.email.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    
+                        <div class="col-sm-6 col-md-4 fv-row mb-3">
+                            <label class=" col-form-label required fw-semibold fs-6">First Name</label>
+                            <input value="{% if form.first_name.value %}{{form.first_name.value}}{% endif %}" required type="text" name="first_name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="First name"  />
+                            {% if form.first_name.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.first_name.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                        </div>
+            
+                        <div class="col-sm-6 col-md-4 fv-row mb-3">
+                            <label class=" col-form-label required fw-semibold fs-6">Last Name</label>
+                            <input value="{% if form.last_name.value %}{{form.last_name.value}}{% endif %}" required type="text" name="last_name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Last name"  />
+                            {% if form.last_name.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.last_name.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                        </div>
+                
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    
+                        <div class="col-sm-6 col-md-4 fv-row mb-3">
+                            <label class=" col-form-label  fw-semibold fs-6">Contact No</label>
+                            <input value="{% if form.contact_no.value %}{{form.contact_no.value}}{% endif %}" type="text" name="contact_no"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Contact No."  />
+                            {% if form.contact_no.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.contact_no.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                        </div>
+
+                        <div class="col-sm-6 col-md-4 fv-row mb-3">
+                            <label class=" col-form-label required fw-semibold fs-6">Movile</label>
+                            <input value="{% if form.movile.value %}{{form.movile.value}}{% endif %}" required type="text" name="movile"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Movile"  />
+                            {% if form.movile.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.movile.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                        </div>
+
+                        <div class="col-sm-6 col-md-4 fv-row mb-3">
+                            <label class=" col-form-label  fw-semibold fs-6">Home Phone</label>
+                            <input value="{% if form.home_phone.value %}{{form.home_phone.value}}{% endif %}"  type="text" name="home_phone"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Home Phone"  />
+                            {% if form.home_phone.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.home_phone.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                        </div>
+
+                        
+                    <div class="col-sm-6 col-md-4 fv-row mb-3">
+                        <label class=" col-form-label required fw-semibold fs-6">Birth Date {{form.dob.value}}</label>
+                        <input value="{% if form.dob.value %}{{form.dob.value|date:'Y-m-d'}}{% endif %}" required type="date" name="dob"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"   />
+                        {% if form.dob.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.dob.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                    </div>
+
+                    <div class="col-sm-6 col-md-4 fv-row mb-3">
+                        <label class=" col-form-label required fw-semibold fs-6">SSN</label>
+                        <input value="{% if form.ssn.value %}{{form.ssn.value}}{% endif %}" required type="text" name="ssn"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"  placeholder="SSN" />
+                        {% if form.ssn.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.ssn.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                    </div>
+
+                    
+
+                    <div class="col-sm-6 col-md-4 fv-row mb-3">
+                        <label class=" col-form-label  fw-semibold fs-6">School (child)</label>
+                        <input value="{% if form.school.value %}{{form.school.value}}{% endif %}" type="text" name="school"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"  placeholder="School" />
+                        {% if form.school.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.school.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                    </div>
+                    <div class="col-sm-6 col-md-4 fv-row mb-3">
+                        <label class=" col-form-label  fw-semibold fs-6">Grade (child)</label>
+                        <input value="{% if form.grade.value %}{{form.grade.value}}{% endif %}" type="text" name="grade"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"  placeholder="Grade" />
+                        {% if form.grade.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.grade.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                    </div>
+
+                    <!--end::Input group-->
+                    <div class="col-sm-6 col-md-4 mb-3">
+                            
+                        <label class="col-form-label required fw-semibold fs-6">Gerder</label>
+
+                        <select required name="gerder" required aria-label="Select a gerder" data-control="select2" data-placeholder="Select a gerder..." class="form-select form-select-solid form-select-lg fw-semibold">
+                    
+                            <option value="M" {% if form.gerder.value == 'M' %}selected{% endif %} >Male</option>
+                            <option value="F" {% if form.gerder.value == 'F' %}selected{% endif %} >Famale</option>
+                            
+                        </select>
+                        {% if form.gerder.errors %}
+                            <div class="alert alert-danger mt-2 p-2" role="alert">
+                                {% for error in form.gerder.errors %}
+                                {{ error }}
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        
+                        <label class="col-form-label required fw-semibold fs-6">Race</label>
+
+                        <select required name="race" required aria-label="Select a race" data-control="select2" data-placeholder="Select a race..." class="form-select form-select-solid form-select-lg fw-semibold">
+                    
+                            <option value="W" {% if form.race.value == 'H' %}selected{% endif %} >White</option>
+                            <option value="AAB" {% if form.race.value == 'AAB' %}selected{% endif %}>African American Black</option>
+                            <option value="API" {% if form.race.value == 'API' %}selected{% endif %} >Asian or Other Pacific Islander</option>
+                            <option value="AIAN" {% if form.race.value == 'AIAN' %}selected{% endif %} >American Indian-Alaskan Native</option>
+                            <option value="O" {% if form.race.value == 'O' %}selected{% endif %} >Other</option>
+                            
+                        </select>
+                        {% if form.race.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.race.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                        {% endif %}
+                    
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                        
+                        <label class="col-form-label required fw-semibold fs-6">Ethnicity</label>
+
+                        <select required name="ethnicity" required aria-label="Select a ethnicity" data-control="select2" data-placeholder="Select a race..." class="form-select form-select-solid form-select-lg fw-semibold">
+                    
+                            <option value="H" {% if form.ethnicity.value == 'H' %}selected{% endif %} >Hispanic-latino</option>
+                            <option value="NH" {% if form.ethnicity.value == 'NH' %}selected{% endif %} >Non-Hispanic</option>
+                            <option value="O" {% if form.ethnicity.value == 'O' %}selected{% endif %} >Other</option>
+                            
+                        </select>
+                        {% if form.ethnicity.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.ethnicity.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                        {% endif %}
+                    
+                    </div>
+                    <!--end::Label-->
+                    <!--begin::Col-->
+                    
+                    
+                
+               
+                </div>
+                <div class="row ">
+                    <h2 class="mt-4">Address Info</h2>
+                    
+                    <div class="col-sm-6 col-md-4 fv-row mb-3">
+                        <label class=" col-form-label required fw-semibold fs-6">Address</label>
+                        <input value="{% if form.address.value %}{{form.address.value}}{% endif %}" required type="text" name="address"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Address"  />
+                        {% if form.address.errors %}
+                                <div class="alert alert-danger mt-2 p-2" role="alert">
+                                    {% for error in form.address.errors %}
+                                    {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                    </div>
+            
+                    <!--end::Input group-->
+                    <!--end::Input group-->
+                    <!--begin::Input group-->
+                    
+                    <div class="col-sm-6 col-md-4 fv-row mb-3">
+                        <label class=" col-form-label required fw-semibold fs-6">City</label>
+                        <input value="{% if form.city.value %}{{form.city.value}}{% endif %}" required type="text" name="city"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="City"  />
+                        {% if form.city.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.city.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                    </div>
+        
+                    <div class="col-sm-6 col-md-4 fv-row mb-3">
+                        <label class=" col-form-label required fw-semibold fs-6">State</label>
+                        <input value="{% if form.state.value %}{{form.state.value}}{% endif %}" required type="text" name="state"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="State"  />
+                        {% if form.state.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.state.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                    </div>
+                    
+                    <div class="col-sm-6 col-md-4 fv-row mb-3">
+                        <label class=" col-form-label required fw-semibold fs-6">Zip</label>
+                        <input value="{% if form.zip.value %}{{form.zip.value}}{% endif %}" required type="text" name="zip"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Zip"  />
+                        {% if form.zip.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.zip.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                    </div>
+                            
+                        
+                    
+                
+            
+                </div>
+                <div class="separator border-gray-200 mt-4"></div>
+                <div class="row ">
+                    <h2 class="mt-4">Insure Info</h2>
+                    
+                    <div class="col-sm-6 col-md-4 mb-3">
+                    
+                        <label class="col-form-label required fw-semibold fs-6">Insurance</label>
+        
+                        <select required name="insurance" required aria-label="Select a insurance" data-control="select2" data-placeholder="Select a insurance..." class="form-select form-select-solid form-select-lg fw-semibold">
+                            
+                            {% for insurance in insurances %}
+                                <option value="{{insurance.pk}}" {% if form.insurance.value == insurance.pk %}selected{% endif %} >{{insurance.name}}</option>
+                            {% endfor %}
+                        </select>
+                        {% if form.insurance.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.insurance.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                        {% endif %}
+                    
+                    </div>
+                    <div class="col-sm-6 col-md-4 fv-row mb-3">
+                        <label class=" col-form-label  fw-semibold fs-6">MMA</label>
+                        <input value="{% if form.mma.value %}{{form.mma.value}}{% endif %}"  type="text" name="mma"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"  placeholder="MMA" />
+                        {% if form.mma.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.mma.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                    </div>
+
+                    <div class="col-sm-6 col-md-4 fv-row mb-3">
+                        <label class=" col-form-label required fw-semibold fs-6">Medicaid No</label>
+                        <input value="{% if form.medicaid_no.value %}{{form.medicaid_no.value}}{% endif %}" required type="text" name="medicaid_no"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"  placeholder="Medicaid No." />
+                        {% if form.medicaid_no.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.medicaid_no.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                    </div>
+
+                    <div class="col-sm-6 col-md-4 fv-row mb-3">
+                        <label class=" col-form-label  fw-semibold fs-6">Medicare No</label>
+                        <input value="{% if form.medicare_no.value %}{{form.medicare_no.value}}{% endif %}" type="text" name="medicare_no"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"  placeholder="Medicare No" />
+                        {% if form.medicare_no.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.medicare_no.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                    </div>
+                
+            
+                </div>
+                <div class="separator border-gray-200 mt-4"></div>
+                <div class="row ">
+                    <h2 class="mt-4">Diagnostics Info</h2>
+                    
+                    <div class="col-sm-6 col-md-4 mb-3">
+                    
+                        <label class="col-form-label required fw-semibold fs-6">Principal Diagnostic</label>
+        
+                        <select required name="diagnostic"  aria-label="Select a diagnostic" data-control="select2" data-placeholder="Select a diagnostic..." class="form-select form-select-solid form-select-lg fw-semibold">
+                           
+                            {% for diagnostic in diagnostics %}
+                                <option value="{{diagnostic.pk}}" {% if form.diagnostic.value|default:'' == diagnostic.pk|stringformat:'s' %}selected{% endif %} >{{diagnostic.code}} </option>
+                            {% endfor %}
+                        </select>
+                        {% if form.diagnostic.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.diagnostic.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                        {% endif %}
+                    
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                    
+                        <label class="col-form-label  fw-semibold fs-6">Diagnostic Two</label>
+        
+                        <select  name="diagnostic_two"  aria-label="Select a option" data-control="select2" class="form-select form-select-solid form-select-lg fw-semibold">
+                            <option value="" selected>Select a option...</option>
+                            {% for diagnostic in diagnostics %}
+                                <option value="{{diagnostic.pk}}" {% if form.diagnostic_two.value|default:'' == diagnostic.pk|stringformat:'s' %}selected{% endif %} >{{diagnostic.code}} </option>
+                            {% endfor %}
+                        </select>
+                        {% if form.diagnostic_two.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.diagnostic_two.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-3">
+                    
+                        <label class="col-form-label  fw-semibold fs-6">Diagnostic Three</label>
+        
+                        <select  name="diagnostic_three"  aria-label="Select  a option" data-control="select2" class="form-select form-select-solid form-select-lg fw-semibold">
+                            <option value="" selected>Select a option...</option>
+                            {% for diagnostic in diagnostics %}
+                                <option value="{{diagnostic.pk}}" {% if form.diagnostic_three.value|default:'' == diagnostic.pk|stringformat:'s' %}selected{% endif %} >{{diagnostic.code}} </option>
+                            {% endfor %}
+                        </select>
+                        {% if form.diagnostic_three.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.diagnostic_three.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                        {% endif %}
+                    </div>
+                
+            
+                </div>
+                <div class="separator border-gray-200 mt-4"></div>
+
+                    <div class="row ">
+                        <h2 class="mt-4">Legal Contact</h2>
+                        
+                            <div class="col-sm-6 col-md-4 fv-row mb-3">
+                                <label class=" col-form-label fw-semibold fs-6">Name</label>
+                                <input value="{% if form.legal_guardian_full_name.value %}{{form.legal_guardian_full_name.value}}{% endif %}" type="text" name="legal_guardian_full_name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Name"  />
+                                {% if form.legal_guardian_full_name.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.legal_guardian_full_name.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-sm-6 col-md-4 fv-row mb-3">
+                                <label class=" col-form-label fw-semibold fs-6">Relationship</label>
+                                <input value="{% if form.legal_guardian_relationship.value %}{{form.legal_guardian_relationship.value}}{% endif %}" type="text" name="legal_guardian_relationship" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Relationship"  />
+                                {% if form.legal_guardian_relationship.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.legal_guardian_relationship.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                
+                            <div class="col-sm-6 col-md-4 fv-row mb-3">
+                                <label class=" col-form-label fw-semibold fs-6">Phone</label>
+                                <input value="{% if form.legal_guardian_phone_number.value %}{{form.legal_guardian_phone_number.value}}{% endif %}" type="text" name="legal_guardian_phone_number"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Phone"  />
+                                {% if form.legal_guardian_phone_number.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.legal_guardian_phone_number.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+
+                            <div class="col-sm-6 col-md-4 fv-row mb-3">
+                                <label class=" col-form-label fw-semibold fs-6">Address</label>
+                                <input value="{% if form.legal_guardian_address.value %}{{form.legal_guardian_address.value}}{% endif %}" type="text" name="legal_guardian_address"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Address"  />
+                                {% if form.legal_guardian_address.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.legal_guardian_address.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                    
+                        
+                            <div class="col-sm-6 col-md-4 fv-row mb-3">
+                                <label class=" col-form-label fw-semibold fs-6">City</label>
+                                <input value="{% if form.legal_guardian_city.value %}{{form.legal_guardian_city.value}}{% endif %}" type="text" name="legal_guardian_city"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="City"  />
+                                {% if form.legal_guardian_city.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.legal_guardian_city.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="col-sm-6 col-md-4 fv-row mb-3">
+                                <label class=" col-form-label fw-semibold fs-6">State</label>
+                                <input value="{% if form.legal_guardian_state.value %}{{form.legal_guardian_state.value}}{% endif %}" type="text" name="legal_guardian_state"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="State"  />
+                                {% if form.legal_guardian_state.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.legal_guardian_state.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="col-sm-6 col-md-4 fv-row mb-3">
+                                <label class=" col-form-label fw-semibold fs-6">Zip</label>
+                                <input value="{% if form.legal_guardian_zip.value %}{{form.legal_guardian_zip.value}}{% endif %}" type="text" name="legal_guardian_zip"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Zip"  />
+                                {% if form.legal_guardian_zip.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.legal_guardian_zip.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                        
+                        
+                    
+                
+                    </div>
+                    <div class="separator border-gray-200 mt-4"></div>
+                    <div class="row ">
+                        <h2 class="mt-4">Emergency Contact</h2>
+                        
+                            <div class="col-sm-6 col-md-4 fv-row mb-3">
+                                <label class=" col-form-label required fw-semibold fs-6">Name</label>
+                                <input value="{% if form.emergency_contact_person.value %}{{form.emergency_contact_person.value}}{% endif %}" required type="text" name="emergency_contact_person" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Name"  />
+                                {% if form.emergency_contact_person.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.emergency_contact_person.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="col-sm-6 col-md-4 fv-row mb-3">
+                                <label class=" col-form-label required fw-semibold fs-6">Relationship</label>
+                                <input value="{% if form.emergency_contact_relationship.value %}{{form.emergency_contact_relationship.value}}{% endif %}" required type="text" name="emergency_contact_relationship" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Relationship"  />
+                                {% if form.emergency_contact_relationship.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.emergency_contact_relationship.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                
+                            <div class="col-sm-6 col-md-4 fv-row mb-3">
+                                <label class=" col-form-label required fw-semibold fs-6">Phone</label>
+                                <input value="{% if form.emergency_contact_phone_number.value %}{{form.emergency_contact_phone_number.value}}{% endif %}" required type="text" name="emergency_contact_phone_number"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Phone"  />
+                                {% if form.emergency_contact_phone_number.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.emergency_contact_phone_number.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                    </div>
+            
+            </div>
+            
+            
+            <!--end::Card body-->
+            <!--begin::Actions-->
+            <div class="card-footer d-flex gap-3 justify-content-end py-6 px-3">
+                <button type="submit" class="btn btn-primary btn-sm" id="kt_account_profile_details_submit">Save Changes</button>
+            </div>
+            <!--end::Actions-->
+        </form>
+    </div>
+    <!--end::Info-->
+</div>

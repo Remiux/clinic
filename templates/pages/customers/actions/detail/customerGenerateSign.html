@@ -1,17 +1,17 @@
 {% extends "base.html" %} {% load static %} 
-{% block title %}Customer Detail{%endblock title %} 
+{% block title %}Customers Sign{%endblock title %} 
 {% block content %}
 <div class="row g-6 pb-10">
     <div class="col-12 w-100 d-flex justify-content-between align-items-center">
         <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
             <!--begin::Title-->
-            <h1 class="page-heading d-flex text-gray-900 fw-bold fs-3 flex-column justify-content-center my-0">Customers Detail</h1>
+            <h1 class="page-heading d-flex text-gray-900 fw-bold fs-3 flex-column justify-content-center my-0">Customers Sign</h1>
             <!--end::Title-->
             <!--begin::Breadcrumb-->
             <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
                 <!--begin::Item-->
                 <li class="breadcrumb-item text-muted">
-                    <a href="{% url "customers_view" %}" class="text-muted text-hover-primary">Customers</a>
+                    <a href="{% url "detail_customer_view" pk=1 %}" class="text-muted text-hover-primary">Customer Detail</a>
                 </li>
                 <!--end::Item-->
                 <!--begin::Item-->
@@ -20,27 +20,21 @@
                 </li>
                 <!--end::Item-->
                 <!--begin::Item-->
-                <li class="breadcrumb-item text-muted">Customers Detail</li>
+                <li class="breadcrumb-item text-muted">Customers Sign</li>
                 <!--end::Item-->
             </ul>
             <!--end::Breadcrumb-->
         </div>
         
-    
+        
+        
     </div>
     <div class="col-12 ">
         <div id="customerProfile" class="container">
-            {% include "pages/customers/actions/components/customerProfile.html" %}
+            {% include "pages/customers/actions/components/customerFormSign.html" %}
         </div>
     </div>
-    <div class="col-12 ">
-        <div id="customerSection" class="container ">
-            <div class="tab-content" id="customerTabContent">
-                {% include "pages/customers/actions/components/customerProccessList.html" %}
-                {% include "pages/customers/actions/components/customerFileList.html" %}
-            </div>
-        </div>
-    </div>
+   
     
   
 </div>

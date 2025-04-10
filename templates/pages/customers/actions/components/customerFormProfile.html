@@ -5,179 +5,411 @@
     <!--end::Pic-->
     <!--begin::Info-->
     <div class="flex-grow-1">
-        <form  method="POST" id="kt_account_profile_details_form" class="form">
-            {% csrf_token %}
-            <!--begin::Card body-->
-            <div class="card-body border-top p-9">
-                
-                <!--begin::Input group-->
-                <div class="row ">
-                            <div class="col-sm-6 fv-row mb-6">
-                                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Code</label>
-                                <input type="text" name="code" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Code" value="{{form.username.value}}" />
+       
+            <div class=" p-5">
+                <h2>Personal Info</h2>
+                <div class="row mb-7">
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Case No</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.case_no}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Full Name</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.first_name}} {{customer.last_name}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Email</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.email}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Contact No</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.contact_no}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Movile</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.movile}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Home Phone</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{% if customer.home_phone %}{{customer.home_phone}}{% else %}-{% endif %}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Birth Date</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.dob}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Age</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.years_old}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">SSN</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.ssn}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    
+                    {% if customer.school %}
+                        <div class="col-sm-6 col-md-4 mb-7">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 fw-semibold text-muted">School (child)</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8">
+                                <span class="fw-bold fs-6 text-gray-800">{{customer.school}}</span>
                             </div>
-                
-                            <div class="col-sm-6 fv-row mb-6">
-                                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Email</label>
-                                <input type="email" name="email" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Email" value="{{form.email.value}}" />
+                            <!--end::Col-->
+                        </div>
+                    {% endif %}
+                    {% if customer.grade %}
+                        <div class="col-sm-6 col-md-4 mb-7">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 fw-semibold text-muted">Grade (child)</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8">
+                                <span class="fw-bold fs-6 text-gray-800">{{customer.grade}}</span>
                             </div>
-                </div>
-                <!--end::Input group-->
-                <!--begin::Input group-->
-                <div class="row ">
-                    <div class="col-sm-6 fv-row mb-6">
-                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">First Name</label>
-                        <input type="text" name="first_name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="First name" value="{% if user.first_name %}{{form.first_name.value}}{% endif %}" />
-                    </div>
-        
-                    <div class="col-sm-6 fv-row mb-6">
-                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">Last Name</label>
-                        <input type="text" name="last_name" class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Last name" value="{% if user.last_name %}{{form.last_name.value}}{% endif %}" />
-                    </div>
-                </div>
-                <!--end::Input group-->
-                <!--begin::Input group-->
-                <div class="row ">
-                    <div class="col-sm-6 fv-row mb-6">
-                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">Phone number</label>
-                        <input type="text" name="phone_number"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Phone number" value="{% if user.phone_number %}{{form.phone_number.value}}{% endif %}" />
-                    </div>
-        
-                    <div class="col-sm-6 fv-row mb-6">
-                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">Address</label>
-                        <input type="text" name="address"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" placeholder="Address" value="{% if user.phone_number %}{{form.phone_number.value}}{% endif %}" />
-                    </div>
-                </div>
-                <!--end::Input group-->
-                <!--end::Input group-->
-                
-                
-                <!--begin::Input group-->
-               <!--begin::Input group-->
-               <div class="row ">
-                <!--begin::Label-->
-               
-                <!--end::Label-->
-                <!--begin::Col-->
-                <div class="col-sm-6 mb-6">
-                    <!--begin::Image input-->
-                    <div>
-                        <label class="col-form-label fw-semibold fs-6">Sign</label>
-                    </div>
-                    
-                    <div class="image-input bg-light-primary image-input-outline" data-kt-image-input="true" style="background-image: url('{% if user.sign %}{{user.sign.url}}{% else %}{% static "assets/extra_media/misc/image.png" %}{% endif %})">
-                        <!--begin::Preview existing avatar-->
-                        <a href="{% static "assets/extra_media/misc/image.png" %}">
-                            <div  class="image-input-wrapper w-125px h-125px m-2 border-0" style="background-image: url({% static "assets/extra_media/misc/image.png" %})"></div>
-                        </a>
-                        
-                      
-                        <span class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel sign">
-                            <i class="ki-duotone ki-cross fs-2">
-                                <span class="path1"></span>
-                                <span class="path2"></span>
-                            </i>
-                        </span>
-                        <!--end::Cancel-->
-                        <!--begin::Remove-->
-                       
-                        <!--end::Remove-->
-                    </div>
-                    
-                    <!--end::Image input-->
-                    <!--begin::Hint-->
-                   
-                    <!--end::Hint-->
-                </div>
-                <!--end::Col-->
-                <div class="col-sm-6">
-                    <!--begin::Label-->
-                    
-                    <!--end::Label-->
-                    <!--begin::Col-->
-                    <div class="row mb-6">
-                        <!--begin::Label-->
-                        <!-- En tu template HTML -->
-                        <div id="signature-pad" >
-                            <canvas id="signature-canvas"  class="border w-200px h-200px border-body border-1 rounded bg-light-primary"></canvas>
-                            <input type="hidden" name="sign" id="signature-data">
+                            <!--end::Col-->
                         </div>
-                        <div>
-                            <button type='button' class="btn btn-danger btn-sm" id="clear-button">Clear</button>
-                            
+                    {% endif %}
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Gerder</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.get_gerder_display}}</span>
                         </div>
-                        <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
-                        <script>
-                            const canvas = document.getElementById('signature-canvas');
-                            const signaturePad = new SignaturePad(canvas);
-                            const form = document.getElementById('kt_account_profile_details_form');
-                            const signatureData = document.getElementById('signature-data');
-                            
-                            // Ajustar canvas para alta resolución
-                            function resizeCanvas() {
-                                const ratio = Math.max(window.devicePixelRatio || 1, 1);
-                                canvas.width = canvas.offsetWidth * ratio;
-                                canvas.height = canvas.offsetHeight * ratio;
-                                canvas.getContext('2d').scale(ratio, ratio);
-                                signaturePad.clear();
-                            }
-                            
-                            window.addEventListener('resize', resizeCanvas);
-                            resizeCanvas();
-                            
-                                                                    
-                            document.getElementById('clear-button').addEventListener('click', () => {
-                                signaturePad.clear();
-                            });
-                            
-                            // Antes de enviar el formulario, guardar la firma
-                            form.addEventListener('submit', function(e) {
-                                if (!signaturePad.isEmpty()) {
-                                    // Convertir a PNG y guardar en el campo oculto
-                                    signatureData.value = signaturePad.toDataURL('image/png');
-                                }
-                            });
-                            
-                        </script>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
                         <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Race</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.get_race_display}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
                         <!--begin::Label-->
-                        
-                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Ethnicity</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.get_ethnicity_display}}</span>
+                        </div>
+                        <!--end::Col-->
                     </div>
                     
-                    <!--end::Col-->
                     
-                  
                 </div>
-            </div>
-            <!--end::Input group-->
-                <!--begin::Input group-->
-                <div class="row">
-                    <label class="col-lg-4 col-form-label  fw-semibold fs-6">Active</label>
-                    <!--begin::Options-->
-                    <div class="d-flex align-items-center mt-3">
-                        <!--begin::Option-->
-                        <div class="form-check form-check-solid form-switch form-check-custom fv-row">
-                            <input class="form-check-input w-45px h-30px" name="is_active" type="checkbox" id="allowmarketing" {% if user.is_active %}checked{% endif %} />
-                            <label class="form-check-label" for="allowmarketing"></label>
+                <div class="separator border-gray-200 mb-8"></div>
+                <h2>Address Info</h2>
+                <div class="row mb-7">
+                    
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Address</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.address}}</span>
                         </div>
-                        <label class="fs-8 text-small">Enamble and disabled user</label>
-                        <!--end::Option-->
+                        <!--end::Col-->
                     </div>
-                    <!--end::Options-->
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">City</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.city}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">State</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.state}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">ZIP</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.zip}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    
                 </div>
-                <!--end::Input group-->
-                <!--begin::Input group-->
-                
-                <!--end::Input group-->
+                <div class="separator border-gray-200 mb-8"></div>
+                <h2>Insure Info</h2>
+                <div class="row mb-7">
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Insurance</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.insurance.name}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">MMA</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{% if customer.mma %}{{customer.mma}}{% else %}-{% endif %}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Medicaid No</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.medicaid_no}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Medicare No</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{% if customer.medicare_no %}{{customer.medicare_no}}{% else %}-{% endif %}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    
+                </div>
+                <div class="separator border-gray-200 mb-8"></div>
+                <h2>Diagnostics Info</h2>
+                <div class="row mb-7">
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Principal Diagnostic</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.insurance.name}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    {% if customer.diagnostic_two %}
+                        <div class="col-sm-6 col-md-4 mb-7">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 fw-semibold text-muted">Diagnostic Two</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8">
+                                <span class="fw-bold fs-6 text-gray-800">{{customer.diagnostic_two.name}}</span>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                    {% endif %}
+                    {% if customer.diagnostic_three %}
+                        <div class="col-sm-6 col-md-4 mb-7">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 fw-semibold text-muted">Diagnostic Three</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8">
+                                <span class="fw-bold fs-6 text-gray-800">{{customer.diagnostic_three.name}}</span>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                    {% endif %}
+                    
+                </div>
+                <div class="separator border-gray-200 mb-8"></div>
+                <h2>Legal Contact</h2>
+                <div class="row mb-7">
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Name</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{% if customer.legal_guardian_full_name %}{{customer.legal_guardian_full_name}}{% else %}-{% endif %}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Relationship</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{% if customer.legal_guardian_relationship %}{{customer.legal_guardian_relationship}}{% else %}-{% endif %}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Phone</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{% if customer.legal_guardian_phone_number %}{{customer.legal_guardian_phone_number}}{% else %}-{% endif %}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Address</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{% if customer.legal_guardian_address %}{{customer.legal_guardian_address}}{% else %}-{% endif %}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">City</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{% if customer.legal_guardian_city %}{{customer.legal_guardian_city}}{% else %}-{% endif %}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">State</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{% if customer.legal_guardian_state %}{{customer.legal_guardian_state}}{% else %}-{% endif %}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">ZIP</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{% if customer.legal_guardian_zip %}{{customer.legal_guardian_zip}}{% else %}-{% endif %}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    
+                </div>
+                <div class="separator border-gray-200 mb-8"></div>
+                <h2>Emergency Contact</h2>
+                <div class="row mb-7">
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Name</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{% if customer.emergency_contact_person %}{{customer.emergency_contact_person}}{% else %}-{% endif %}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Relationship</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{% if customer.emergency_contact_relationship %}{{customer.emergency_contact_relationship}}{% else %}-{% endif %}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">Phone</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{% if customer.emergency_contact_phone_number %}{{customer.emergency_contact_phone_number}}{% else %}-{% endif %}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    
+                    
+                    
+                </div>
             </div>
             <!--end::Card body-->
             <!--begin::Actions-->
-            <div class="card-footer d-flex justify-content-end py-6 px-9">
-                <button type="submit" class="btn btn-primary btn-sm" id="kt_account_profile_details_submit">Save Changes</button>
+            <div class="card-footer d-flex gap-3 justify-content-end py-6 px-9">
+                <a href="{% url 'sign_customer_view' pk=1 %}" type="submit" class="btn btn-light btn-sm" id="kt_account_profile_details_submit">
+                    <i class=" bi-file-text-fill"></i> Sign
+                </a>
+                <a href="{% url "update_customer_view" pk=customer.pk %}" class="btn btn-primary btn-sm" id="kt_account_profile_details_submit">Update Data</a>
             </div>
-            <!--end::Actions-->
-        </form>
+      
     </div>
     <!--end::Info-->
 </div>

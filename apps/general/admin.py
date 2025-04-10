@@ -1,3 +1,5 @@
 from django.contrib import admin
+from apps.symptom.models import Customer  
 
-# Register your models here.
+# Registra el modelo Client en el admin
+admin.site.register(Customer)

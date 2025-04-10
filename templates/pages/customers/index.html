@@ -37,8 +37,8 @@
                 <!--end::Menu toggle-->
                 <!--begin::Menu 1-->
                 <form 
-                {% comment %} hx-get="{% url 'filter_insurances_view' %}" {% endcomment %}
-                hx-target="#insuranceTableResult"
+                hx-get="{% url 'filter_customers_view' %}" 
+                hx-target="#customersTableResult"
                 hx-trigger="submit"
                 hx-indicator="#spinnerFilter"
                 class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" id="kt_menu_673c0c868c157" style="" data-select2-id="select2-data-kt_menu_673c0c868c157">
@@ -52,38 +52,73 @@
                     <div class="separator border-gray-200"></div>
                     <!--end::Menu separator-->
                     <!--begin::Form-->
-                    <div class="px-7 py-3">
+                    <div class="px-7 py-3 overflow-hidden overflow-y-auto h-225px">
                         <!--begin::Input group-->
                         <div class="mb-3">
                             <!--begin::Label-->
-                            <label class="form-label fw-semibold">Abbreviated:</label>
+                            <label class="form-label fw-semibold">Social Security:</label>
                             <!--end::Label-->
                             <!--begin::Switch-->
                             <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
-                                <input type="text" name="abbreviated" class="form-control  form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="Abbreviated"  />
+                                <input type="text" name="ssn" class="form-control  form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="Social Security"  />
                             </div>
                             <!--end::Switch-->
                         </div>
                         <div class="mb-3">
                             <!--begin::Label-->
-                            <label class="form-label fw-semibold">Name:</label>
+                            <label class="form-label fw-semibold">Case .No:</label>
                             <!--end::Label-->
                             <!--begin::Switch-->
                             <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
-                                <input type="text" name="name" class="form-control  form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="Name"  />
+                                <input type="text" name="case_no" class="form-control  form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="Case .No"  />
                             </div>
                             <!--end::Switch-->
                         </div>
-                        
-                        <!--begin::Actions-->
-                        <div class="d-flex justify-content-end">
-                            <button type="reset" class="btn btn-sm btn-light btn-active-light-danger me-2" >Reset</button>
-                            <button type="submit" class="btn btn-sm btn-primary d-flex justify-content-center align-items-center " >
-                                <span id="spinnerFilter" class="htmx-indicator spinner-border spinner-border-sm me-2" ></span>
-                                Apply
-                            </button>
+                        <div class="mb-3">
+                            <!--begin::Label-->
+                            <label class="form-label fw-semibold">Birth Date:</label>
+                            <!--end::Label-->
+                            <!--begin::Switch-->
+                            <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                                <input type="date" name="dob" class="form-control  form-control-sm form-control-solid mb-3 mb-lg-0"  />
+                            </div>
+                            <!--end::Switch-->
                         </div>
+                        <div class="">
+                            <!--begin::Label-->
+                            <label class="form-label fw-semibold">Frist Name:</label>
+                            <!--end::Label-->
+                            <!--begin::Switch-->
+                            <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                                <input type="text" name="first_name" class="form-control  form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="First Name"  />
+                            </div>
+                            <!--end::Switch-->
+                        </div>
+                        <div class="mb-3">
+                            <!--begin::Label-->
+                            <label class="col-form-label  fw-semibold fs-6">Diagnostic:</label>
+    
+                            <select name="diagnostic" required aria-label="Select a diagnostic" data-control="select2" data-placeholder="Select a diagnostic..." class="form-select form-select-solid form-select-sm fw-semibold">
+                                <option value="" selected >Select a diagnostic...</option>
+                                {% for diagnostic in diagnostics %}
+                                    <option value="{{diagnostic.pk}}" >{{diagnostic.code}}</option>
+                                {% endfor %}
+                            </select>
+                            
+                            <!--end::Switch-->
+                        </div>
+                       
+                        <!--begin::Actions-->
+                        
                         <!--end::Actions-->
+
+                    </div>
+                    <div class="d-flex justify-content-end p-5">
+                        <button type="reset" class="btn btn-sm btn-light btn-active-light-danger me-2" >Reset</button>
+                        <button type="submit" class="btn btn-sm btn-primary d-flex justify-content-center align-items-center " >
+                            <span id="spinnerFilter" class="htmx-indicator spinner-border spinner-border-sm me-2" ></span>
+                            Apply
+                        </button>
                     </div>
                     <!--end::Form-->
                 </form>
@@ -92,21 +127,11 @@
             <!--end::Filter menu-->
             <div class="m-0" data-select2-id="select2-data-123-9c37">
                 <!--begin::Menu toggle-->
-                    <a href="#" class="btn btn-sm  btn-flex btn-success fw-bold" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                    <a href="{% url "create_customer_view" %}" class="btn btn-sm  btn-flex btn-success fw-bold" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                     Create</a>
                     <!--end::Menu toggle-->
                     <!--begin::Menu 1-->
-                    <div 
-                    class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" 
-                    data-kt-menu="true" 
-                    id="kt_menu_673c0c868c157" 
-                    style="" 
-                    data-select2-id="select2-data-kt_menu_673c0c868c157"
-                    >
-                        <div id="InsuranceFormCreate">
-                            {% comment %} {% include "pages/insurance/actions/form/insuranceFormCreate.html" %} {% endcomment %}
-                        </div>
-                    </div>
+                    
                 <!--end::Menu 1-->
             </div>
             <!--begin::Primary button-->

@@ -1,0 +1,81 @@
+{% load static %}
+<div class="d-flex flex-wrap flex-sm-nowrap">
+    <!--begin: Pic-->
+    
+    <!--end::Pic-->
+    <!--begin::Info-->
+    <div class="flex-grow-1">
+        <form  action="{% url "sign_customer_view" pk=customer.pk %}" method="POST" id="kt_account_profile_details_form" class="form"
+        enctype="multipart/form-data"
+        >
+            {% csrf_token %}
+            <!--begin::Card body-->
+            <div class="card-body border-top p-9">
+                {% if message %}
+                    <div class="alert alert-success">
+                        {{message}}
+                    </div>
+                {% endif %}
+                
+                <!--begin::Input group-->
+                <div class="row mb-6 justify-content-center">
+                 
+                    <!--begin::Label-->
+                    <!-- En tu template HTML -->
+                    <div id="signature-pad" class="d-flex flex-column justify-content-center align-items-center">
+                        <canvas id="signature-canvas"  class="border w-225px  h-225px border-body border-1 rounded bg-light-primary"></canvas>
+                        <input type="hidden" name="sign" id="signature-data">
+                    </div>
+                    <div class="d-flex justify-content-center mt-6 gap-3">
+                        <button type='button' class="btn btn-danger btn-sm" id="clear-button">Clear</button>
+                        <button type="submit" class="btn btn-primary btn-sm" id="kt_account_profile_details_submit">Save Changes</button>
+                    </div>
+                    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+                    <script>
+                        const canvas = document.getElementById('signature-canvas');
+                        const signaturePad = new SignaturePad(canvas);
+                        const form = document.getElementById('kt_account_profile_details_form');
+                        const signatureData = document.getElementById('signature-data');
+                        
+                        // Ajustar canvas para alta resolución
+                        function resizeCanvas() {
+                            const ratio = Math.max(window.devicePixelRatio || 1, 1);
+                            canvas.width = canvas.offsetWidth * ratio;
+                            canvas.height = canvas.offsetHeight * ratio;
+                            canvas.getContext('2d').scale(ratio, ratio);
+                            signaturePad.clear();
+                        }
+                        
+                        window.addEventListener('resize', resizeCanvas);
+                        resizeCanvas();
+                        
+                                                                
+                        document.getElementById('clear-button').addEventListener('click', () => {
+                            signaturePad.clear();
+                        });
+                        
+                        // Antes de enviar el formulario, guardar la firma
+                        form.addEventListener('submit', function(e) {
+                            if (!signaturePad.isEmpty()) {
+                                // Convertir a PNG y guardar en el campo oculto
+                                signatureData.value = signaturePad.toDataURL('image/png');
+                            }
+                        });
+                        
+                    </script>
+              
+                    
+                    <!--begin::Label-->
+                </div>
+                <!--end::Input group-->
+               
+               
+           
+            
+            </div>
+            
+            <!--end::Actions-->
+        </form>
+    </div>
+    <!--end::Info-->
+</div>
