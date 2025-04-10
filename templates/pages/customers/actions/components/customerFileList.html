@@ -60,80 +60,7 @@
                     <!--end::Menu 1-->
                 </div>
                 <!--end::Filter menu-->
-                <div class="m-0" data-select2-id="select2-data-123-9c37">
-
-
-                    <!-- Botón para abrir el modal -->
-                    <button type="button" class="btn btn-sm btn-success fw-bold" data-bs-toggle="modal" data-bs-target="#uploadFileModal">
-                        Create
-                    </button>
-
-                    <!-- Modal de Bootstrap -->
-                    <div class="modal fade" id="uploadFileModal" tabindex="-1" aria-labelledby="uploadFileModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="uploadFileModalLabel">Upload File</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <form hx-post="{% url 'upload_file' pk=customer.pk %}" 
-                                    hx-target="#files-container" 
-                                    hx-swap="outerHTML" 
-                                    enctype="multipart/form-data" 
-                                    method="post">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="belongs_to" value="{{ customer.id }}">  <!-- Asociar al cliente actual -->
-                                        
-                                
-                                        {% if form.non_field_errors %}
-                                            <div class="alert alert-danger">
-                                                <ul>
-                                                    {% for error in form.non_field_errors %}
-                                                        <li>{{ error }}</li>
-                                                    {% endfor %}
-                                                </ul>
-                                            </div>
-                                        {% endif %}
-                                
-                                        <div class="mb-3">
-                                            <label for="id_file" class="form-label">File</label>
-                                            <input type="file" name="file" id="id_file" class="form-control">
-                                            {% if form.file.errors %}
-                                                <div class="text-danger">{{ form.file.errors.0 }}</div>
-                                            {% endif %}
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="id_file_type" class="form-label">File Type</label>
-                                            <select name="file_type" id="id_file_type" class="form-select">
-                                                <option value=".doc">DOC</option>
-                                                <option value=".pdf">PDF</option>
-                                                <option value="image">Image</option>  <!-- Cambiar PNG y JPG por Image -->
-                                            </select>
-                                            {% if form.file_type.errors %}
-                                                <div class="text-danger">{{ form.file_type.errors.0 }}</div>
-                                            {% endif %}
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="id_process_start_date" class="form-label">Process Start Date</label>
-                                            <input type="date" name="process_start_date" id="id_process_start_date" class="form-control">
-                                            {% if form.process_start_date.errors %}
-                                                <div class="text-danger">{{ form.process_start_date.errors.0 }}</div>
-                                            {% endif %}
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Upload</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--  -->
-                    
-                </div>
+                {% include "pages/customers/actions/components/partials/modal.html" %}
                 <!--begin::Primary button-->
                 
                 <!--end::Primary button-->
@@ -158,3 +85,5 @@
         }
     });
 </script>
+
+
