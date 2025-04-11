@@ -5,7 +5,7 @@ from django.urls import path
 urlpatterns = [
     path('customers/', customers_view, name='customers_view'),
     path('filter-customers/', filter_customers_view, name='filter_customers_view'),
-    path('filter-files/', filter_files_view, name='filter_files_view'),
+    path('filter-files/<int:pk>/', filter_files_view, name='filter_files_view'),
     path('customer-create/', create_customer_view, name='create_customer_view'),
     path('customer-detail/<int:pk>/', detail_customer_view, name='detail_customer_view'),
     path('customer-upload-file/<int:pk>/', upload_file, name='upload_file'),

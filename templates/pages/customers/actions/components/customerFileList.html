@@ -17,7 +17,7 @@
                     <!--end::Menu toggle-->
                     <!--begin::Menu 1-->
                     <form 
-                    hx-get="{% url 'filter_files_view' %}"
+                    hx-get="{% url 'filter_files_view' pk=customer.pk %}"
                     hx-target="#files-container"
                     hx-trigger="submit"
                     hx-indicator="#spinnerFilter"
@@ -78,7 +78,9 @@
                 <!--end::Primary button-->
             </div>
         </div>
-        {% include "pages/customers/actions/components/partials/files.html" %}
+        <div id="files-container" class="row g-6 mb-6">
+            {% include "pages/customers/actions/components/partials/files.html" %}
+        </div>
     </div>
 </div>
 

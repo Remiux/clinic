@@ -1,7 +1,6 @@
 from django import forms
-from apps.symptom.models import Diagnostic, Symptom,Insurance
+from apps.symptom.models import Diagnostic, Symptom,Insurance, Customer, EncryptedFile
 from apps.accounts.models import User
-from apps.symptom.models import Customer
 
 class SymptomForm(forms.ModelForm):
     
@@ -70,3 +69,12 @@ class CustomerSignForm(forms.ModelForm):
     class Meta:
         model = Customer
         fields = ['sign']
+        
+
+
+class FileUploadForm2(forms.ModelForm):
+    
+    class Meta:
+        model = EncryptedFile
+        fields = ['file', 'process_start_date']
+        

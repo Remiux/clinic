@@ -38,24 +38,12 @@ class ClientFilter(django_filters.FilterSet):
     class Meta:
         model = Customer
         fields = [ 'ssn','dob','case_no','first_name','diagnostic']
-        
-
-# class EncryptedFileFilter(django_filters.FilterSet):
-#     file = django_filters.CharFilter(field_name='file', lookup_expr='icontains')  # Filtro por nombre del archivo
-#     file_type = django_filters.ChoiceFilter(choices=EncryptedFile._meta.get_field('file_type').choices)  # Filtro por tipo de archivo
-#     uploaded_by = django_filters.CharFilter(field_name='uploaded_by__username', lookup_expr='icontains')  # Filtro por usuario que subió el archivo
-#     created_at = django_filters.DateFilter(field_name='created_at', lookup_expr='date')  # Filtro por fecha de creación
-
-#     class Meta:
-#         model = EncryptedFile
-#         fields = ['file', 'file_type', 'uploaded_by', 'created_at']
 
 
 
 class EncryptedFileFilter(django_filters.FilterSet):
     file = django_filters.CharFilter(method='filter_file_name', label='File Name')
     file_type = django_filters.ChoiceFilter(choices=EncryptedFile._meta.get_field('file_type').choices, lookup_expr='icontains')
-    uploaded_by = django_filters.CharFilter(field_name='uploaded_by__username', lookup_expr='icontains')
     uploaded_by = django_filters.CharFilter(field_name='uploaded_by__username', lookup_expr='icontains')
     created_at = django_filters.DateFilter(field_name='created_at', lookup_expr='date')  # Filtro por fecha de creación
     
