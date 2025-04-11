@@ -1,10 +1,28 @@
 from django.db import models
+from solo.models import SingletonModel
 from apps.accounts.models import User
 from django.utils import timezone
 import uuid
 
 
 # Create your models here.
+
+class Agency(SingletonModel):
+    name = models.CharField(max_length=150)
+    address = models.CharField(max_length=150)
+    city = models.CharField(max_length=150)
+    state = models.CharField(max_length=70)
+    zip = models.CharField(max_length=10)
+    phone_number = models.CharField(max_length=40)
+    fax = models.CharField(max_length=40)
+
+    class Meta:
+        verbose_name = "Agency"
+        verbose_name_plural = "Agencys"
+
+    def __str__(self):
+        return self.name
+
 
 class Diagnostic(models.Model):
     code = models.CharField(max_length=15, unique=True)
@@ -49,6 +67,7 @@ class Insurance(models.Model):
 
 class Customer(models.Model):
     case_no = models.CharField(max_length=40, unique=True)
+    create_at = models.DateField(auto_created=True,default=timezone.now)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)

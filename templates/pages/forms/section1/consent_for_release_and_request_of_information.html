@@ -51,39 +51,39 @@
 
         <div class="row mt-5">
             <div class="col-md-12">
-                <c-input_text spanTitle="Name of Facility, Individual or Agency:" inputType="text" disabled="disabled" inputValue="{% if customer.legal_guardian_full_name %}{{customer.legal_guardian_full_name}}{% endif %}" >
+                <c-input_text inputValue="{{agency.name}}"  spanTitle="Name of Facility, Individual or Agency:" inputType="text" disabled="disabled" >
                 </c-input_text >
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-12">
-                <c-input_text disabled="disabled" inputValue="{% if customer.legal_guardian_address %}{{customer.legal_guardian_address}}{% endif %}" spanTitle="Address" inputType="text" >
+                <c-input_text disabled="disabled" inputValue="{{agency.address}}" spanTitle="Address" inputType="text" >
                 </c-input_text >
             </div>
         </div>
         <div class="row">
             <div class="col-md-8">
-                <c-input_text disabled="disabled" inputValue="{% if customer.legal_guardian_city %}{{customer.legal_guardian_city}}{% endif %}" spanTitle="City" inputType="text" >
+                <c-input_text disabled="disabled" inputValue="{{agency.city}}" spanTitle="City" inputType="text" >
                 </c-input_text >
             </div>
             <div class="col-md-2">
-                <c-input_text disabled="disabled" inputValue="{% if customer.legal_guardian_state %}{{customer.legal_guardian_state}}{% endif %}" spanTitle="State" inputType="text" >
+                <c-input_text disabled="disabled" inputValue="{{agency.state}}" spanTitle="State" inputType="text" >
                 </c-input_text >
             </div>
             <div class="col-md-2">
-                <c-input_text disabled="disabled" inputValue="{% if customer.legal_guardian_zip %}{{customer.legal_guardian_zip}}{% endif %}" spanTitle="Zip" inputType="number" >
+                <c-input_text disabled="disabled" inputValue="{{agency.zip}}" spanTitle="Zip" inputType="text" >
                 </c-input_text >
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-6">
-                <c-input_text disabled="disabled" inputValue="{% if customer.legal_guardian_phone_number %}{{customer.legal_guardian_phone_number}}{% endif %}" spanTitle="Phone" inputType="number" >
+                <c-input_text disabled="disabled" inputValue="{{agency.phone_number}}" spanTitle="Phone" inputType="text" >
                 </c-input_text >
             </div>
             <div class="col-md-6">
-                <c-input_text disabled="disabled" spanTitle="Fax" inputType="number" >
+                <c-input_text disabled="disabled" inputValue="{{agency.fax}}" spanTitle="Fax" inputType="text" >
                 </c-input_text >
             </div>
         </div>
@@ -405,7 +405,7 @@
                 
             </div>
             <div class="col-md-4 ">
-                <c-input_text inputType="date" helpText="Date">
+                <c-input_text inputType="date" helpText="Date" inputValue="{{customer.create_at|date:'Y-m-d'}}">
                 </c-input_text>
             </div>
         </div>
@@ -420,7 +420,7 @@
                 
             </div>
             <div class="col-md-4">
-                <c-input_text inputType="date" helpText="Date">
+                <c-input_text inputType="date" helpText="Date" inputValue="{{customer.create_at|date:'Y-m-d'}}">
                 </c-input_text>
             </div>
         </div>

@@ -5,6 +5,7 @@ Django==5.1.7
 django-cleanup==9.0.0
 django-cotton==2.0.1
 django-filter==25.1
+django-solo==2.4.0
 pillow==11.1.0
 psycopg==3.2.6
 psycopg-binary==3.2.6
@@ -13,4 +14,3 @@ python-decouple==3.8
 sqlparse==0.5.3
 typing_extensions==4.13.0
 tzdata==2025.2
-cryptography==44.0.2
