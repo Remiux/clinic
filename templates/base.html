@@ -37,6 +37,7 @@ License: For each use you must have a valid license purchased only from above li
 		<link href="{% static "assets/plugins/global/plugins.bundle.css" %}" rel="stylesheet" type="text/css" />
 		<link href="{% static "assets/css/style.bundle.css" %}" rel="stylesheet" type="text/css" />
     <link href="{% static "assets/css/loader.css" %}" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
     <script src="https://unpkg.com/htmx.org@1.6.1"></script>
 		<!--end::Global Stylesheets Bundle-->
     {% block extra_css %}
@@ -566,8 +567,20 @@ License: For each use you must have a valid license purchased only from above li
   <!--end::Page-->
 </div>
 		
-		
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  document.addEventListener('htmx:afterSwap', (event) => {
+    const messages = JSON.parse('{{ messages|escapejs }}');
+    messages.forEach(message => {
+        Swal.fire({
+            title: message.tags,
+            text: message.message,
+            icon: message.tags.includes('error') ? 'error' : 'success',
+            confirmButtonText: 'Aceptar'
+        });
+    });
+});
+</script>
 
     
 		<script src="{% static 'assets/plugins/custom/fullcalendar/fullcalendar.bundle.js' %} "></script>

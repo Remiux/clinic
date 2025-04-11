@@ -130,6 +130,15 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+# Aumentar el límite de campos permitidos
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000000
+
+# Aumentar el tamaño máximo de datos y archivos
+DATA_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10 MB
+FILE_UPLOAD_MAX_MEMORY_SIZE = 10485760  # 10 MB
+
+
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
