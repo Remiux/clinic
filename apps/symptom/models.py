@@ -119,12 +119,27 @@ class Customer(models.Model):
 
 class EncryptedFile(models.Model):
     file = models.FileField(upload_to='uploads/')
-    file_type = models.CharField(max_length=10, choices=[('.docx', 'DOC'), ('.pdf', 'PDF'), ('.jpg', 'JPG'), ('.png', 'PNG')])
+    file_type = models.CharField(max_length=10, choices=[('.docx', 'DOCX'), ('.doc', 'DOC'), ('.pdf', 'PDF'), ('.jpg', 'JPG'), ('.png', 'PNG')])
     uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='uploaded_files')
     belongs_to = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='owned_files', default=1)
     encrypted_file = models.BinaryField()
     created_at = models.DateTimeField(default=timezone.now)
     process_start_date = models.DateField(default=timezone.now)
+
+    def save(self, *args, **kwargs):
+        # Asignar automáticamente el file_type basado en la extensión del archivo
+        if self.file and not self.file_type:
+            extension = self.file.name.split('.')[-1].lower()
+            file_type_mapping = {
+                'docx': '.docx',
+                'doc': '.doc',
+                'pdf': '.pdf',
+                'jpg': '.jpg',
+                'jpeg': '.jpg',  # Tratar JPEG como JPG
+                'png': '.png',
+            }
+            self.file_type = file_type_mapping.get(extension, None)
+        super(EncryptedFile, self).save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.file.name} - {self.uploaded_by.username}"

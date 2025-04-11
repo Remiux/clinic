@@ -17,8 +17,8 @@
                     <!--end::Menu toggle-->
                     <!--begin::Menu 1-->
                     <form 
-                    {% comment %} hx-get="{% url 'filter_symptoms_view' %}" {% endcomment %}
-                    hx-target="#symptomTableResult"
+                    hx-get="{% url 'filter_files_view' pk=customer.pk %}"
+                    hx-target="#files-container"
                     hx-trigger="submit"
                     hx-indicator="#spinnerFilter"
                     class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" id="kt_menu_673c0c868c157" style="" data-select2-id="select2-data-kt_menu_673c0c868c157">
@@ -36,14 +36,26 @@
                             <!--begin::Input group-->
                             <div class="mb-3">
                                 <!--begin::Label-->
-                                <label class="form-label fw-semibold">Name:</label>
+                                <label class="form-label fw-semibold">File Name:</label>
                                 <!--end::Label-->
-                                <!--begin::Switch-->
-                                <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
-                                    <input type="text" name="name" class="form-control  form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="Name"  />
-                                </div>
-                                <!--end::Switch-->
+                                <input type="text" name="file" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="File Name" />
                             </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">File Type:</label>
+                                <select name="file_type" class="form-select form-select-sm form-select-solid">
+                                    <option select>-----------</option>
+                                    <option value=".doc">DOC</option>
+                                    <option value=".pdf">PDF</option>
+                                    <option value=".jpg">JPG</option>
+                                    <option value=".png">PNG</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Uploaded By:</label>
+                                <input type="text" name="uploaded_by" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="Uploaded By" />
+                            </div>
+                            <!--end::Input group-->
+                            <!--begin::Actions-->
                             
                             <!--begin::Actions-->
                             <div class="d-flex justify-content-end">
@@ -66,7 +78,9 @@
                 <!--end::Primary button-->
             </div>
         </div>
-        {% include "pages/customers/actions/components/partials/files.html" %}
+        <div id="files-container" class="row g-6 mb-6">
+            {% include "pages/customers/actions/components/partials/files.html" %}
+        </div>
     </div>
 </div>
 

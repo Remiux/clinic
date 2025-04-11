@@ -1,4 +1,4 @@
-<div id="kt_app_content_container" class="container">
+<div id="kt_app_content_container" class="container-fluid">
   <!--begin::Products-->
   <div class="row g-6 mb-6 g-xl-9 mb-xl-9">
     <!--begin::Customers-->
@@ -19,16 +19,16 @@
             <!--begin::Position-->
             <div class="d-flex flex-column fw-semibold bg-body border  mb-4 gap-2 w-100 p-2 border-2 rounded ">
               <div>
-                <i class="fs-4 bi-clipboard2-pulse-fill "></i> : <span class="badge badge-light-danger">{{customer.diagnostic.code}}</span>
+                <i class="fs-4 bi-clipboard2-pulse-fill "></i> Full name : <span class="badge badge-light-danger">{{customer.diagnostic.code}}</span>
               </div>
               <div>
-                <i class="fs-4 bi-cake2 "></i> : {{customer.dob}}
+                <i class="fs-4 bi-cake2 "></i> Birthday : {{customer.dob}}
               </div>
               <div>
-                <i class="fs-4 bi-person-badge-fill"></i> : {{customer.medicaid_no}}
+                <i class="fs-4 bi-person-badge-fill"></i> Medicaid : {{customer.medicaid_no}}
               </div>
               <div>
-                <i class="fs-4 bi-shield-check "></i> : {{customer.insurance.abbreviated}}
+                <i class="fs-4 bi-shield-check "></i> Insure : {{customer.insurance.name}}
               </div>
               
               

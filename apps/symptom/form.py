@@ -1,7 +1,6 @@
 from django import forms
-from apps.symptom.models import Diagnostic, Symptom,Insurance
+from apps.symptom.models import Diagnostic, Symptom,Insurance, Customer, EncryptedFile
 from apps.accounts.models import User
-from apps.symptom.models import Customer
 
 class SymptomForm(forms.ModelForm):
     
@@ -19,7 +18,7 @@ class InsuranceForm(forms.ModelForm):
 
 class FileUploadForm(forms.Form):
     file = forms.FileField()
-    file_type = forms.ChoiceField(choices=[('.doc', 'DOC'), ('.pdf', 'PDF'), ('image', 'Image')])  # Cambiar PNG y JPG por Image
+    file_type = forms.ChoiceField(choices=[('.docx', 'DOCX'), ('.doc', 'DOC'), ('.pdf', 'PDF'), ('.jpg', 'JPG'), ('.png', 'PNG')])  # Cambiar PNG y JPG por Image
     belongs_to = forms.ModelChoiceField(queryset=Customer.objects.all(), widget=forms.HiddenInput())
     process_start_date = forms.DateField(
         widget=forms.DateInput(attrs={'type': 'date'}),
@@ -39,11 +38,15 @@ class FileUploadForm(forms.Form):
             allowed_extensions = {
                 '.doc': ['.doc', '.docx'],  # Permitir .doc y .docx para .doc
                 '.pdf': ['.pdf'],
-                'image': ['.jpg', '.jpeg', '.png', '.gif', '.bmp', '.tiff'],  # Extensiones comunes de imágenes
+                '.jpg': ['.jpg', '.jpeg', '.gif', '.bmp', '.tiff'],
+                '.png': ['.png'],
             }
 
             # Verificar si la extensión del archivo está permitida
-            if file_extension not in allowed_extensions.get(file_type, []):
+            if file_type not in allowed_extensions:
+                raise forms.ValidationError(f"El tipo de archivo seleccionado ({file_type}) no es válido.")
+
+            if file_extension not in allowed_extensions[file_type]:
                 raise forms.ValidationError(
                     f"La extensión del archivo ({file_extension}) no coincide con el tipo seleccionado ({file_type})."
                 )
@@ -66,3 +69,12 @@ class CustomerSignForm(forms.ModelForm):
     class Meta:
         model = Customer
         fields = ['sign']
+        
+
+
+class FileUploadForm2(forms.ModelForm):
+    
+    class Meta:
+        model = EncryptedFile
+        fields = ['file', 'process_start_date']
+        
