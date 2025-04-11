@@ -13,6 +13,7 @@
     {% endif %}
 {% load static %}
 <div class=" row g-4 g-sm-6 " id="files-container">
+    
     {% for file in files %}
         <div class="col-6 col-sm-4 col-xl-3">
             <!--begin::Card-->
@@ -23,7 +24,7 @@
                     <a href="{% url 'download_file' file.id %}" class="text-gray-800 text-hover-primary d-flex flex-column">
                         <!--begin::Image-->
                         <div class="symbol symbol-60px mb-5">
-                            {% if file.file_type == 'image' %}
+                            {% if file.file_type == '.jpg' or file.file_type == '.jpeg' or file.file_type == '.png' or file.file_type == '.gif' or file.file_type == '.bmp' %}
                                 <img src="{% static 'assets/extra_media/svg/files/blank-image-dark.svg' %}" class="theme-light-show" alt="Image">
                                 <img src="{% static 'assets/extra_media/svg/files/blank-image-dark.svg' %}" class="theme-dark-show" alt="Image">
                             {% elif file.file_type == '.pdf' %}

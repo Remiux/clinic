@@ -49,7 +49,8 @@
                             <select name="file_type" id="id_file_type" class="form-select">
                                 <option value=".doc">DOC</option>
                                 <option value=".pdf">PDF</option>
-                                <option value="image">Image</option>  <!-- Cambiar PNG y JPG por Image -->
+                                <option value=".jpg">JPG</option>
+                                <option value=".png">PNG</option>
                             </select>
                             {% if form.file_type.errors %}
                                 <div class="text-danger">{{ form.file_type.errors.0 }}</div>
