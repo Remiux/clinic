@@ -235,7 +235,7 @@
                 
             </div>
             <div class="col-md-4 ">
-                <c-input_text inputType="date" helpText="Date">
+                <c-input_text inputType="date" helpText="Date" disabled="disabled" inputValue="{{customer.create_at|date:'Y-m-d'}}" >
                 </c-input_text>
             </div>
         </div>
@@ -243,13 +243,13 @@
         <div class="row mt-10 align-items-end">
             <div class="col-md-8">
                 <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
-                    {% comment %} <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/> {% endcomment %}
+                    <img class="" width="130" src="{% if user.sign %}{{user.sign.url}}{% endif %}"/> 
                 </div>
                 <h6 class="text-gray-900 mb-5 text-center">Employee Signature </h6>
                 
             </div>
             <div class="col-md-4 ">
-                <c-input_text inputType="date" helpText="Date">
+                <c-input_text inputType="date" helpText="Date" disabled="disabled" inputValue="{{customer.create_at|date:'Y-m-d'}}">
                 </c-input_text>
             </div>
         </div>
