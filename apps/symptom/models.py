@@ -53,7 +53,7 @@ class Customer(models.Model):
     last_name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
     address = models.TextField(max_length=500)
-    contact_no = models.CharField(max_length=20)
+    contact_no = models.CharField(max_length=20, null=True, blank=True)
     home_phone = models.CharField(max_length=20, null=True, blank=True)
     movile = models.CharField(max_length=20)
     city = models.CharField(max_length=50)

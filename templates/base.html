@@ -37,6 +37,7 @@ License: For each use you must have a valid license purchased only from above li
 		<link href="{% static "assets/plugins/global/plugins.bundle.css" %}" rel="stylesheet" type="text/css" />
 		<link href="{% static "assets/css/style.bundle.css" %}" rel="stylesheet" type="text/css" />
     <link href="{% static "assets/css/loader.css" %}" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
     <script src="https://unpkg.com/htmx.org@1.6.1"></script>
 		<!--end::Global Stylesheets Bundle-->
     {% block extra_css %}
@@ -52,6 +53,12 @@ License: For each use you must have a valid license purchased only from above li
 		<!--end::Theme mode setup on page load-->
 		<!--begin::App-->
         <!--begin::App-->
+        <div id="kt_scrolltop" class="scrolltop fs-4" data-kt-scrolltop="true">
+          <i class="ki-duotone ki-arrow-up ">
+            <span class="path1"></span>
+            <span class="path2"></span>
+          </i>
+        </div>
 <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
   <!--begin::Page-->
   <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
@@ -560,8 +567,20 @@ License: For each use you must have a valid license purchased only from above li
   <!--end::Page-->
 </div>
 		
-		
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+  document.addEventListener('htmx:afterSwap', (event) => {
+    const messages = JSON.parse('{{ messages|escapejs }}');
+    messages.forEach(message => {
+        Swal.fire({
+            title: message.tags,
+            text: message.message,
+            icon: message.tags.includes('error') ? 'error' : 'success',
+            confirmButtonText: 'Aceptar'
+        });
+    });
+});
+</script>
 
     
 		<script src="{% static 'assets/plugins/custom/fullcalendar/fullcalendar.bundle.js' %} "></script>
