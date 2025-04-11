@@ -19,28 +19,19 @@
             <!--begin::Position-->
             <div class="d-flex flex-column fw-semibold bg-body border  mb-4 gap-2 w-100 p-2 border-2 rounded ">
               <div>
-                <i class="fs-4 bi-telephone-fill "></i> : {{customer.movile}}
-              </div>
-              <div>
-                <i class="fs-4 bi-envelope-at-fill "></i> : {{customer.email}}
-              </div>
-              <div>
-                <i class="fs-4 bi-person-circle"></i> Emergency : {{customer.emergency_contact_person}}
-              </div>
-              <div>
-                <i class="fs-4 bi-telephone-fill "></i> Emergency : {{customer.emergency_contact_phone_number}}
-              </div>
-              <div>
-                <i class="fs-4 bi-person-lines-fill "></i> Progress : 
-                {% if customer.in_active %}
-                <span class="badge badge-light-success">Yes</span>
-                {% else %}
-                <span class="badge badge-light-danger">No</span>
-                {% endif %}
-              </div>
-              <div>
                 <i class="fs-4 bi-clipboard2-pulse-fill "></i> : <span class="badge badge-light-danger">{{customer.diagnostic.code}}</span>
               </div>
+              <div>
+                <i class="fs-4 bi-cake2 "></i> : {{customer.dob}}
+              </div>
+              <div>
+                <i class="fs-4 bi-person-badge-fill"></i> : {{customer.medicaid_no}}
+              </div>
+              <div>
+                <i class="fs-4 bi-shield-check "></i> : {{customer.insurance.abbreviated}}
+              </div>
+              
+              
             </div>
             <!--end::Position-->
             
