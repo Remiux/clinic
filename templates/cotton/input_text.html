@@ -1,18 +1,18 @@
 <!-- Input component for text, number, password -->
-<div class="input-group input-group-sm">
+<div class="input-group {% if inputSize %}{{inputSize}}{% else %}input-group-sm{% endif %} ">
     {% if spanTitle %}
-        <span class="input-group-text" id="inputGroup-sizing-default">{{ spanTitle }}</span>
+        <label for="{{input_id}}" class="input-group-text" >{{ spanTitle }}</label>
     {% elif icon %}
-        <span class="input-group-text" id="basic-addon1">
+        <label for="{{input_id}}" class="input-group-text" id="basic-addon1">
             <i class="{{ icon }} fs-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-        </span>
+        </label>
     {% endif %}
-    <input type="{{ inputType }}" class="form-control" value="{{ inputValue }}"
-    aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" placeholder="{{ placeholder }}"/>
+    <input {{disabled}} id="{{input_id}}" type="{{ inputType }}" class="form-control  border-bottom-2  bg-transparent border-left-1 text-body border-right-0 border-top-0" value="{{ inputValue }}"
+    aria-label="Sizing example input" aria-describedby="{{input_id}}" placeholder="{{ placeholder }}"/>
 </div>
 <div 
     class="d-flex justify-content-center 
         mt-{{ marginTop|default:2 }}  
         mb-{{ marginBottom|default:5 }}">
-    <label>{{ helpText }}</label>
+    <label for="{{input_id}}">{{ helpText }}</label>
 </div>

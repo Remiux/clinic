@@ -1,62 +1,57 @@
-<div class="card bg-light shadow-sm">
-    <div class="card-header">
-        <h2 class="card-title fs-1">Initial Intake Information</h2>
-        <div class="card-toolbar">
-            <!-- Content -->
-        </div>
-    </div>
-    <div class="card-body card-scroll h-550px">
+
+    
+   
         <div class="row">
             <div class="col-md-8">
-                <c-input_text spanTitle="Recipient" inputType="text" >
+                <c-input_text input_id="personal_info_recipient" inputValue="{{customer.first_name}} {{customer.last_name}}" disabled="disabled"  spanTitle="Recipient" inputType="text" >
                 </c-input_text >
             </div>
             <div class="col-md-4">
-                <c-input_text spanTitle="Case No" inputType="number" >
+                <c-input_text input_id="personal_info_case_no" inputValue="{{customer.case_no}}" spanTitle="Case No" inputType="text" disabled="disabled" >
                 </c-input_text >
             </div>
         </div>
         <div class="row">
             <div class="col-md-4">
-                <c-input_text spanTitle="Contact No" inputType="number" >
+                <c-input_text spanTitle="Contact No" disabled="disabled" inputValue="{{customer.contact_no}}" inputType="text" >
                 </c-input_text >
             </div>
             <div class="col-md-4">
-                <c-input_text spanTitle="Mobile" inputType="number" >
+                <c-input_text spanTitle="Mobile" disabled="disabled" inputValue="{{customer.movile}}" inputType="text" >
                 </c-input_text >
             </div>
             <div class="col-md-4">
-                <c-input_text spanTitle="Home Phone" inputType="number" >
+                <c-input_text spanTitle="Home Phone" disabled="disabled" inputValue="{{customer.home_phone}}" inputType="text" >
                 </c-input_text >
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <c-input_text spanTitle="Address" inputType="text" >
+                <c-input_text spanTitle="Address" disabled="disabled" inputValue="{{customer.address}}" inputType="text" >
                 </c-input_text >
             </div>
         </div>
         <div class="row">
             <div class="col-md-8">
-                <c-input_text spanTitle="City" inputType="text" >
+                <c-input_text spanTitle="City" inputType="text" disabled="disabled" inputValue="{{customer.city}}" >
                 </c-input_text >
             </div>
             <div class="col-md-2">
-                <c-input_text spanTitle="State" inputType="text" >
+                <c-input_text spanTitle="State" inputType="text" disabled="disabled" inputValue="{{customer.state}}" >
                 </c-input_text >
             </div>
             <div class="col-md-2">
-                <c-input_text spanTitle="Zip" inputType="number" >
+                <c-input_text spanTitle="Zip" inputType="number" disabled="disabled" inputValue="{{customer.zip}}" >
                 </c-input_text >
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
-                <c-input_text spanTitle="DOB" inputType="date" >
+                <c-input_text spanTitle="DOB" inputType="date" disabled="disabled" inputValue="{{customer.dob|date:'Y-m-d'}}" >
                 </c-input_text >
             </div>
             <div class="col-md-6">
-                <c-input_text spanTitle="SSN" inputType="text" >
+                <c-input_text spanTitle="SSN" inputType="text" disabled="disabled" inputValue="{{customer.ssn}}" >
                 </c-input_text >
             </div>
         </div>
@@ -67,14 +62,16 @@
                         <label class="form-label ms-2 me-4">Gender</label>
             
                         <div class="form-check me-8">
-                            <input class="form-check-input" type="radio" value="" id="flexCheckDefault1" name="radio2">
+                            <input class="form-check-input" type="radio" value="" id="flexCheckDefault1" name="radio2"
+                            {% if customer.gerder == "M" %}checked{% else %}disabled{% endif %} >
                             <label class="form-check-label" for="flexCheckDefault1">
                                 Male
                             </label>
                         </div>
                         
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" value="" id="flexCheckChecked1" name="radio2" >
+                            <input class="form-check-input" type="radio" value="" id="flexCheckChecked1" name="radio2"
+                            {% if customer.gerder == "F" %}checked{% else %}disabled{% endif %} >
                             <label class="form-check-label" for="flexCheckChecked1">
                                 Female
                             </label>
@@ -83,92 +80,92 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <c-input_text spanTitle="MMA" inputType="text" >
+                <c-input_text spanTitle="MMA" disabled="disabled" inputValue="{% if customer.mma %}{{customer.mma}}{% endif %}" inputType="text" >
                 </c-input_text >
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
-                <c-input_text spanTitle="Medicaid No" inputType="number" >
+                <c-input_text spanTitle="Medicaid No" inputType="text" disabled="disabled" inputValue="{{customer.medicaid_no}}" >
                 </c-input_text >
             </div>
             <div class="col-md-6">
-                <c-input_text spanTitle="Medicare No" inputType="number" >
+                <c-input_text spanTitle="Medicare No" inputType="text" disabled="disabled" inputValue="{% if customer.medicare_no %}{{customer.medicare_no}}{% endif %}" >
                 </c-input_text >
             </div>
         </div>
         <div class="row">
             <div class="col-md-8">
-                <c-input_text spanTitle="School (If Child)" inputType="text" >
+                <c-input_text spanTitle="School (If Child)" inputType="text" disabled="disabled" inputValue="{% if customer.school %}{{customer.school}}{% endif %}" >
                 </c-input_text >
             </div>
             <div class="col-md-4">
-                <c-input_text spanTitle="Grade" inputType="text" >
+                <c-input_text spanTitle="Grade" inputType="text" disabled="disabled" inputValue="{% if customer.grade %}{{customer.grade}}{% endif %}" >
                 </c-input_text >
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <c-input_text spanTitle="Legal Guardian Name (If Applicable)" inputType="text" >
+                <c-input_text spanTitle="Legal Guardian Name (If Applicable)" inputType="text" disabled="disabled" inputValue="{% if customer.legal_guardian_full_name %}{{customer.legal_guardian_full_name}}{% endif %}" >
                 </c-input_text >
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
-                <c-input_text spanTitle="Relationship" inputType="text" >
+                <c-input_text spanTitle="Relationship" inputType="text" disabled="disabled" inputValue="{% if customer.legal_guardian_relationship %}{{customer.legal_guardian_relationship}}{% endif %}" >
                 </c-input_text >
             </div>
         
             <div class="col-md-6">
-                <c-input_text spanTitle="Phone No" inputType="number" >
+                <c-input_text spanTitle="Phone No" inputType="number" disabled="disabled" inputValue="{% if customer.legal_guardian_phone_number %}{{customer.legal_guardian_phone_number}}{% endif %}" >
                 </c-input_text >
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <c-input_text spanTitle="Address" inputType="text" >
+                <c-input_text spanTitle="Address" inputType="text" disabled="disabled" inputValue="{% if customer.legal_guardian_address %}{{customer.legal_guardian_address}}{% endif %}" >
                 </c-input_text >
             </div>
         </div>
         <div class="row">
             <div class="col-md-8">
-                <c-input_text spanTitle="City" inputType="text" >
+                <c-input_text spanTitle="City" inputType="text" disabled="disabled" inputValue="{% if customer.legal_guardian_state %}{{customer.legal_guardian_state}}{% endif %}" >
                 </c-input_text >
             </div>
             <div class="col-md-2">
-                <c-input_text spanTitle="State" inputType="text" >
+                <c-input_text spanTitle="State" inputType="text" disabled="disabled" inputValue="{% if customer.legal_guardian_state %}{{customer.legal_guardian_state}}{% endif %}" >
                 </c-input_text >
             </div>
             <div class="col-md-2">
-                <c-input_text spanTitle="Zip" inputType="number" >
+                <c-input_text spanTitle="Zip" inputType="number" disabled="disabled" inputValue="{% if customer.legal_guardian_zip %}{{customer.legal_guardian_zip}}{% endif %}" >
                 </c-input_text >
             </div>
         </div>
         <div class="row mt-2">
             <p class="text-start"> • Attach copies of court disposition and support documentation regarding legal representation, custody or guardianship when applicable</p>
             <div class="form-group">
-                <label for="additionalInfo" class="form-label">Eligibility Criteria:</label>
+                <label  class="form-label">Eligibility Criteria:</label>
                 <textarea class="form-control" id="additionalInfo" rows="2" style="resize: none;"></textarea>
             </div>
         </div>
         <div class="row mt-5">
             <div class="col-md-12">
                 <div class="d-flex align-items-center">
-                    <label for="additionalInfo" class="form-label me-3">Need for Special Accommodations:</label>
+                    <label  class="form-label me-3">Need for Special Accommodations:</label>
                     <div class="form-check ms-1 me-8">
-                        <input class="form-check-input" type="radio" value="" id="flexCheckDefault1" name="radio2">
+                        <input disabled class="form-check-input" type="radio" value="" id="flexCheckDefault1" name="radio2">
                         <label class="form-check-label" for="flexCheckDefault1">
                             Yes
                         </label>
                     </div>
                     
                     <div class="form-check me-3">
-                        <input class="form-check-input" type="radio" value="" id="flexCheckChecked1" name="radio2" >
+                        <input class="form-check-input" type="radio" value="" checked id="flexCheckChecked1" name="radio2" >
                         <label class="form-check-label" for="flexCheckChecked1">
                             No
                         </label>
                     </div>
-                    <label for="additionalInfo" class="form-label me-3">If Yes, please specify:</label>
+                    <label  class="form-label me-3">If Yes, please specify:</label>
                 </div>
                 <textarea class="form-control" id="additionalInfo" rows="2" style="resize: none;"></textarea>
             </div>
@@ -177,21 +174,21 @@
         <div class="row mt-5">
             <div class="col-md-12">
                 <div class="d-flex align-items-center">
-                    <label for="additionalInfo" class="form-label me-3">Interpreter Needed:</label>
+                    <label  class="form-label me-3">Interpreter Needed:</label>
                     <div class="form-check ms-1 me-8">
-                        <input class="form-check-input" type="radio" value="" id="flexCheckDefault1" name="radio2">
+                        <input disabled class="form-check-input" type="radio" value=""  id="flexCheckDefault1" name="radio3">
                         <label class="form-check-label" for="flexCheckDefault1">
                             Yes
                         </label>
                     </div>
                     
                     <div class="form-check me-3">
-                        <input class="form-check-input" type="radio" value="" id="flexCheckChecked1" name="radio2" >
+                        <input class="form-check-input" type="radio" value="" checked id="flexCheckChecked1" name="radio3" >
                         <label class="form-check-label" for="flexCheckChecked1">
                             No
                         </label>
                     </div>
-                    <label for="additionalInfo" class="form-label me-3">If Yes, what language:</label>
+                    <label  class="form-label me-3">If Yes, what language:</label>
                 </div>
                 <textarea class="form-control" id="additionalInfo" rows="2" style="resize: none;"></textarea>
             </div>
@@ -200,21 +197,21 @@
         <div class="row mt-5">
             <div class="col-md-12">
                 <div class="d-flex align-items-center">
-                    <label for="additionalInfo" class="form-label me-3">Assistive Device(s) Needed:</label>
+                    <label  class="form-label me-3">Assistive Device(s) Needed:</label>
                     <div class="form-check ms-1 me-8">
-                        <input class="form-check-input" type="radio" value="" id="flexCheckDefault1" name="radio2">
+                        <input disabled class="form-check-input" type="radio" value="" id="flexCheckDefault1" name="radio4">
                         <label class="form-check-label" for="flexCheckDefault1">
                             Yes
                         </label>
                     </div>
                     
                     <div class="form-check me-3">
-                        <input class="form-check-input" type="radio" value="" id="flexCheckChecked1" name="radio2" >
+                        <input class="form-check-input" type="radio" value="" checked id="flexCheckChecked1" name="radio4" >
                         <label class="form-check-label" for="flexCheckChecked1">
                             No
                         </label>
                     </div>
-                    <label for="additionalInfo" class="form-label me-3">If Yes, please specify:</label>
+                    <label  class="form-label me-3">If Yes, please specify:</label>
                 </div>
                 <textarea class="form-control" id="additionalInfo" rows="2" style="resize: none;"></textarea>
             </div>
@@ -223,33 +220,37 @@
         <div class="row mt-4">
             <div class="col-md-12">
                 <div class="form-check form-check-custom form-check-solid">
-                    <input class="form-check-input me-2" type="checkbox" value="1" id="flexCheckDefault"/>
+                    <input class="form-check-input me-2" type="checkbox" checked disabled value="1" id="flexCheckDefault"/>
                     <label for="flexCheckDefault" >Documents were translated to me in my native language (if needed).</label>
                 </div>
             </div>
         </div>
 
-        <div class="row mt-10">
-            <div class="col-md-8">
-                <c-input_text inputType="text" helpText="Recipient, Parent, Legal Guardian or Authorized Representative Signature">
-                </c-input_text>
+        <div class="row mt-10 align-items-end">
+            <div class="col-md-8 pt-10">
+                <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+                    {% comment %} <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/> {% endcomment %}
+                </div>
+                <h6 class="text-gray-900 mb-5 text-center">Recipient, Parent, Legal Guardian or Authorized Representative Signature</h6>
+                
             </div>
-            <div class="col-md-4">
-                <c-input_text inputType="date" helpText="Date">
+            <div class="col-md-4 ">
+                <c-input_text inputType="date" helpText="Date" >
                 </c-input_text>
             </div>
         </div>
 
-        <div class="row mt-10">
+        <div class="row mt-10 align-items-end">
             <div class="col-md-8">
-                <c-input_text inputType="text" helpText="Employee Signature">
-                </c-input_text>
+                <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+                    <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/>
+                </div>
+                <h6 class="text-gray-900 mb-5 text-center">Recipient, Parent, Legal Guardian or Authorized Representative Signature</h6>
+                
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 ">
                 <c-input_text inputType="date" helpText="Date">
                 </c-input_text>
             </div>
         </div>
         
-    </div>
-</div>

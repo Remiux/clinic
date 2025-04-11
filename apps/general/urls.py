@@ -13,5 +13,6 @@ urlpatterns = [
     path('load-section/<str:section_name>/', load_section, name='load_section'),
     path('', include('apps.symptom.urls.customer_urls')),
     path('', include('apps.symptom.urls.cryptography_urls')),
-    path('', include('apps.symptom.urls.diagnostic_urls'))
+    path('', include('apps.symptom.urls.diagnostic_urls')),
+    path('', include('apps.symptom.urls.sections_urls')),
 ]

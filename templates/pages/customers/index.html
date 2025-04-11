@@ -98,7 +98,7 @@
                             <!--begin::Label-->
                             <label class="col-form-label  fw-semibold fs-6">Diagnostic:</label>
     
-                            <select name="diagnostic" required aria-label="Select a diagnostic" data-control="select2" data-placeholder="Select a diagnostic..." class="form-select form-select-solid form-select-sm fw-semibold">
+                            <select name="diagnostic" aria-label="Select a diagnostic" data-control="select2"  class="form-select form-select-solid form-select-sm fw-semibold">
                                 <option value="" selected >Select a diagnostic...</option>
                                 {% for diagnostic in diagnostics %}
                                     <option value="{{diagnostic.pk}}" >{{diagnostic.code}}</option>
