@@ -1,18 +1,11 @@
-<div class="card bg-light shadow-sm">
-    <div class="card-header">
-        <h2 class="card-title fs-1">Consent for Treatmen</h2>
-        <div class="card-toolbar">
-            <!-- Content -->
-        </div>
-    </div>
-    <div class="card-body card-scroll h-550px">
+
         <div class="row">
             <div class="col-md-8">
-                <c-input_text spanTitle="Recipient" inputType="text" >
+                <c-input_text spanTitle="Recipient" disabled="disabled" inputValue="{{customer.first_name}} {{customer.last_name}}" inputType="text" >
                 </c-input_text >
             </div>
             <div class="col-md-4">
-                <c-input_text spanTitle="Case No" inputType="number" >
+                <c-input_text spanTitle="Case No" inputType="text" disabled="disabled" inputValue="{{customer.case_no}}" >
                 </c-input_text >
             </div>
         </div>
@@ -26,19 +19,19 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <c-input_text inputType="text" helpText="An applicant for the services of Homestead Behavior Health Plus LLC and if applicable">
+                <c-input_text inputType="text" disabled="disabled" inputValue="{{customer.first_name}} {{customer.last_name}}" helpText="An applicant for the services of Homestead Behavior Health Plus LLC and if applicable">
                 </c-input_text >
             </div>
             <div class="col-md-6">
-                <c-input_text inputType="text" helpText="Legal guardian/authorized representative of the above named applicant">
+                <c-input_text inputType="text" disabled="disabled" inputValue="{% if customer.legal_guardian_full_name %}{{customer.legal_guardian_full_name}}{% else %}N/A{% endif %}" helpText="Legal guardian/authorized representative of the above named applicant">
                 </c-input_text >
             </div>
         </div>
         <div class="row mt-5">
-            <div class="rounded border p-5">
+            <div class="rounded  p-5">
                 <div class="col-md-12 mb-5">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" />
+                        <input class="form-check-input" type="checkbox" checked disabled value="" id="flexCheckDefault1" />
                         <label for="flexCheckDefault1">
                             Authorize the staff of <span class="text-decoration-underline">Homestead Behavior Health Plus LLC</span> to provide services.
                         </label>
@@ -46,7 +39,7 @@
                 </div>
                 <div class="col-md-12 mb-5">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2" />
+                        <input class="form-check-input" type="checkbox" checked disabled value="" id="flexCheckDefault2" />
                         <label for="flexCheckDefault2">
                             Authorize release of necessary information from my service record to any insurer, compensation carrier, or other agency providing
                             financial assistance for treatment/ services Information from clinical records may be used by The Department of Children and Families,
@@ -56,7 +49,7 @@
                 </div>
                 <div class="col-md-12 mb-5">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3" />
+                        <input class="form-check-input" type="checkbox" checked disabled value="" id="flexCheckDefault3" />
                         <label for="flexCheckDefault3">
                             Understand that, except for the above case, all information that you furnish to <span class="text-decoration-underline">Homestead Behavior Health Plus LLC</span>
                             will be kept in strictest confidence, as required by Florida law, and will not be shared with any agency or
@@ -66,7 +59,7 @@
                 </div>
                 <div class="col-md-12 mb-5">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault4" />
+                        <input class="form-check-input" type="checkbox" checked disabled value="" id="flexCheckDefault4" />
                         <label for="flexCheckDefault4">
                             Certify that I will be responsible for all charges for treatment/services, commensurate with my ability to pay
                         </label>
@@ -74,7 +67,7 @@
                 </div>
                 <div class="col-md-12 mb-5">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault5" />
+                        <input class="form-check-input" type="checkbox" checked disabled value="" id="flexCheckDefault5" />
                         <label for="flexCheckDefault5">
                             Certify that I have read and fully understand the above.
                         </label>
@@ -82,7 +75,7 @@
                 </div>
                 <div class="col-md-12 mb-5">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault6" />
+                        <input class="form-check-input" type="checkbox" checked disabled value="" id="flexCheckDefault6" />
                         <label for="flexCheckDefault6">
                             Documents were translated to me in my native language (if needed).
                         </label>
@@ -90,26 +83,30 @@
                 </div>
             </div>
         </div>
-        <div class="row mt-10">
+        <div class="row mt-10 align-items-end">
             <div class="col-md-8">
-                <c-input_text inputType="text" helpText="Recipient, Parent, Legal Guardian or Authorized Representative Signature">
-                </c-input_text>
+                <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+                    <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/>
+                </div>
+                <h6 class="text-gray-900 mb-5 text-center">Recipient, Parent, Legal Guardian or Authorized Representative Signature</h6>
+                
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 ">
                 <c-input_text inputType="date" helpText="Date">
                 </c-input_text>
             </div>
         </div>
 
-        <div class="row mt-10">
+        <div class="row mt-10 align-items-end">
             <div class="col-md-8">
-                <c-input_text inputType="text" helpText="Employee Signature">
-                </c-input_text>
+                <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+                    {% comment %} <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/> {% endcomment %}
+                </div>
+                <h6 class="text-gray-900 mb-5 text-center">Employee Signature </h6>
+                
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 ">
                 <c-input_text inputType="date" helpText="Date">
                 </c-input_text>
             </div>
         </div>
-    </div>
-</div>
