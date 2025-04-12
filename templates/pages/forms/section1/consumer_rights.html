@@ -1,18 +1,11 @@
-<div class="card bg-light shadow-sm">
-    <div class="card-header">
-        <h2 class="card-title fs-1">Consumer Rights</h2>
-        <div class="card-toolbar">
-            <!-- Content -->
-        </div>
-    </div>
-    <div class="card-body card-scroll h-550px">
+
         <div class="row">
             <div class="col-md-8">
-                <c-input_text spanTitle="Recipient" inputType="text" >
+                <c-input_text spanTitle="Recipient" inputType="text" disabled="disabled" inputValue="{{customer.full_name}}" >
                 </c-input_text >
             </div>
             <div class="col-md-4">
-                <c-input_text spanTitle="Case No" inputType="number" >
+                <c-input_text spanTitle="Case No" inputType="text" disabled="disabled" inputValue="{{customer.case_no}}" >
                 </c-input_text >
             </div>
         </div>
@@ -48,7 +41,7 @@
                         3. An individualized service plan developed with your Input and permission which will be reviewed on a regular basis. <br>
                         4. Services to begin within a reasonable time. <br>
                         5. Services even if you are unable to pay. Ability to pay is determined by certain standard criteria. <br>
-                        6. Another opinion regarding services provided. However, if you see someone outside of Homestead Behavior Health Plus LLC , 
+                        6. Another opinion regarding services provided. However, if you see someone outside of {{agency.name}} , 
                         it is at your own expense.
                     </p>
                 </div>
@@ -105,13 +98,13 @@
                 </div>
                 <div class="col-md-12 mt-2">
                     <p class="lh-lg">
-                        1. Determine the amount of information to be released either to or from anyone outside Homestead Behavior Health Plus LLC
+                        1. Determine the amount of information to be released either to or from anyone outside {{agency.name}}
                         by signing a permission form. <br>
                         2. Determine the length of time that Information may be released and cancel your permission at any time. (However,
                         Information may be released without your permission in a medical emergency to save lives, to prevent injury to yourself or <br>
                         others, or when court ordered). <br>
                         3. See your record and/or obtain a copy of it after your written request has been approved by the Executive Director
-                        of <span class="text-decoration-underline">Homestead Behavior Health Plus LLC</span> or designee.
+                        of <span class="text-decoration-underline">{{agency.name}}</span> or designee.
                     </p>
                 </div>
             </div>
@@ -164,5 +157,3 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>

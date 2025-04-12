@@ -1,24 +1,17 @@
-<div class="card bg-light shadow-sm">
-    <div class="card-header">
-        <h2 class="card-title fs-1">Demographic Information</h2>
-        <div class="card-toolbar">
-            <!-- Content -->
-        </div>
-    </div>
-    <div class="card-body card-scroll h-550px">
+
         <div class="row">
             <div class="col-md-8">
-                <c-input_text spanTitle="Recipient" inputType="text" >
+                <c-input_text spanTitle="Recipient" inputType="text" disabled="disabled" inputValue="{{customer.full_name}}">
                 </c-input_text >
             </div>
             <div class="col-md-4">
-                <c-input_text spanTitle="Case No" inputType="number" >
+                <c-input_text spanTitle="Case No" inputType="text" disabled="disabled" inputValue="{{customer.case_no}}">
                 </c-input_text >
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
-                <c-input_text spanTitle="Date" inputType="date">
+                <c-input_text spanTitle="Date" inputType="date" disabled="disabled" inputValue="{{customer.create_at|date:'Y-m-d'}}">
                 </c-input_text>
             </div>
             <div class="col-md-6">
@@ -27,14 +20,14 @@
                         <label class="form-label ms-2 me-4">Gender</label>
             
                         <div class="form-check me-8">
-                            <input class="form-check-input" type="radio" value="" id="flexCheckDefault1" name="radio2">
+                            <input {% if customer.gerder == "M" %}checked{% else %}disabled{% endif %} class="form-check-input" type="radio" value="" id="flexCheckDefault1" name="radio2">
                             <label class="form-check-label" for="flexCheckDefault1">
                                 Male
                             </label>
                         </div>
                         
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" value="" id="flexCheckChecked2" name="radio2" >
+                            <input class="form-check-input" {% if customer.gerder == "F" %}checked{% else %}disabled{% endif %} type="radio" value="" id="flexCheckChecked2" name="radio2" >
                             <label class="form-check-label" for="flexCheckChecked2">
                                 Female
                             </label>
@@ -45,11 +38,11 @@
         </div>
         <div class="row">
             <div class="col-md-6">
-                <c-input_text spanTitle="DOB" inputType="date" >
+                <c-input_text spanTitle="DOB" inputType="date" disabled="disabled" inputValue="{{customer.dob|date:'Y-m-d'}}" >
                 </c-input_text >
             </div>
             <div class="col-md-6">
-                <c-input_text spanTitle="SSN" inputType="text" >
+                <c-input_text spanTitle="SSN" inputType="text" disabled="disabled" inputValue="{{customer.ssn}}">
                 </c-input_text >
             </div>
         </div>
@@ -59,31 +52,31 @@
                     <div class="d-flex align-items-center">
                         <label class="me-5">Race: </label>
                         <div class="form-check me-5">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3" />
+                            <input class="form-check-input" type="checkbox" disabled {% if customer.race == "W" %}checked{% endif %} value="" id="flexCheckDefault3" />
                             <label for="flexCheckDefault3">
                                 White
                             </label>
                         </div>
                         <div class="form-check me-5">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault4" />
+                            <input class="form-check-input" type="checkbox" disabled {% if customer.race == "AAB" %}checked{% endif %} value="" id="flexCheckDefault4" />
                             <label for="flexCheckDefault4">
                                 African American/ Black
                             </label>
                         </div>
                         <div class="form-check me-5">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault5" />
+                            <input class="form-check-input" type="checkbox" disabled {% if customer.race == "API" %}checked{% endif %} value="" id="flexCheckDefault5" />
                             <label for="flexCheckDefault5">
                                 Asian or Other Pacific Islander
                             </label>
                         </div>
                         <div class="form-check me-5">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault6" />
+                            <input class="form-check-input" type="checkbox" disabled {% if customer.race == "AIAN" %}checked{% endif %} value="" id="flexCheckDefault6" />
                             <label for="flexCheckDefault6">
                                 American Indian/Alaskan Native
                             </label>
                         </div>
                         <div class="form-check me-5">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault7" />
+                            <input class="form-check-input" type="checkbox" disabled {% if customer.race == "O" %}checked{% endif %} value="" id="flexCheckDefault7" />
                             <label for="flexCheckDefault7">
                                 Other
                             </label>
@@ -98,19 +91,19 @@
                     <div class="d-flex align-items-center">
                         <label class="me-5">Ethnicity: </label>
                         <div class="form-check me-5">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2" />
+                            <input class="form-check-input" type="checkbox" disabled {% if customer.ethnicity == "H" %}checked{% endif %} value="" id="flexCheckDefault2" />
                             <label for="flexCheckDefault2">
                                 Hipanic/ Latino
                             </label>
                         </div>
                         <div class="form-check me-5">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2" />
+                            <input class="form-check-input" type="checkbox" disabled {% if customer.ethnicity == "NH" %}checked{% endif %} value="" id="flexCheckDefault2" />
                             <label for="flexCheckDefault2">
                                 Non-Hispanic
                             </label>
                         </div>
                         <div class="form-check me-5">
-                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2" />
+                            <input class="form-check-input" type="checkbox" disabled {% if customer.ethnicity == "O" %}checked{% endif %} value="" id="flexCheckDefault2" />
                             <label for="flexCheckDefault2">
                                 Other
                             </label>
@@ -121,94 +114,94 @@
         </div>
         <div class="row mt-5">
             <div class="col-md-6">
-                <c-input_text spanTitle="Home Phone" inputType="number" >
+                <c-input_text spanTitle="Home Phone" inputType="text" disabled="disabled" inputValue="{{customer.home_phone}}" >
                 </c-input_text >
             </div>
             <div class="col-md-6">
-                <c-input_text spanTitle="Mobile" inputType="number" >
+                <c-input_text spanTitle="Mobile" inputType="text" disabled="disabled" inputValue="{{customer.movile}}" >
                 </c-input_text >
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <c-input_text spanTitle="Address" inputType="text" >
+                <c-input_text spanTitle="Address" inputType="text" disabled="disabled" inputValue="{{customer.address}}" >
                 </c-input_text >
             </div>
         </div>
         <div class="row">
             <div class="col-md-8">
-                <c-input_text spanTitle="City" inputType="text" >
+                <c-input_text spanTitle="City" inputType="text" disabled="disabled" inputValue="{{customer.city}}">
                 </c-input_text >
             </div>
             <div class="col-md-2">
-                <c-input_text spanTitle="State" inputType="text" >
+                <c-input_text spanTitle="State" inputType="text" disabled="disabled" inputValue="{{customer.state}}">
                 </c-input_text >
             </div>
             <div class="col-md-2">
-                <c-input_text spanTitle="Zip" inputType="number" >
+                <c-input_text spanTitle="Zip" inputType="text" disabled="disabled" inputValue="{{customer.zip}}" >
                 </c-input_text >
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
-                <c-input_text spanTitle="Medicaid No" inputType="number" >
+                <c-input_text spanTitle="Medicaid No" inputType="text" disabled="disabled" inputValue="{{customer.medicaid_no}}">
                 </c-input_text >
             </div>
             <div class="col-md-6">
-                <c-input_text spanTitle="Medicare No" inputType="number" >
+                <c-input_text spanTitle="Medicare No" inputType="text" disabled="disabled" inputValue="{{customer.medicare_no}}" >
                 </c-input_text >
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <c-input_text spanTitle="Legal Guardian Name (If Applicable)" inputType="text" >
+                <c-input_text spanTitle="Legal Guardian Name (If Applicable)" inputType="text" disabled="disabled" inputValue="{% if customer.legal_guardian_full_name %}{{customer.legal_guardian_full_name}}{% endif %}" >
                 </c-input_text >
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
-                <c-input_text spanTitle="Relationship" inputType="text" >
+                <c-input_text spanTitle="Relationship" inputType="text" disabled="disabled" inputValue="{% if customer.legal_guardian_relationship %}{{customer.legal_guardian_relationship}}{% endif %}">
                 </c-input_text >
             </div>
         
             <div class="col-md-6">
-                <c-input_text spanTitle="Phone" inputType="number" >
+                <c-input_text spanTitle="Phone" inputType="text" disabled="disabled" inputValue="{% if customer.legal_guardian_phone_number %}{{customer.legal_guardian_phone_number}}{% endif %}" >
                 </c-input_text >
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <c-input_text spanTitle="Address" inputType="text" >
+                <c-input_text spanTitle="Address" inputType="text" disabled="disabled" inputValue="{% if customer.legal_guardian_address %}{{customer.legal_guardian_address}}{% endif %}" >
                 </c-input_text >
             </div>
         </div>
         <div class="row">
             <div class="col-md-8">
-                <c-input_text spanTitle="City" inputType="text" >
+                <c-input_text spanTitle="City" inputType="text" disabled="disabled" inputValue="{% if customer.legal_guardian_city %}{{customer.legal_guardian_city}}{% endif %}" >
                 </c-input_text >
             </div>
             <div class="col-md-2">
-                <c-input_text spanTitle="State" inputType="text" >
+                <c-input_text spanTitle="State" inputType="text"  disabled="disabled" inputValue="{% if customer.legal_guardian_state %}{{customer.legal_guardian_state}}{% endif %}">
                 </c-input_text >
             </div>
             <div class="col-md-2">
-                <c-input_text spanTitle="Zip" inputType="number" >
+                <c-input_text spanTitle="Zip" inputType="text" disabled="disabled" inputValue="{% if customer.legal_guardian_zip %}{{customer.legal_guardian_zip}}{% endif %}" >
                 </c-input_text >
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <c-input_text spanTitle="Emergency Contact Person" inputType="text" >
+                <c-input_text spanTitle="Emergency Contact Person" inputType="text" disabled="disabled" inputValue="{{customer.emergency_contact_person}}">
                 </c-input_text >
             </div>
         </div>
         <div class="row">
             <div class="col-md-6">
-                <c-input_text spanTitle="Relationship" inputType="text" >
+                <c-input_text spanTitle="Relationship" inputType="text" disabled="disabled" inputValue="{{customer.emergency_contact_relationship}}" >
                 </c-input_text >
             </div>
             <div class="col-md-6">
-                <c-input_text spanTitle="Phone" inputType="number" >
+                <c-input_text spanTitle="Phone" inputType="text" disabled="disabled" inputValue="{{customer.emergency_contact_phone_number}}" >
                 </c-input_text >
             </div>
         </div>
@@ -219,14 +212,14 @@
                         <label class="form-label ms-2 me-4">In the event that you have an emergency may we contact this person?:</label>
             
                         <div class="form-check me-8">
-                            <input class="form-check-input" type="radio" value="" id="flexCheckDefault8" name="radio2">
+                            <input disabled ckecked class="form-check-input" type="radio" value="" id="flexCheckDefault8" name="demoInfo2">
                             <label class="form-check-label" for="flexCheckDefault8">
                                 Yes
                             </label>
                         </div>
                         
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" value="" id="flexCheckChecked9" name="radio2" >
+                            <input disabled class="form-check-input" type="radio" value="" id="flexCheckChecked9" name="demoInfo2" >
                             <label class="form-check-label" for="flexCheckChecked9">
                                 No
                             </label>
@@ -242,14 +235,14 @@
                         <label class="form-label ms-2 me-4">In the event that we need to contact you may we leave a message at your home identifying ourselves?:</label>
             
                         <div class="form-check me-8">
-                            <input class="form-check-input" type="radio" value="" id="flexCheckDefault10" name="radio2">
+                            <input checked disabled class="form-check-input" type="radio" value="" id="flexCheckDefault10" name="demoInfo3">
                             <label class="form-check-label" for="flexCheckDefault10">
                                 Yes
                             </label>
                         </div>
                         
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" value="" id="flexCheckChecked11" name="radio2" >
+                            <input disabled class="form-check-input" type="radio" value="" id="flexCheckChecked11" name="demoInfo3" >
                             <label class="form-check-label" for="flexCheckChecked11">
                                 No
                             </label>
@@ -264,8 +257,8 @@
             </div>
             <div class="col-md-12 mt-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault12" />
-                    <label for="flexCheckDefault12">
+                    <input disabled checked class="form-check-input" type="checkbox" value="" id="demoInfo5" />
+                    <label for="demoInfo5">
                         Documents were translated to me in my native language (if needed).
                     </label>
                 </div>
@@ -298,27 +291,31 @@
             </div>
         </div>
         
-        <div class="row mt-10">
+        <div class="row mt-10 align-items-end">
             <div class="col-md-8">
-                <c-input_text inputType="text" helpText="Recipient, Parent, Legal Guardian or Authorized Representative Signature">
-                </c-input_text>
+                <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+                    <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/>
+                </div>
+                <h6 class="text-gray-900 mb-5 text-center">Recipient, Parent, Legal Guardian or Authorized Representative Signature</h6>
+                
             </div>
-            <div class="col-md-4">
-                <c-input_text inputType="date" helpText="Date">
+            <div class="col-md-4 ">
+                <c-input_text inputType="date" helpText="Date" disabled="disabled" inputValue="{{customer.create_at|date:'Y-m-d'}}" >
                 </c-input_text>
             </div>
         </div>
 
-        <div class="row mt-10">
+        <div class="row mt-10 align-items-end">
             <div class="col-md-8">
-                <c-input_text inputType="text" helpText="Employee Signature">
-                </c-input_text>
+                <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+                    <img class="" width="130" src="{% if user.sign %}{{user.sign.url}}{% endif %}"/> 
+                </div>
+                <h6 class="text-gray-900 mb-5 text-center">Employee Signature </h6>
+                
             </div>
-            <div class="col-md-4">
-                <c-input_text inputType="date" helpText="Date">
+            <div class="col-md-4 ">
+                <c-input_text inputType="date" helpText="Date" disabled="disabled" inputValue="{{customer.create_at|date:'Y-m-d'}}">
                 </c-input_text>
             </div>
         </div>
 
-    </div>
-</div>
