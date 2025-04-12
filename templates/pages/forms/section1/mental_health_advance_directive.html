@@ -1,41 +1,33 @@
-<div class="card bg-light shadow-sm">
-    <div class="card-header">
-        <h2 class="card-title fs-1">MENTAL HEALTH ADVANCE DIRECTIVE (ADULT CLIENTS ONLY)</h2>
-        <div class="card-toolbar">
-            <!-- Content -->
-        </div>
-    </div>
-    <div class="card-body card-scroll h-550px">
+
         <div class="row">
             <div class="col-md-8">
-                <c-input_text spanTitle="Recipient" inputType="text" >
+                <c-input_text spanTitle="Recipient" inputType="text" disabled="disabled" inputValue="{{customer.full_name}}">
                 </c-input_text >
             </div>
             <div class="col-md-4">
-                <c-input_text spanTitle="Case No" inputType="number" >
+                <c-input_text spanTitle="Case No" inputType="text" disabled="disabled" inputValue="{{customer.case_no}}"   >
                 </c-input_text >
             </div>
         </div>
 
         <div class="row mt-5">
-            <div class="col-md-12">
-                <p class="lh-lg">
-                    Homestead Behavior Health Plus LLC does not require you to have “Mental Health <br>
-                    Advance Directive”, however <span class="text-decoration-underline">Homestead Behavior Health Plus LLC</span> will follow <br>
-                    the terms of any advance directive that the Client has executed to the extent <br>
-                    permitted by the law. <br>
-                    If you already have a Mental Health Advance Directive, please provide to <br>
-                    <span class="text-decoration-underline">Homestead Behavior Health Plus LLC</span> a copy.
+            <div class="col-12">
+                <p class="lh-lg w-100">
+                    {{agency.name}} does not require you to have “Mental Health 
+                    Advance Directive”, however <span class="text-decoration-underline">{{agency.name}}</span> will follow 
+                    the terms of any advance directive that the Client has executed to the extent 
+                    permitted by the law. 
+                    If you already have a Mental Health Advance Directive, please provide to
+                    <span class="text-decoration-underline">{{agency.name}}</span> a copy.
                 </p>
             </div>
         </div>
         <div class="row mt-5">
-            <div class="col-md-12">
+            <div class="col-12">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault10" />
-                    <label for="flexCheckDefault10" class="lh-lg">
-                        <span class="fw-bold">I HAVE</span> executed a Mental Health Advance Directive and will provide Homestead <br>
-                        Behavior Health Plus LLC with a copy. The name and contact information for my <br>
+                    <input class="form-check-input" type="checkbox" value="" id="mentalcheck1" />
+                    <label for="mentalcheck1" class="lh-lg">
+                        <span class="fw-bold">I HAVE</span> executed a Mental Health Advance Directive and will provide {{agency.name}} with a copy. The name and contact information for my 
                         surrogate is:
                     </label>
                 </div>
@@ -43,11 +35,11 @@
         </div>
         <div class="row mt-5">
             <div class="col-md-4">
-                <c-input_text inputType="text" spanTitle="Name">
+                <c-input_text inputType="text" spanTitle="Name"  disabled="disabled" inputValue="{{customer.full_name}}">
                 </c-input_text >
             </div>
             <div class="col-md-4">
-                <c-input_text inputType="text" spanTitle="Phone Number">
+                <c-input_text inputType="text" spanTitle="Phone Number"  >
                 </c-input_text >
             </div>
             <div class="col-md-4">
@@ -59,16 +51,16 @@
         <div class="row mt-5">
             <div class="col-md-12">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault11" />
-                    <label for="flexCheckDefault11" class="lh-lg">
+                    <input checked disabled class="form-check-input" type="checkbox" value="" id="mentalcheck2" />
+                    <label for="mentalcheck2" class="lh-lg">
                         <span class="fw-bold">I HAVE NOT</span> executed a Mental Health Advance Directive.
                     </label>
                 </div>
             </div>
             <div class="col-md-12 mt-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault12" />
-                    <label for="flexCheckDefault12" class="lh-lg">
+                    <input  checked disabled class="form-check-input" type="checkbox" value="" id="mentalcheck3" />
+                    <label for="mentalcheck3" class="lh-lg">
                         I hereby certify that I have read or been explained, and understand my rights to have a Mental <br>
                         Health Advance Directive.
                     </label>
@@ -76,20 +68,30 @@
             </div>
         </div>
         
-        <div class="row mt-15">
-            <div class="col-md-6 mb-5">
-                Client Signature: __________________________________
+        <div class="row mt-15 align-items-end">
+            <div class="col-md-4">
+                <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+                    <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/>
+                </div>
+                <h6 class="text-gray-900 mb-5 text-center">Client Signature.</h6>
+                
             </div>
-            <div class="col-md-6">
-                <c-input_text inputType="date" helpText="Date">
+            <div class="col-md-4">
+                
+            </div>
+            <div class="col-md-4 ">
+                <c-input_text inputType="date" helpText="Date" inputValue="{{customer.create_at|date:'Y-m-d'}}">
                 </c-input_text>
             </div>
         </div>
 
-        <div class="row mt-5">
+        <div class="row mt-5 align-items-end">
             <div class="col-md-4">
-                <c-input_text inputType="text" helpText="Authorized Representative Signature">
-                </c-input_text >
+                <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+                    {% comment %} <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/> {% endcomment %}
+                </div>
+                <h6 class="text-gray-900 mb-5 text-center">Client Signature.</h6>
+                
             </div>
             <div class="col-md-4">
                 <c-input_text inputType="text" helpText="Authorized Representative Name">
@@ -101,20 +103,20 @@
             </div>
         </div>
 
-        <div class="row mt-5">
+        <div class="row mt-5 align-items-end">
             <div class="col-md-4">
-                <c-input_text inputType="text" helpText="Witness Signature">
-                </c-input_text >
+                <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+                    {% comment %} <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/> {% endcomment %}
+                </div>
+                <h6 class="text-gray-900 mb-5 text-center">Client Signature.</h6>
+                
             </div>
             <div class="col-md-4">
                 <c-input_text inputType="text" helpText="Witness Name">
                 </c-input_text >
             </div>
             <div class="col-md-4">
-                <c-input_text inputType="text" helpText="Date">
-                </c-input_text >
+                <c-input_text inputType="date" helpText="Date" inputValue="{{customer.create_at|date:'Y-m-d'}}">
+                </c-input_text>
             </div>
         </div>
-
-    </div>
-</div>

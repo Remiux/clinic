@@ -1,54 +1,47 @@
-<div class="card bg-light shadow-sm">
-    <div class="card-header">
-        <h2 class="card-title fs-1">Acknowledgement of Receipt of HIPPA “Notice of Privacy Practices”</h2>
-        <div class="card-toolbar">
-            <!-- Content -->
-        </div>
-    </div>
-    <div class="card-body card-scroll h-550px">
+
         <div class="row">
             <div class="col-md-8">
-                <c-input_text spanTitle="Recipient" inputType="text" >
+                <c-input_text spanTitle="Recipient" inputType="text" disabled="disabled" inputValue="{{customer.full_name}}" >
                 </c-input_text >
             </div>
             <div class="col-md-4">
-                <c-input_text spanTitle="Case No" inputType="number" >
+                <c-input_text spanTitle="Case No" inputType="text" disabled="disabled" inputValue="{{customer.case_no}}" >
                 </c-input_text >
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-6">
-                <c-input_text inputType="text" helpText="a recipient for the services of Homestead Behavior Health Plus LLC and if applicable">
+                <c-input_text inputValue="{{customer.full_name}}" disabled="disabled" inputType="text" helpText="a recipient for the services of {{agency.name}} and if applicable">
                 </c-input_text >
             </div>
             <div class="col-md-6">
-                <c-input_text inputType="text" helpText="legal guardian/ authorized representative of the above named applicant">
+                <c-input_text disabled="disabled" inputValue="{% if customer.legal_gardian_full_name %}{{customer.legal_gardian_full_name}}{% else %}N/A{% endif %}" inputType="text" helpText="legal guardian/ authorized representative of the above named applicant">
                 </c-input_text >
             </div>
         </div>
         <div class="row mt-15">
             <div class="col-md-12">
                 <p>
-                    Hereby acknowledge receipt of <span class="text-decoration-underline">Homestead Behavior Health Plus LLC</span> Notice of Privacy Practices. This Notice of Privacy Practices provides
-                    detailed information about how <span class="text-decoration-underline">Homestead Behavior Health Plus LLC</span> may use and disclose my protected health and confidential
+                    Hereby acknowledge receipt of <span class="text-decoration-underline">{{agency.name}}</span> Notice of Privacy Practices. This Notice of Privacy Practices provides
+                    detailed information about how <span class="text-decoration-underline">{{agency.name}}</span> may use and disclose my protected health and confidential
                     information. The Notice contains a Client’s Rights section describing your rights under the law. You have the right to review the Notice before
                     signing this form. You have the right to request that we restrict how protected health information about you is used or disclosed for
                     treatment, payment, or health care operations.
                 </p>
                 <p>
-                    I understand that <span class="text-decoration-underline">Homestead Behavior Health Plus LLC</span> reserved the right to change the Privacy Practices that are described in the Notice. I
+                    I understand that <span class="text-decoration-underline">{{agency.name}}</span> reserved the right to change the Privacy Practices that are described in the Notice. I
                     also understand that a copy of any revised notice with be made available to me upon request.
                 </p>
                 <p>
-                    <span class="text-decoration-underline">Homestead Behavior Health Plus LLC</span> provides this form to comply with the Heath Insurance Portability and Accountability Act (HIPPA)
+                    <span class="text-decoration-underline">{{agency.name}}</span> provides this form to comply with the Heath Insurance Portability and Accountability Act (HIPPA)
                 </p>
             </div>
         </div>
         <div class="row mt-5">
             <div class="col-md-12 mb-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault6" />
+                    <input checked disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault6" />
                     <label for="flexCheckDefault6">
                         Documents were translated to me in my native language (if needed).
                     </label>
@@ -57,27 +50,32 @@
         </div>
 
         
-        <div class="row mt-10">
+        <div class="row mt-10 align-items-end">
             <div class="col-md-8">
-                <c-input_text inputType="text" helpText="Recipient, Parent, Legal Guardian or Authorized Representative Signature">
-                </c-input_text>
+                <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+                    <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/>
+                </div>
+                <h6 class="text-gray-900 mb-5 text-center">Recipient, Parent, Legal Guardian or Authorized Representative Signature</h6>
+                
             </div>
-            <div class="col-md-4">
-                <c-input_text inputType="date" helpText="Date">
+            <div class="col-md-4 ">
+                <c-input_text inputType="date" helpText="Date" inputValue="{{customer.create_at|date:'Y-m-d'}}">
                 </c-input_text>
             </div>
         </div>
 
-        <div class="row mt-10">
+        <div class="row mt-10 align-items-end">
             <div class="col-md-8">
-                <c-input_text inputType="text" helpText="Employee Signature">
-                </c-input_text>
+                <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+                    <img class="" width="130" src="{% if user.sign %}{{user.sign.url}}{% endif %}"/>
+                </div>
+                <h6 class="text-gray-900 mb-5 text-center">Employee Signature</h6>
+                
+                
             </div>
             <div class="col-md-4">
-                <c-input_text inputType="date" helpText="Date">
+                <c-input_text inputType="date" helpText="Date" inputValue="{{customer.create_at|date:'Y-m-d'}}">
                 </c-input_text>
             </div>
         </div>
 
-    </div>
-</div>
