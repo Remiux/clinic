@@ -1,18 +1,11 @@
-<div class="card bg-light shadow-sm">
-    <div class="card-header">
-        <h2 class="card-title fs-1">Orientation Checklist</h2>
-        <div class="card-toolbar">
-            <!-- Content -->
-        </div>
-    </div>
-    <div class="card-body card-scroll h-550px">
+
         <div class="row">
             <div class="col-md-8">
-                <c-input_text spanTitle="Recipient" inputType="text" >
+                <c-input_text spanTitle="Recipient" inputType="text" disabled="disabled" inputValue="{{customer.full_name}}" >
                 </c-input_text >
             </div>
             <div class="col-md-4">
-                <c-input_text spanTitle="Case No" inputType="number" >
+                <c-input_text spanTitle="Case No" inputType="text" disabled="disabled" inputValue="{{customer.case_no}}"  >
                 </c-input_text >
             </div>
         </div>
@@ -26,7 +19,7 @@
             </div>
             <div class="col-md-12 mb-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault6" />
+                    <input checked disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault6" />
                     <label for="flexCheckDefault6">
                         Tour of facility (if applicable)
                     </label>
@@ -34,7 +27,7 @@
             </div>
             <div class="col-md-12 mb-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault7" />
+                    <input checked disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault7" />
                     <label for="flexCheckDefault7">
                         Rights and Responsibilities of the Consumer
                     </label>
@@ -42,7 +35,7 @@
             </div>
             <div class="col-md-12 mb-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault8" />
+                    <input checked disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault8" />
                     <label for="flexCheckDefault8">
                         Policy on grievance and appeal procedures
                     </label>
@@ -50,7 +43,7 @@
             </div>
             <div class="col-md-12 mb-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault9" />
+                    <input checked disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault9" />
                     <label for="flexCheckDefault9">
                         Intent/consent to treat/serve
                     </label>
@@ -58,7 +51,7 @@
             </div>
             <div class="col-md-12 mb-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault10" />
+                    <input checked disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault10" />
                     <label for="flexCheckDefault10">
                         Services provided, days and hours of operation, and expected level of participation
                     </label>
@@ -66,7 +59,7 @@
             </div>
             <div class="col-md-12 mb-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault11" />
+                    <input checked disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault11" />
                     <label for="flexCheckDefault11">
                         Access to emergency services, including afterhours emergencies
                     </label>
@@ -74,7 +67,7 @@
             </div>
             <div class="col-md-12 mb-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault12" />
+                    <input checked disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault12" />
                     <label for="flexCheckDefault12">
                         Code of ethics/conduct
                     </label>
@@ -82,7 +75,7 @@
             </div>
             <div class="col-md-12 mb-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault13" />
+                    <input checked disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault13" />
                     <label for="flexCheckDefault13">
                         Confidentiality policy and limits of confidentiality
                     </label>
@@ -90,7 +83,7 @@
             </div>
             <div class="col-md-12 mb-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault14" />
+                    <input checked disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault14" />
                     <label for="flexCheckDefault14">
                         Documents were translated to me in my native language (if needed).
                     </label>
@@ -98,7 +91,7 @@
             </div>
             <div class="col-md-12 mb-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault15" />
+                    <input checked disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault15" />
                     <label for="flexCheckDefault15">
                         Methods, opportunities, and policy on input
                     </label>
@@ -106,7 +99,7 @@
             </div>
             <div class="col-md-12 mb-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault17" />
+                    <input checked disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault17" />
                     <label for="flexCheckDefault17">
                         Explanation of financial obligations, fees, and financial arrangements
                     </label>
@@ -114,7 +107,7 @@
             </div>
             <div class="col-md-12 mb-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault18" />
+                    <input checked disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault18" />
                     <label for="flexCheckDefault18">
                         Fire, safety, and emergency precautions
                     </label>
@@ -122,7 +115,7 @@
             </div>
             <div class="col-md-12 mb-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault19" />
+                    <input checked disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault19" />
                     <label for="flexCheckDefault19">
                         Policy on tobacco products no smoking on premise
                     </label>
@@ -130,7 +123,7 @@
             </div>
             <div class="col-md-12 mb-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault20" />
+                    <input checked disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault20" />
                     <label for="flexCheckDefault20">
                         Policy on illicit or licit drugs brought into the facility
                     </label>
@@ -138,7 +131,7 @@
             </div>
             <div class="col-md-12 mb-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault21" />
+                    <input checked disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault21" />
                     <label for="flexCheckDefault21">
                         Policy on weapons brought into the facility
                     </label>
@@ -146,7 +139,7 @@
             </div>
             <div class="col-md-12 mb-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault22" />
+                    <input checked disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault22" />
                     <label for="flexCheckDefault22">
                         Identification of the staff(s) responsible for service coordination
                     </label>
@@ -154,7 +147,7 @@
             </div>
             <div class="col-md-12 mb-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault23" />
+                    <input checked disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault23" />
                     <label for="flexCheckDefault23">
                         Program rules and regulations
                     </label>
@@ -162,7 +155,7 @@
             </div>
             <div class="col-md-12 mb-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault24" />
+                    <input checked disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault24" />
                     <label for="flexCheckDefault24">
                         Purpose and process of mental health screenings, Bio-Pychosocial Assessment
                     </label>
@@ -170,7 +163,7 @@
             </div>
             <div class="col-md-12 mb-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault25" />
+                    <input checked disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault25" />
                     <label for="flexCheckDefault25">
                         Individual plan development and the participation of recipient in goal development and explanation of the potential course of treatment/service
                     </label>
@@ -178,7 +171,7 @@
             </div>
             <div class="col-md-12 mb-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault26" />
+                    <input checked disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault26" />
                     <label for="flexCheckDefault26">
                         Discharge/transition criteria and procedures
                     </label>
@@ -186,7 +179,7 @@
             </div>
             <div class="col-md-12 mb-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault27" />
+                    <input checked disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault27" />
                     <label for="flexCheckDefault27">
                         Agency’s Policy regarding response to and identification of potential risk to the recipient
                     </label>
@@ -194,7 +187,7 @@
             </div>
             <div class="col-md-12 mb-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault28" />
+                    <input checked disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault28" />
                     <label for="flexCheckDefault28">
                         Agency’s expectations for legally required appointments, sanctions, or court notification (if applicable)
                     </label>
@@ -202,7 +195,7 @@
             </div>
             <div class="col-md-12 mb-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault29" />
+                    <input checked disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault29" />
                     <label for="flexCheckDefault29">
                         Education on advance directives (if applicable)
                     </label>
@@ -210,7 +203,7 @@
             </div>
             <div class="col-md-12 mb-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault30" />
+                    <input checked disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault30" />
                     <label for="flexCheckDefault30">
                         The above has been reviewed with me.
                     </label>
@@ -221,7 +214,7 @@
         <div class="row mt-8">
             <div class="col-md-12 mb-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault31" />
+                    <input checked disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault31" />
                     <label for="flexCheckDefault31">
                         Documents were translated to me in my native language (if needed).
                     </label>
@@ -230,27 +223,31 @@
         </div>
 
         
-        <div class="row mt-10">
+        <div class="row mt-10 align-items-end">
             <div class="col-md-8">
-                <c-input_text inputType="text" helpText="Recipient, Parent, Legal Guardian or Authorized Representative Signature">
-                </c-input_text>
+                <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+                    <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/>
+                </div>
+                <h6 class="text-gray-900 mb-5 text-center">Recipient, Parent, Legal Guardian or Authorized Representative Signature</h6>
+                
             </div>
-            <div class="col-md-4">
-                <c-input_text inputType="date" helpText="Date">
+            <div class="col-md-4 ">
+                <c-input_text inputType="date" helpText="Date" disabled="disabled" inputValue="{{customer.create_at|date:'Y-m-d'}}" >
                 </c-input_text>
             </div>
         </div>
 
-        <div class="row mt-10">
+        <div class="row mt-10 align-items-end">
             <div class="col-md-8">
-                <c-input_text inputType="text" helpText="Employee Signature">
-                </c-input_text>
+                <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+                    <img class="" width="130" src="{% if user.sign %}{{user.sign.url}}{% endif %}"/> 
+                </div>
+                <h6 class="text-gray-900 mb-5 text-center">Employee Signature </h6>
+                
             </div>
-            <div class="col-md-4">
-                <c-input_text inputType="date" helpText="Date">
+            <div class="col-md-4 ">
+                <c-input_text inputType="date" helpText="Date" disabled="disabled" inputValue="{{customer.create_at|date:'Y-m-d'}}">
                 </c-input_text>
             </div>
         </div>
 
-    </div>
-</div>
