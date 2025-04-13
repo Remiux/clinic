@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from apps.symptom.models import EncryptedFile
+from apps.symptom.models import EncryptedFile, Customer
 from apps.symptom.utils import encrypt_file, decrypt_file
 from apps.symptom.form import FileUploadForm
 from django.http import HttpResponse
@@ -40,7 +40,7 @@ def list_files(request):
 
 @login_required
 def download_file(request, file_id):
-    encrypted_file = EncryptedFile.objects.get(id=file_id, belongs_to=request.user)
+    encrypted_file = EncryptedFile.objects.get(id=file_id)
     decrypted_data = decrypt_file(encrypted_file.encrypted_file)
 
     response = HttpResponse(decrypted_data, content_type='application/octet-stream')

@@ -3,7 +3,7 @@
                     enctype="multipart/form-data" 
                     method="post">
                         {% csrf_token %}
-                        {% comment %} <input type="hidden" name="belongs_to" value="{{ customer.id }}">  <!-- Asociar al cliente actual --> {% endcomment %}
+                        <input type="hidden" name="belongs_to" value="{{ customer.id }}">  <!-- Asociar al cliente actual -->
                 
                         <div class="mb-3">
                             <label for="id_file" class="form-label">File</label>
@@ -40,6 +40,17 @@
                             >
                             </div>
                         {% endif %}
+
+
+                        {% if form_errors %}
+    <div class="alert alert-danger">
+        <ul>
+            {% for field, errors in form_errors.items %}
+                <li>{{ field }}: {{ errors|join:", " }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

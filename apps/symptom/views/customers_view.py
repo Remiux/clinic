@@ -11,6 +11,7 @@ from apps.symptom.models import EncryptedFile
 from apps.symptom.form import FileUploadForm, FileUploadForm2
 from django.contrib import messages
 from django.shortcuts import redirect
+from apps.symptom.utils import encrypt_file, decrypt_file
 
 # Create your views here.
 @login_required(login_url='/login')
@@ -50,6 +51,7 @@ def _show_files_filter(request, pk):
     parameters = get_copy.pop('page', True) and get_copy.urlencode()
     files = EncryptedFileFilter(request.GET, queryset=EncryptedFile.objects.filter(belongs_to=pk).order_by('-id'))
     context = _get_paginator(request, files.qs)
+    context['customer'] = get_object_or_404(Customer, pk=pk)
     context['parameters'] = parameters
     return context
 
@@ -105,6 +107,12 @@ def upload_file(request, pk):
             document.uploaded_by = request.user
             document.belongs_to = customer
             document.file_type = get_file_extension(request.FILES.get('file'))
+            # Leer y encriptar el archivo
+            file = request.FILES.get('file')
+            encrypted_data = encrypt_file(file.read())
+            # Asignar el archivo encriptado al campo correspondiente
+            document.encrypted_file = encrypted_data
+            
             document.save()
             context['tags'] = 'success'
             context['tag_message'] = 'File uploaded successfully!'

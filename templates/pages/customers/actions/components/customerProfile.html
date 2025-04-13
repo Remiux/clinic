@@ -14,7 +14,7 @@
             
             <!--begin::Nav item-->
             <li class="nav-item mt-2" role="presentation">
-                <button class="nav-link text-active-primary  py-5" id="documents-tab" data-bs-toggle="tab" data-bs-target="#documents-tab-pane" type="button" role="tab" aria-controls="documents-tab-pane" aria-selected="false">Documents</button>
+                <button class="nav-link text-active-primary py-5" id="documents-tab" data-bs-toggle="tab" data-bs-target="#documents-tab-pane" type="button" role="tab" aria-controls="documents-tab-pane" aria-selected="false" hx-get="{% url 'filter_files_view' pk=customer.pk %}" hx-target="#files-container" hx-trigger="submit" hx-indicator="#spinnerFilter">Documents</button>
             </li>
             <!--end::Nav item-->
             
