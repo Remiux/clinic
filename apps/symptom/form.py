@@ -14,19 +14,6 @@ class InsuranceForm(forms.ModelForm):
     class Meta:
         model = Insurance
         fields = '__all__'
-
-
-class FileUploadForm(forms.Form):
-    file = forms.FileField()
-    belongs_to = forms.ModelChoiceField(queryset=Customer.objects.all(), widget=forms.HiddenInput())
-    process_start_date = forms.DateField(
-        widget=forms.DateInput(attrs={'type': 'date'}),
-        label="Fecha de inicio del proceso"
-    )
-
-    def clean(self):
-        cleaned_data = super().clean()
-        file = cleaned_data.get('file')
     
 class DiagnosticForm(forms.ModelForm):
     
@@ -50,7 +37,7 @@ class CustomerSignForm(forms.ModelForm):
 
 from apps.symptom.models import EncryptedFile
 
-class FileUploadForm2(forms.ModelForm):
+class FileUploadForm(forms.ModelForm):
     class Meta:
         model = EncryptedFile
         fields = ['file', 'process_start_date']

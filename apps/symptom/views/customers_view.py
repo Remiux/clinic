@@ -8,7 +8,7 @@ from utils.file_extension import get_file_extension
 from apps.symptom.models import Customer
 from django.contrib.auth import get_user_model
 from apps.symptom.models import EncryptedFile
-from apps.symptom.form import FileUploadForm, FileUploadForm2
+from apps.symptom.form import FileUploadForm
 from django.contrib import messages
 from django.shortcuts import redirect
 from apps.symptom.utils import encrypt_file, decrypt_file
@@ -35,11 +35,6 @@ def _show_customers_filter(request):
     context['parameters'] = parameters
     return context
 
-# @login_required(login_url='/login')
-# def filter_files_view(request):
-#     files_filter = EncryptedFileFilter(request.GET, queryset=EncryptedFile.objects.all().order_by('-id'))
-#     context = {'files': files_filter.qs}
-#     return render(request, 'pages/customers/actions/components/partials/files.html', context)
 
 @login_required(login_url='/login')
 def filter_files_view(request, pk):
@@ -101,7 +96,7 @@ def upload_file(request, pk):
     customer = get_object_or_404(Customer, pk=pk)
     context = {}
     if request.method == 'POST':
-        form = FileUploadForm2(request.POST, request.FILES)
+        form = FileUploadForm(request.POST, request.FILES)
         if form.is_valid():
             document = form.save(commit=False)
             document.uploaded_by = request.user
