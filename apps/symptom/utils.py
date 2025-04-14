@@ -1,11 +1,11 @@
 from cryptography.fernet import Fernet
+from decouple import config
 
-# Generar una clave (esto debe hacerse una vez y almacenarse de forma segura)
-KEY = Fernet.generate_key()
-cipher_suite = Fernet(KEY)
+key = config('FERNET_KEY').encode()
+cipher_suite = Fernet(key)
 
-def encrypt_file(file_data):
-    return cipher_suite.encrypt(file_data)
+def encrypt_file(data):
+    return cipher_suite.encrypt(data)
 
 def decrypt_file(encrypted_data):
     return cipher_suite.decrypt(encrypted_data)

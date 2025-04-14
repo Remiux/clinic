@@ -31,8 +31,8 @@
                                 });
                             </script>
                         {% endif %}
+
                         {% if  message %}
-                            
                             <div
                             hx-get="{% url 'filter_files_view' pk=customer.pk %}"
                             hx-target="#files-container"

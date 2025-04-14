@@ -57,3 +57,13 @@
         <!--end::Card-->
     </div>
 {% endfor %}
+{% if paginator.has_next %}
+    <div class="d-flex justify-content-center col-12 col-sm-6 col-md-6 col-lg-4"
+         hx-get="{% url 'filter_files_view' pk=customer.pk %}?page={{ paginator.next_page_number }}&{{ parameters }}"
+         hx-trigger="revealed"
+         hx-swap="outerHTML">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+{% endif %}

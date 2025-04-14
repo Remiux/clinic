@@ -14,43 +14,6 @@ class InsuranceForm(forms.ModelForm):
     class Meta:
         model = Insurance
         fields = '__all__'
-
-
-class FileUploadForm(forms.Form):
-    file = forms.FileField()
-    file_type = forms.ChoiceField(choices=[('.docx', 'DOCX'), ('.doc', 'DOC'), ('.pdf', 'PDF'), ('.jpg', 'JPG'), ('.png', 'PNG')])  # Cambiar PNG y JPG por Image
-    belongs_to = forms.ModelChoiceField(queryset=Customer.objects.all(), widget=forms.HiddenInput())
-    process_start_date = forms.DateField(
-        widget=forms.DateInput(attrs={'type': 'date'}),
-        label="Fecha de inicio del proceso"
-    )
-
-    def clean(self):
-        cleaned_data = super().clean()
-        file = cleaned_data.get('file')
-        file_type = cleaned_data.get('file_type')
-
-        if file and file_type:
-            # Obtener la extensión del archivo subido
-            file_extension = f".{file.name.split('.')[-1].lower()}"
-
-            # Definir extensiones permitidas para cada tipo
-            allowed_extensions = {
-                '.doc': ['.doc', '.docx'],  # Permitir .doc y .docx para .doc
-                '.pdf': ['.pdf'],
-                '.jpg': ['.jpg', '.jpeg', '.gif', '.bmp', '.tiff'],
-                '.png': ['.png'],
-            }
-
-            # Verificar si la extensión del archivo está permitida
-            if file_type not in allowed_extensions:
-                raise forms.ValidationError(f"El tipo de archivo seleccionado ({file_type}) no es válido.")
-
-            if file_extension not in allowed_extensions[file_type]:
-                raise forms.ValidationError(
-                    f"La extensión del archivo ({file_extension}) no coincide con el tipo seleccionado ({file_type})."
-                )
-        return cleaned_data
     
 class DiagnosticForm(forms.ModelForm):
     
@@ -72,9 +35,36 @@ class CustomerSignForm(forms.ModelForm):
         
 
 
-class FileUploadForm2(forms.ModelForm):
-    
+from apps.symptom.models import EncryptedFile
+
+class FileUploadForm(forms.ModelForm):
     class Meta:
         model = EncryptedFile
         fields = ['file', 'process_start_date']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        file = cleaned_data.get('file')
+
+        if file:
+            # Obtener la extensión del archivo subido
+            file_extension = file.name.split('.')[-1].lower()
+
+            # Definir el mapeo de extensiones permitidas
+            file_type_mapping = {
+                'docx': '.docx',
+                'doc': '.doc',
+                'pdf': '.pdf',
+                'jpg': '.jpg',
+                'jpeg': '.jpg',  # Tratar JPEG como JPG
+                'png': '.png',
+            }
+
+            # Verificar si la extensión es válida
+            if file_extension not in file_type_mapping:
+                raise forms.ValidationError(
+                    f"La extensión del archivo ({file_extension}) no es válida. Solo se permiten: {', '.join(file_type_mapping.keys())}."
+                )
+
+        return cleaned_data
         

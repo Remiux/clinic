@@ -11,14 +11,23 @@
         </div>
 
         <div class="row">
-            <div class="col-md-6">
-                <c-input_text inputValue="{{customer.full_name}}" disabled="disabled" inputType="text" helpText="a recipient for the services of {{agency.name}} and if applicable">
-                </c-input_text >
+            <div class="col-md-6 d-flex align-items-center flex-wrap mb-4">
+                <div class="d-flex align-items-center w-100 w-100">
+                    I, <c-input_text inputType="text" disabled="disabled" inputValue="{{customer.full_name}}" >
+                    </c-input_text >
+                </div>
+                
+                a recipient for the services of {{agency.name}} and if applicable.
             </div>
-            <div class="col-md-6">
-                <c-input_text disabled="disabled" inputValue="{% if customer.legal_gardian_full_name %}{{customer.legal_gardian_full_name}}{% else %}N/A{% endif %}" inputType="text" helpText="legal guardian/ authorized representative of the above named applicant">
-                </c-input_text >
+            <div class="col-md-6 d-flex align-items-center flex-wrap mb-4">
+                <div class="d-flex align-items-center w-100 w-100">
+                    I, <c-input_text inputType="text" disabled="disabled" inputValue="{% if customer.legal_gardian_full_name %}{{customer.legal_gardian_full_name}}{% else %}N/A{% endif %}" >
+                    </c-input_text >
+                </div>
+                
+                legal guardian/ authorized representative of the above named applicant.
             </div>
+            
         </div>
         <div class="row mt-15">
             <div class="col-md-12">
