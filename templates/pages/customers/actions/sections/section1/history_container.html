@@ -1,0 +1,61 @@
+{% load static %}
+<div class="card-body">
+    <!--begin::Tab Content-->
+    <div class="tab-content">
+        <!--begin::Tab panel-->
+        <div id="kt_activity_today" class="card-body p-0 tab-pane fade active show" role="tabpanel" aria-labelledby="kt_activity_today_tab">
+            <!--begin::Timeline-->
+            {% if documents %}
+            {% for document in documents %}
+                <div class="timeline timeline-border-dashed">
+                    <!--begin::Timeline item-->
+                    <div class="timeline-item">
+                        <!--begin::Timeline line-->
+                        <div class="timeline-line"></div>
+                        <!--end::Timeline line-->
+                        <!--begin::Timeline icon-->
+                        <div class="timeline-icon border border-primary">
+                            <i class="ki-duotone ki-pencil fs-2 text-primary">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                        </div>
+                        <!--end::Timeline icon-->
+                        <!--begin::Timeline content-->
+                        <div class="timeline-content mb-10 mt-n1">
+                            <!--begin::Timeline heading-->
+                            <div class="pe-3 mb-5">
+                                <!--begin::Title-->
+                                <div class="fs-5 fw-semibold mb-2">Generate at {{document.create_datetime_at}} by {{document.create_by.first_name}} {{document.create_by.last_name}}:</div>
+                                <!--end::Title-->
+                                <!--begin::Description-->
+                                <div class="d-flex flex-wrap align-items-center mt-1 fs-6">
+                                    <!--begin::Info-->
+                                    <div class="me-2 fs-7">
+                                        Generated for the date of {{document.date}}
+                                    </div>
+                                    <!--end::Info-->
+                                    <!--begin::User-->
+                                    
+                                    <!--end::User-->
+                                </div>
+                                <!--end::Description-->
+                            </div>
+                            <!--end::Timeline heading-->
+                            
+                        </div>
+                        <!--end::Timeline content-->
+                    </div>
+                    <!--end::Timeline item-->
+                    
+                </div>
+            {% endfor %}
+            {% endif %}
+            
+            <!--end::Timeline-->
+        </div>
+        <!--end::Tab panel-->
+       
+    </div>
+    <!--end::Tab Content-->
+</div>

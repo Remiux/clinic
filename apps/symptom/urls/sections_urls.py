@@ -8,6 +8,8 @@ urlpatterns = [
     # Section 1
     path('customer-section_one/<int:pk>/', section_one_view, name='section_one_view'),
     path('customer-section_one-export-pdf/<int:pk>/', section_one_document_one_export_pdf, name='section_one_document_one_export_pdf'),
+    path('customer-section_one-history/<int:pk>/', section_one_document_one_history, name='section_one_document_one_history'),
+    
     
     # Section 2
     # path('customer-section_two/<int:pk>/', section_two_view, name='section_two_view'), 

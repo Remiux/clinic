@@ -162,3 +162,18 @@ class EncryptedFile(models.Model):
 
     def __str__(self):
         return f"{self.file.name} - {self.uploaded_by.username}"
+    
+class HistoricalSection1(models.Model):
+    create_datetime_at = models.DateTimeField(auto_created=True,default=timezone.now)
+    create_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_section1')
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='historical_section1')
+    date = models.DateField(default=timezone.now)
+    
+    class Meta:
+        verbose_name = "HistoricalSection1"
+        verbose_name_plural = "HistoricalSection1s"
+
+    def __str__(self):
+        return f"{self.pk}"
+
+    
