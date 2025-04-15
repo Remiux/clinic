@@ -428,8 +428,8 @@
             <div>
                 <a href="{% url 'section_one_document_one_export_pdf' pk=customer.pk %}" class="btn btn-primary btn-sm" id="btnPrint" >Print</a>
             </div>
-            {% comment %} <div>
-                <a href="{% url 'section_one_document_one_export_pdf' pk=customer.pk %}" class="btn btn-primary btn-sm" id="btnPrint" >Historical</a>
-            </div> {% endcomment %}
+            <div>
+                <a href="{% url 'section_one_document_one_history' pk=customer.pk %}" class="btn btn-primary btn-sm" id="btnPrint" >Historical</a>
+            </div> 
         </div>
 

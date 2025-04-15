@@ -10,35 +10,52 @@
     <div class="row flex-nowrap">
         <div class="col-8">
             <!-- Input component for text, number, password -->
-            <div class="input-group input-group-sm ">
-                <label for="label"  >Recipient:</label>
+            <div class="input-group input-group-sm d-flex align-items-start  pb-0">
+                <label for="label " class="mt-1"  >Recipient:</label>
+                <div class="pb-1 border border-bottom-2 border-dark  border-left-0 border-right-0 border-top-0">
+                    
+                    <input  type="text" class=" border-0 text-body" value="{{customer.full_name}}"/>
+                </div>
                 
-                    <input  type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" value="{{customer.full_name}}"/>
-    
              
-                 </div>
+            </div>
             
         </div>
         <div class="col-4">
-            <div class="input-group input-group-sm ">
-                <label for=""  >Case no:</label>
-                <input  type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" value="{{customer.case_no}}"/>
+            <div class="input-group input-group-sm d-flex align-items-start flex-nowrap pb-0">
+                <label for="label " class="mt-1 text-nowrap"  >Case no:</label>
+                <div class="pb-1 border border-bottom-2 border-dark  border-left-0 border-right-0 border-top-0 w-25">
+                    
+                    <input  type="text" class=" border-0 text-body" value="{{customer.case_no}}"/>
+                </div>
+                
+             
             </div>
+            
         </div>
     </div>
 
     <div class="row flex-nowrap">
         <div class="col-8">
             <!-- Input component for text, number, password -->
-            <div class="input-group input-group-sm ">
-                <label for=""  >DOB:</label>
-                <input  type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" value="{{customer.dob|date:'Y-m-d'}}"/>
+            <div class="input-group input-group-sm d-flex align-items-start  pb-0">
+                <label for="label " class="mt-1"  >DOB:</label>
+                <div class="pb-1 border border-bottom-2 border-dark  border-left-0 border-right-0 border-top-0">
+                    
+                    <input  type="text" class=" border-0 text-body" value="{{customer.dob}}"/>
+                </div>
+             
             </div>
         </div>
         <div class="col-4">
-            <div class="input-group input-group-sm ">
-                <label for=""  >SSN:</label>
-                <input  type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" value="{{customer.ssn}}"/>
+            <div class="input-group input-group-sm d-flex align-items-start flex-nowrap pb-0">
+                <label for="label " class="mt-1 text-nowrap"  >SSN:</label>
+                <div class="pb-1 border border-bottom-2 border-dark  border-left-0 border-right-0 border-top-0 w-25">
+                    
+                    <input  type="text" class=" border-0 text-body" value="{{customer.ssn}}"/>
+                </div>
+                
+             
             </div>
         </div>
         
@@ -46,30 +63,42 @@
 
     <div class="row">
         <div class="col-md-12">
-            <div class="input-group input-group-sm ">
-                <label for=""  >Address:</label>
-                <input  type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" value="{{customer.address}}"/>
+            <div class="input-group input-group-sm d-flex align-items-start  pb-0">
+                <label for="label " class="mt-1"  >Addresss:</label>
+                <div class="d-flex pb-1 border border-bottom-2 border-dark  border-left-0 border-right-0 border-top-0 w-75">
+                    <input  type="text" class=" border-0 text-body" value="{{customer.address}}"/>
+                </div>
+             
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row flex-nowrap">
         <div class="col-4">
             <!-- Input component for text, number, password -->
-            <div class="input-group input-group-sm ">
-                <label for=""  >City:</label>
-                <input value="{{customer.city}}" type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            <div class="input-group input-group-sm d-flex align-items-start flex-nowrap  pb-0">
+                <label for="label " class="mt-1"  >City:</label>
+                <div class="d-flex pb-1 border border-bottom-2 border-dark  border-left-0 border-right-0 border-top-0 ">
+                    <input  type="text" class=" border-0 text-body" value="{{customer.city}}"/>
+                </div>
+             
             </div>
         </div>
         <div class="col-4">
-            <div class="input-group input-group-sm ">
-                <label for=""  >State:</label>
-                <input value="{{customer.state}}" type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            <div class="input-group input-group-sm d-flex align-items-start flex-nowrap pb-0">
+                <label for="label " class="mt-1"  >State:</label>
+                <div class="d-flex pb-1 border border-bottom-2 border-dark  border-left-0 border-right-0 border-top-0 ">
+                    <input  type="text" class=" border-0 text-body" value="{{customer.state}}"/>
+                </div>
+             
             </div>
         </div>
         <div class="col-4">
-            <div class="input-group input-group-sm ">
-                <label for=""  >Zip:</label>
-                <input value="{{customer.zip}}" type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            <div class="input-group input-group-sm d-flex align-items-start  pb-0">
+                <label for="label " class="mt-1"  >Zip:</label>
+                <div class="d-flex pb-1 border border-bottom-2 border-dark  border-left-0 border-right-0 border-top-0 w-25">
+                    <input  type="text" class=" border-0 text-body" value="{{customer.zip}}"/>
+                </div>
+             
             </div>
         </div>
         
@@ -83,58 +112,82 @@
 
     <div class="row ">
         <div class="col-12">
-            <div class="input-group input-group-sm ">
-                <label for=""  >Name of Facility, Individual or Agency:</label>
-                <input value="{{agency.name}}" type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            <div class="input-group input-group-sm d-flex align-items-start flex-nowrap pb-0">
+                <label for="label " class="mt-1 text-nowrap"  >Name of Facility, Individual or Agency:</label>
+                <div class="d-flex pb-1 border border-bottom-2 border-dark  border-left-0 border-right-0 border-top-0 w-50">
+                    <input  type="text" class=" border-0 text-body" value="{{agency.name}}"/>
+                </div>
+             
             </div>
+            
         </div>
         
     </div>
 
     <div class="row ">
         <div class="col-12">
-            <div class="input-group input-group-sm ">
-                <label for=""  >Address:</label>
-                <input value="{{agency.address}}" type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            <div class="input-group input-group-sm d-flex align-items-start flex-nowrap pb-0">
+                <label for="label " class="mt-1 text-nowrap"  >Address:</label>
+                <div class="d-flex pb-1 border border-bottom-2 border-dark  border-left-0 border-right-0 border-top-0 w-75">
+                    <input  type="text" class=" border-0 text-body" value="{{agency.address}}"/>
+                </div>
+             
             </div>
         </div>
         
     </div>
-    <div class="row">
+    <div class="row flex-nowrap">
         <div class="col-4">
             <!-- Input component for text, number, password -->
-            <div class="input-group input-group-sm ">
-                <label for=""  >City:</label>
-                <input value="{{agency.city}}" type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            <div class="input-group input-group-sm d-flex align-items-start flex-nowrap  pb-0">
+                <label for="label " class="mt-1"  >City:</label>
+                <div class="d-flex pb-1 border border-bottom-2 border-dark  border-left-0 border-right-0 border-top-0 ">
+                    <input  type="text" class=" border-0 text-body" value="{{agency.city}}"/>
+                </div>
+             
             </div>
         </div>
         <div class="col-4">
-            <div class="input-group input-group-sm ">
-                <label for=""  >State:</label>
-                <input value="{{agency.state}}" type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            <div class="input-group input-group-sm d-flex align-items-start flex-nowrap pb-0">
+                <label for="label " class="mt-1"  >State:</label>
+                <div class="d-flex pb-1 border border-bottom-2 border-dark  border-left-0 border-right-0 border-top-0 ">
+                    <input  type="text" class=" border-0 text-body" value="{{agency.state}}"/>
+                </div>
+             
             </div>
         </div>
         <div class="col-4">
-            <div class="input-group input-group-sm ">
-                <label for=""  >Zip:</label>
-                <input value="{{agency.zip}}" type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            <div class="input-group input-group-sm d-flex align-items-start  pb-0">
+                <label for="label " class="mt-1"  >Zip:</label>
+                <div class="d-flex pb-1 border border-bottom-2 border-dark  border-left-0 border-right-0 border-top-0 w-25">
+                    <input  type="text" class=" border-0 text-body" value="{{agency.zip}}"/>
+                </div>
+             
+            </div>
+        </div>
+        
+        
+    </div>
+    <div class="row flex-nowrap">
+        <div class="col-6">
+            <div class="input-group input-group-sm d-flex align-items-start flex-nowrap pb-0">
+                <label for="label " class="mt-1"  >Phone:</label>
+                <div class="d-flex pb-1 border border-bottom-2 border-dark  border-left-0 border-right-0 border-top-0 ">
+                    <input  type="text" class=" border-0 text-body" value="{{agency.phone_number}}"/>
+                </div>
+             
             </div>
         </div>
         <div class="col-6">
-            <div class="input-group input-group-sm ">
-                <label for=""  >Phone:</label>
-                <input value="{{agency.phone_number}}" type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="input-group input-group-sm ">
-                <label for=""  >Fax:</label>
-                <input value="{{agency.fax}}" type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            <div class="input-group input-group-sm d-flex align-items-start flex-nowrap pb-0">
+                <label for="label " class="mt-1"  >Fax:</label>
+                <div class="d-flex pb-1 border border-bottom-2 border-dark  border-left-0 border-right-0 border-top-0 ">
+                    <input  type="text" class=" border-0 text-body" value="{{agency.fax}}"/>
+                </div>
+             
             </div>
         </div>
     </div>
-
-   
     <div class="row">
         <div class="col-3">
             
@@ -158,51 +211,78 @@
         </div>
                     
         <div class="col-8">
-            <div class="input-group input-group-sm ">
-                <label for=""  >Staf:</label>
-                <input  type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            <div class="input-group input-group-sm d-flex align-items-start flex-nowrap pb-0">
+                <label for="label " class="mt-1"  >Staff:</label>
+                <div class="d-flex pb-1 border border-bottom-2 border-dark  border-left-0 border-right-0 border-top-0 ">
+                    <input  type="text" class=" border-0 text-body" value=""/>
+                </div>
+             
             </div>
         </div>       
            
         
     </div>
-    <div class="row">
+    <div class="row ">
         <div class="col-12">
-            <!-- Input component for text, number, password -->
-            <div class="input-group input-group-sm ">
-                <label for=""  >Address:</label>
-                <input type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            <div class="input-group input-group-sm d-flex align-items-start flex-nowrap pb-0">
+                <label for="label " class="mt-1 text-nowrap"  >Address:</label>
+                <div class="d-flex pb-1 border border-bottom-2 border-dark  border-left-0 border-right-0 border-top-0 w-75">
+                    <input  type="text" class=" border-0 text-body" value=""/>
+                </div>
+             
             </div>
         </div>
+        
+    </div>
+    <div class="row flex-nowrap">
         <div class="col-4">
             <!-- Input component for text, number, password -->
-            <div class="input-group input-group-sm ">
-                <label for=""  >City:</label>
-                <input type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            <div class="input-group input-group-sm d-flex align-items-start flex-nowrap  pb-0">
+                <label for="label " class="mt-1"  >City:</label>
+                <div class="d-flex pb-1 border border-bottom-2 border-dark  border-left-0 border-right-0 border-top-0 ">
+                    <input  type="text" class=" border-0 text-body" value=""/>
+                </div>
+             
             </div>
         </div>
         <div class="col-4">
-            <div class="input-group input-group-sm ">
-                <label for=""  >State:</label>
-                <input  type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            <div class="input-group input-group-sm d-flex align-items-start flex-nowrap pb-0">
+                <label for="label " class="mt-1"  >State:</label>
+                <div class="d-flex pb-1 border border-bottom-2 border-dark  border-left-0 border-right-0 border-top-0 ">
+                    <input  type="text" class=" border-0 text-body" value=""/>
+                </div>
+             
             </div>
         </div>
         <div class="col-4">
-            <div class="input-group input-group-sm ">
-                <label for=""  >Zip:</label>
-                <input type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            <div class="input-group input-group-sm d-flex align-items-start  pb-0">
+                <label for="label " class="mt-1"  >Zip:</label>
+                <div class="d-flex pb-1 border border-bottom-2 border-dark  border-left-0 border-right-0 border-top-0 w-25">
+                    <input  type="text" class=" border-0 text-body" value=""/>
+                </div>
+             
+            </div>
+        </div>
+        
+        
+    </div>
+    <div class="row flex-nowrap">
+        <div class="col-6">
+            <div class="input-group input-group-sm d-flex align-items-start flex-nowrap pb-0">
+                <label for="label " class="mt-1"  >Phone:</label>
+                <div class="d-flex pb-1 border border-bottom-2 border-dark  border-left-0 border-right-0 border-top-0 ">
+                    <input  type="text" class=" border-0 text-body" value=""/>
+                </div>
+             
             </div>
         </div>
         <div class="col-6">
-            <div class="input-group input-group-sm ">
-                <label for=""  >Phone:</label>
-                <input  type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="input-group input-group-sm ">
-                <label for=""  >Fax:</label>
-                <input  type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            <div class="input-group input-group-sm d-flex align-items-start flex-nowrap pb-0">
+                <label for="label " class="mt-1"  >Fax:</label>
+                <div class="d-flex pb-1 border border-bottom-2 border-dark  border-left-0 border-right-0 border-top-0 ">
+                    <input  type="text" class=" border-0 text-body" value=""/>
+                </div>
+             
             </div>
         </div>
     </div>
@@ -259,51 +339,78 @@
             </div>
         </div>
         <div class="col-10">
-            <div class="input-group input-group-sm ">
-                <label for=""  >Name of Facility, Individual or Agency:</label>
-                <input  type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            <div class="input-group input-group-sm d-flex align-items-start flex-nowrap pb-0">
+                <label for="label " class="mt-1 text-nowrap"  >Name of Facility, Individual or Agency:</label>
+                <div class="d-flex pb-1 border border-bottom-2 border-dark  border-left-0 border-right-0 border-top-0 w-50">
+                    <input  type="text" class=" border-0 text-body" value="{{agency.name}}"/>
+                </div>
+             
             </div>
             
         </div>
     </div>
 
-    <div class="row">
+    <div class="row ">
         <div class="col-12">
-            <!-- Input component for text, number, password -->
-            <div class="input-group input-group-sm ">
-                <label for=""  >Address:</label>
-                <input type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            <div class="input-group input-group-sm d-flex align-items-start flex-nowrap pb-0">
+                <label for="label " class="mt-1 text-nowrap"  >Address:</label>
+                <div class="d-flex pb-1 border border-bottom-2 border-dark  border-left-0 border-right-0 border-top-0 w-75">
+                    <input  type="text" class=" border-0 text-body" value=""/>
+                </div>
+             
             </div>
         </div>
+        
+    </div>
+    <div class="row flex-nowrap">
         <div class="col-4">
             <!-- Input component for text, number, password -->
-            <div class="input-group input-group-sm ">
-                <label for=""  >City:</label>
-                <input type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            <div class="input-group input-group-sm d-flex align-items-start flex-nowrap  pb-0">
+                <label for="label " class="mt-1"  >City:</label>
+                <div class="d-flex pb-1 border border-bottom-2 border-dark  border-left-0 border-right-0 border-top-0 ">
+                    <input  type="text" class=" border-0 text-body" value=""/>
+                </div>
+             
             </div>
         </div>
         <div class="col-4">
-            <div class="input-group input-group-sm ">
-                <label for=""  >State:</label>
-                <input  type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            <div class="input-group input-group-sm d-flex align-items-start flex-nowrap pb-0">
+                <label for="label " class="mt-1"  >State:</label>
+                <div class="d-flex pb-1 border border-bottom-2 border-dark  border-left-0 border-right-0 border-top-0 ">
+                    <input  type="text" class=" border-0 text-body" value=""/>
+                </div>
+             
             </div>
         </div>
         <div class="col-4">
-            <div class="input-group input-group-sm ">
-                <label for=""  >Zip:</label>
-                <input type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            <div class="input-group input-group-sm d-flex align-items-start  pb-0">
+                <label for="label " class="mt-1"  >Zip:</label>
+                <div class="d-flex pb-1 border border-bottom-2 border-dark  border-left-0 border-right-0 border-top-0 w-25">
+                    <input  type="text" class=" border-0 text-body" value=""/>
+                </div>
+             
+            </div>
+        </div>
+        
+        
+    </div>
+    <div class="row flex-nowrap">
+        <div class="col-6">
+            <div class="input-group input-group-sm d-flex align-items-start flex-nowrap pb-0">
+                <label for="label " class="mt-1"  >Phone:</label>
+                <div class="d-flex pb-1 border border-bottom-2 border-dark  border-left-0 border-right-0 border-top-0 ">
+                    <input  type="text" class=" border-0 text-body" value=""/>
+                </div>
+             
             </div>
         </div>
         <div class="col-6">
-            <div class="input-group input-group-sm ">
-                <label for=""  >Phone:</label>
-                <input  type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
-            </div>
-        </div>
-        <div class="col-6">
-            <div class="input-group input-group-sm ">
-                <label for=""  >Fax:</label>
-                <input  type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            <div class="input-group input-group-sm d-flex align-items-start flex-nowrap pb-0">
+                <label for="label " class="mt-1"  >Fax:</label>
+                <div class="d-flex pb-1 border border-bottom-2 border-dark  border-left-0 border-right-0 border-top-0 ">
+                    <input  type="text" class=" border-0 text-body" value=""/>
+                </div>
+             
             </div>
         </div>
     </div>
@@ -477,15 +584,15 @@
     <div class="row  aling-items-end">
         <div class="col-7  ">
            
-                <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
-                    <img class="logo" width="50" height="50" src="https://kapitaltecnologica.com{{customer.sign.url}}"/>
+                <div class="border-bottom border-2  border-dark border-gray-300 mb-2 justify-content-center d-flex">
+                    <img class="logo" width="70" height="70" src="https://kapitaltecnologica.com{{customer.sign.url}}"/>
                 </div>
                
    
             
         </div>
-        <div class="col-4 d-flex align-items-end mb-2">
-            <input type="text" value="{{customer.create_at|date:'Y-m-d'}}"  class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+        <div class="col-4 d-flex align-items-end mb-2 border border-bottom-1 border-left-0 border-right-0 border-top-0 border-dark pb-1">
+            <input type="text" value="{{customer.create_at|date:'Y-m-d'}}"  class="form-control  border-0 text-body" />
             
         </div>
         <div class="col-7  ">
@@ -504,15 +611,16 @@
     <div class="row  aling-items-end">
         <div class="col-7  ">
            
-                <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
-                    <img class="logo" width="50" height="50" src="https://kapitaltecnologica.com{{user.sign.url}}"/>
+                <div class="border-bottom border-2 border-dark border-gray-300 mb-2 justify-content-center d-flex">
+                    
+                    <img class="logo" width="70" height="70" src="https://kapitaltecnologica.com{{user.sign.url}}"/>
                 </div>
                
    
             
         </div>
-        <div class="col-4 d-flex align-items-end mb-2">
-            <input type="text" value="{{customer.create_at|date:'Y-m-d'}}"  class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+        <div class="col-4 d-flex align-items-end mb-2 border border-bottom-1 border-left-0 border-right-0 border-top-0 border-dark pb-1">
+            <input type="text" value="{{customer.create_at|date:'Y-m-d'}}"  class="form-control  border-0 text-body" />
             
         </div>
         <div class="col-7  ">
