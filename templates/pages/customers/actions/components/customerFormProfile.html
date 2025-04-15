@@ -404,7 +404,7 @@
             <!--end::Card body-->
             <!--begin::Actions-->
             <div class="card-footer d-flex gap-3 justify-content-end py-6 px-9">
-                <a href="{% url 'sign_customer_view' pk=1 %}" type="submit" class="btn btn-light btn-sm" id="kt_account_profile_details_submit">
+                <a href="{% url 'sign_customer_view' pk=customer.pk %}" type="submit" class="btn btn-light btn-sm" id="kt_account_profile_details_submit">
                     <i class=" bi-file-text-fill"></i> Sign
                 </a>
                 <a href="{% url "update_customer_view" pk=customer.pk %}" class="btn btn-primary btn-sm" id="kt_account_profile_details_submit">Update Data</a>

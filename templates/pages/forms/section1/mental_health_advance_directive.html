@@ -88,29 +88,34 @@
         <div class="row mt-5 align-items-end">
             <div class="col-md-4">
                 <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
-                    {% comment %} <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/> {% endcomment %}
+                    <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/>
                 </div>
                 <h6 class="text-gray-900 mb-5 text-center">Client Signature.</h6>
                 
             </div>
             <div class="col-md-4">
-                <c-input_text inputType="text" helpText="Authorized Representative Name">
-                </c-input_text >
+                <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+                    <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/>
+                </div>
+                <h6 class="text-gray-900 mb-5 text-center">Authorized Representative Name.</h6>
+                
             </div>
+            
             <div class="col-md-4">
-                <c-input_text inputType="text" helpText="Date">
-                </c-input_text >
+                <c-input_text inputType="date" helpText="Date" inputValue="{{customer.create_at|date:'Y-m-d'}}">
+                </c-input_text>
             </div>
         </div>
 
         <div class="row mt-5 align-items-end">
             <div class="col-md-4">
                 <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
-                    {% comment %} <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/> {% endcomment %}
+                    <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/>
                 </div>
                 <h6 class="text-gray-900 mb-5 text-center">Client Signature.</h6>
                 
             </div>
+            
             <div class="col-md-4">
                 <c-input_text inputType="text" helpText="Witness Name">
                 </c-input_text >
