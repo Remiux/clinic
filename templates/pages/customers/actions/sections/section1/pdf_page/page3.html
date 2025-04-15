@@ -1,0 +1,532 @@
+{% extends "pages/customers/actions/sections/section1/pdf_page/base.html" %}
+{% load static %}
+{% block title %}Consent for Release and Request of Information{% endblock title %}
+{% block content %}
+    <div class="d-flex justify-content-center ">
+        <h2 class="text-center ">
+            Consent for Release and Request of Information 
+        </h2>
+    </div>
+    <div class="row flex-nowrap">
+        <div class="col-8">
+            <!-- Input component for text, number, password -->
+            <div class="input-group input-group-sm ">
+                <label for="label"  >Recipient:</label>
+                
+                    <input  type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" value="{{customer.full_name}}"/>
+    
+             
+                 </div>
+            
+        </div>
+        <div class="col-4">
+            <div class="input-group input-group-sm ">
+                <label for=""  >Case no:</label>
+                <input  type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" value="{{customer.case_no}}"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="row flex-nowrap">
+        <div class="col-8">
+            <!-- Input component for text, number, password -->
+            <div class="input-group input-group-sm ">
+                <label for=""  >DOB:</label>
+                <input  type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" value="{{customer.dob|date:'Y-m-d'}}"/>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="input-group input-group-sm ">
+                <label for=""  >SSN:</label>
+                <input  type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" value="{{customer.ssn}}"/>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="input-group input-group-sm ">
+                <label for=""  >Address:</label>
+                <input  type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" value="{{customer.address}}"/>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <!-- Input component for text, number, password -->
+            <div class="input-group input-group-sm ">
+                <label for=""  >City:</label>
+                <input value="{{customer.city}}" type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="input-group input-group-sm ">
+                <label for=""  >State:</label>
+                <input value="{{customer.state}}" type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="input-group input-group-sm ">
+                <label for=""  >Zip:</label>
+                <input value="{{customer.zip}}" type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <label>This will authorize:</label>
+        </div>
+    </div>
+
+    <div class="row ">
+        <div class="col-12">
+            <div class="input-group input-group-sm ">
+                <label for=""  >Name of Facility, Individual or Agency:</label>
+                <input value="{{agency.name}}" type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="row ">
+        <div class="col-12">
+            <div class="input-group input-group-sm ">
+                <label for=""  >Address:</label>
+                <input value="{{agency.address}}" type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            </div>
+        </div>
+        
+    </div>
+    <div class="row">
+        <div class="col-4">
+            <!-- Input component for text, number, password -->
+            <div class="input-group input-group-sm ">
+                <label for=""  >City:</label>
+                <input value="{{agency.city}}" type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="input-group input-group-sm ">
+                <label for=""  >State:</label>
+                <input value="{{agency.state}}" type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="input-group input-group-sm ">
+                <label for=""  >Zip:</label>
+                <input value="{{agency.zip}}" type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="input-group input-group-sm ">
+                <label for=""  >Phone:</label>
+                <input value="{{agency.phone_number}}" type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="input-group input-group-sm ">
+                <label for=""  >Fax:</label>
+                <input value="{{agency.fax}}" type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            </div>
+        </div>
+    </div>
+
+   
+    <div class="row">
+        <div class="col-3">
+            
+            <div class="d-flex align-items-center">
+
+                <div class="form-check mx-2">
+                    <input disabled class="form-check-input" type="radio" value="" id="option1" name="consentForRelaseRadio2">
+                    <label for="option1">
+                        Yes
+                    </label>
+                </div>
+                
+                <div class="form-check mx-2">
+                    <input disabled class="form-check-input" type="radio" value="" id="option1" name="consentForRelaseRadio2" >
+                    <label for="option1">
+                        No
+                    </label>
+                </div>
+            </div>
+            
+        </div>
+                    
+        <div class="col-8">
+            <div class="input-group input-group-sm ">
+                <label for=""  >Staf:</label>
+                <input  type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            </div>
+        </div>       
+           
+        
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <!-- Input component for text, number, password -->
+            <div class="input-group input-group-sm ">
+                <label for=""  >Address:</label>
+                <input type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            </div>
+        </div>
+        <div class="col-4">
+            <!-- Input component for text, number, password -->
+            <div class="input-group input-group-sm ">
+                <label for=""  >City:</label>
+                <input type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="input-group input-group-sm ">
+                <label for=""  >State:</label>
+                <input  type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="input-group input-group-sm ">
+                <label for=""  >Zip:</label>
+                <input type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="input-group input-group-sm ">
+                <label for=""  >Phone:</label>
+                <input  type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="input-group input-group-sm ">
+                <label for=""  >Fax:</label>
+                <input  type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+
+    <div class="row ">
+        <div class="col-12">
+            
+                <div class="d-flex align-items-center">
+
+                    <div class="form-check  mx-2">
+                        <input disabled class="form-check-input" type="radio" value="" id="option2" name="consentForRelaseRadio2">
+                        <label for="option2">
+                            Yes
+                        </label>
+                    </div>
+                    
+                    <div class="form-check mx-2">
+                        <input checked class="form-check-input" type="radio" value="" id="option2" name="consentForRelaseRadio2" >
+                        <label for="option2">
+                            No
+                        </label>
+                    </div>
+                </div>
+            
+        </div>
+        <div class="col-12">
+            <label class="form-label ms-2 me-4">To release request general medical, psychiatric/psychological,
+                alcohol and drug abuse information and/or records in accordance with 
+                Florida Statues 394, 459, 396, 11, 297, 053, 90.50 and 458.21
+            </label>
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-2">
+            <div class="d-flex align-items-center">
+
+                <div class="form-check mx-2">
+                    <input disabled class="form-check-input" type="radio" value="" id="option1" name="consentForRelaseRadio2">
+                    <label for="option1">
+                        To
+                    </label>
+                </div>
+                
+                <div class="form-check mx-2">
+                    <input disabled class="form-check-input" type="radio" value="" id="option1" name="consentForRelaseRadio2" >
+                    <label for="option1">
+                        From
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="col-10">
+            <div class="input-group input-group-sm ">
+                <label for=""  >Name of Facility, Individual or Agency:</label>
+                <input  type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <!-- Input component for text, number, password -->
+            <div class="input-group input-group-sm ">
+                <label for=""  >Address:</label>
+                <input type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            </div>
+        </div>
+        <div class="col-4">
+            <!-- Input component for text, number, password -->
+            <div class="input-group input-group-sm ">
+                <label for=""  >City:</label>
+                <input type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="input-group input-group-sm ">
+                <label for=""  >State:</label>
+                <input  type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="input-group input-group-sm ">
+                <label for=""  >Zip:</label>
+                <input type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="input-group input-group-sm ">
+                <label for=""  >Phone:</label>
+                <input  type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="input-group input-group-sm ">
+                <label for=""  >Fax:</label>
+                <input  type="text" class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row ">
+        <div class="col-md-12">
+            
+                <div class="d-flex align-items-center flex-wrap  gap-2">
+                    <label class="me-5">In the form of: </label>
+                    <div class="form-check mx-1">
+                        <input disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault16" />
+                        <label for="flexCheckDefault16">
+                            Verbal Information
+                        </label>
+                    </div>
+                    <div class="form-check mx-1">
+                        <input disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault17" />
+                        <label for="flexCheckDefault17">
+                            Facsimile
+                        </label>
+                    </div>
+                    <div class="form-check mx-1">
+                        <input disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault18" />
+                        <label for="flexCheckDefault18">
+                            Written Records
+                        </label>
+                    </div>
+                    <div class="form-check mx-1">
+                        <input disabled checked class="form-check-input" type="checkbox" value="" id="flexCheckDefault19" />
+                        <label for="flexCheckDefault19">
+                            All of the before mentioned
+                        </label>
+                    </div>
+                </div>
+           
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-12">
+            <div class="d-flex align-items-center flex-wrap  gap-2 w-100">
+                <label class="me-5">For the purpose of: </label>
+                <div class="form-check mx-1">
+                    <input disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault16" />
+                    <label for="flexCheckDefault16">
+                        Treatment/Treatment Planning
+                    </label>
+                </div>
+                <div class="form-check mx-1">
+                    <input disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault17" />
+                    <label for="flexCheckDefault17">
+                        Case Management
+                    </label>
+                </div>
+                <div class="form-check mx-1">
+                    <input disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault18" />
+                    <div class="input-group input-group-sm ">
+                        <label for=""  >Other:</label>
+                        <input type="text"  class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+                    </div>
+                </div>
+                
+            </div>
+       
+        </div>
+        
+    </div>
+
+    <div class="row ">
+        <div class="col-md-12">
+            <label>I understand that the specific reports disclosed might include:</label>
+        </div>
+    </div>
+    <div class="row">
+        
+            <div class="col-md-12">
+                <div class="  p-2">
+                    <div class="d-flex align-items-center  flex-wrap  gap-2">
+                        <div class="form-check mx-1">
+                            <input disabled checked class="form-check-input" type="checkbox" value="" id="flexCheckDefault23" />
+                            <label for="flexCheckDefault23">
+                                Discharge/Termination Summary
+                            </label>
+                        </div>
+                        <div class="form-check mx-1">
+                            <input disabled  class="form-check-input" type="checkbox" value="" id="flexCheckDefault24" />
+                            <label for="flexCheckDefault24">
+                                School Records
+                            </label>
+                        </div>
+                        <div class="form-check mx-1">
+                            <input disabled checked class="form-check-input" type="checkbox" value="" id="flexCheckDefault25" />
+                            <label for="flexCheckDefault25">
+                                Progress Reports
+                            </label>
+                        </div>
+                        <div class="form-check mx-1">
+                            <input disabled checked class="form-check-input" type="checkbox" value="" id="flexCheckDefault26" />
+                            <label for="flexCheckDefault26">
+                                Incident Reports
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      
+    </div>
+
+    <div class="row">
+       
+            <div class="col-md-12">
+                <div class="  p-2">
+                    <div class="d-flex align-items-center  flex-wrap gap-2">
+                        <div class="form-check mx-1">
+                            <input disabled checked class="form-check-input" type="checkbox" value="" id="flexCheckDefault27" />
+                            <label for="flexCheckDefault27">
+                                Psychiatric/Psychological Evaluations
+                            </label>
+                        </div>
+                        <div class="form-check mx-1">
+                            <input disabled checked class="form-check-input" type="checkbox" value="" id="flexCheckDefault28" />
+                            <label for="flexCheckDefault28">
+                                History, Physical
+                            </label>
+                        </div>
+                        <div class="form-check mx-1">
+                            <input disabled checked class="form-check-input" type="checkbox" value="" id="flexCheckDefault29" />
+                            <label for="flexCheckDefault29">
+                                Lab Work
+                            </label>
+                        </div>
+                        <div class="form-check mx-1">
+                            <input disabled checked class="form-check-input" type="checkbox" value="" id="flexCheckDefault30" />
+                            <label for="flexCheckDefault30">
+                                Hospital Records
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+    </div>
+    <div class="row">
+        
+        <div class="col-12">
+            <div class="input-group input-group-sm ">
+                <label for=""  >Other (explain):</label>
+                <input type="text"  class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            </div>
+           
+        </div>
+    </div>
+    <!-- Name in the span must be changed when backend is running!!!!!!!!! -->
+    <div class="row">
+        <div class="col-md-12">
+            <label class="mb-3">
+                I understand this consent is revocable upon written notice to <span class="text-decoration-underline">{{agency.name}}</span> except to the extent that
+                action by <span class="text-decoration-underline"> {{customer.full_name}}</span> has been taken in reliance on this
+                authorization and that this authorization shall remain in force for a twelve-month period in order to effect the purpose for which it
+                is given, unless resolved by recipient or legal representative, as above.
+            </label>
+            <label >
+                Alcohol and drug abuse information if present may be disclosed from records whose confidentiality is protected by Federal
+                regulations (42 CFR, Part II) prohibit making any further disclosure of records without the specific written authorization of the person
+                served or legal representative, or as otherwise permitted by such regulations. This information may not be used to criminally
+                prosecute the recipient. 
+            </label>
+        </div>
+    </div>
+
+    <!-- Client Signature -->
+    <div class="row  aling-items-end">
+        <div class="col-7  ">
+           
+                <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+                    <img class="logo" width="50" height="50" src="https://kapitaltecnologica.com{{customer.sign.url}}"/>
+                </div>
+               
+   
+            
+        </div>
+        <div class="col-4 d-flex align-items-end mb-2">
+            <input type="text" value="{{customer.create_at|date:'Y-m-d'}}"  class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            
+        </div>
+        <div class="col-7  ">
+          
+                <h6 class="text-gray-900 text-center">Recipient, Parent, Legal Guardian or Authorized Representative Signature</h6>
+                
+         
+            
+        </div>
+        <div class="col-4">
+            <h6 for=""  >Date:</h6>
+            
+        </div>
+    </div>
+
+    <div class="row  aling-items-end">
+        <div class="col-7  ">
+           
+                <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+                    <img class="logo" width="50" height="50" src="https://kapitaltecnologica.com{{user.sign.url}}"/>
+                </div>
+               
+   
+            
+        </div>
+        <div class="col-4 d-flex align-items-end mb-2">
+            <input type="text" value="{{customer.create_at|date:'Y-m-d'}}"  class="form-control  border-bottom-2  bg-transparent border-left-0 text-body border-right-0 border-top-0" />
+            
+        </div>
+        <div class="col-7  ">
+          
+                <h6 class="text-gray-900 text-center">Employee Signature</h6>
+                
+         
+            
+        </div>
+        <div class="col-4">
+            <h6 for=""  >Date:</h6>
+            
+        </div>
+    </div>
+    
+
+{% endblock %}

@@ -381,8 +381,8 @@
         <div class="row">
             <div class="col-md-12">
                 <label class="mb-3">
-                    I understand this consent is revocable upon written notice to <span class="text-decoration-underline">Homestead Behavior Health Plus LLC</span> except to the extent that
-                    action by <span class="text-decoration-underline"> {{customer.first_name}} {{customer.last_name}}</span> has been taken in reliance on this
+                    I understand this consent is revocable upon written notice to <span class="text-decoration-underline">{{agency.name}}</span> except to the extent that
+                    action by <span class="text-decoration-underline"> {{customer.full_name}}</span> has been taken in reliance on this
                     authorization and that this authorization shall remain in force for a twelve-month period in order to effect the purpose for which it
                     is given, unless resolved by recipient or legal representative, as above.
                 </label>
@@ -423,5 +423,13 @@
                 <c-input_text inputType="date" helpText="Date" inputValue="{{customer.create_at|date:'Y-m-d'}}">
                 </c-input_text>
             </div>
+        </div>
+        <div class="d-flex justify-content-end gap-3">
+            <div>
+                <a href="{% url 'section_one_document_one_export_pdf' pk=customer.pk %}" class="btn btn-primary btn-sm" id="btnPrint" >Print</a>
+            </div>
+            {% comment %} <div>
+                <a href="{% url 'section_one_document_one_export_pdf' pk=customer.pk %}" class="btn btn-primary btn-sm" id="btnPrint" >Historical</a>
+            </div> {% endcomment %}
         </div>
 

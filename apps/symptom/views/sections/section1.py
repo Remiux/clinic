@@ -1,13 +1,10 @@
 from django.shortcuts import render,get_object_or_404
 from django.contrib.auth.decorators import login_required
-from apps.symptom.filters import ClientFilter, InsuranceFilter
-from apps.symptom.form import CustomerForm, CustomerSignForm
-from apps.symptom.models import Agency, Customer, Diagnostic, Insurance, Symptom
-from utils.paginator import _get_paginator 
+from apps.symptom.models import Agency, Customer
 from apps.symptom.models import Customer
-from django.contrib.auth import get_user_model
-from apps.symptom.models import EncryptedFile
-from apps.symptom.form import FileUploadForm
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+from weasyprint import HTML
 
 # Create your views here.
 @login_required(login_url='/login')
@@ -17,3 +14,19 @@ def section_one_view(request,pk):
         'agency': Agency.objects.first()
         }
     return render(request,'pages/customers/actions/sections/section1/index.html',context)
+
+@login_required(login_url='/login')
+def section_one_document_one_export_pdf(request,pk):
+    customers=get_object_or_404(Customer,pk=pk)
+    context={
+        'customer':customers,
+        'user':request.user,
+        'agency': Agency.objects.first()
+    }
+    html_string = render_to_string('pages/customers/actions/sections/section1/pdf_page/page3.html', context)
+    html = HTML(string=html_string)
+    pdf = html.write_pdf()
+    
+    response = HttpResponse(pdf, content_type='application/pdf')
+    response['Content-Disposition'] = 'filename="documento.pdf"'
+    return response
