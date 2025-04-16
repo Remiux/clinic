@@ -2,6 +2,7 @@ from apps.symptom.views.insurance_view import *
 from django.urls import path
 
 from apps.symptom.views.sections.section1 import *
+from apps.symptom.views.sections.section2 import *
 
 
 urlpatterns = [
@@ -12,7 +13,7 @@ urlpatterns = [
     
     
     # Section 2
-    # path('customer-section_two/<int:pk>/', section_two_view, name='section_two_view'), 
+    path('customer-section_two/<int:pk>/', section_two_view, name='section_two_view'), 
       
     # Section 3
     # path('customer-section_three/<int:pk>/', section_three_view, name='section_three_view'),

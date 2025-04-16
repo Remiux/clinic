@@ -4,7 +4,7 @@ from apps.symptom.models import Agency, Customer, HistoricalSection1
 from apps.symptom.models import Customer
 from django.http import HttpResponse
 from django.template.loader import render_to_string
-from weasyprint import HTML
+#from weasyprint import HTML
 
 # Create your views here.
 @login_required(login_url='/login')
