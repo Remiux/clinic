@@ -36,7 +36,22 @@ class Diagnostic(models.Model):
     def __str__(self):
         return self.code
 
-    
+
+class Medication(models.Model):
+    name = models.CharField(max_length=50)
+    quantity = models.PositiveIntegerField()
+    customer = models.ForeignKey(
+        'Customer', 
+        on_delete=models.CASCADE, 
+        related_name='medications'
+    )
+
+    class Meta:
+        verbose_name = "Medication"
+        verbose_name_plural = "Medications"
+
+    def __str__(self):
+        return f"{self.name} ({self.quantity}mg)"
     
 class Symptom(models.Model):
     code = models.CharField(max_length=255, unique=True)
@@ -49,7 +64,7 @@ class Symptom(models.Model):
 
     def __str__(self):
         return self.code
-    
+
 class Insurance(models.Model):
     abbreviated = models.CharField(max_length=15, unique=True)
     name = models.CharField(max_length=255, unique=True)
@@ -87,6 +102,8 @@ class Customer(models.Model):
     school = models.CharField(max_length=50, null=True, blank=True)
     grade = models.CharField(max_length=50, null=True, blank=True)
     race = models.CharField(max_length=50,default='W' ,choices=[('W', 'White'), ('AAB', 'African American Black'), ('API', 'Asian or Other Pacific Islander'), ('AIAN', 'American Indian-Alaskan Native'), ('O', 'Other')])
+    referred_by = models.CharField(max_length=50, blank=True, null=True)
+    referred_movile = models.IntegerField(blank=True, null=True)
     ethnicity = models.CharField(max_length=50,default='H',choices=[('H', 'Hispanic-latino'), ('NH', 'Non-Hispanic'), ('O', 'Other')])
     legal_guardian_full_name = models.CharField(max_length=80, null=True, blank=True)
     legal_guardian_relationship = models.CharField(max_length=80, null=True, blank=True)
@@ -98,6 +115,7 @@ class Customer(models.Model):
     emergency_contact_person = models.CharField(max_length=80)
     emergency_contact_relationship = models.CharField(max_length=80)
     emergency_contact_phone_number = models.CharField(max_length=20)
+    medicaid_gold_card = models.CharField(max_length=50, unique=True, null=True, blank=True)
     sign = models.ImageField(upload_to='customer_sign',blank=True,null=True)
     insurance = models.ForeignKey(Insurance, on_delete=models.CASCADE)
     diagnostic = models.ForeignKey(Diagnostic, on_delete=models.CASCADE)

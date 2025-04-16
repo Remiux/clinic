@@ -1,44 +1,44 @@
 
         <div class="row">
             <div class="col-md-8">
-                <c-input_text spanTitle="Client`s Name" inputType="text" >
+                <c-input_text spanTitle="Client`s Name" inputValue="{{customer.first_name}} {{customer.last_name}}" disabled="disabled" inputType="text" >
                 </c-input_text >
             </div>
             <div class="col-md-4">
-                <c-input_text spanTitle="Date of Birth" inputType="date" >
+                <c-input_text spanTitle="Date of Birth" inputType="date" disabled="disabled" inputValue="{{customer.dob|date:'Y-m-d'}}" >
                 </c-input_text >
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-8">
-                <c-input_text spanTitle="Address" inputType="text" >
+                <c-input_text spanTitle="Address" disabled="disabled" inputValue="{{customer.address}}" inputType="text" >
                 </c-input_text >
             </div>
             <div class="col-md-4">
-                <c-input_text spanTitle="FL" inputType="number" >
+                <c-input_text spanTitle="FL" disabled="disabled" inputValue="{{customer.zip}}" inputType="number" >
                 </c-input_text >
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-12">
-                <c-input_text spanTitle="Legal Guardian (if applicable)" inputType="text" >
+                <c-input_text spanTitle="Legal Guardian (if applicable)" disabled="disabled" inputValue="{% if customer.legal_guardian_full_name %}{{customer.legal_guardian_full_name}}{% endif %}" inputType="text" >
                 </c-input_text >
             </div>
             <div class="col-md-12">
-                <c-input_text spanTitle="Emergency Contact" inputType="text" >
+                <c-input_text spanTitle="Emergency Contact" disabled="disabled" inputValue="{{customer.emergency_contact_person}}" inputType="text" >
                 </c-input_text >
             </div>        
         </div>
 
         <div class="row">
             <div class="col-md-6">
-                <c-input_text spanTitle="Relationship" inputType="text" >
+                <c-input_text spanTitle="Relationship" disabled="disabled" inputValue="{% if customer.legal_guardian_relationship %}{{customer.legal_guardian_relationship}}{% endif %}" inputType="text" >
                 </c-input_text >
             </div>
             <div class="col-md-6">
-                <c-input_text spanTitle="Phone #" inputType="text" >
+                <c-input_text spanTitle="Phone #" disabled="disabled" inputValue="{{ customer.movile }}" inputType="text" >
                 </c-input_text >
             </div>
         </div>
@@ -51,19 +51,19 @@
 
         <div class="row mt-5">
             <div class="col-md-6">
-                <c-input_text spanTitle="Medicaid #" inputType="text" >
+                <c-input_text spanTitle="Medicaid #" disabled="disabled" inputValue="{{ customer.medicaid_no }}" inputType="text" >
                 </c-input_text >
             </div>
             <div class="col-md-6">
-                <c-input_text spanTitle="SS #" inputType="text" >
+                <c-input_text spanTitle="SS #" disabled="disabled" inputValue="{{ customer.ssn }}" inputType="text" >
                 </c-input_text >
             </div>
             <div class="col-md-6">
-                <c-input_text spanTitle="Medicaid Gold Card #" inputType="text" >
+                <c-input_text spanTitle="Medicaid Gold Card #" disabled="disabled" inputValue="{{ customer.medicaid_gold_card }}" inputType="text" >
                 </c-input_text >
             </div>
             <div class="col-md-6">
-                <c-input_text spanTitle="Medicare #" inputType="text" >
+                <c-input_text spanTitle="Medicare #" disabled="disabled" inputValue="{{ customer.medicare_no }}" inputType="text" >
                 </c-input_text >
             </div>
             <div class="col-md-12">
@@ -78,25 +78,25 @@
 
         <div class="row mt-5">
             <div class="col-md-8">
-                <c-input_text spanTitle="Diagnosis (Axis I)" inputType="text" helpText="Code // Descriptor">
+                <c-input_text spanTitle="Diagnosis (Axis I)" inputType="text" disabled="disabled" inputValue="{{ customer.diagnostic.code }} // {{ customer.diagnostic.description}}" helpText="Code // Descriptor">
                 </c-input_text >
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-12">
-                <c-input_text spanTitle="Medications" inputType="text">
+                <c-input_text spanTitle="Medications" disabled="disabled" inputValue="{% for medication in customer.medications.all %}{{ medication.name }} {{ medication.quantity }}mg{% if not forloop.last %}, {% endif %}{% endfor %}" inputType="text">
                 </c-input_text >
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-6">
-                <c-input_text spanTitle="Referred by" inputType="text">
+                <c-input_text spanTitle="Referred by" disabled="disabled" default="default" inputValue="{{ customer.referred_by }}" inputType="text">
                 </c-input_text >
             </div>
             <div class="col-md-6">
-                <c-input_text spanTitle="Phone #" inputType="text">
+                <c-input_text spanTitle="Phone #" default="default" disabled="disabled" inputValue="{{ customer.referred_movile }}" inputType="text">
                 </c-input_text >
             </div>
         </div>
@@ -105,7 +105,7 @@
             <div class="row text-center align-items-center">
                 <div class="col-md-2 col-4 d-flex flex-column justify-content-center align-items-center">
                     <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" />
+                    <input checked class="form-check-input" type="radio" ckecked value="" id="flexCheckDefault1" />
                     <label for="flexCheckDefault1">
                         Psychiatrist
                     </label>
@@ -113,7 +113,7 @@
                 </div>
                 <div class="col-md-2 col-4 d-flex flex-column justify-content-center align-items-center">
                     <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2" />
+                    <input class="form-check-input" type="radio" value="" disabled id="flexCheckDefault2" />
                     <label for="flexCheckDefault2">
                         PCP
                     </label>
@@ -121,7 +121,7 @@
                 </div>
                 <div class="col-md-2 col-4 d-flex flex-column justify-content-center align-items-center">
                     <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3" />
+                    <input class="form-check-input" type="radio" value="" disabled id="flexCheckDefault3" />
                     <label for="flexCheckDefault3">
                         Other: 
                     </label>
@@ -138,7 +138,7 @@
             <div class="row text-center align-items-center">
                 <div class="col-md-4 col-4 d-flex flex-column justify-content-center align-items-center">
                     <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault4" />
+                    <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault4" />
                     <label for="flexCheckDefault4">
                         Is the client already receiving TCM services?
                     </label>
@@ -165,7 +165,7 @@
 
         <div class="row mt-5">
             <div class="col-md-12">
-                <c-input_text inputType="text" spanTitle="Is the client English, Spanish or Creole speaking?">
+                <c-input_text inputType="text" spanTitle="Is the client English, Spanish or Creole speaking?" inputValue="Spanish" disabled="disabled">
                 </c-input_text>
             </div>
         </div>
@@ -179,7 +179,7 @@
             <div class="row text-center align-items-center">
                 <div class="col-md-2 col-4 d-flex flex-column justify-content-center align-items-center">
                     <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault7" />
+                    <input class="form-check-input" type="radio" value="" id="flexCheckDefault7" disabled="disabled" />
                     <label for="flexCheckDefault7">
                         TCM
                     </label>
@@ -187,7 +187,7 @@
                 </div>
                 <div class="col-md-2 col-4 d-flex flex-column justify-content-center align-items-center">
                     <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault8" />
+                    <input checked class="form-check-input" type="radio" value="" id="flexCheckDefault8" />
                     <label for="flexCheckDefault8">
                         PSR
                     </label>
@@ -195,7 +195,7 @@
                 </div>
                 <div class="col-md-4 col-4 d-flex flex-column justify-content-center align-items-center">
                     <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault9" />
+                    <input checked class="form-check-input" type="radio" value="" id="flexCheckDefault9" disabled="disabled" />
                     <label for="flexCheckDefault9">
                         Individual/Family Therapy
                     </label>
@@ -203,7 +203,7 @@
                 </div>
                 <div class="col-md-2 col-4 d-flex flex-column justify-content-center align-items-center">
                     <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault10" />
+                    <input checked class="form-check-input" type="radio" value="" id="flexCheckDefault10" disabled="disabled" />
                     <label for="flexCheckDefault10">
                         Psychiatrist Visit
                     </label>
@@ -211,7 +211,7 @@
                 </div>
                 <div class="col-md-2 col-4 d-flex flex-column justify-content-center align-items-center">
                     <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault11" />
+                    <input checked class="form-check-input" type="radio" value="" id="flexCheckDefault11" disabled="disabled"/>
                     <label for="flexCheckDefault11">
                         LMHC
                     </label>
@@ -220,16 +220,20 @@
             </div>
         </div>
 
-        <div class="row mt-5 mb-5">
+        <div class="row mt-10 mb-5 align-items-end">
             <div class="col-md-4">
-                <c-input_text inputType="text" helpText="Person completing the form">
+                <c-input_text inputType="text" helpText="Person completing the form" inputValue="{{ request.user.first_name }} {{ request.user.last_name }}">
                 </c-input_text>
             </div>
-            <div class="col-md-4 mt-5 mb-5">
-                Client Signature: __________________________________
+            <div class="col-md-4">
+                <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+                    <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/>
+                </div>
+                <h6 class="text-gray-900 mb-5 text-center">Client Signature.</h6>
+                
             </div>
             <div class="col-md-4">
-                <c-input_text inputType="date" helpText="Person completing the form">
+                <c-input_text inputType="date" disabled="disabled" helpText="Date" inputValue="{{customer.create_at|date:'Y-m-d'}}">
                 </c-input_text>
             </div>
         </div>
