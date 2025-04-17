@@ -1,30 +1,30 @@
 
         <div class="row">
             <div class="col-md-8">
-                <c-input_text spanTitle="Recipient" inputType="text" >
+                <c-input_text spanTitle="Recipient" disabled="disabled" inputValue="{{ customer.first_name }} {{ customer.last_name }}" inputType="text" >
                 </c-input_text >
             </div>
             <div class="col-md-4">
-                <c-input_text spanTitle="Case No" inputType="number" >
+                <c-input_text disabled="disabled" inputValue="{{ customer.case_no }}" spanTitle="Case No" inputType="text" >
                 </c-input_text >
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-6">
-                <c-input_text spanTitle="No. of Dependents" inputType="number" >
+                <c-input_text spanTitle="No. of Dependents" disabled="disabled" inputValue="{{ customer.no_dependences }}" inputType="number" >
                 </c-input_text >
             </div>
             <div class="col-md-6">
-                <c-input_text spanTitle="Family Yearly Income $" inputType="number" >
+                <c-input_text spanTitle="Family Yearly Income $" disabled="disabled" inputValue="{{ customer.family_year_income }}" inputType="number" >
                 </c-input_text >
             </div>
             <div class="col-md-6">
-                <c-input_text spanTitle="Discount from standard rate" inputType="number" >
+                <c-input_text spanTitle="Discount from standard rate" disabled="disabled" inputValue="{{ customer.discount_standard_rate }} %" inputType="text" >
                 </c-input_text >
             </div>
             <div class="col-md-6">
-                <c-input_text spanTitle="Discount from standard rate" inputType="number" >
+                <c-input_text spanTitle="Discount from standard rate" disabled="disabled" inputValue="{{ customer.discount_standard_rate }} %" inputType="text" >
                 </c-input_text >
             </div>
         </div>
@@ -37,11 +37,11 @@
 
         <div class="row mt-5">
             <div class="col-md-6">
-                <c-input_text spanTitle="Last Name" inputType="text" >
+                <c-input_text spanTitle="Last Name" disabled="disabled" inputValue="{{ customer.responsible_payee_last_name }}" inputType="text" >
                 </c-input_text >
             </div>
             <div class="col-md-6">
-                <c-input_text spanTitle="First Name" inputType="text" >
+                <c-input_text spanTitle="First Name" disabled="disabled" inputValue="{{ customer.responsible_payee_first_name }}" inputType="text" >
                 </c-input_text >
             </div>
         </div>
@@ -53,7 +53,7 @@
             </div>
             <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center">
                 <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault1" />
+                <input disabled="disabled" class="form-check-input" type="checkbox" value="" disabled="disabled" id="flexCheckDefault1" />
                 <label for="flexCheckDefault1">
                     Self
                 </label>
@@ -61,7 +61,7 @@
             </div>
             <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center">
                 <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2" />
+                <input disabled="disabled" class="form-check-input" type="checkbox" value="" id="flexCheckDefault2" />
                 <label for="flexCheckDefault2">
                     Spouse
                 </label>
@@ -69,7 +69,7 @@
             </div>
             <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center">
                 <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault3" />
+                <input disabled="disabled" class="form-check-input" type="checkbox" value="" id="flexCheckDefault3" />
                 <label for="flexCheckDefault3">
                     Child
                 </label>
@@ -77,7 +77,7 @@
             </div>
             <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center">
                 <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault4" />
+                <input disabled="disabled" class="form-check-input" type="checkbox" value="" id="flexCheckDefault4" />
                 <label for="flexCheckDefault4">
                     Other:
                 </label>
@@ -92,32 +92,32 @@
 
         <div class="row mt-5">
             <div class="col-md-12">
-                <c-input_text spanTitle="Address" inputType="text" >
+                <c-input_text spanTitle="Address" disabled="disabled" inputValue="{{ customer.responsible_payee_address }}" inputType="text" >
                 </c-input_text >
             </div>
         </div>
         <div class="row">
             <div class="col-md-8">
-                <c-input_text spanTitle="City" inputType="text" >
+                <c-input_text spanTitle="City" disabled="disabled" inputValue="{{ customer.responsible_payee_city }}" inputType="text" >
                 </c-input_text >
             </div>
             <div class="col-md-2">
-                <c-input_text spanTitle="State" inputType="text" >
+                <c-input_text spanTitle="State" disabled="disabled" inputValue="{{ customer.responsible_payee_state }}" inputType="text" >
                 </c-input_text >
             </div>
             <div class="col-md-2">
-                <c-input_text spanTitle="Zip" inputType="number" >
+                <c-input_text spanTitle="Zip" disabled="disabled" inputValue="{{ customer.responsible_payee_zip }}" inputType="number" >
                 </c-input_text >
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-6">
-                <c-input_text spanTitle="Phone" inputType="number" >
+                <c-input_text spanTitle="Phone" disabled="disabled" inputValue="{{ customer.responsible_payee_phone_number }}" inputType="number" >
                 </c-input_text >
             </div>
             <div class="col-md-6">
-                <c-input_text spanTitle="Fax" inputType="number" >
+                <c-input_text spanTitle="Fax" disabled="disabled" inputValue="{{ customer.responsible_payee_fax }}" inputType="number" >
                 </c-input_text >
             </div>
         </div>
@@ -130,40 +130,40 @@
 
         <div class="row mt-5">
             <div class="col-md-6">
-                <c-input_text spanTitle="Contract/Insurance No." inputType="number" >
+                <c-input_text spanTitle="Contract/Insurance No." disabled="disabled" inputValue="{{ customer.medicaid_no }}" inputType="number" >
                 </c-input_text >
             </div>
             <div class="col-md-6">
-                <c-input_text spanTitle="Company Name" inputType="text" >
+                <c-input_text spanTitle="Company Name" disabled="disabled" inputValue="{{ customer.agency.name }}" inputType="text" >
                 </c-input_text >
             </div>
         </div>
 
         <div class="row mt-5">
             <div class="col-md-12">
-                <c-input_text spanTitle="Address" inputType="text" >
+                <c-input_text spanTitle="Address" disabled="disabled" inputValue="{{ customer.agency.address }}" inputType="text" >
                 </c-input_text >
             </div>
         </div>
         <div class="row">
             <div class="col-md-8">
-                <c-input_text spanTitle="City" inputType="text" >
+                <c-input_text spanTitle="City" disabled="disabled" inputValue="{{ customer.agency.city }}" inputType="text" >
                 </c-input_text >
             </div>
             <div class="col-md-2">
-                <c-input_text spanTitle="State" inputType="text" >
+                <c-input_text spanTitle="State" disabled="disabled" inputValue="{{ customer.agency.state }}" inputType="text" >
                 </c-input_text >
             </div>
             <div class="col-md-2">
-                <c-input_text spanTitle="Zip" inputType="number" >
+                <c-input_text spanTitle="Zip" disabled="disabled" inputValue="{{ customer.agency.zip }}" inputType="number" >
                 </c-input_text >
             </div>
             <div class="col-md-6">
-                <c-input_text spanTitle="Contact Name" inputType="text" >
+                <c-input_text spanTitle="Contact Name" disabled="disabled" inputValue="{{ customer.first_name }} {{ customer.last_name }}" inputType="text" >
                 </c-input_text >
             </div>
             <div class="col-md-6">
-                <c-input_text spanTitle="Contact Phone" inputType="number" >
+                <c-input_text spanTitle="Contact Phone" disabled="disabled" inputValue="{{ customer.agency.phone_number }}" inputType="number" >
                 </c-input_text >
             </div>
         </div>
@@ -173,49 +173,73 @@
                 <label>Policy Holder Information</label>
             </div>
             <div class="col-md-6">
-                <c-input_text spanTitle="Last Name" inputType="text" >
+                <c-input_text spanTitle="Last Name" disabled="disabled" inputValue="{{ customer.first_name }}" inputType="text" >
                 </c-input_text >
             </div>
             <div class="col-md-6">
-                <c-input_text spanTitle="First Name" inputType="text" >
+                <c-input_text spanTitle="First Name" disabled="disabled" inputValue="{{ customer.last_name }}" inputType="text" >
                 </c-input_text >
             </div>
         </div>
 
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-8">
+                    <c-input_text spanTitle="Address" disabled="disabled" inputValue="{{ customer.address }}" inputType="text" >
+                    </c-input_text >
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-8">
-                <c-input_text spanTitle="City" inputType="text" >
+                <c-input_text spanTitle="City" disabled="disabled" inputValue="{{ customer.city }}" inputType="text" >
                 </c-input_text >
             </div>
             <div class="col-md-2">
-                <c-input_text spanTitle="State" inputType="text" >
+                <c-input_text spanTitle="State" disabled="disabled" inputValue="{{ customer.state }}" inputType="text" >
                 </c-input_text >
             </div>
             <div class="col-md-2">
-                <c-input_text spanTitle="Zip" inputType="number" >
+                <c-input_text spanTitle="Zip" disabled="disabled" inputValue="{{ customer.zip }}" inputType="number" >
                 </c-input_text >
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-6">
-                <c-input_text spanTitle="Phone" inputType="number" >
+                <c-input_text spanTitle="Phone" disabled="disabled" inputValue="{{ customer.movile }}" inputType="number" >
                 </c-input_text >
             </div>
             <div class="col-md-6">
+
                 <div class="rounded border p-2">
                     <div class="d-flex align-items-center">
                         <label class="form-label ms-2 me-4">Gender</label>
             
                         <div class="form-check me-8">
-                            <input class="form-check-input" type="radio" value="" id="flexCheckDefault5" name="radio2">
+                            
+                            <input 
+                                class="form-check-input" 
+                                type="radio" 
+                                value="M" 
+                                id="flexCheckDefault5" 
+                                name="radio2" 
+                                disabled 
+                                {% if customer.gender == 'M' %}checked{% endif %}>
                             <label for="flexCheckDefault5">
                                 Male
                             </label>
                         </div>
-                        
+            
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" value="" id="flexCheckChecked6" name="radio2" >
+                            <input 
+                                class="form-check-input" 
+                                type="radio" 
+                                value="F" 
+                                id="flexCheckChecked6" 
+                                name="radio2" 
+                                disabled
+                                {% if customer.gender == 'F' %}checked{% endif %}>
                             <label for="flexCheckChecked6">
                                 Female
                             </label>
@@ -232,7 +256,7 @@
             </div>
             <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center">
                 <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault7" />
+                <input checked disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault7" />
                 <label for="flexCheckDefault7">
                     Self
                 </label>
@@ -240,7 +264,7 @@
             </div>
             <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center">
                 <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault8" />
+                <input disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault8" />
                 <label for="flexCheckDefault8">
                     Spouse
                 </label>
@@ -248,7 +272,7 @@
             </div>
             <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center">
                 <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault9" />
+                <input disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault9" />
                 <label for="flexCheckDefault9">
                     Child
                 </label>
@@ -256,7 +280,7 @@
             </div>
             <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center">
                 <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault10" />
+                <input disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault10" />
                 <label for="flexCheckDefault10">
                     Other:
                 </label>
@@ -271,11 +295,11 @@
 
         <div class="row mt-5">
             <div class="col-md-6">
-                <c-input_text spanTitle="DOB" inputType="date" >
+                <c-input_text spanTitle="DOB" disabled="disabled" inputValue="{{customer.dob|date:'Y-m-d'}}" inputType="date" >
                 </c-input_text >
             </div>
             <div class="col-md-6">
-                <c-input_text spanTitle="SSN" inputType="text" >
+                <c-input_text spanTitle="SSN" disabled="disabled" inputValue="{{ customer.ssn }}" inputType="text" >
                 </c-input_text >
             </div>
         </div>
@@ -440,7 +464,7 @@
         <div class="row">
             <div class="col-md-12 mb-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault6" />
+                    <input checked disabled class="form-check-input" type="checkbox" value="" id="flexCheckDefault6" />
                     <label for="flexCheckDefault6">
                         Documents were translated to me in my native language (if needed).
                     </label>
@@ -450,11 +474,11 @@
         
         <div class="row mt-10">
             <div class="col-md-8">
-                <c-input_text inputType="text" helpText="Name of Person Completing Form">
+                <c-input_text inputType="text" disabled="disabled" inputValue="{{ request.user.first_name }} {{ request.user.last_name }}"  helpText="Name of Person Completing Form">
                 </c-input_text>
             </div>
             <div class="col-md-4">
-                <c-input_text inputType="date" helpText="Date">
+                <c-input_text inputType="date" disabled="disabled" inputValue="{{customer.create_at|date:'Y-m-d'}}" helpText="Date">
                 </c-input_text>
             </div>
         </div>
