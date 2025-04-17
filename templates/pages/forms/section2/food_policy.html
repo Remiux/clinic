@@ -49,7 +49,7 @@
             </div>
 
             <div class="col-md-4">
-                <c-input_text helpText="Patient Name" disabled="disabled" inputValue="{{ customer.first_name }} {{ customer.last_name }}" inputType="text" >
+                <c-input_text helpText="Name" disabled="disabled" inputValue="{{ customer.first_name }} {{ customer.last_name }}" inputType="text" >
                 </c-input_text >
             </div>
 
@@ -68,9 +68,9 @@
         <div class="row mt-10 mb-5 align-items-end">
             <div class="col-md-4">
                 <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
-                    <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/>
+                    <img class="" width="130" src="{% if user.sign %}{{user.sign.url}}{% endif %}"/>
                 </div>
-                <h6 class="text-gray-900 mb-5 text-center">Witness Signature.</h6>    
+                <h6 class="text-gray-900 mb-5 text-center">Witness Signature</h6>
             </div>
             <div class="col-md-4">
                 <c-input_text disabled="disabled" inputType="text" helpText="Name" inputValue="{{ request.user.first_name }} {{ request.user.last_name }}">

@@ -1,18 +1,18 @@
 
         <div class="row">
             <div class="col-md-8">
-                <c-input_text spanTitle="Patient Name" inputType="text" >
+                <c-input_text spanTitle="Patient Name" disabled="disabled" inputValue="{{ customer.first_name }} {{ customer.last_name }}" inputType="text" >
                 </c-input_text >
             </div>
             <div class="col-md-4">
-                <c-input_text spanTitle="MR #" inputType="number" >
+                <c-input_text spanTitle="MR #" disabled="disabled" inputValue="{{ customer.case_no }}" inputType="text" >
                 </c-input_text >
             </div>
         </div>
 
         <div class="row">
             <p class="lh-lg ms-5">
-                I, <span class="text-decoration-underline">Mercedes Amador Fonseca</span>, a client at Homestead Behavior Health
+                I, <span class="text-decoration-underline">{{ customer.first_name }} {{ customer.last_name }}</span>, a client at Homestead Behavior Health
                 Plus LLC do hereby grant permission to Homestead Behavior Health Plus LLC to obtain and use
                 photographs and/or videotape as needed, including upon admission to program for identification. I
                 also grant permission to Homestead Behavior Health Plus LLC to videotape therapy sessions to be
@@ -24,7 +24,7 @@
                 and to assist in treatment.
             </p>
             <p class="lh-lg ms-5">
-                I, <span class="text-decoration-underline">Mercedes Amador Fonseca</span>, grant Homestead Behavior Health Pus
+                I, <span class="text-decoration-underline">{{ customer.first_name }} {{ customer.last_name }}</span>, grant Homestead Behavior Health Pus
                 LLC. the right it gives to transfer and exhibit photographs or videotapes to any responsible
                 individual, business or others as deemed necessary and in my best interests.
                 Homestead Behavior Health Plus LLC agrees to maintain my confidentiality rights by using
@@ -37,7 +37,7 @@
         <div class="row mt-5">
             <div class="col-md-12 mb-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault6" />
+                    <input checked disabled="disabled" class="form-check-input" type="checkbox" value="" id="flexCheckDefault6" />
                     <label for="flexCheckDefault6">
                         Documents were translated to me in my native language (if needed).
                     </label>
@@ -45,29 +45,38 @@
             </div>
         </div>
 
-        <div class="row mt-10">
-            <div class="col-md-3">
-                <c-input_text inputType="text" helpText="Client Signature">
+        <div class="row mt-10 mb-5 align-items-end">
+            <div class="col-md-4">
+                <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+                    <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/>
+                </div>
+                <h6 class="text-gray-900 mb-5 text-center">Client Signature.</h6>    
+            </div>
+
+            <div class="col-md-4">
+                <c-input_text helpText="Name" disabled="disabled" inputValue="{{ customer.first_name }} {{ customer.last_name }}" inputType="text" >
+                </c-input_text >
+            </div>
+
+            <div class="col-md-4">
+                <c-input_text inputType="date" disabled="disabled" helpText="Date" inputValue="{{customer.create_at|date:'Y-m-d'}}">
                 </c-input_text>
             </div>
-            <div class="col-md-7">
-                <c-input_text inputType="text" helpText="Name">
+        </div>
+
+        <div class="row mt-10 mb-5 align-items-end">
+            <div class="col-md-4">
+                <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+                    <img class="" width="130" src="{% if user.sign %}{{user.sign.url}}{% endif %}"/>
+                </div>
+                <h6 class="text-gray-900 mb-5 text-center">Witness Signature</h6>
+            </div>
+            <div class="col-md-4">
+                <c-input_text disabled="disabled" inputType="text" helpText="Name" inputValue="{{ request.user.first_name }} {{ request.user.last_name }}">
                 </c-input_text>
             </div>
-            <div class="col-md-2">
-                <c-input_text inputType="date" helpText="Date">
-                </c-input_text>
-            </div>
-            <div class="col-md-3">
-                <c-input_text inputType="text" helpText="Witness Signature">
-                </c-input_text>
-            </div>
-            <div class="col-md-7">
-                <c-input_text inputType="text" helpText="Name">
-                </c-input_text>
-            </div>
-            <div class="col-md-2">
-                <c-input_text inputType="date" helpText="Date">
+            <div class="col-md-4">
+                <c-input_text inputType="date" disabled="disabled" helpText="Date" inputValue="{{customer.create_at|date:'Y-m-d'}}">
                 </c-input_text>
             </div>
         </div>
