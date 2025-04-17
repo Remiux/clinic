@@ -229,8 +229,7 @@
                 <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
                     <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/>
                 </div>
-                <h6 class="text-gray-900 mb-5 text-center">Signature.</h6>
-                
+                <h6 class="text-gray-900 mb-5 text-center">Signature.</h6>    
             </div>
             <div class="col-md-4">
                 <c-input_text inputType="date" disabled="disabled" helpText="Date" inputValue="{{customer.create_at|date:'Y-m-d'}}">
