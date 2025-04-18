@@ -1,5 +1,49 @@
 <!--begin::Accordion-->
 <div class="accordion accordion-icon-collapse" id="kt_accordion_3">
+    
+    <!--begin::Item-->
+    <div class="mb-5">
+        <!--begin::Header-->
+        <div class="accordion-header py-3 d-flex  collapsed" data-bs-toggle="collapse" data-bs-target="#kt_accordion_3_item_0">
+            <span class="accordion-icon">
+                <i class="ki-duotone ki-plus-square fs-2 accordion-icon-off"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+                <i class="ki-duotone ki-minus-square fs-2 accordion-icon-on"><span class="path1"></span><span class="path2"></span></i>
+            </span>
+            <h3 class="fs-4 fw-semibold mb-0 ms-4">Elegibility</h3>
+        </div>
+        <!--end::Header-->
+
+        <!--begin::Body-->
+        <div id="kt_accordion_3_item_0" class="fs-6  collapse" data-bs-parent="#kt_accordion_0">
+            <!-- Modal de Bootstrap -->
+            <div class="modal fade" id="uploadFileModal" tabindex="-1" aria-labelledby="uploadFileModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="uploadFileModalLabel">Upload File</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" id="modal-file-replace">
+                            {% include "pages/customers/actions/components/partials/modal_form.html" %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-start gap-3">
+                <div>
+                    <button type="button" class="btn btn-sm btn-primary fw-bold" data-bs-toggle="modal" data-bs-target="#uploadFileModal">
+                        Update Form
+                    </button>
+                </div>
+                <div>
+                    <a href="{% url 'section_two_document_two_history' pk=customer.pk %}" class="btn btn-primary btn-sm" id="btnPrint" >Historical</a>
+                </div> 
+            </div>
+        </div>
+        <!--end::Body-->
+    </div>
+    <!--end::Item-->
+
     <!--begin::Item-->
     <div class="mb-5">
         <!--begin::Header-->
@@ -123,3 +167,19 @@
     <!--end::Item-->
 </div>
 <!--end::Accordion-->
+
+
+<script>
+    document.addEventListener('htmx:configRequest', (event) => {
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        event.detail.headers['X-CSRFToken'] = csrfToken;
+
+        // Si el formulario contiene archivos, usa FormData
+        const form = event.target;
+        if (form.tagName === 'FORM' && form.enctype === 'multipart/form-data') {
+            const formData = new FormData(form);
+            event.detail.body = formData;
+            event.detail.headers['Content-Type'] = null; // Deja que el navegador maneje el encabezado
+        }
+    });
+</script>

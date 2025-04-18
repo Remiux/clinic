@@ -2,7 +2,7 @@ from django.shortcuts import render,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from apps.symptom.filters import ClientFilter, InsuranceFilter, EncryptedFileFilter
 from apps.symptom.form import CustomerForm, CustomerSignForm
-from apps.symptom.models import Customer, Diagnostic, Insurance, Symptom
+from apps.symptom.models import Customer, Diagnostic, Insurance, Symptom, Eligibility
 from utils.paginator import _get_paginator
 from utils.file_extension import get_file_extension
 from apps.symptom.models import Customer
@@ -109,6 +109,14 @@ def upload_file(request, pk):
             document.encrypted_file = encrypted_data
             
             document.save()
+            
+            # Crear instancia de Eligibility si el archivo es de tipo específico
+            if document.file_type == '.pdf':  # Ejemplo: solo para archivos PDF
+                Eligibility.objects.create(
+                    encrypted_file=document,
+                    description="Eligibility document uploaded."
+                )
+            
             context['tags'] = 'success'
             context['tag_message'] = 'File uploaded successfully!'
             context['message'] = 'File uploaded successfully!'

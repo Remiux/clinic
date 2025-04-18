@@ -193,6 +193,22 @@ class EncryptedFile(models.Model):
     def __str__(self):
         return f"{self.file.name} - {self.uploaded_by.username}"
     
+class Eligibility(models.Model):
+    encrypted_file = models.OneToOneField(
+        EncryptedFile, 
+        on_delete=models.CASCADE, 
+        related_name='eligibility'
+    )
+    description = models.TextField(max_length=500, null=True, blank=True)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        verbose_name = "Eligibility"
+        verbose_name_plural = "Eligibilities"
+
+    def __str__(self):
+        return f"Eligibility for {self.encrypted_file.file.name}"
+    
 class HistoricalSection1(models.Model):
     create_datetime_at = models.DateTimeField(auto_created=True,default=timezone.now)
     create_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_section1')

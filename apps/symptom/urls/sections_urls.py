@@ -13,6 +13,7 @@ urlpatterns = [
     
     # Section 2
     path('customer-section_two/<int:pk>/', section_two_view, name='section_two_view'), 
+    path('customer-section_two-history/<int:pk>/', section_two_document_two_history, name='section_two_document_two_history'),
       
     # Section 3
     # path('customer-section_three/<int:pk>/', section_three_view, name='section_three_view'),

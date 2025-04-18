@@ -45,7 +45,7 @@ class FileUploadForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
         file = cleaned_data.get('file')
-
+        
         if file:
             # Obtener la extensión del archivo subido
             file_extension = file.name.split('.')[-1].lower()
@@ -67,4 +67,35 @@ class FileUploadForm(forms.ModelForm):
                 )
 
         return cleaned_data
+
+
+class FileHistoricalUploadForm(forms.ModelForm):
+    class Meta:
+        model = EncryptedFile
+        fields = ['file', 'process_start_date']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        file = cleaned_data.get('file')
         
+        if file:
+            # Obtener la extensión del archivo subido
+            file_extension = file.name.split('.')[-1].lower()
+
+            # Definir el mapeo de extensiones permitidas
+            file_type_mapping = {
+                'docx': '.docx',
+                'doc': '.doc',
+                'pdf': '.pdf',
+                'jpg': '.jpg',
+                'jpeg': '.jpg',  # Tratar JPEG como JPG
+                'png': '.png',
+            }
+
+            # Verificar si la extensión es válida
+            if file_extension not in file_type_mapping:
+                raise forms.ValidationError(
+                    f"La extensión del archivo ({file_extension}) no es válida. Solo se permiten: {', '.join(file_type_mapping.keys())}."
+                )
+
+        return cleaned_data

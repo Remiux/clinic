@@ -4,7 +4,6 @@
                     method="post">
                         {% csrf_token %}
                         {% comment %} <input type="hidden" name="belongs_to" value="{{ customer.id }}">  <!-- Asociar al cliente actual --> {% endcomment %}
-                
                         <div class="mb-3">
                             <label for="id_file" class="form-label">File</label>
                             <input type="file" name="file" id="id_file" class="form-control">
