@@ -12,6 +12,8 @@ from apps.symptom.form import FileUploadForm
 from django.contrib import messages
 from django.shortcuts import redirect
 from apps.symptom.utils import encrypt_file, decrypt_file
+from django.http import HttpResponse
+from django.template.loader import render_to_string
 
 # Create your views here.
 @login_required(login_url='/login')
@@ -131,6 +133,27 @@ def upload_file(request, pk):
     
     return render(request, 'pages/customers/actions/components/partials/modal_form.html', context)
 
+@login_required(login_url='/login')
+def delete_file_view(request, pk):
+    try:
+        file = get_object_or_404(EncryptedFile, pk=pk)
+        customer = file.belongs_to  
+        file.delete()  
+
+        # Renderizar la plantilla actualizada
+        context = _show_files_filter(request, customer.pk)
+        context['tags'] = 'success'
+        context['tag_message'] = 'File deleted successfully!'
+        context['message'] = 'File deleted successfully!'
+        html = render_to_string('pages/customers/actions/components/partials/files.html', context)
+        return HttpResponse(html, status=200)
+    except Exception as e:
+        # Renderizar la plantilla con un mensaje de error
+        context = _show_files_filter(request, file.belongs_to.pk)
+        context['tags'] = 'error'
+        context['tag_message'] = 'Error deleting file!'
+        html = render_to_string('pages/customers/actions/components/partials/files.html', context)
+        return HttpResponse(html, status=400)
 
 @login_required(login_url='/login')
 def sign_customer_view(request, pk):
