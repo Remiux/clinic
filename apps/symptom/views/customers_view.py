@@ -110,8 +110,9 @@ def upload_file(request, pk):
             
             document.save()
             
-            # Crear instancia de Eligibility si el archivo es de tipo específico
-            if document.file_type == '.pdf':  # Ejemplo: solo para archivos PDF
+            # Crear instancia de Eligibility si el nombre del archivo es 'eligibility' o 'Eligibility' y el tipo de archivo es '.pdf'
+            file_name = file.name
+            if (file_name.lower() == 'eligibility' or file_name.lower() == 'eligibility.pdf') and document.file_type == '.pdf':
                 Eligibility.objects.create(
                     encrypted_file=document,
                     description="Eligibility document uploaded."
