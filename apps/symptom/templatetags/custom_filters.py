@@ -8,13 +8,6 @@ def basename(value):
     """Devuelve solo el nombre del archivo con su extensión."""
     return os.path.basename(value)
 
-# @register.filter
-# def exclude_elegibility_files(files):
-#     """
-#     Excluye archivos cuyo nombre comience con 'elegibility.pdf' o 'Elegibility.pdf'.
-#     """
-#     return [file for file in files if not file.file.name.lower().startswith('elegibility.pdf')]
-
 @register.filter
 def exclude_elegibility_files(files):
     """
