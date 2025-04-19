@@ -7,3 +7,17 @@ register = template.Library()
 def basename(value):
     """Devuelve solo el nombre del archivo con su extensión."""
     return os.path.basename(value)
+
+# @register.filter
+# def exclude_elegibility_files(files):
+#     """
+#     Excluye archivos cuyo nombre comience con 'elegibility.pdf' o 'Elegibility.pdf'.
+#     """
+#     return [file for file in files if not file.file.name.lower().startswith('elegibility.pdf')]
+
+@register.filter
+def exclude_elegibility_files(files):
+    """
+    Excluye archivos cuyo nombre contenga 'elegibility_' (insensible a mayúsculas).
+    """
+    return [file for file in files if not os.path.basename(file.file.name).lower().startswith('elegibility_')]

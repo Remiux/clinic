@@ -15,6 +15,15 @@
 
         <!--begin::Body-->
         <div id="kt_accordion_3_item_0" class="fs-6  collapse" data-bs-parent="#kt_accordion_0">
+            <div class="row">
+                <div class="col-md-12">
+                    {% if elegibility %}
+                        <h2>Aqui va el contenido del formulario de Elegibility!</h2>
+                    {% else %}
+                        <h2>No hay ningun formulario de Elegibility!</h2>
+                    {% endif %}
+                </div>
+            </div>
             <div class="alert alert-warning" role="alert">
                 <strong>Note:</strong> The file to upload must be named "Elegibility.pdf", otherwise the document will not be updated!
             </div>

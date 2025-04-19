@@ -1,80 +1,28 @@
 {% load static %}
-{% load custom_filters %}
 <div class="card-body">
     <!--begin::Tab Content-->
     <div class="tab-content">
         <!--begin::Tab panel-->
         <div id="kt_activity_today" class="card-body p-0 tab-pane fade active show" role="tabpanel" aria-labelledby="kt_activity_today_tab">
-            <!--begin::Timeline-->
-            {% if eligibilities %}
-            {% for eligibility in eligibilities %}
-                <div class="timeline timeline-border-dashed">
-                    <!--begin::Timeline item-->
-                    <div class="timeline-item">
-                        <!--begin::Timeline line-->
-                        <div class="timeline-line"></div>
-                        <!--end::Timeline line-->
-                        <!--begin::Timeline icon-->
-                        <div class="timeline-icon border border-primary">
-                            <i class="ki-duotone ki-pencil fs-2 text-primary">
-                                <span class="path1"></span>
-                                <span class="path2"></span>
-                            </i>
-                        </div>
-                        <!--end::Timeline icon-->
-                        <!--begin::Timeline content-->
-                        <div class="timeline-content mb-10 mt-n1">
-                            <!--begin::Timeline heading-->
-                            <div class="pe-3 mb-5">
-                                <!--begin::Title-->
-                                <div class="fs-5 fw-semibold mb-2">Generate at {{eligibility.created_at}} </div>
-                                <!--end::Title-->
-                                <!--begin::Description-->
-                                <div class="row">
-                                    <div class="col-md-12 mb-1">
-                                        <div class="fs-8 fw-semibold">Uploaded By: {{eligibility.encrypted_file.uploaded_by.first_name}} {{eligibility.encrypted_file.uploaded_by.last_name}}</div>
-                                        <div class="fs-6"></div>
-                                    </div>
-                                    <div class="col-md-12 mb-1">
-                                        <div class="fs-8 fw-semibold">File Name: {{ eligibility.encrypted_file.file.file.name|basename|default:"Unnamed File" }}</div>
-                                        <div class="fs-6"></div>
-                                    </div>
-                                    <div class="col-md-12 mb-1">
-                                        <div class="fs-8 fw-semibold">File Type: {{eligibility.encrypted_file.file_type|cut:"."}}</div>
-                                        <div class="fs-6"></div>
-                                    </div>
-                                    <div class="col-md-12 mb-1">
-                                        <div class="fs-8 fw-semibold">File Size: {{eligibility.encrypted_file.file.size|filesizeformat}}</div>
-                                        <div class="fs-6"></div>
-                                    </div>
-                                </div>
-                                {% comment %} <div class="d-flex flex-wrap align-items-center mt-1 fs-6">
-                                    <!--begin::Info-->
-                                    <div class="me-2 fs-7">
-                                        Generated for the date of
-                                    </div>
-                                    <!--end::Info-->
-                                    <!--begin::User-->
-                                    
-                                    <!--end::User-->
-                                </div> {% endcomment %}
-                                <!--end::Description-->
-                            </div>
-                            <!--end::Timeline heading-->
-                            
-                        </div>
-                        <!--end::Timeline content-->
-                    </div>
-                    <!--end::Timeline item-->
-                    
-                </div>
-            {% endfor %}
-            {% endif %}
-            <!--end::Timeline-->
+            {% include "pages/customers/actions/sections/section2/partials/timeline.html" %}
         </div>
         <!--end::Tab panel-->
-
-
     </div>
     <!--end::Tab Content-->
 </div>
+
+
+<script>
+    document.addEventListener('htmx:configRequest', (event) => {
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        event.detail.headers['X-CSRFToken'] = csrfToken;
+
+        // Si el formulario contiene archivos, usa FormData
+        const form = event.target;
+        if (form.tagName === 'FORM' && form.enctype === 'multipart/form-data') {
+            const formData = new FormData(form);
+            event.detail.body = formData;
+            event.detail.headers['Content-Type'] = null; // Deja que el navegador maneje el encabezado
+        }
+    });
+</script>

@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_filters %}
 
 {% if tag_message %}
     <script>                
@@ -12,14 +13,10 @@
     </script>
 {% endif %}
 
-{% for file in paginator %}
+{% for file in paginator|exclude_elegibility_files %}
     <div class="col-6 col-sm-4 col-xl-3">
         <!--begin::Card-->
         <div class="card h-100 position-relative">
-            <!--begin::Delete Button-->
-            {% comment %} <a href="#" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-2 rounded-circle p-2 d-flex align-items-center justify-content-center delete-btn" title="Eliminar archivo" onmouseover="changeIcon(this)" onmouseout="restoreIcon(this)">
-                <i class="bi bi-trash"></i>
-            </a> {% endcomment %}
             <a href="#" 
             class="btn btn-sm btn-danger position-absolute top-0 end-0 m-2 rounded-circle p-2 d-flex align-items-center justify-content-center delete-btn" 
             hx-post="{% url 'delete_file_view' file.id %}"

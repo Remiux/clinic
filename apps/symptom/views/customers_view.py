@@ -114,10 +114,10 @@ def upload_file(request, pk):
             
             # Crear instancia de Eligibility si el nombre del archivo es 'eligibility' o 'Eligibility' y el tipo de archivo es '.pdf'
             file_name = file.name
-            if (file_name.lower() == 'eligibility' or file_name.lower() == 'eligibility.pdf') and document.file_type == '.pdf':
+            if (file_name.lower() == 'elegibility' or file_name.lower() == 'elegibility.pdf') and document.file_type == '.pdf':
                 Eligibility.objects.create(
                     encrypted_file=document,
-                    description="Eligibility document uploaded."
+                    description="Elegibility document uploaded."
                 )
             
             context['tags'] = 'success'
@@ -153,6 +153,31 @@ def delete_file_view(request, pk):
         context['tags'] = 'error'
         context['tag_message'] = 'Error deleting file!'
         html = render_to_string('pages/customers/actions/components/partials/files.html', context)
+        return HttpResponse(html, status=400)
+    
+    
+@login_required(login_url='/login')
+def delete_elegibility_file_view(request, pk):
+    try:
+        file = get_object_or_404(EncryptedFile, pk=pk)
+        customer = file.belongs_to  
+        file.delete()  
+
+        # Renderizar la plantilla actualizada
+        context = _show_files_filter(request, customer.pk)
+        context['tags'] = 'success'
+        context['tag_message'] = 'File deleted successfully!'
+        context['message'] = 'File deleted successfully!'
+        context['elegibilities'] = Eligibility.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-created_at')
+        html = render_to_string('pages/customers/actions/sections/section2/partials/timeline.html', context)
+        return HttpResponse(html, status=200)
+    except Exception as e:
+        # Renderizar la plantilla con un mensaje de error
+        context = _show_files_filter(request, file.belongs_to.pk)
+        context['tags'] = 'error'
+        context['tag_message'] = 'Error deleting file!'
+        context['elegibilities'] = Eligibility.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-created_at')
+        html = render_to_string('pages/customers/actions/sections/section2/partials/timeline.html', context)
         return HttpResponse(html, status=400)
 
 @login_required(login_url='/login')
