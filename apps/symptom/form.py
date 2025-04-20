@@ -45,7 +45,7 @@ class FileUploadForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super().clean()
         file = cleaned_data.get('file')
-
+        
         if file:
             # Obtener la extensión del archivo subido
             file_extension = file.name.split('.')[-1].lower()
@@ -67,4 +67,5 @@ class FileUploadForm(forms.ModelForm):
                 )
 
         return cleaned_data
-        
+
+

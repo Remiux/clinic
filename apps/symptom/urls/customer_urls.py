@@ -9,6 +9,8 @@ urlpatterns = [
     path('customer-create/', create_customer_view, name='create_customer_view'),
     path('customer-detail/<int:pk>/', detail_customer_view, name='detail_customer_view'),
     path('customer-upload-file/<int:pk>/', upload_file, name='upload_file'),
+    path('customer-delete-file/<int:pk>/', delete_file_view, name='delete_file_view'),
+    path('customer-delete-elegibility-file/<int:pk>/', delete_elegibility_file_view, name='delete_elegibility_file_view'),
     path('customer-update/<int:pk>/', update_customer_view, name='update_customer_view'),
     path('customer-sign/<int:pk>/', sign_customer_view, name='sign_customer_view'),
 ]
