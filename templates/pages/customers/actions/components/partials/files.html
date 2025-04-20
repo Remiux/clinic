@@ -18,11 +18,11 @@
         <!--begin::Card-->
         <div class="card h-100 position-relative">
             <a href="#" 
-            class="btn btn-sm btn-danger position-absolute top-0 end-0 m-2 rounded-circle p-2 d-flex align-items-center justify-content-center delete-btn" 
+            class="btn btn-sm btn-danger position-absolute top-0 end-0 m-1 rounded-circle p-3 d-flex align-items-center justify-content-center delete-btn" 
             hx-post="{% url 'delete_file_view' file.id %}"
             hx-trigger="click"
             hx-target="#files-container" >
-                <i class="bi bi-trash"></i>
+                <i class="p-0 bi-trash"></i>
             </a>
             <!--end::Delete Button-->
             <!--begin::Card body-->

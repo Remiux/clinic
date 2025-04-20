@@ -1,3 +1,5 @@
+import datetime
+from django.utils import timezone
 from django.shortcuts import render,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from apps.symptom.models import Agency, Customer, HistoricalSection1
@@ -17,16 +19,23 @@ def section_one_view(request,pk):
 
 @login_required(login_url='/login')
 def section_one_document_one_export_pdf(request,pk):
-    customers=get_object_or_404(Customer,pk=pk)
+    customer=get_object_or_404(Customer,pk=pk)
+    date = request.POST.get('date')
     context={
-        'customer':customers,
+        'customer':customer,
         'user':request.user,
+        'date':date,
         'agency': Agency.objects.first()
     }
     html_string = render_to_string('pages/customers/actions/sections/section1/pdf_page/page3.html', context)
     html = HTML(string=html_string)
     pdf = html.write_pdf()
-    
+    HistoricalSection1.objects.create(
+        create_datetime_at = timezone.now(),
+        create_by = request.user,
+        customer = customer,
+        date = date,
+    )
     response = HttpResponse(pdf, content_type='application/pdf')
     response['Content-Disposition'] = 'filename="documento.pdf"'
     return response
