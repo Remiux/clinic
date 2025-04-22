@@ -65,7 +65,8 @@ def create_customer_view(request):
         if form.is_valid():
            form.save()
            context['message'] = 'Customer created successfully'
-        
+        else:
+            print(form.errors)
     context['form'] = form
     return render(request,'pages/customers/actions/create/customerCreate.html',context)
 
@@ -83,6 +84,8 @@ def update_customer_view(request,pk):
         if form.is_valid():
            form.save()
            context['message'] = 'Customer update successfully'
+        else:
+            print(form.errors)
     context['form'] = form
     return render(request,'pages/customers/actions/update/customerUpdate.html',context)
 

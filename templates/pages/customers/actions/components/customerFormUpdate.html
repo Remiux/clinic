@@ -112,8 +112,8 @@
 
                         
                     <div class="col-sm-6 col-md-4 fv-row mb-3">
-                        <label class=" col-form-label required fw-semibold fs-6">Birth Date {{form.dob.value}}</label>
-                        <input value="{% if form.dob.value %}{{form.dob.value|date:'Y-m-d'}}{% endif %}" required type="date" name="dob"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"   />
+                        <label class=" col-form-label required fw-semibold fs-6">Birth Date</label>
+                        <input value="{% if customer.dob %}{{customer.dob|date:'Y-m-d'}}{% endif %}" required type="date" name="dob"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"   />
                         {% if form.dob.errors %}
                                     <div class="alert alert-danger mt-2 p-2" role="alert">
                                         {% for error in form.dob.errors %}
@@ -163,17 +163,17 @@
                     <!--end::Input group-->
                     <div class="col-sm-6 col-md-4 mb-3">
                             
-                        <label class="col-form-label required fw-semibold fs-6">Gerder</label>
+                        <label class="col-form-label required fw-semibold fs-6">Gender</label>
 
-                        <select required name="gerder" required aria-label="Select a gerder" data-control="select2" data-placeholder="Select a gerder..." class="form-select form-select-solid form-select-lg fw-semibold">
+                        <select required name="gender" required aria-label="Select a gender" data-control="select2" data-placeholder="Select a gender..." class="form-select form-select-solid form-select-lg fw-semibold">
                     
-                            <option value="M" {% if form.gerder.value == 'M' %}selected{% endif %} >Male</option>
-                            <option value="F" {% if form.gerder.value == 'F' %}selected{% endif %} >Famale</option>
+                            <option value="M" {% if form.gender.value == 'M' %}selected{% endif %} >Male</option>
+                            <option value="F" {% if form.gender.value == 'F' %}selected{% endif %} >Famale</option>
                             
                         </select>
-                        {% if form.gerder.errors %}
+                        {% if form.gender.errors %}
                             <div class="alert alert-danger mt-2 p-2" role="alert">
-                                {% for error in form.gerder.errors %}
+                                {% for error in form.gender.errors %}
                                 {{ error }}
                                 {% endfor %}
                             </div>

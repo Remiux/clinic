@@ -25,7 +25,10 @@ class CustomerForm(forms.ModelForm):
     
     class Meta:
         model = Customer
-        exclude = ['sign','create_at']
+        exclude = ['sign','create_at','medicaid_gold_card','responsible_payee_last_name',
+                   'responsible_payee_first_name','responsible_payee_address','responsible_payee_city',
+                   'responsible_payee_state','responsible_payee_zip','responsible_payee_phone_number','responsible_payee_fax'
+                   ,'no_dependences','family_year_income','discount_standard_rate','discount_standard_rate']
         
 class CustomerSignForm(forms.ModelForm):
     

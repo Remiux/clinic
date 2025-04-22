@@ -3,6 +3,7 @@ from solo.models import SingletonModel
 from apps.accounts.models import User
 from django.utils import timezone
 import uuid
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 # Create your models here.
@@ -126,13 +127,13 @@ class Customer(models.Model):
     responsible_payee_fax = models.CharField(max_length=20, null=True, blank=True, default="N/A")
     no_dependences = models.PositiveIntegerField(default=0)
     family_year_income = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
-    discount_standard_rate = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
+    discount_standard_rate = models.DecimalField(max_digits=15, decimal_places=2, default=0.00,null=True, blank=True)
     sign = models.ImageField(upload_to='customer_sign',blank=True,null=True)
     insurance = models.ForeignKey(Insurance, on_delete=models.CASCADE)
     diagnostic = models.ForeignKey(Diagnostic, on_delete=models.CASCADE)
     diagnostic_two = models.ForeignKey(Diagnostic, on_delete=models.CASCADE,null=True,blank=True, related_name='diagnostic_two_client')
     diagnostic_three = models.ForeignKey(Diagnostic, on_delete=models.CASCADE,null=True,blank=True, related_name='diagnostic_three_client')
-    agency = models.ForeignKey(Agency, on_delete=models.CASCADE, null=True, blank=True)
+
     
     
     
@@ -223,3 +224,29 @@ class HistoricalSection1(models.Model):
         return f"{self.pk}"
 
     
+class TherapistsGroups(models.Model):
+    # type = models.CharField(max_length=30, choices=[('PSR', 'PSR'), ('IT', 'Individual Therapy')])
+    type = models.BooleanField(default=False)  # True for PSR, False for Individual Therapy
+    terapist = models.ForeignKey(User, on_delete=models.PROTECT, related_name='therapist_group', null=True)
+    section = models.CharField(max_length=10, choices=[('1', 'morning' ), ('2', 'afternoon')])
+    
+    class Meta:
+        verbose_name = "TherapistGroup"
+        verbose_name_plural = "TherapistsGroups"
+
+    def __str__(self):
+        return f"{self.pk}-{self.type}-section-{self.section}"
+
+    
+class GroupCustomer(models.Model):
+    group = models.ForeignKey(TherapistsGroups, on_delete=models.CASCADE, related_name='group_customer')
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='customer_group')
+    is_active = models.BooleanField(default=True)
+    max_sections = models.PositiveIntegerField( default=4 , validators=[MinValueValidator(1), MaxValueValidator(4)])
+    
+    class Meta:
+        verbose_name = "GroupCustomer"
+        verbose_name_plural = "GroupCustomers"
+
+    def __str__(self):
+        return f"{self.customer.full_name}"
