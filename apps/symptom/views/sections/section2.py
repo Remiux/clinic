@@ -13,7 +13,7 @@ from apps.symptom.utils import encrypt_file, decrypt_file
 def section_two_view(request,pk):
     context = {
         'customer':get_object_or_404(Customer, pk=pk),
-        'elegibility': Eligibility.objects.filter(encrypted_file__belongs_to=pk).order_by('-created_at').first(),
+        # 'elegibility': Eligibility.objects.filter(encrypted_file__belongs_to=pk).order_by('-created_at').first(),
         'agency': Agency.objects.first()
         }
     return render(request,'pages/customers/actions/sections/section2/index.html', context)

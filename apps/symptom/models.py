@@ -239,6 +239,50 @@ class Eligibility(models.Model):
 
     def __str__(self):
         return f"Eligibility for {self.encrypted_file.file.name}"
+
+class Therapist(models.Model):
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    email = models.EmailField(unique=True)
+    phone_number = models.CharField(max_length=20, null=True, blank=True)
+    address = models.TextField(max_length=500, null=True, blank=True)
+    city = models.CharField(max_length=50, null=True, blank=True)
+    state = models.CharField(max_length=50, null=True, blank=True)
+    zip = models.CharField(max_length=10, null=True, blank=True)
+    license_number = models.CharField(max_length=50, unique=True)
+    specialization = models.CharField(max_length=100, null=True, blank=True)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        verbose_name = "Terapist"
+        verbose_name_plural = "Terapists"
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name} - {self.specialization}"
+
+class PsychiatricEvaluation(models.Model):
+    PROCEDENCE_CHOICES = [
+        ('Fax', 'Fax'),
+        ('Email', 'Email'),
+        ('ClientDirectly', 'Client Directly'),
+    ]
+    
+    encrypted_file = models.OneToOneField(
+        EncryptedFile, 
+        on_delete=models.CASCADE, 
+        related_name='psychiatric_evaluation'
+    )
+    therapist = models.ForeignKey(Therapist, on_delete=models.CASCADE, related_name='psychiatric_evaluations', null=False, blank=False)
+    procedence = models.CharField(max_length=20, choices=PROCEDENCE_CHOICES, default='ClientDirectly')
+    
+
+    class Meta:
+        verbose_name = "PsiquiatricEvaluation"
+        verbose_name_plural = "PsiquiatricEvaluations"
+
+    def __str__(self):
+        return f"PsiquiatricEvaluation for {self.encrypted_file.file.name}"
     
 class HistoricalSection1(models.Model):
     create_datetime_at = models.DateTimeField(auto_created=True,default=timezone.now)

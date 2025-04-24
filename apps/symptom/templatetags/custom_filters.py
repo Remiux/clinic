@@ -13,4 +13,11 @@ def exclude_elegibility_files(files):
     """
     Excluye archivos cuyo nombre contenga 'elegibility_' (insensible a mayúsculas).
     """
-    return [file for file in files if not os.path.basename(file.file.name).lower().startswith('elegibility_')]
+    return [file for file in files if not os.path.basename(file.file.name).lower().startswith('elegibility')]
+
+@register.filter
+def exclude_psychiatric_evaluation_files(files):
+    """
+    Excluye archivos cuyo nombre contenga 'psychiatric_evaluation_' (insensible a mayúsculas).
+    """
+    return [file for file in files if not os.path.basename(file.file.name).lower().startswith('psychiatric_evaluation')]

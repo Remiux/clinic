@@ -12,6 +12,8 @@ admin.site.register(Agency)
 admin.site.register(HistoricalSection1)
 admin.site.register(Medication)
 admin.site.register(Eligibility)
+admin.site.register(Therapist)
+admin.site.register(PsychiatricEvaluation)
 
 
 

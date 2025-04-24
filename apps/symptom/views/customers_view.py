@@ -2,7 +2,7 @@ from django.shortcuts import render,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from apps.symptom.filters import ClientFilter, InsuranceFilter, EncryptedFileFilter
 from apps.symptom.form import CustomerForm, CustomerSignForm
-from apps.symptom.models import Customer, Diagnostic, Insurance, Symptom, Eligibility
+from apps.symptom.models import Customer, Diagnostic, Insurance, Symptom, Eligibility, Therapist, PsychiatricEvaluation
 from utils.paginator import _get_paginator
 from utils.file_extension import get_file_extension
 from apps.symptom.models import Customer
@@ -100,6 +100,10 @@ def detail_customer_view(request, pk):
 def upload_file(request, pk):
     customer = get_object_or_404(Customer, pk=pk)
     context = {}
+    flag = False
+    option = 0
+    if 'procedence' in request.POST:
+        option = 2
     if request.method == 'POST':
         form = FileUploadForm(request.POST, request.FILES)
         if form.is_valid():
@@ -117,24 +121,40 @@ def upload_file(request, pk):
             
             # Crear instancia de Eligibility si el nombre del archivo es 'eligibility' o 'Eligibility' y el tipo de archivo es '.pdf'
             file_name = file.name
-            if (file_name.lower() == 'elegibility' or file_name.lower() == 'elegibility.pdf') and document.file_type == '.pdf':
+            if (file_name.lower() == 'elegibility' or file_name.lower() == 'elegibility.pdf'):
                 Eligibility.objects.create(
                     encrypted_file=document,
                     description="Elegibility document uploaded."
                 )
+                option = 1
+            elif (file_name.lower() == 'psychiatric_evaluation' or file_name.lower() == 'psychiatric_evaluation.pdf'):
+                flag = True
+                therapist_pk = request.POST.get('therapist')
+                procedence = request.POST.get('procedence')
+                therapist = Therapist.objects.filter(pk=therapist_pk).first()
+                PsychiatricEvaluation.objects.create(
+                    encrypted_file=document,
+                    procedence=procedence,
+                    therapist=therapist,
+                )
+                option = 2
             
             context['tags'] = 'success'
             context['tag_message'] = 'File uploaded successfully!'
             context['message'] = 'File uploaded successfully!'
+            
         else:
             context['tags'] = 'error'
             context['tag_message'] = 'Error uploading file!'
         
     context['customer'] = customer
     context['form'] = form
-    
-    
-    return render(request, 'pages/customers/actions/components/partials/modal_form.html', context)
+    print(option)
+    if not flag and option == 0:
+        return render(request, 'pages/customers/actions/components/partials/modal_form.html', context)
+    else:
+        context['therapists'] = Therapist.objects.all()
+        return render(request, 'pages/customers/actions/sections/section3/partials/modal_form.html', context)
 
 @login_required(login_url='/login')
 def delete_file_view(request, pk):
@@ -181,6 +201,32 @@ def delete_elegibility_file_view(request, pk):
         context['tag_message'] = 'Error deleting file!'
         context['elegibilities'] = Eligibility.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-created_at')
         html = render_to_string('pages/customers/actions/sections/section2/partials/timeline.html', context)
+        return HttpResponse(html, status=400)
+
+
+@login_required(login_url='/login')
+def delete_psichiatric_evaluation_file_view(request, pk):
+    try:
+        file = get_object_or_404(EncryptedFile, pk=pk)
+        customer = file.belongs_to  
+        file.delete()  
+
+        # Renderizar la plantilla actualizada
+        context = _show_files_filter(request, customer.pk)
+        context['tags'] = 'success'
+        context['tag_message'] = 'File deleted successfully!'
+        context['message'] = 'File deleted successfully!'
+        context['psichiatric_evaluations'] = PsychiatricEvaluation.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
+        html = render_to_string('pages/customers/actions/sections/section3/partials/timeline.html', context)
+        return HttpResponse(html, status=200)
+    except Exception as e:
+        # Renderizar la plantilla con un mensaje de error
+        context = _show_files_filter(request, file.belongs_to.pk)
+        context['tags'] = 'error'
+        context['tag_message'] = 'Error deleting file!'
+        #context['elegibilities'] = Eligibility.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-created_at')
+        context['psichiatric_evaluations'] = PsychiatricEvaluation.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
+        html = render_to_string('pages/customers/actions/sections/section3/partials/timeline.html', context)
         return HttpResponse(html, status=400)
 
 @login_required(login_url='/login')
