@@ -1,0 +1,206 @@
+{% load static %}
+<div class="d-flex flex-wrap flex-sm-nowrap">
+    <!--begin: Pic-->
+    
+    <!--end::Pic-->
+    <!--begin::Info-->
+    <div class="flex-grow-1">
+       
+            <div class=" p-5">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>
+                        Therapist
+                        
+                    </h2>
+                    <button
+                      {% comment %} href="{% url "update_customer_view" pk=customer.pk %}"  {% endcomment %}
+                      class="badge badge-light-warning bi-pencil-square btn btn-sm btn-outline-warning btn-flex btn-center fs-2 px-2"
+                      data-kt-menu-trigger="click"
+                      data-kt-menu-placement="bottom-end"
+                      ></button>
+                </div>
+                <div class="row mb-7">
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold ">Full name</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{group.terapist.first_name}} {{group.terapist.last_name}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold ">Username</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{group.terapist.username}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold ">Email</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{group.terapist.email}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 ">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold ">Phone number</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{% if group.terapist.phone_number %}{{group.terapist.phone_number}}{% else %}-{% endif %}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                </div>
+                <div class="separator border-gray-200 mb-8"></div>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>
+                        Service
+                        
+                    </h2>
+                    <button
+                      {% comment %} href="{% url "update_customer_view" pk=customer.pk %}"  {% endcomment %}
+                      class="badge badge-light-warning bi-pencil-square btn btn-sm btn-outline-warning btn-flex btn-center fs-2 px-2"
+                      data-kt-menu-trigger="click"
+                      data-kt-menu-placement="bottom-end"
+                      ></button>
+                </div>
+                <div class="row mb-7">
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold ">PSR</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold  text-gray-800">
+                                {% if not group.type %}
+                                <i class="text-warning fs-1 bi-sunrise-fill "></i>
+                                {% else %}
+                                <i class="text-danger fs-1 bi-sunset-fill "></i>
+                                {% endif %}
+                            </span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold ">Individual Therapy</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold  text-gray-800">
+                                {% if  group.type %}
+                                <i class="text-warning fs-1 bi-sunrise-fill "></i>
+                                {% else %}
+                                <i class="text-danger fs-1 bi-sunset-fill "></i>
+                                {% endif %}
+                            </span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    
+                    
+                    
+                    
+                    
+                    
+                </div>
+                <div class="separator border-gray-200 mb-8"></div>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Customers</h2>
+                <button
+                      {% comment %} href="{% url "update_customer_view" pk=customer.pk %}"  {% endcomment %}
+                      class="badge badge-light-success bi-person-plus-fill btn btn-sm btn-outline-success btn-flex btn-center fs-2 px-2"
+                      
+                      ></button>
+                    </h2>
+                </div>
+                {% for customer in group.group_customer.all %}
+                    
+                    <div class="card mb-5 ">
+                        <!--begin::Body-->
+                        <div class="card-body pb-0 p-3 ">
+                            <!--begin::Header-->
+                            <div class="d-flex align-items-center">
+                                <!--begin::User-->
+                                <div class="d-flex align-items-start flex-grow-1">
+                                    <!--begin::Avatar-->
+                                    <div class="symbol symbol-45px me-5 px-2 border border-1 bg-dark-subtle border-dark">
+                                        <i class=" bi-person-circle fs-1"></i>
+                                    </div>
+                                    <!--end::Avatar-->
+                                    <!--begin::Info-->
+                                    <div class="d-flex flex-column">
+                                        <a href="{% url "detail_customer_view" pk=customer.customer.pk %}" class="text-gray-900 text-hover-primary fs-6 fw-bold">{{customer.customer.full_name}}</a>
+                                        <span class=" fw-bold">
+                                            <i class=" bi-telephone-fill fs-4 me-2"></i>
+                                            {{customer.customer.movile}}
+                                        </span>
+                                    </div>
+                                    <!--end::Info-->
+                                </div>
+                                <!--end::User-->
+                                
+                            </div>
+                            <!--end::Header-->
+                            <!--begin::Form-->
+                            <div id="kt_forms_widget_1_form" class="ql-quil ql-quil-plain pb-3">
+                                <!--begin::Editor-->
+                                 <!--end::Editor-->
+                                <div class="separator mt-4"></div>
+                                <!--begin::Toolbar-->
+                                <div id="kt_forms_widget_1_editor_toolbar" class="ql-toolbar d-flex flex-stack py-2 ql-snow">
+                                    <div class="me-2">
+                                        
+                                    </div>
+                                    <div class="me-n3">
+                                        <span class="btn btn-icon btn-sm ">
+                                            {% if customer.is_active %}
+                                            <i class="fs-2 text-success bi-person-check-fill"></i>
+                                            {% else %}
+                                            <i class="fs-2 text-danger bi-person-x-fill"></i>
+                                            {% endif %}
+                                            
+                                            
+                                        </span>
+                                        <span class="btn btn-icon btn-sm ">
+                                            <i class="fs-2 bi-person-lines-fill"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <!--end::Toolbar-->
+                            </div>
+                            <!--end::Form-->
+                        </div>
+                        <!--end::Body-->
+                    </div>
+                {% endfor %}
+              
+                
+            </div>
+            <!--end::Card body-->
+            <!--begin::Actions-->
+            <div class="card-footer d-flex gap-3 justify-content-end py-6 px-9">
+                {% comment %} <a href="{% url 'sign_customer_view' pk=customer.pk %}" type="submit" class="btn btn-light btn-sm" id="kt_account_profile_details_submit">
+                    <i class=" bi-file-text-fill"></i> Sign
+                </a> {% endcomment %}
+                {% comment %} <a href="{% url "update_customer_view" pk=customer.pk %}" class="btn btn-primary btn-sm" id="kt_account_profile_details_submit">Update Data</a> {% endcomment %}
+            </div>
+      
+    </div>
+    <!--end::Info-->
+</div>

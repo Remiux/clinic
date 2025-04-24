@@ -1,4 +1,4 @@
-from apps.symptom.models import Customer, Diagnostic, Symptom,Insurance, EncryptedFile
+from apps.symptom.models import Customer, Diagnostic, Symptom,Insurance, EncryptedFile, TherapistsGroups
 import django_filters
 from django.db.models.functions import Substr, Length
 
@@ -10,6 +10,7 @@ class SymptomFilter(django_filters.FilterSet):
         model = Symptom
         fields = [ 'code']
         
+
             
 class InsuranceFilter(django_filters.FilterSet):
     abbreviated =  django_filters.CharFilter(lookup_expr='icontains')
@@ -57,3 +58,14 @@ class EncryptedFileFilter(django_filters.FilterSet):
         return queryset.annotate(
             file_name=Substr('file', Length('file') - Length('file') + 1)
         ).filter(file_name__icontains=value)
+        
+        
+
+class TherapistsGroupsFilter(django_filters.FilterSet):
+    terapist_first_name = django_filters.CharFilter(field_name='terapist__first_name', lookup_expr='icontains')
+    terapist_last_name = django_filters.CharFilter(field_name='terapist__last_name', lookup_expr='icontains')
+    section =  django_filters.CharFilter(lookup_expr='exact')
+    
+    class Meta:
+        model = TherapistsGroups
+        fields = ['terapist_first_name','terapist_last_name','section']

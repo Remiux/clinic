@@ -2,6 +2,7 @@ from apps.symptom.views.insurance_view import *
 from django.urls import path
 
 from apps.symptom.views.sections.section1 import *
+from apps.symptom.views.sections.section2 import *
 
 
 urlpatterns = [
@@ -10,9 +11,9 @@ urlpatterns = [
     path('customer-section_one-export-pdf/<int:pk>/', section_one_document_one_export_pdf, name='section_one_document_one_export_pdf'),
     path('customer-section_one-history/<int:pk>/', section_one_document_one_history, name='section_one_document_one_history'),
     
-    
     # Section 2
-    # path('customer-section_two/<int:pk>/', section_two_view, name='section_two_view'), 
+    path('customer-section_two/<int:pk>/', section_two_view, name='section_two_view'), 
+    path('customer-section_two-history/<int:pk>/', section_two_document_two_history, name='section_two_document_two_history'),
       
     # Section 3
     # path('customer-section_three/<int:pk>/', section_three_view, name='section_three_view'),

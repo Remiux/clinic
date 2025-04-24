@@ -2,7 +2,7 @@ from django.shortcuts import render,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from apps.symptom.filters import ClientFilter, InsuranceFilter, EncryptedFileFilter
 from apps.symptom.form import CustomerForm, CustomerSignForm
-from apps.symptom.models import Customer, Diagnostic, Insurance, Symptom
+from apps.symptom.models import Customer, Diagnostic, Insurance, Symptom, Eligibility
 from utils.paginator import _get_paginator
 from utils.file_extension import get_file_extension
 from apps.symptom.models import Customer
@@ -12,6 +12,8 @@ from apps.symptom.form import FileUploadForm
 from django.contrib import messages
 from django.shortcuts import redirect
 from apps.symptom.utils import encrypt_file, decrypt_file
+from django.http import HttpResponse
+from django.template.loader import render_to_string
 
 # Create your views here.
 @login_required(login_url='/login')
@@ -63,7 +65,8 @@ def create_customer_view(request):
         if form.is_valid():
            form.save()
            context['message'] = 'Customer created successfully'
-        
+        else:
+            print(form.errors)
     context['form'] = form
     return render(request,'pages/customers/actions/create/customerCreate.html',context)
 
@@ -81,6 +84,8 @@ def update_customer_view(request,pk):
         if form.is_valid():
            form.save()
            context['message'] = 'Customer update successfully'
+        else:
+            print(form.errors)
     context['form'] = form
     return render(request,'pages/customers/actions/update/customerUpdate.html',context)
 
@@ -109,6 +114,15 @@ def upload_file(request, pk):
             document.encrypted_file = encrypted_data
             
             document.save()
+            
+            # Crear instancia de Eligibility si el nombre del archivo es 'eligibility' o 'Eligibility' y el tipo de archivo es '.pdf'
+            file_name = file.name
+            if (file_name.lower() == 'elegibility' or file_name.lower() == 'elegibility.pdf') and document.file_type == '.pdf':
+                Eligibility.objects.create(
+                    encrypted_file=document,
+                    description="Elegibility document uploaded."
+                )
+            
             context['tags'] = 'success'
             context['tag_message'] = 'File uploaded successfully!'
             context['message'] = 'File uploaded successfully!'
@@ -122,6 +136,52 @@ def upload_file(request, pk):
     
     return render(request, 'pages/customers/actions/components/partials/modal_form.html', context)
 
+@login_required(login_url='/login')
+def delete_file_view(request, pk):
+    try:
+        file = get_object_or_404(EncryptedFile, pk=pk)
+        customer = file.belongs_to  
+        file.delete()  
+
+        # Renderizar la plantilla actualizada
+        context = _show_files_filter(request, customer.pk)
+        context['tags'] = 'success'
+        context['tag_message'] = 'File deleted successfully!'
+        context['message'] = 'File deleted successfully!'
+        html = render_to_string('pages/customers/actions/components/partials/files.html', context)
+        return HttpResponse(html, status=200)
+    except Exception as e:
+        # Renderizar la plantilla con un mensaje de error
+        context = _show_files_filter(request, file.belongs_to.pk)
+        context['tags'] = 'error'
+        context['tag_message'] = 'Error deleting file!'
+        html = render_to_string('pages/customers/actions/components/partials/files.html', context)
+        return HttpResponse(html, status=400)
+    
+    
+@login_required(login_url='/login')
+def delete_elegibility_file_view(request, pk):
+    try:
+        file = get_object_or_404(EncryptedFile, pk=pk)
+        customer = file.belongs_to  
+        file.delete()  
+
+        # Renderizar la plantilla actualizada
+        context = _show_files_filter(request, customer.pk)
+        context['tags'] = 'success'
+        context['tag_message'] = 'File deleted successfully!'
+        context['message'] = 'File deleted successfully!'
+        context['elegibilities'] = Eligibility.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-created_at')
+        html = render_to_string('pages/customers/actions/sections/section2/partials/timeline.html', context)
+        return HttpResponse(html, status=200)
+    except Exception as e:
+        # Renderizar la plantilla con un mensaje de error
+        context = _show_files_filter(request, file.belongs_to.pk)
+        context['tags'] = 'error'
+        context['tag_message'] = 'Error deleting file!'
+        context['elegibilities'] = Eligibility.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-created_at')
+        html = render_to_string('pages/customers/actions/sections/section2/partials/timeline.html', context)
+        return HttpResponse(html, status=400)
 
 @login_required(login_url='/login')
 def sign_customer_view(request, pk):

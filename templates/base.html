@@ -453,6 +453,24 @@ License: For each use you must have a valid license purchased only from above li
                 <!--end:Menu item-->
                 <!--begin:Menu item-->
                 <div
+                  data-kt-menu-trigger="click"
+                  class="menu-item menu-accordion rounded  {% if request.path == '/groups/' %}bg-primary-subtle{% endif %}"
+                >
+                  <!--begin:Menu link-->
+                  <a href="{% url 'therapists_groups_view' %}" class="menu-link">
+                    <span class="menu-icon">
+                      <i class="bi-people-fill text-primary fs-2">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                      </i>
+                    </span>
+                    <span class="menu-title text-primary">Groups</span>
+                  </a>
+                  <!--end:Menu link-->
+                </div>
+                <!--end:Menu item-->
+                <!--begin:Menu item-->
+                <div
                   data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
                   data-kt-menu-placement="right-start"
                   class="menu-item menu-accordion rounded  {% if request.path == '/symptoms/' %}bg-primary-subtle{% endif %}"

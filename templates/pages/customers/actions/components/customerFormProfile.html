@@ -45,7 +45,7 @@
                         <!--end::Label-->
                         <!--begin::Col-->
                         <div class="col-lg-8">
-                            <span class="fw-bold fs-6 text-gray-800">{{customer.contact_no}}</span>
+                            <span class="fw-bold fs-6 text-gray-800">{% if customer.contact_no %}{{customer.contact_no}}{% else %}-{% endif %}</span>
                         </div>
                         <!--end::Col-->
                     </div>
@@ -127,11 +127,11 @@
                     {% endif %}
                     <div class="col-sm-6 col-md-4 mb-7">
                         <!--begin::Label-->
-                        <label class="col-lg-4 fw-semibold text-muted">Gerder</label>
+                        <label class="col-lg-4 fw-semibold text-muted">Gender</label>
                         <!--end::Label-->
                         <!--begin::Col-->
                         <div class="col-lg-8">
-                            <span class="fw-bold fs-6 text-gray-800">{{customer.get_gerder_display}}</span>
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.get_gender_display}}</span>
                         </div>
                         <!--end::Col-->
                     </div>

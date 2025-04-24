@@ -3,6 +3,7 @@ from solo.models import SingletonModel
 from apps.accounts.models import User
 from django.utils import timezone
 import uuid
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 # Create your models here.
@@ -36,7 +37,22 @@ class Diagnostic(models.Model):
     def __str__(self):
         return self.code
 
-    
+
+class Medication(models.Model):
+    name = models.CharField(max_length=50)
+    quantity = models.PositiveIntegerField()
+    customer = models.ForeignKey(
+        'Customer', 
+        on_delete=models.CASCADE, 
+        related_name='medications'
+    )
+
+    class Meta:
+        verbose_name = "Medication"
+        verbose_name_plural = "Medications"
+
+    def __str__(self):
+        return f"{self.name} ({self.quantity}mg)"
     
 class Symptom(models.Model):
     code = models.CharField(max_length=255, unique=True)
@@ -49,7 +65,7 @@ class Symptom(models.Model):
 
     def __str__(self):
         return self.code
-    
+
 class Insurance(models.Model):
     abbreviated = models.CharField(max_length=15, unique=True)
     name = models.CharField(max_length=255, unique=True)
@@ -79,7 +95,7 @@ class Customer(models.Model):
     state = models.CharField(max_length=50)
     zip = models.CharField(max_length=50)
     dob = models.DateField()
-    gerder = models.CharField(max_length=50, default='M', choices=[('M', 'MALE'), ('F', 'FAMALE')])
+    gender = models.CharField(max_length=50, default='M', choices=[('M', 'MALE'), ('F', 'FEMALE')])
     ssn = models.CharField(max_length=50, unique=True)
     mma = models.CharField(max_length=50, null=True, blank=True)
     medicaid_no = models.CharField(max_length=50, unique=True)
@@ -87,6 +103,8 @@ class Customer(models.Model):
     school = models.CharField(max_length=50, null=True, blank=True)
     grade = models.CharField(max_length=50, null=True, blank=True)
     race = models.CharField(max_length=50,default='W' ,choices=[('W', 'White'), ('AAB', 'African American Black'), ('API', 'Asian or Other Pacific Islander'), ('AIAN', 'American Indian-Alaskan Native'), ('O', 'Other')])
+    referred_by = models.CharField(max_length=50, blank=True, null=True)
+    referred_movile = models.IntegerField(blank=True, null=True)
     ethnicity = models.CharField(max_length=50,default='H',choices=[('H', 'Hispanic-latino'), ('NH', 'Non-Hispanic'), ('O', 'Other')])
     legal_guardian_full_name = models.CharField(max_length=80, null=True, blank=True)
     legal_guardian_relationship = models.CharField(max_length=80, null=True, blank=True)
@@ -98,11 +116,24 @@ class Customer(models.Model):
     emergency_contact_person = models.CharField(max_length=80)
     emergency_contact_relationship = models.CharField(max_length=80)
     emergency_contact_phone_number = models.CharField(max_length=20)
+    medicaid_gold_card = models.CharField(max_length=50, unique=True, null=True, blank=True)
+    responsible_payee_last_name = models.CharField(max_length=50, null=True, blank=True, default="N/A")
+    responsible_payee_first_name = models.CharField(max_length=50, null=True, blank=True, default="N/A")
+    responsible_payee_address = models.CharField(max_length=150, null=True, blank=True, default="N/A")
+    responsible_payee_city = models.CharField(max_length=80, null=True, blank=True, default="N/A")
+    responsible_payee_state = models.CharField(max_length=80, null=True, blank=True, default="N/A")
+    responsible_payee_zip = models.CharField(max_length=80, null=True, blank=True, default="N/A")
+    responsible_payee_phone_number = models.CharField(max_length=20, null=True, blank=True, default="N/A")
+    responsible_payee_fax = models.CharField(max_length=20, null=True, blank=True, default="N/A")
+    no_dependences = models.PositiveIntegerField(default=0)
+    family_year_income = models.DecimalField(max_digits=15, decimal_places=2, default=0.00)
+    discount_standard_rate = models.DecimalField(max_digits=15, decimal_places=2, default=0.00,null=True, blank=True)
     sign = models.ImageField(upload_to='customer_sign',blank=True,null=True)
     insurance = models.ForeignKey(Insurance, on_delete=models.CASCADE)
     diagnostic = models.ForeignKey(Diagnostic, on_delete=models.CASCADE)
     diagnostic_two = models.ForeignKey(Diagnostic, on_delete=models.CASCADE,null=True,blank=True, related_name='diagnostic_two_client')
     diagnostic_three = models.ForeignKey(Diagnostic, on_delete=models.CASCADE,null=True,blank=True, related_name='diagnostic_three_client')
+
     
     
     
@@ -163,6 +194,22 @@ class EncryptedFile(models.Model):
     def __str__(self):
         return f"{self.file.name} - {self.uploaded_by.username}"
     
+class Eligibility(models.Model):
+    encrypted_file = models.OneToOneField(
+        EncryptedFile, 
+        on_delete=models.CASCADE, 
+        related_name='eligibility'
+    )
+    description = models.TextField(max_length=500, null=True, blank=True)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        verbose_name = "Eligibility"
+        verbose_name_plural = "Eligibilities"
+
+    def __str__(self):
+        return f"Eligibility for {self.encrypted_file.file.name}"
+    
 class HistoricalSection1(models.Model):
     create_datetime_at = models.DateTimeField(auto_created=True,default=timezone.now)
     create_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_section1')
@@ -177,3 +224,29 @@ class HistoricalSection1(models.Model):
         return f"{self.pk}"
 
     
+class TherapistsGroups(models.Model):
+    # type = models.CharField(max_length=30, choices=[('PSR', 'PSR'), ('IT', 'Individual Therapy')])
+    type = models.BooleanField(default=False)  # True for PSR, False for Individual Therapy
+    terapist = models.ForeignKey(User, on_delete=models.PROTECT, related_name='therapist_group', null=True)
+    section = models.CharField(max_length=10, choices=[('1', 'morning' ), ('2', 'afternoon')])
+    
+    class Meta:
+        verbose_name = "TherapistGroup"
+        verbose_name_plural = "TherapistsGroups"
+
+    def __str__(self):
+        return f"{self.pk}-{self.type}-section-{self.section}"
+
+    
+class GroupCustomer(models.Model):
+    group = models.ForeignKey(TherapistsGroups, on_delete=models.CASCADE, related_name='group_customer')
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='customer_group')
+    is_active = models.BooleanField(default=True)
+    max_sections = models.PositiveIntegerField( default=4 , validators=[MinValueValidator(1), MaxValueValidator(4)])
+    
+    class Meta:
+        verbose_name = "GroupCustomer"
+        verbose_name_plural = "GroupCustomers"
+
+    def __str__(self):
+        return f"{self.customer.full_name}"
