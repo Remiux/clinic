@@ -56,22 +56,22 @@
                         <!--begin::Input group-->
                         <div class="mb-3">
                             <!--begin::Label-->
-                            <label class="form-label fw-semibold">Terapist first name:</label>
+                            <label class="form-label fw-semibold">Therapist first name:</label>
                             <!--end::Label-->
                             <!--begin::Switch-->
                             <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
-                                <input type="text" name="terapist_first_name" class="form-control  form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="First name"  />
+                                <input type="text" name="therapist_first_name" class="form-control  form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="First name"  />
                             </div>
                             
                             <!--end::Switch-->
                         </div>
                         <div class="mb-3">
                             <!--begin::Label-->
-                            <label class="form-label fw-semibold">Terapist last name:</label>
+                            <label class="form-label fw-semibold">Therapist last name:</label>
                             <!--end::Label-->
                             <!--begin::Switch-->
                             <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
-                                <input type="text" name="terapist_last_name" class="form-control  form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="Last name"  />
+                                <input type="text" name="therapist_last_name" class="form-control  form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="Last name"  />
                             </div>
                             
                             <!--end::Switch-->
@@ -101,7 +101,17 @@
                     Create</a>
                     <!--end::Menu toggle-->
                     <!--begin::Menu 1-->
-                    
+                    <div 
+                    class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" 
+                    data-kt-menu="true" 
+                    id="kt_menu_673c0c868c157" 
+                    style="" 
+                    data-select2-id="select2-data-kt_menu_673c0c868c157"
+                    >
+                        <div id="diagnosticFormCreate">
+                            {% include "pages/therapistsGroup/actions/create/groupFormCreate.html" %}
+                        </div>
+                    </div>
                 <!--end::Menu 1-->
             </div>
             <!--begin::Primary button-->

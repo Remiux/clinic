@@ -225,17 +225,16 @@ class HistoricalSection1(models.Model):
 
     
 class TherapistsGroups(models.Model):
-    # type = models.CharField(max_length=30, choices=[('PSR', 'PSR'), ('IT', 'Individual Therapy')])
     type = models.BooleanField(default=False)  # True for PSR, False for Individual Therapy
-    terapist = models.ForeignKey(User, on_delete=models.PROTECT, related_name='therapist_group', null=True)
-    section = models.CharField(max_length=10, choices=[('1', 'morning' ), ('2', 'afternoon')])
+    therapist = models.ForeignKey(User, on_delete=models.PROTECT, related_name='therapist_group', null=True)
+    
     
     class Meta:
         verbose_name = "TherapistGroup"
         verbose_name_plural = "TherapistsGroups"
 
     def __str__(self):
-        return f"{self.pk}-{self.type}-section-{self.section}"
+        return f"{self.pk}-{self.type}-section"
 
     
 class GroupCustomer(models.Model):
@@ -250,3 +249,44 @@ class GroupCustomer(models.Model):
 
     def __str__(self):
         return f"{self.customer.full_name}"
+    
+class GroupsPSRSections(models.Model):
+    therapist_pk = models.CharField(max_length=20)
+    therapist_full_name = models.CharField(max_length=80)
+    group_pk = models.CharField(max_length=20)
+    create_at = models.DateField(auto_created=True,default=timezone.now)
+    init_hour = models.TimeField(null=True, blank=True)
+    end_hour = models.TimeField(null=True, blank=True)
+    is_active= models.BooleanField(default=True)
+
+    class Meta:
+        verbose_name = "GroupsPSRSections"
+        verbose_name_plural = "GroupsPSRSectionss"
+
+    def __str__(self):
+        return f"{self.pk}"
+
+    
+class CustomerPSRSections(models.Model):
+    section = models.ForeignKey(GroupsPSRSections, on_delete=models.CASCADE, related_name='customer_psr_section')
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='customer_psr_group')
+    assist = models.BooleanField(default=False)
+    points = models.PositiveIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100000)])
+    after_points = models.PositiveIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100000)])
+    before_points = models.PositiveIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100000)])
+
+    class Meta:
+        verbose_name = "CustomerPSRSection"
+        verbose_name_plural = "CustomerPSRSections"
+
+    def __str__(self):
+        return f"{self.pk}"
+    
+    @property
+    def is_customer_group(self):
+        group = TherapistsGroups.objects.filter(pk= int(self.section.group_pk)).first()
+        if group:
+            customer = group.group_customer.filter(customer = self.customer)
+            if customer:
+                return False
+        return True

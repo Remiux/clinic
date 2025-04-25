@@ -62,10 +62,10 @@ class EncryptedFileFilter(django_filters.FilterSet):
         
 
 class TherapistsGroupsFilter(django_filters.FilterSet):
-    terapist_first_name = django_filters.CharFilter(field_name='terapist__first_name', lookup_expr='icontains')
-    terapist_last_name = django_filters.CharFilter(field_name='terapist__last_name', lookup_expr='icontains')
+    therapist_first_name = django_filters.CharFilter(field_name='therapist__first_name', lookup_expr='icontains')
+    therapist_last_name = django_filters.CharFilter(field_name='therapist__last_name', lookup_expr='icontains')
     section =  django_filters.CharFilter(lookup_expr='exact')
     
     class Meta:
         model = TherapistsGroups
-        fields = ['terapist_first_name','terapist_last_name','section']
+        fields = ['therapist_first_name','therapist_last_name','section']

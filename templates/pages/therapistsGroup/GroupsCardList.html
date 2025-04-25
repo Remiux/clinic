@@ -6,8 +6,10 @@
     <!--begin::Col-->
       <div class="col-sm-6 col-xxl-4">
         <!--begin::Card-->
-        <div class="card shadow h-100">
+        <div class="card  shadow h-100 position-relative">
+          
           <!--begin::Card body-->
+          
           <div class="card-body d-flex flex-center flex-column p-5 justify-content-start">
             <!--begin::Avatar-->
             
@@ -15,7 +17,7 @@
             <!--begin::Name-->
             <a 
             {% comment %} href="{% url "detail_customer_view" pk=customer.pk %}"  {% endcomment %}
-            class="fs-4 text-gray-800 text-hover-primary fw-bold ">{{group.terapist.first_name}} {{group.terapist.last_name}}</a>
+            class="fs-4 text-gray-800 text-hover-primary fw-bold ">{{group.therapist.first_name}} {{group.therapist.last_name}}</a>
             <div class="p-2 w-100">
               <div class="w-100  d-flex flex-row align-items-center gap-2 ">
                 <i class="text-warning fs-2 bi-sunrise-fill "></i><span >PSR</a>

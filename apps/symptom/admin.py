@@ -21,6 +21,18 @@ class AdminGroupCustomer(admin.TabularInline):
 
 @admin.register(TherapistsGroups)
 class AdminTherapistsGroups(admin.ModelAdmin):
-    list_display = ['pk', 'type','section']
+    list_display = ['pk', 'type']
     inlines = [AdminGroupCustomer,]
     list_per_page = 100
+    
+
+class AdminCustomerPSRSections(admin.TabularInline):
+    model = CustomerPSRSections
+    extra = 0
+
+@admin.register(GroupsPSRSections)
+class AdminGroupsPSRSections(admin.ModelAdmin):
+    list_display = ['pk', 'therapist_full_name', 'therapist_pk', 'group_pk', 'is_active']
+    inlines = [AdminCustomerPSRSections,]
+    list_per_page = 100
+    

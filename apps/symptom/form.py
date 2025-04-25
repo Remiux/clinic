@@ -1,5 +1,5 @@
 from django import forms
-from apps.symptom.models import Diagnostic, Symptom,Insurance, Customer, EncryptedFile
+from apps.symptom.models import Diagnostic, GroupCustomer, Symptom,Insurance, Customer, EncryptedFile, TherapistsGroups
 from apps.accounts.models import User
 
 class SymptomForm(forms.ModelForm):
@@ -72,3 +72,14 @@ class FileUploadForm(forms.ModelForm):
         return cleaned_data
 
 
+class TherapistsGroupsForm(forms.ModelForm):
+    
+    class Meta:
+        model = TherapistsGroups
+        fields = '__all__'
+
+class GroupCustomerForm(forms.ModelForm):
+    
+    class Meta:
+        model = GroupCustomer
+        exclude = ['group','is_active']
