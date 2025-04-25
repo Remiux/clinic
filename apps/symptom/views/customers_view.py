@@ -234,6 +234,30 @@ def delete_psichiatric_evaluation_file_view(request, pk):
         return HttpResponse(html, status=400)
 
 @login_required(login_url='/login')
+def delete_yearly_physical_file_view(request, pk):
+    try:
+        file = get_object_or_404(EncryptedFile, pk=pk)
+        customer = file.belongs_to  
+        file.delete()  
+
+        # Renderizar la plantilla actualizada
+        context = _show_files_filter(request, customer.pk)
+        context['tags'] = 'success'
+        context['tag_message'] = 'File deleted successfully!'
+        context['message'] = 'File deleted successfully!'
+        context['yearly_physical'] = YearlyPhysical.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
+        html = render_to_string('pages/customers/actions/sections/section3/partials/timeline2.html', context)
+        return HttpResponse(html, status=200)
+    except Exception as e:
+        # Renderizar la plantilla con un mensaje de error
+        context = _show_files_filter(request, file.belongs_to.pk)
+        context['tags'] = 'error'
+        context['tag_message'] = 'Error deleting file!'
+        context['yearly_physical'] = YearlyPhysical.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
+        html = render_to_string('pages/customers/actions/sections/section3/partials/timeline2.html', context)
+        return HttpResponse(html, status=400)
+
+@login_required(login_url='/login')
 def sign_customer_view(request, pk):
     import base64
     from django.core.files.base import ContentFile

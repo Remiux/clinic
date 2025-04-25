@@ -19,6 +19,7 @@ urlpatterns = [
     # Section 3
     path('customer-section_three/<int:pk>/', section_three_view, name='section_three_view'),
     path('customer-section_three-history/<int:pk>/', section_three_document_three_history, name='section_three_document_three_history'),
+    path('customer-section_three-history2/<int:pk>/', section_three_document_three_history2, name='section_three_document_three_history2'),
     
     # Section 4
     # path('customer-section_four/<int:pk>/', section_four_view, name='section_four_view'),
