@@ -12,18 +12,10 @@
                             {% endif %}
                         </div>
                         <div class="mb-3">
-                            <label for="id_therapist" class="form-label">Therapist</label>
-                            <select name="therapist" id="id_therapist" class="form-select">
-                                {% if therapists %}
-                                    {% for therapist in therapists %}
-                                        <option value="{{ therapist.pk }}" {% if forloop.first %}selected{% endif %}>{{ therapist.first_name }}</option>
-                                    {% endfor %}
-                                {% else %}
-                                    <option value="" selected>Choose a therapist</option>
-                                {% endif %}
-                            </select>
-                            {% if form.therapist.errors %}
-                                <div class="text-danger">{{ form.therapist.errors.0 }}</div>
+                            <label for="id_psychiatrist" class="form-label">Psychiatrist</label>
+                            <input type="text" name="psychiatrist" id="id_psychiatrist" class="form-control" placeholder="John Doe">
+                            {% if form.psychiatrist.errors %}
+                                <div class="text-danger">{{ form.psychiatrist.errors.0 }}</div>
                             {% endif %}
                         </div>
                         <div class="mb-3">
@@ -39,6 +31,13 @@
                             <input type="date" name="process_start_date" id="id_process_start_date" class="form-control">
                             {% if form.process_start_date.errors %}
                                 <div class="text-danger">{{ form.process_start_date.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_observation" class="form-label">Observation</label>
+                            <textarea name="observation" id="id_observation" class="form-control" rows="3" style="resize: none;"></textarea>
+                            {% if form.observation.errors %}
+                                <div class="text-danger">{{ form.observation.errors.0 }}</div>
                             {% endif %}
                         </div>
 

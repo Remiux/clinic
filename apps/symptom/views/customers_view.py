@@ -102,9 +102,12 @@ def upload_file(request, pk):
     context = {}
     flag = False
     option = 0
-    if 'procedence' in request.POST:
-        option = 2
+    
     if request.method == 'POST':
+        if 'procedence' in request.POST:
+            option = 2
+            #form = PsychiatricEvaluationForm(request.POST, request.FILES)
+
         form = FileUploadForm(request.POST, request.FILES)
         if form.is_valid():
             document = form.save(commit=False)
@@ -129,13 +132,13 @@ def upload_file(request, pk):
                 option = 1
             elif (file_name.lower() == 'psychiatric_evaluation' or file_name.lower() == 'psychiatric_evaluation.pdf'):
                 flag = True
-                therapist_pk = request.POST.get('therapist')
+                psychiatrist = request.POST.get('psychiatrist')
                 procedence = request.POST.get('procedence')
-                therapist = Therapist.objects.filter(pk=therapist_pk).first()
                 PsychiatricEvaluation.objects.create(
                     encrypted_file=document,
                     procedence=procedence,
-                    therapist=therapist,
+                    observation=request.POST.get('observation'),
+                    psychiatrist=psychiatrist,
                 )
                 option = 2
             

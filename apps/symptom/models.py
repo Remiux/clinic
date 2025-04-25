@@ -273,8 +273,9 @@ class PsychiatricEvaluation(models.Model):
         on_delete=models.CASCADE, 
         related_name='psychiatric_evaluation'
     )
-    therapist = models.ForeignKey(Therapist, on_delete=models.CASCADE, related_name='psychiatric_evaluations', null=False, blank=False)
+    psychiatrist = models.CharField(max_length=70, default='N/A')
     procedence = models.CharField(max_length=20, choices=PROCEDENCE_CHOICES, default='ClientDirectly')
+    observation = models.TextField(max_length=500, null=True, blank=True)
     
 
     class Meta:

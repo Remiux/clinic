@@ -1,5 +1,5 @@
 from django import forms
-from apps.symptom.models import Diagnostic, Symptom,Insurance, Customer, EncryptedFile, EncryptedFileUser
+from apps.symptom.models import Diagnostic, Symptom,Insurance, Customer, EncryptedFile, EncryptedFileUser, PsychiatricEvaluation
 from apps.accounts.models import User
 
 class SymptomForm(forms.ModelForm):
@@ -70,6 +70,31 @@ class FileUploadForm(forms.ModelForm):
                 )
 
         return cleaned_data
+
+class PsychiatricEvaluationForm(forms.ModelForm):
+    file = forms.FileField(required=True)
+    process_start_date = forms.DateField(required=True)
+    class Meta:
+        model = PsychiatricEvaluation
+        fields = ['psychiatrist', 'procedence']
+
+    def save(self, commit=True):
+        # Crear la instancia de EncryptedFile
+        encrypted_file = EncryptedFile(
+            file=self.cleaned_data['file'],
+            process_start_date=self.cleaned_data['process_start_date'], 
+        )
+        if commit:
+            encrypted_file.save()
+
+        # Crear la instancia de PsychiatricEvaluation
+        psychiatric_evaluation = super().save(commit=False)
+        psychiatric_evaluation.encrypted_file = encrypted_file 
+        if commit:
+            psychiatric_evaluation.save()
+
+        return psychiatric_evaluation
+
     
 class FileUploadFormUser(forms.ModelForm):
     class Meta:
