@@ -2,7 +2,7 @@ from django.shortcuts import render,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from apps.symptom.filters import ClientFilter, InsuranceFilter, EncryptedFileFilter
 from apps.symptom.form import CustomerForm, CustomerSignForm
-from apps.symptom.models import Customer, Diagnostic, Insurance, Symptom, Eligibility, Therapist, PsychiatricEvaluation
+from apps.symptom.models import Customer, Diagnostic, Insurance, Symptom, Eligibility, PsychiatricEvaluation, YearlyPhysical
 from utils.paginator import _get_paginator
 from utils.file_extension import get_file_extension
 from apps.symptom.models import Customer
@@ -106,8 +106,6 @@ def upload_file(request, pk):
     if request.method == 'POST':
         if 'procedence' in request.POST:
             option = 2
-            #form = PsychiatricEvaluationForm(request.POST, request.FILES)
-
         form = FileUploadForm(request.POST, request.FILES)
         if form.is_valid():
             document = form.save(commit=False)
@@ -129,9 +127,8 @@ def upload_file(request, pk):
                     encrypted_file=document,
                     description="Elegibility document uploaded."
                 )
-                option = 1
+                option = 0
             elif (file_name.lower() == 'psychiatric_evaluation' or file_name.lower() == 'psychiatric_evaluation.pdf'):
-                flag = True
                 psychiatrist = request.POST.get('psychiatrist')
                 procedence = request.POST.get('procedence')
                 PsychiatricEvaluation.objects.create(
@@ -141,6 +138,12 @@ def upload_file(request, pk):
                     psychiatrist=psychiatrist,
                 )
                 option = 2
+            elif (file_name.lower() == 'yearly_physical.' or file_name.lower() == 'yearly_physical.pdf'):
+                YearlyPhysical.objects.create(
+                    encrypted_file=document,
+                    description="Yearly Physical for document uploaded."
+                )
+                option = 0
             
             context['tags'] = 'success'
             context['tag_message'] = 'File uploaded successfully!'
@@ -153,10 +156,9 @@ def upload_file(request, pk):
     context['customer'] = customer
     context['form'] = form
     print(option)
-    if not flag and option == 0:
+    if option == 0:
         return render(request, 'pages/customers/actions/components/partials/modal_form.html', context)
-    else:
-        context['therapists'] = Therapist.objects.all()
+    elif option == 2:
         return render(request, 'pages/customers/actions/sections/section3/partials/modal_form.html', context)
 
 @login_required(login_url='/login')
@@ -227,7 +229,6 @@ def delete_psichiatric_evaluation_file_view(request, pk):
         context = _show_files_filter(request, file.belongs_to.pk)
         context['tags'] = 'error'
         context['tag_message'] = 'Error deleting file!'
-        #context['elegibilities'] = Eligibility.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-created_at')
         context['psichiatric_evaluations'] = PsychiatricEvaluation.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
         html = render_to_string('pages/customers/actions/sections/section3/partials/timeline.html', context)
         return HttpResponse(html, status=400)
