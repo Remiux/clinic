@@ -194,6 +194,36 @@ class EncryptedFile(models.Model):
     def __str__(self):
         return f"{self.file.name} - {self.uploaded_by.username}"
     
+    
+
+class EncryptedFileUser(models.Model):
+    file = models.FileField(upload_to='uploads/')
+    file_type = models.CharField(max_length=10, choices=[('.docx', 'DOCX'), ('.doc', 'DOC'), ('.pdf', 'PDF'), ('.jpg', 'JPG'), ('.png', 'PNG')])
+    uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='uploaded_files_user')
+    belongs_to = models.ForeignKey(User, on_delete=models.CASCADE, related_name='owned_files', default=1)
+    encrypted_file = models.BinaryField()
+    created_at = models.DateTimeField(default=timezone.now)
+    process_start_date = models.DateField(default=timezone.now)
+
+    def save(self, *args, **kwargs):
+        # Asignar automáticamente el file_type basado en la extensión del archivo
+        if self.file and not self.file_type:
+            extension = self.file.name.split('.')[-1].lower()
+            file_type_mapping = {
+                'docx': '.docx',
+                'doc': '.doc',
+                'pdf': '.pdf',
+                'jpg': '.jpg',
+                'jpeg': '.jpg',  # Tratar JPEG como JPG
+                'png': '.png',
+            }
+            self.file_type = file_type_mapping.get(extension, None)
+        super(EncryptedFileUser, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.file.name} - {self.uploaded_by.username}"
+
+    
 class Eligibility(models.Model):
     encrypted_file = models.OneToOneField(
         EncryptedFile, 
@@ -209,6 +239,46 @@ class Eligibility(models.Model):
 
     def __str__(self):
         return f"Eligibility for {self.encrypted_file.file.name}"
+
+class PsychiatricEvaluation(models.Model):
+    PROCEDENCE_CHOICES = [
+        ('Fax', 'Fax'),
+        ('Email', 'Email'),
+        ('ClientDirectly', 'Client Directly'),
+    ]
+    
+    encrypted_file = models.OneToOneField(
+        EncryptedFile, 
+        on_delete=models.CASCADE, 
+        related_name='psychiatric_evaluation'
+    )
+    psychiatrist = models.CharField(max_length=70, default='N/A')
+    procedence = models.CharField(max_length=20, choices=PROCEDENCE_CHOICES, default='ClientDirectly')
+    observation = models.TextField(max_length=500, null=True, blank=True)
+    
+
+    class Meta:
+        verbose_name = "PsiquiatricEvaluation"
+        verbose_name_plural = "PsiquiatricEvaluations"
+
+    def __str__(self):
+        return f"PsiquiatricEvaluation for {self.encrypted_file.file.name}"
+    
+class YearlyPhysical(models.Model):
+    encrypted_file = models.OneToOneField(
+        EncryptedFile, 
+        on_delete=models.CASCADE, 
+        related_name='yearly_physical'
+    )
+    description = models.TextField(max_length=500, null=True, blank=True)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        verbose_name = "YearlyPhysical"
+        verbose_name_plural = "YearlyPhysicals"
+
+    def __str__(self):
+        return f"Yearly Physical for {self.encrypted_file.file.name}"
     
 class HistoricalSection1(models.Model):
     create_datetime_at = models.DateTimeField(auto_created=True,default=timezone.now)

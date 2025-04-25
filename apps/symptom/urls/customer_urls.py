@@ -13,4 +13,6 @@ urlpatterns = [
     path('customer-delete-elegibility-file/<int:pk>/', delete_elegibility_file_view, name='delete_elegibility_file_view'),
     path('customer-update/<int:pk>/', update_customer_view, name='update_customer_view'),
     path('customer-sign/<int:pk>/', sign_customer_view, name='sign_customer_view'),
+    path('customer-delete-psichiatric-evaluation-file/<int:pk>/', delete_psichiatric_evaluation_file_view, name='delete_psichiatric_evaluation_file_view'),
+    path('customer-delete-yearly-physical-file/<int:pk>/', delete_yearly_physical_file_view, name='delete_yearly_physical_file_view'),
 ]
