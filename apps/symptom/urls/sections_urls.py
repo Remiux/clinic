@@ -4,6 +4,7 @@ from django.urls import path
 from apps.symptom.views.sections.section1 import *
 from apps.symptom.views.sections.section2 import *
 from apps.symptom.views.sections.section3 import *
+from apps.symptom.views.sections.section4 import *
 
 
 urlpatterns = [
@@ -22,7 +23,7 @@ urlpatterns = [
     path('customer-section_three-history2/<int:pk>/', section_three_document_three_history2, name='section_three_document_three_history2'),
     
     # Section 4
-    # path('customer-section_four/<int:pk>/', section_four_view, name='section_four_view'),
+    path('customer-section_four/<int:pk>/', section_four_view, name='section_four_view'),
     
     # Section 5
     # path('customer-section_five/<int:pk>/', section_five_view, name='section_five_view'),
