@@ -14,6 +14,11 @@ admin.site.register(Medication)
 admin.site.register(Eligibility)
 admin.site.register(PsychiatricEvaluation)
 admin.site.register(YearlyPhysical)
+admin.site.register(SuicideRisk)
+admin.site.register(BehavioralHealth)
+admin.site.register(BioPsychoSocialAssessment)
+admin.site.register(BriefBehavioralHealth)
+admin.site.register(DischargeSummary)
 
 
 class AdminGroupCustomer(admin.TabularInline):

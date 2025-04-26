@@ -2,7 +2,7 @@ from django.shortcuts import render,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from apps.symptom.filters import ClientFilter, InsuranceFilter, EncryptedFileFilter
 from apps.symptom.form import CustomerForm, CustomerSignForm
-from apps.symptom.models import Customer, Diagnostic, Insurance, Symptom, Eligibility, PsychiatricEvaluation, YearlyPhysical
+from apps.symptom.models import *
 from utils.paginator import _get_paginator
 from utils.file_extension import get_file_extension
 from apps.symptom.models import Customer
@@ -100,7 +100,6 @@ def detail_customer_view(request, pk):
 def upload_file(request, pk):
     customer = get_object_or_404(Customer, pk=pk)
     context = {}
-    flag = False
     option = 0
     
     if request.method == 'POST':
@@ -117,33 +116,10 @@ def upload_file(request, pk):
             encrypted_data = encrypt_file(file.read())
             # Asignar el archivo encriptado al campo correspondiente
             document.encrypted_file = encrypted_data
-            
             document.save()
             
-            # Crear instancia de Eligibility si el nombre del archivo es 'eligibility' o 'Eligibility' y el tipo de archivo es '.pdf'
             file_name = file.name
-            if (file_name.lower() == 'elegibility' or file_name.lower() == 'elegibility.pdf'):
-                Eligibility.objects.create(
-                    encrypted_file=document,
-                    description="Elegibility document uploaded."
-                )
-                option = 0
-            elif (file_name.lower() == 'psychiatric_evaluation' or file_name.lower() == 'psychiatric_evaluation.pdf'):
-                psychiatrist = request.POST.get('psychiatrist')
-                procedence = request.POST.get('procedence')
-                PsychiatricEvaluation.objects.create(
-                    encrypted_file=document,
-                    procedence=procedence,
-                    observation=request.POST.get('observation'),
-                    psychiatrist=psychiatrist,
-                )
-                option = 2
-            elif (file_name.lower() == 'yearly_physical.' or file_name.lower() == 'yearly_physical.pdf'):
-                YearlyPhysical.objects.create(
-                    encrypted_file=document,
-                    description="Yearly Physical for document uploaded."
-                )
-                option = 0
+            option = __file_type_handler(file_name, document, request)
             
             context['tags'] = 'success'
             context['tag_message'] = 'File uploaded successfully!'
@@ -287,3 +263,58 @@ def sign_customer_view(request, pk):
     return render(request, 'pages/customers/actions/detail/customerGenerateSign.html', context)
 
 
+def __file_type_handler(file_name, document, request):
+    if (file_name.lower() == 'elegibility' or file_name.lower() == 'elegibility.pdf'):
+        Eligibility.objects.create(
+            encrypted_file=document,
+            description="Elegibility document uploaded."
+        )
+        option = 0
+    elif (file_name.lower() == 'psychiatric_evaluation' or file_name.lower() == 'psychiatric_evaluation.pdf'):
+        psychiatrist = request.POST.get('psychiatrist')
+        procedence = request.POST.get('procedence')
+        PsychiatricEvaluation.objects.create(
+            encrypted_file=document,
+            procedence=procedence,
+            observation=request.POST.get('observation'),
+            psychiatrist=psychiatrist,
+        )
+        option = 2
+    elif (file_name.lower() == 'yearly_physical.' or file_name.lower() == 'yearly_physical.pdf'):
+        YearlyPhysical.objects.create(
+            encrypted_file=document,
+            description="Yearly Physical for document uploaded."
+        )
+        option = 0
+    elif (file_name.lower() == 'suicide_risk' or file_name.lower() == 'suicide_risk.pdf'):
+        SuicideRisk.objects.create(
+            encrypted_file=document,
+            description="Suicide Risk document uploaded."
+        )
+        option = 0
+    elif (file_name.lower() == 'behavioral_health_evaluation' or file_name.lower() == 'behavioral_health_evaluation.pdf'):
+        BehavioralHealth.objects.create(
+            encrypted_file=document,
+            description="Behavioral Health document uploaded."
+        )
+        option = 0
+    elif (file_name.lower() == 'bio_psycho_social_assessment' or file_name.lower() == 'bio_psycho_social_assessment.pdf'):
+        BioPsychoSocialAssessment.objects.create(
+            encrypted_file=document,
+            description="Bio Psycho Social Assessment document uploaded."
+        )
+        option = 0
+    elif (file_name.lower() == 'brief_behavioral_health_assessment' or file_name.lower() == 'brief_behavioral_health_assessment.pdf'):
+        BriefBehavioralHealth.objects.create(
+            encrypted_file=document,
+            description="Brief Behavioral Health document uploaded."
+        )
+        option = 0
+    elif (file_name.lower() == 'discharge_summary' or file_name.lower() == 'discharge_summary.pdf'):
+        DischargeSummary.objects.create(
+            encrypted_file=document,
+            description="Discharge Summary document uploaded."
+        )
+        option = 0
+        
+    return option

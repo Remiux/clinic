@@ -239,6 +239,90 @@ class Eligibility(models.Model):
 
     def __str__(self):
         return f"Eligibility for {self.encrypted_file.file.name}"
+    
+class SuicideRisk(models.Model):
+    encrypted_file = models.OneToOneField(
+        EncryptedFile, 
+        on_delete=models.CASCADE, 
+        related_name='suicide_risk'
+    )
+    description = models.TextField(max_length=500, null=True, blank=True)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        verbose_name = "SuicideRisk"
+        verbose_name_plural = "SuicideRisks"
+
+    def __str__(self):
+        return f"Suicide Risk for {self.encrypted_file.file.name}"
+    
+    
+class BehavioralHealth(models.Model):
+    encrypted_file = models.OneToOneField(
+        EncryptedFile, 
+        on_delete=models.CASCADE, 
+        related_name='behavioral_health'
+    )
+    description = models.TextField(max_length=500, null=True, blank=True)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        verbose_name = "BehavioralHealth"
+        verbose_name_plural = "BehavioralHealths"
+
+    def __str__(self):
+        return f"Behavioral Health for {self.encrypted_file.file.name}"
+    
+
+class BioPsychoSocialAssessment(models.Model):
+    encrypted_file = models.OneToOneField(
+        EncryptedFile, 
+        on_delete=models.CASCADE, 
+        related_name='bio_psycho_social'
+    )
+    description = models.TextField(max_length=500, null=True, blank=True)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        verbose_name = "BioPsychoSocialAssessment"
+        verbose_name_plural = "BioPsychoSocialAssessments"
+
+    def __str__(self):
+        return f"Bio Psycho Social Assessment for {self.encrypted_file.file.name}"
+    
+
+class BriefBehavioralHealth(models.Model):
+    encrypted_file = models.OneToOneField(
+        EncryptedFile, 
+        on_delete=models.CASCADE, 
+        related_name='brief_behavioral_health'
+    )
+    description = models.TextField(max_length=500, null=True, blank=True)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        verbose_name = "BriefBehavioralHealth"
+        verbose_name_plural = "BriefBehavioralHealths"
+
+    def __str__(self):
+        return f"Brief Behavioral Health for {self.encrypted_file.file.name}"
+    
+
+class DischargeSummary(models.Model):
+    encrypted_file = models.OneToOneField(
+        EncryptedFile, 
+        on_delete=models.CASCADE, 
+        related_name='discharge_summary'
+    )
+    description = models.TextField(max_length=500, null=True, blank=True)
+    created_at = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        verbose_name = "DischargeSummary"
+        verbose_name_plural = "DischargeSummaries"
+
+    def __str__(self):
+        return f"Discharge Summary for {self.encrypted_file.file.name}"
 
 class PsychiatricEvaluation(models.Model):
     PROCEDENCE_CHOICES = [
