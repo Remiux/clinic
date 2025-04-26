@@ -232,6 +232,33 @@ def delete_yearly_physical_file_view(request, pk):
         context['yearly_physical'] = YearlyPhysical.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
         html = render_to_string('pages/customers/actions/sections/section3/partials/timeline2.html', context)
         return HttpResponse(html, status=400)
+    
+
+def delete_suicide_risk_file_view(request, pk):
+    try:
+        file = get_object_or_404(EncryptedFile, pk=pk)
+        customer = file.belongs_to  
+        file.delete()  
+
+        # Renderizar la plantilla actualizada
+        context = _show_files_filter(request, customer.pk)
+        context['tags'] = 'success'
+        context['tag_message'] = 'File deleted successfully!'
+        context['message'] = 'File deleted successfully!'
+        context['suicide_risks'] = SuicideRisk.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
+        html = render_to_string('pages/customers/actions/sections/section4/partials/timeline_suicide_risk.html', context)
+        
+        return HttpResponse(html, status=200)
+    except Exception as e:
+        # Renderizar la plantilla con un mensaje de error
+        context = _show_files_filter(request, file.belongs_to.pk)
+        context['tags'] = 'error'
+        context['tag_message'] = 'Error deleting file!'
+        context['suicide_risks'] = SuicideRisk.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
+        html = render_to_string('pages/customers/actions/sections/section4/partials/timeline_suicidal_risk.html', context)
+        return HttpResponse(html, status=400)
+
+
 
 @login_required(login_url='/login')
 def sign_customer_view(request, pk):
@@ -264,6 +291,7 @@ def sign_customer_view(request, pk):
 
 
 def __file_type_handler(file_name, document, request):
+    option = 0
     if (file_name.lower() == 'elegibility' or file_name.lower() == 'elegibility.pdf'):
         Eligibility.objects.create(
             encrypted_file=document,
@@ -286,7 +314,7 @@ def __file_type_handler(file_name, document, request):
             description="Yearly Physical for document uploaded."
         )
         option = 0
-    elif (file_name.lower() == 'suicide_risk' or file_name.lower() == 'suicide_risk.pdf'):
+    elif (file_name.lower() == 'suicide_risk_assessment' or file_name.lower() == 'suicide_risk_assessment.pdf'):
         SuicideRisk.objects.create(
             encrypted_file=document,
             description="Suicide Risk document uploaded."
@@ -299,7 +327,7 @@ def __file_type_handler(file_name, document, request):
         )
         option = 0
     elif (file_name.lower() == 'bio_psycho_social_assessment' or file_name.lower() == 'bio_psycho_social_assessment.pdf'):
-        BioPsychoSocialAssessment.objects.create(
+        BioPsychoSocial.objects.create(
             encrypted_file=document,
             description="Bio Psycho Social Assessment document uploaded."
         )
@@ -316,5 +344,5 @@ def __file_type_handler(file_name, document, request):
             description="Discharge Summary document uploaded."
         )
         option = 0
-        
+    
     return option

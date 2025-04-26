@@ -16,7 +16,7 @@ admin.site.register(PsychiatricEvaluation)
 admin.site.register(YearlyPhysical)
 admin.site.register(SuicideRisk)
 admin.site.register(BehavioralHealth)
-admin.site.register(BioPsychoSocialAssessment)
+admin.site.register(BioPsychoSocial)
 admin.site.register(BriefBehavioralHealth)
 admin.site.register(DischargeSummary)
 

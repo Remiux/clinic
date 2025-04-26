@@ -274,7 +274,7 @@ class BehavioralHealth(models.Model):
         return f"Behavioral Health for {self.encrypted_file.file.name}"
     
 
-class BioPsychoSocialAssessment(models.Model):
+class BioPsychoSocial(models.Model):
     encrypted_file = models.OneToOneField(
         EncryptedFile, 
         on_delete=models.CASCADE, 

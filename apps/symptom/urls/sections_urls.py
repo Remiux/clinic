@@ -24,6 +24,7 @@ urlpatterns = [
     
     # Section 4
     path('customer-section_four/<int:pk>/', section_four_view, name='section_four_view'),
+    path('customer-section_four-history-suicide-risk/<int:pk>/', section_four_document_suicida_risk_history, name='section_four_document_suicida_risk_history'),
     
     # Section 5
     # path('customer-section_five/<int:pk>/', section_five_view, name='section_five_view'),
