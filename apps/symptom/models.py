@@ -25,17 +25,7 @@ class Agency(SingletonModel):
         return self.name
 
 
-class Diagnostic(models.Model):
-    code = models.CharField(max_length=15, unique=True)
-    description = models.TextField(max_length=500)
-    
 
-    class Meta:
-        verbose_name = "Diagnostic"
-        verbose_name_plural = "Diagnostics"
-
-    def __str__(self):
-        return self.code
 
 
 class Medication(models.Model):
@@ -130,11 +120,8 @@ class Customer(models.Model):
     discount_standard_rate = models.DecimalField(max_digits=15, decimal_places=2, default=0.00,null=True, blank=True)
     sign = models.ImageField(upload_to='customer_sign',blank=True,null=True)
     insurance = models.ForeignKey(Insurance, on_delete=models.CASCADE)
-    diagnostic = models.ForeignKey(Diagnostic, on_delete=models.CASCADE)
-    diagnostic_two = models.ForeignKey(Diagnostic, on_delete=models.CASCADE,null=True,blank=True, related_name='diagnostic_two_client')
-    diagnostic_three = models.ForeignKey(Diagnostic, on_delete=models.CASCADE,null=True,blank=True, related_name='diagnostic_three_client')
-
-    
+    # diagnostic_two = models.ForeignKey(Diagnostic, on_delete=models.CASCADE,null=True,blank=True, related_name='diagnostic_two_client')
+    # diagnostic_three = models.ForeignKey(Diagnostic, on_delete=models.CASCADE,null=True,blank=True, related_name='diagnostic_three_client')
     
     
     def save(self, *args, **kwargs):
@@ -165,7 +152,20 @@ class Customer(models.Model):
         if (today.month, today.day) < (self.dob.month, self.dob.day):
             age -= 1
         return age
+    
 
+class Diagnostic(models.Model):
+    code = models.CharField(max_length=15, unique=True)
+    description = models.TextField(max_length=500)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='diagnostics', null=True, blank=True)
+    
+
+    class Meta:
+        verbose_name = "Diagnostic"
+        verbose_name_plural = "Diagnostics"
+
+    def __str__(self):
+        return self.code
 
 class EncryptedFile(models.Model):
     file = models.FileField(upload_to='uploads/')
