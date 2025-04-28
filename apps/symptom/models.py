@@ -130,6 +130,9 @@ class Customer(models.Model):
     discount_standard_rate = models.DecimalField(max_digits=15, decimal_places=2, default=0.00,null=True, blank=True)
     sign = models.ImageField(upload_to='customer_sign',blank=True,null=True)
     insurance = models.ForeignKey(Insurance, on_delete=models.CASCADE)
+    insurance_unit = models.PositiveIntegerField(default=0)
+    insurance_init_date = models.DateField(null=True,blank=True)
+    insurance_end_date = models.DateField(null=True,blank=True)
     diagnostic = models.ForeignKey(Diagnostic, on_delete=models.CASCADE)
     diagnostic_two = models.ForeignKey(Diagnostic, on_delete=models.CASCADE,null=True,blank=True, related_name='diagnostic_two_client')
     diagnostic_three = models.ForeignKey(Diagnostic, on_delete=models.CASCADE,null=True,blank=True, related_name='diagnostic_three_client')
@@ -311,7 +314,7 @@ class GroupCustomer(models.Model):
     group = models.ForeignKey(TherapistsGroups, on_delete=models.CASCADE, related_name='group_customer')
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='customer_group')
     is_active = models.BooleanField(default=True)
-    max_sections = models.PositiveIntegerField( default=4 , validators=[MinValueValidator(1), MaxValueValidator(4)])
+    max_sections = models.PositiveIntegerField( default=16 , validators=[MinValueValidator(1), MaxValueValidator(16)])
     
     class Meta:
         verbose_name = "GroupCustomer"

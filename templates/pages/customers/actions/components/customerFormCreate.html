@@ -313,6 +313,39 @@
                         {% endif %}
                     
                     </div>
+                    <div class="col-sm-6 col-md-4 fv-row mb-3 d-none">
+                        <label class=" col-form-label  fw-semibold fs-6">Units</label>
+                        <input value="{% if form.insurance_unit %}{{form.insurance_unit.value}}{% endif %}" min=0 type="number" name="insurance_unit"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"  placeholder="Units" />
+                        {% if form.insurance_unit.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.insurance_unit.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                    </div>
+                    <div class="col-sm-6 col-md-4 fv-row mb-3 d-none">
+                        <label class=" col-form-label  fw-semibold fs-6">Init date</label>
+                        <input value="{% if customer.insurance_init_date %}{{customer.insurance_init_date|date:'Y-m-d'}}{% endif %}" type="date" name="insurance_init_date"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"  />
+                        {% if form.insurance_init_date.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.insurance_init_date.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                    </div>
+                    <div class="col-sm-6 col-md-4 fv-row mb-3 d-none">
+                        <label class=" col-form-label  fw-semibold fs-6">End date</label>
+                        <input value="{% if customer.insurance_end_date %}{{customer.insurance_end_date|date:'Y-m-d'}}{% endif %}" type="date" name="insurance_end_date"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"  />
+                        {% if form.insurance_end_date.errors %}
+                                    <div class="alert alert-danger mt-2 p-2" role="alert">
+                                        {% for error in form.insurance_end_date.errors %}
+                                        {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                    </div>
                     <div class="col-sm-6 col-md-4 fv-row mb-3">
                         <label class=" col-form-label  fw-semibold fs-6">MMA</label>
                         <input value="{% if form.mma.value %}{{form.mma.value}}{% endif %}"  type="text" name="mma"  class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"  placeholder="MMA" />

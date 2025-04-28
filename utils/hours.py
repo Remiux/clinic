@@ -1,3 +1,6 @@
+from apps.symptom.models import GroupsPSRSections
+
+
 hours={
     'AM':{
         '1':{
@@ -54,3 +57,19 @@ hours={
         
     }
 }
+
+from django.utils import timezone
+
+def dateValues(group):
+    section = GroupsPSRSections.objects.filter(group_pk=str(group.pk),create_at=timezone.now().date())
+    type='AM'
+    if  group.type:
+        type = 'PM'
+    if len(section) == 1:
+        return hours[type]['1'] 
+    elif len(section) == 2:
+        return hours[type]['2'] 
+    elif len(section) == 3:
+        return hours[type]['3'] 
+    else:
+        return hours[type]['4'] 

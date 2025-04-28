@@ -1,0 +1,88 @@
+{% if customer %}
+<div id="customerCard-{{customer.pk}}">
+    <div class="d-flex justify-content-between align-items-center gap-2 pb-2 border-bottom-2 border-light ">
+        <div class="d-flex flex-column">
+            <span>
+                {{customer.customer.full_name}}
+            </span>
+            <span>
+                {{customer.customer.case_no}}
+            </span>
+        </div>
+        <div class="d-flex justify-content-end align-items-center gap-2">
+            <span class="btn btn-icon btn-sm m-1">
+                
+                <div 
+                class="position-relative badge badge-light-primary btn btn-sm btn-outline-primary  rounded p-2 d-flex align-items-center justify-content-center " 
+                
+                >
+                <span id="spinnerUpdateCustomerMessageActiveGroup-{{customer.pk}}" class="htmx-indicator position-absolute spinner-border spinner-border" ></span>
+                <i class="fs-2 bi-journals"></i>
+                </div>
+         
+                
+                
+            </span>
+            <span class="btn btn-icon btn-sm m-1 ">
+                {% if customer.assist %}
+                
+                <div 
+                class="position-relative badge badge-light-success btn btn-sm btn-outline-success  rounded p-2 d-flex align-items-center justify-content-center " 
+                hx-post="{% url 'therapists_customer_checked_assist_view' pk=customer.pk %}" 
+                hx-trigger="click"
+                hx-swap="outerHTML"
+                hx-indicator="#spinnerUpdateCustomerActiveGroup-{{customer.pk}}"
+                hx-target="#customerCard-{{customer.pk}}" 
+                hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}'
+                >
+                <i class="fs-2  bi-person-check-fill"></i>
+                
+                <span id="spinnerUpdateCustomerActiveGroup-{{customer.pk}}" class="htmx-indicator position-absolute spinner-border spinner-border" ></span>
+                </div>
+                {% else %}
+                <div 
+                class="position-relative badge badge-light-danger btn btn-sm btn-outline-danger  rounded p-2 d-flex align-items-center justify-content-center " 
+                hx-post="{% url 'therapists_customer_checked_assist_view' pk=customer.pk %}" 
+                hx-trigger="click"
+                hx-swap="outerHTML"
+                hx-target="#customerCard-{{customer.pk}}" 
+                hx-indicator="#spinnerUpdateCustomerActiveGroup-{{customer.pk}}"
+                hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}'
+                >
+                <span id="spinnerUpdateCustomerActiveGroup-{{customer.pk}}" class="htmx-indicator position-absolute spinner-border spinner-border" ></span>
+                <i class="fs-2  bi-person-x-fill"></i>
+                </div>
+                
+                {% endif %}
+                
+                
+                
+            </span>
+            {% if   customer.is_customer_group  %}
+                <span class="btn btn-icon btn-sm m-1 ">
+                    
+                    <div 
+                    class="position-relative badge badge-light-danger btn btn-sm btn-outline-danger  rounded p-2 d-flex align-items-center justify-content-center " 
+                    hx-delete="{% url 'therapists_customer_remove_assist_list_view' pk=customer.pk %}" 
+                    hx-trigger="click"
+                    hx-swap="outerHTML"
+                    hx-target="#customerCard-{{customer.pk}}" 
+                    hx-indicator="#spinnerUpdateCustomerDeleteGroup-{{customer.pk}}"
+                    hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}'
+                    >
+                    <span id="spinnerUpdateCustomerDeleteGroup-{{customer.pk}}" class="htmx-indicator position-absolute spinner-border spinner-border" ></span>
+                    <i class="fs-2  bi-x-octagon-fill"></i>
+                    </div>
+                    
+                </span>
+            
+            {% endif %}
+        </div>
+        
+        
+    </div>
+    <div class="separator ">
+                  
+    </div>
+</div>
+{% endif %}

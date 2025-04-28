@@ -1,0 +1,16 @@
+{% for customer in group.group_customer.all %}
+                        {% include "pages/therapistsGroup/components/customerGroupCard.html" %}
+                    
+{% endfor %}
+{% if create_messsage %}
+        <script>                
+            Swal.fire({
+                position: "top-center",
+                icon: '{% if "error" in tags %}error{% elif "success" in tags %}success{% elif "info" in tags %}info{% elif "warning" in tags %}warning{% else %}question{% endif %}',
+                title: "{{create_messsage}}",
+                showConfirmButton: false,
+                timer: 3000
+            });
+        </script>
+
+    {% endif %}
