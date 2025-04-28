@@ -28,7 +28,7 @@ def section_four_document_suicida_risk_history(request,pk):
 
 
 @login_required(login_url='/login')
-def section_four_document_behavioral_health(request,pk):
+def section_four_document_behavioral_health_history(request,pk):
     customer=get_object_or_404(Customer, pk=pk)     
     context = {
         'behavioral_health_evaluations': BehavioralHealth.objects.filter(encrypted_file__belongs_to=pk).order_by('-encrypted_file__created_at'),
@@ -39,7 +39,7 @@ def section_four_document_behavioral_health(request,pk):
 
 
 @login_required(login_url='/login')
-def section_four_document_bio_psycho_social(request,pk):
+def section_four_document_bio_psycho_social_history(request,pk):
     customer=get_object_or_404(Customer, pk=pk)     
     context = {
         'bio_psycho_social_assessments': BioPsychoSocial.objects.filter(encrypted_file__belongs_to=pk).order_by('-encrypted_file__created_at'),
@@ -50,7 +50,7 @@ def section_four_document_bio_psycho_social(request,pk):
 
 
 @login_required(login_url='/login')
-def section_four_document_brief_behavioral_health(request,pk):
+def section_four_document_brief_behavioral_health_history(request,pk):
     customer=get_object_or_404(Customer, pk=pk)     
     context = {
         'brief_behavioral_health_assessments': BriefBehavioralHealth.objects.filter(encrypted_file__belongs_to=pk).order_by('-encrypted_file__created_at'),
@@ -61,7 +61,7 @@ def section_four_document_brief_behavioral_health(request,pk):
 
 
 @login_required(login_url='/login')
-def section_four_document_discharge_summary(request,pk):
+def section_four_document_discharge_summary_history(request,pk):
     customer=get_object_or_404(Customer, pk=pk)     
     context = {
         'discharge_sumaries': DischargeSummary.objects.filter(encrypted_file__belongs_to=pk).order_by('-encrypted_file__created_at'),

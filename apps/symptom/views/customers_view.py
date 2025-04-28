@@ -257,7 +257,106 @@ def delete_suicide_risk_file_view(request, pk):
         context['suicide_risks'] = SuicideRisk.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
         html = render_to_string('pages/customers/actions/sections/section4/partials/timeline_suicidal_risk.html', context)
         return HttpResponse(html, status=400)
+    
 
+def delete_behavioral_health_file_view(request, pk):
+    try:
+        file = get_object_or_404(EncryptedFile, pk=pk)
+        customer = file.belongs_to  
+        file.delete()  
+
+        # Renderizar la plantilla actualizada
+        context = _show_files_filter(request, customer.pk)
+        context['tags'] = 'success'
+        context['tag_message'] = 'File deleted successfully!'
+        context['message'] = 'File deleted successfully!'
+        context['behavioral_health_evaluations'] = BehavioralHealth.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
+        html = render_to_string('pages/customers/actions/sections/section4/partials/timeline_behavioral_health.html', context)
+        
+        return HttpResponse(html, status=200)
+    except Exception as e:
+        # Renderizar la plantilla con un mensaje de error
+        context = _show_files_filter(request, file.belongs_to.pk)
+        context['tags'] = 'error'
+        context['tag_message'] = 'Error deleting file!'
+        context['behavioral_health_evaluations'] = BehavioralHealth.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
+        html = render_to_string('pages/customers/actions/sections/section4/partials/timeline_suicidal_risk.html', context)
+        return HttpResponse(html, status=400)
+    
+
+def delete_bio_psycho_social_assessments_file_view(request, pk):
+    try:
+        file = get_object_or_404(EncryptedFile, pk=pk)
+        customer = file.belongs_to  
+        file.delete()  
+
+        # Renderizar la plantilla actualizada
+        context = _show_files_filter(request, customer.pk)
+        context['tags'] = 'success'
+        context['tag_message'] = 'File deleted successfully!'
+        context['message'] = 'File deleted successfully!'
+        context['bio_psycho_social_assessments'] = BioPsychoSocial.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
+        html = render_to_string('pages/customers/actions/sections/section4/partials/timeline_bio_psycho_social.html', context)
+        
+        return HttpResponse(html, status=200)
+    except Exception as e:
+        # Renderizar la plantilla con un mensaje de error
+        context = _show_files_filter(request, file.belongs_to.pk)
+        context['tags'] = 'error'
+        context['tag_message'] = 'Error deleting file!'
+        context['bio_psycho_social_assessments'] = BioPsychoSocial.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
+        html = render_to_string('pages/customers/actions/sections/section4/partials/timeline_bio_psycho_social.html', context)
+        return HttpResponse(html, status=400)
+    
+
+def delete_brief_behavioral_health_file_view(request, pk):
+    try:
+        file = get_object_or_404(EncryptedFile, pk=pk)
+        customer = file.belongs_to  
+        file.delete()  
+
+        # Renderizar la plantilla actualizada
+        context = _show_files_filter(request, customer.pk)
+        context['tags'] = 'success'
+        context['tag_message'] = 'File deleted successfully!'
+        context['message'] = 'File deleted successfully!'
+        context['brief_behavioral_health_assessments'] = BriefBehavioralHealth.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
+        html = render_to_string('pages/customers/actions/sections/section4/partials/timeline_brief_behavioral_health.html', context)
+        
+        return HttpResponse(html, status=200)
+    except Exception as e:
+        # Renderizar la plantilla con un mensaje de error
+        context = _show_files_filter(request, file.belongs_to.pk)
+        context['tags'] = 'error'
+        context['tag_message'] = 'Error deleting file!'
+        context['brief_behavioral_health_assessments'] = BriefBehavioralHealth.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
+        html = render_to_string('pages/customers/actions/sections/section4/partials/timeline_brief_behavioral_health.html', context)
+        return HttpResponse(html, status=400)
+
+
+def delete_discharge_summary_file_view(request, pk):
+    try:
+        file = get_object_or_404(EncryptedFile, pk=pk)
+        customer = file.belongs_to  
+        file.delete()  
+
+        # Renderizar la plantilla actualizada
+        context = _show_files_filter(request, customer.pk)
+        context['tags'] = 'success'
+        context['tag_message'] = 'File deleted successfully!'
+        context['message'] = 'File deleted successfully!'
+        context['discharge_sumaries'] = DischargeSummary.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
+        html = render_to_string('pages/customers/actions/sections/section4/partials/timeline_discharge_summary.html', context)
+        
+        return HttpResponse(html, status=200)
+    except Exception as e:
+        # Renderizar la plantilla con un mensaje de error
+        context = _show_files_filter(request, file.belongs_to.pk)
+        context['tags'] = 'error'
+        context['tag_message'] = 'Error deleting file!'
+        context['discharge_sumaries'] = DischargeSummary.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
+        html = render_to_string('pages/customers/actions/sections/section4/partials/timeline_discharge_summary.html', context)
+        return HttpResponse(html, status=400)
 
 
 @login_required(login_url='/login')

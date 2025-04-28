@@ -25,6 +25,10 @@ urlpatterns = [
     # Section 4
     path('customer-section_four/<int:pk>/', section_four_view, name='section_four_view'),
     path('customer-section_four-history-suicide-risk/<int:pk>/', section_four_document_suicida_risk_history, name='section_four_document_suicida_risk_history'),
+    path('customer-section_four-history-behavioral-health/<int:pk>/', section_four_document_behavioral_health_history, name='section_four_document_behavioral_health_history'),
+    path('customer-section_four-history-bio-psycho-social/<int:pk>/', section_four_document_bio_psycho_social_history, name='section_four_document_bio_psycho_social_history'),
+    path('customer-section_four-history-brief-behavioral-health/<int:pk>/', section_four_document_brief_behavioral_health_history, name='section_four_document_brief_behavioral_health_history'),
+    path('customer-section_four-history-discharge-summary/<int:pk>/', section_four_document_discharge_summary_history, name='section_four_document_discharge_summary_history'),
     
     # Section 5
     # path('customer-section_five/<int:pk>/', section_five_view, name='section_five_view'),
