@@ -404,6 +404,18 @@ class GroupCustomer(models.Model):
     def __str__(self):
         return f"{self.customer.full_name}"
     
+class IndividualTherapy(models.Model):
+    therapist = models.ForeignKey(User, on_delete=models.CASCADE, related_name='individual_therapists')
+    customer = models.OneToOneField(Customer, on_delete=models.CASCADE, related_name='individual_therapist')
+    
+    class Meta:
+        verbose_name = "IndividualTherapy"
+        verbose_name_plural = "IndividualTherapies"
+
+    def __str__(self):
+        return f"{self.customer.full_name} managed by {self.therapist.first_name}"
+
+
 class GroupsPSRSections(models.Model):
     therapist_pk = models.CharField(max_length=20)
     therapist_full_name = models.CharField(max_length=80)

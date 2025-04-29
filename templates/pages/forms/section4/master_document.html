@@ -59,7 +59,7 @@
         </div>
         <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
             <div class="form-check d-flex align-items-center">
-                <input checked disabled="disabled" class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault3" />
+                <input {% if is_in_group_customer %} checked {% endif %} disabled="disabled" class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault3" />
                 <label for="flexCheckDefault3" class="text-wrap">
                     PSR
                 </label>
@@ -75,7 +75,7 @@
         </div>
         <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
             <div class="form-check d-flex align-items-center">
-                <input checked disabled="disabled" class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault3" />
+                <input {% if is_in_individual_therapy %} checked {% endif %} disabled="disabled" class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault3" />
                 <label for="flexCheckDefault3" class="text-wrap">
                     Individual Therapy
                 </label>
@@ -131,18 +131,20 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Client and Facilitator</td>
-                <td>PSR</td>
-                <td>16 units daily, four times per week </td>
-            </tr>
-            <tr>
-                <td>Client and Therapist</td>
-                <td>Inidividual Therapy</td>
-                <td>1 hour per week</td>
-            </tr>
-            <tr>
-            </tr>
+            {% if is_in_group_customer %}
+                <tr>
+                    <td>Client and Facilitator</td>
+                    <td>PSR</td>
+                    <td>16 units daily, four times per week </td>
+                </tr>
+            {% endif %}
+            {% if is_in_individual_therapy %}
+                <tr>
+                    <td>Client and Therapist</td>
+                    <td>Inidividual Therapy</td>
+                    <td>1 hour per week</td>
+                </tr>
+            {% endif %}
         </tbody>
     </table>
 

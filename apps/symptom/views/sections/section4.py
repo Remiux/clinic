@@ -9,12 +9,22 @@ from apps.symptom.utils import encrypt_file, decrypt_file
 
 
 @login_required(login_url='/login')
-def section_four_view(request,pk):
+def section_four_view(request, pk):
+    customer = get_object_or_404(Customer, pk=pk)
+    
+    # Verificar si el cliente está asociado a alguna IndividualTherapy
+    is_in_individual_therapy = IndividualTherapy.objects.filter(customer=customer).exists()
+    
+    # Verificar si el cliente está asociado a algún GroupCustomer
+    is_in_group_customer = GroupCustomer.objects.filter(customer=customer).exists()
+    
     context = {
-        'customer':get_object_or_404(Customer, pk=pk),
-        'agency': Agency.objects.first()
-        }
-    return render(request,'pages/customers/actions/sections/section4/index.html', context)
+        'customer': customer,
+        'agency': Agency.objects.first(),
+        'is_in_individual_therapy': is_in_individual_therapy,
+        'is_in_group_customer': is_in_group_customer,
+    }
+    return render(request, 'pages/customers/actions/sections/section4/index.html', context)
 
 @login_required(login_url='/login')
 def section_four_document_suicida_risk_history(request,pk):
