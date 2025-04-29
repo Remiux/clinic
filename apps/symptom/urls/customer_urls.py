@@ -15,4 +15,11 @@ urlpatterns = [
     path('customer-sign/<int:pk>/', sign_customer_view, name='sign_customer_view'),
     path('customer-delete-psichiatric-evaluation-file/<int:pk>/', delete_psichiatric_evaluation_file_view, name='delete_psichiatric_evaluation_file_view'),
     path('customer-delete-yearly-physical-file/<int:pk>/', delete_yearly_physical_file_view, name='delete_yearly_physical_file_view'),
+    path('customer-delete-suicidal-risk-file/<int:pk>/', delete_suicide_risk_file_view, name='delete_suicide_risk_file_view'),
+    path('customer-delete-behavioral-health-file/<int:pk>/', delete_behavioral_health_file_view, name='delete_behavioral_health_file_view'),
+    path('customer-delete-bio-psycho-social-assessments-file/<int:pk>/', delete_bio_psycho_social_assessments_file_view, name='delete_bio_psycho_social_assessments_file_view'),
+    path('customer-delete-brief-behavioral-health-file/<int:pk>/', delete_brief_behavioral_health_file_view, name='delete_brief_behavioral_health_file_view'),
+    path('customer-delete-discharge-summary-file/<int:pk>/', delete_discharge_summary_file_view, name='delete_discharge_summary_file_view'),
+    
+    
 ]

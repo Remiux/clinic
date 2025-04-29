@@ -12,7 +12,7 @@
     </script>
 {% endif %}
 
-{% for file in paginator|exclude_elegibility_files|exclude_psychiatric_evaluation_files|exclude_yearly_physical_files %}
+{% for file in paginator|exclude_elegibility_files|exclude_psychiatric_evaluation_files|exclude_yearly_physical_files|exclude_suicide_risk_assessment_files|exclude_behavioral_health_evaluation_files|exclude_bio_psycho_social_assessment_files|exclude_brief_behavioral_health_assessment_files|exclude_discharge_summary_files %}
     <div class="col-6 col-sm-4 col-xl-3">
         <!--begin::Card-->
         <div class="card h-100 position-relative">

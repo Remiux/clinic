@@ -4,7 +4,7 @@
     <!--begin::Customers-->
     {% for group in paginator %}
     <!--begin::Col-->
-      <div class="col-sm-6 col-xxl-4">
+      <div class="col-sm-6 col-md-4 col-xxl-3">
         <!--begin::Card-->
         <div class="card  shadow h-100 position-relative">
           
@@ -15,42 +15,35 @@
             
             <!--end::Avatar-->
             <!--begin::Name-->
-            <a 
-            {% comment %} href="{% url "detail_customer_view" pk=customer.pk %}"  {% endcomment %}
-            class="fs-4 text-gray-800 text-hover-primary fw-bold ">{{group.therapist.first_name}} {{group.therapist.last_name}}</a>
-            <div class="p-2 w-100">
-              <div class="w-100  d-flex flex-row align-items-center gap-2 ">
-                {% if group.type %}
-                  <i class="text-warning fs-2 bi-sunrise-fill "></i><span >AM</a>
-                  {% else %}
-                  <i class="text-danger fs-2 bi-sunset-fill "></i><span >PM</a>
-                {% endif %}
-                
-              </div>
-              
-            </div>
             
-            <!--end::Name-->
-            <!--begin::Position-->
-            <div class="d-flex flex-column fw-semibold bg-body border  mb-4 gap-2 w-100 p-2 border-2 rounded overflow-hidden overflow-y-auto h-150px">
-              {% for customer in group.group_customer.all %}
-                <div class="d-flex flex-row align-items-center gap-2">
-                  <i class="fs-2 bi-person-circle "></i>
-                  <a href="{% url "detail_customer_view" pk=customer.customer.pk %}" 
-                  class="{% if not customer.is_active %}badge badge-light-danger {% else %} badge badge-light-primary  {% endif %}"
-                  >
-                  {{customer}}
-                  </a>
-                </div>
-              {% endfor %}
+            <div class="p-2 w-100">
+              Therapist
+              <div class="d-flex flex-row align-items-center gap-2">
+                <i class="fs-2 bi-person-circle "></i>
+                <a href="{% url "detail_user_view" pk=group.therapist.pk %}" 
+                class=" badge badge-light-primary  "
+                >
+                {{group.therapist.first_name}} {{group.therapist.first_name}}
+                </a>
+              </div>
+              Customer
+              <div class="d-flex flex-row align-items-center gap-2">
+                <i class="fs-2 bi-person-circle "></i>
+                <a href="{% url "detail_customer_view" pk=group.group_customer.all.0.pk %}" 
+                class="badge badge-light-primary "
+                >
+                {{group.group_customer.all.0}}
+                </a>
+              </div>
+             
               
             </div>
-            <!--end::Position-->
+
             
             <!--begin::Follow-->
             <div class="w-100 d-flex justify-content-end align-items-center gap-2">
               <a
-                      href="{% url "detail_therapists_groups_view" pk=group.pk %}" 
+                      {% comment %} href="{% url "detail_therapists_groups_view" pk=group.pk %}"  {% endcomment %}
                       class="badge badge-light-primary bi-eye btn btn-sm btn-outline-primary btn-flex btn-center fs-2 px-2"
                       
                       ></a>

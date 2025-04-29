@@ -12,13 +12,13 @@ from utils.paginator import _get_paginator
 def individual_terapy_view(request):
     context = _show_individual_terapy_filter(request)
     context['therapists'] = User.objects.filter(groups__name='therapist').order_by('first_name')
-    return render(request,'pages/therapistsGroup/index.html',context)
+    return render(request,'pages/indivualTherapy/index.html',context)
 
 
 @login_required(login_url='/login')
 def filter_individual_terapy_view(request):
     context=_show_individual_terapy_filter(request)
-    return render(request,'pages/therapistsGroup/GroupsCardList.html',context)
+    return render(request,'pages/indivualTherapy/GroupsCardList.html',context)
 
 def _show_individual_terapy_filter(request):
     get_copy = request.GET.copy()

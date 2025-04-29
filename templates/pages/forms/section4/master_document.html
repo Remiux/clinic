@@ -1,0 +1,149 @@
+<div class="rounded border p-4">
+    <div class="row justify-content-between text-center align-items-center">
+        <div class="col-lg-2 col-md-3 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
+            <label>Participants:</label>
+        </div>
+        <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
+            <div class="form-check d-flex align-items-center">
+                <input checked disabled="disabled" class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault1" />
+                <label for="flexCheckDefault1">
+                    Client only
+                </label>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
+            <div class="form-check d-flex align-items-center">
+                <input disabled="disabled" class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault2" />
+                <label for="flexCheckDefault2">
+                    Client and others
+                </label>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
+            <div class="form-check d-flex align-items-center">
+                <input disabled="disabled" class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault3" />
+                <label for="flexCheckDefault3" class="text-wrap">
+                    Others (Client not present)
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <c-input_text spanTitle="Specify others" disabled="disabled" inputValue="" inputType="text" >
+            </c-input_text >
+        </div>
+    </div>
+</div>
+
+<div class="rounded border p-4 mt-5">
+    <div class="row justify-content-between text-center align-items-center">
+        <div class="col-lg-2 col-md-3 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
+            <label>Level of care:</label>
+        </div>
+        <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
+            <div class="form-check d-flex align-items-center">
+                <input disabled="disabled" class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault1" />
+                <label for="flexCheckDefault1">
+                    Outpatient therapy
+                </label>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
+            <div class="form-check d-flex align-items-center">
+                <input disabled="disabled" class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault2" />
+                <label for="flexCheckDefault2">
+                    Medication Management
+                </label>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
+            <div class="form-check d-flex align-items-center">
+                <input checked disabled="disabled" class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault3" />
+                <label for="flexCheckDefault3" class="text-wrap">
+                    PSR
+                </label>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
+            <div class="form-check d-flex align-items-center">
+                <input disabled="disabled" class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault3" />
+                <label for="flexCheckDefault3" class="text-wrap">
+                    Clubhouse
+                </label>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
+            <div class="form-check d-flex align-items-center">
+                <input checked disabled="disabled" class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault3" />
+                <label for="flexCheckDefault3" class="text-wrap">
+                    Individual Therapy
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5 mb-5">
+    <div class="col-md-12">
+        <label><span class="fw-bold h4 text-decoration-underline">INITIAL DISCHARGE CRITERIA:</span></label>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <p class="lh-lg">
+            1) The client will be discharge from services upon meeting the goals and objetives proposed in the Initial Treatment Plan. <br>
+            2) Client will be able to decrease her isolation by socializing more often and implementing better communication skills. <br>
+            3) Client will learn and implement coping skills that result in a reduction of depression and anxiety.
+        </p>
+    </div>
+</div>
+
+<div class="rounded border p-4 mt-5">
+    <h4 class="text-center">Client Diagnostics</h4>
+    <table class="table table-bordered mt-3 text-center">
+        <thead>
+            <tr>
+                <th scope="col">Code</th>
+                <th scope="col">Diagnosis</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for diagnostic in customer.diagnostics.all %}
+            <tr>
+                <td>{{ diagnostic.code }}</td>
+                <td>{{ diagnostic.description }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="2" class="text-center">No hay diagnósticos disponibles para este cliente.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <table class="table table-bordered mt-10 text-center">
+        <thead>
+            <tr>
+                <th scope="col">Who will do that</th>
+                <th scope="col">Modality</th>
+                <th scope="col">Frequency</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Client and Facilitator</td>
+                <td>PSR</td>
+                <td>16 units daily, four times per week </td>
+            </tr>
+            <tr>
+                <td>Client and Therapist</td>
+                <td>Inidividual Therapy</td>
+                <td>1 hour per week</td>
+            </tr>
+            <tr>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

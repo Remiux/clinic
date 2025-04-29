@@ -1,0 +1,28 @@
+{% load static %}
+<div class="card-body">
+    <!--begin::Tab Content-->
+    <div class="tab-content">
+        <!--begin::Tab panel-->
+        <div id="kt_activity_today2" class="card-body p-0 tab-pane fade active show" role="tabpanel" aria-labelledby="kt_activity_today_tab">
+            {% include "pages/customers/actions/sections/section4/partials/timeline_behavioral_health.html" %}
+        </div>
+        <!--end::Tab panel-->
+    </div>
+    <!--end::Tab Content-->
+</div>
+
+
+<script>
+    document.addEventListener('htmx:configRequest', (event) => {
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        event.detail.headers['X-CSRFToken'] = csrfToken;
+
+        // Si el formulario contiene archivos, usa FormData
+        const form = event.target;
+        if (form.tagName === 'FORM' && form.enctype === 'multipart/form-data') {
+            const formData = new FormData(form);
+            event.detail.body = formData;
+            event.detail.headers['Content-Type'] = null; // Deja que el navegador maneje el encabezado
+        }
+    });
+</script>
