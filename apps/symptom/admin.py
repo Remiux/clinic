@@ -20,6 +20,10 @@ admin.site.register(BioPsychoSocial)
 admin.site.register(BriefBehavioralHealth)
 admin.site.register(DischargeSummary)
 admin.site.register(IndividualTherapy)
+admin.site.register(FocusArea)
+admin.site.register(Goal)
+admin.site.register(Objective)
+admin.site.register(Intervention)
 
 
 class AdminGroupCustomer(admin.TabularInline):

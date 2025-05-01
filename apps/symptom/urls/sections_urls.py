@@ -30,6 +30,36 @@ urlpatterns = [
     path('customer-section_four-history-brief-behavioral-health/<int:pk>/', section_four_document_brief_behavioral_health_history, name='section_four_document_brief_behavioral_health_history'),
     path('customer-section_four-history-discharge-summary/<int:pk>/', section_four_document_discharge_summary_history, name='section_four_document_discharge_summary_history'),
     
+    # """ MASTER DOCUMENT URLS """
+    
+    # FOCUS AREAS
+    path('focus-area/add/<int:pk>/',create_focus_area, name='add_focusarea'),
+    path('focus-area/<int:pk>/edit/',edit_focus_area, name='edit_focusarea'),
+    path('focus-area/<int:pk>/delete/',delete_focus_area, name='delete_focusarea'),
+    
+    # GOALS
+    path('goal/add/<int:focus_area_id>/',create_goal, name='add_goal'),
+    path('goal/<int:pk>/edit/',edit_goal, name='edit_goal'),
+    path('goal/<int:pk>/delete/',delete_goal, name='delete_goal'),
+
+    # OBJECTIVES
+    path('objective/add/<int:goal_id>/',create_objective, name='add_objective'),
+    path('objective/<int:pk>/edit/',edit_objective, name='edit_objective'),
+    path('objective/<int:pk>/delete/',delete_objective, name='delete_objective'),
+
+    # INTERVENTIONS
+    path('intervention/add/<int:objective_id>/',create_intervention, name='add_intervention'),
+    path('intervention/<int:pk>/edit/',edit_intervention, name='edit_intervention'),
+    path('intervention/<int:pk>/delete/',delete_intervention, name='delete_intervention'),
+    
+    # Inline POSTs
+    path('goal/add/inline/<int:focus_area_id>/',create_goal_inline, name='add_goal_inline'),
+    path('objective/add/inline/<int:goal_id>/',create_objective_inline, name='add_objective_inline'),
+    path('intervention/add/inline/<int:goal_id>/',create_intervention_inline, name='add_intervention_inline'),
+    
+    # """ END MASTER DOCUMENT URLS """
+    
+    
     # Section 5
     # path('customer-section_five/<int:pk>/', section_five_view, name='section_five_view'),
     
