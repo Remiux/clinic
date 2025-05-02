@@ -1,6 +1,8 @@
 from django import forms
 from apps.symptom.models import Diagnostic, GroupCustomer, IndividualTherapy, Symptom,Insurance, Customer, EncryptedFile, TherapistsGroups
 from apps.symptom.models import Diagnostic, Symptom,Insurance, Customer, EncryptedFile, EncryptedFileUser, PsychiatricEvaluation
+from apps.symptom.models import *
+from apps.symptom.models import *
 from apps.accounts.models import User
 
 class SymptomForm(forms.ModelForm):
@@ -117,10 +119,34 @@ class FileUploadFormUser(forms.ModelForm):
                 )
 
         return cleaned_data
-
-
+    
 class IndividualTherapyForm(forms.ModelForm):
     
     class Meta:
         model = IndividualTherapy
         fields = '__all__'
+        
+""" Section 4 Forms """
+
+
+class FocusAreaForm(forms.ModelForm):
+    class Meta:
+        model = FocusArea
+        exclude = ['customer']
+
+class GoalForm(forms.ModelForm):
+    class Meta:
+        model = Goal
+        exclude = ['focus_area']
+
+class ObjectiveForm(forms.ModelForm):
+    class Meta:
+        model = Objective
+        exclude = ['goal']
+
+class InterventionForm(forms.ModelForm):
+    class Meta:
+        model = Intervention
+        exclude = ['goal']
+        
+""" End Section 4 Forms """

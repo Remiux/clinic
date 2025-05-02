@@ -4,6 +4,7 @@ from apps.accounts.models import User
 from django.utils import timezone
 import uuid
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.utils import timezone
 
 
 # Create your models here.
@@ -96,7 +97,7 @@ class Customer(models.Model):
     city = models.CharField(max_length=50)
     state = models.CharField(max_length=50)
     zip = models.CharField(max_length=50)
-    dob = models.DateField()
+    dob = models.DateField(default=timezone.now)
     gender = models.CharField(max_length=50, default='M', choices=[('M', 'MALE'), ('F', 'FEMALE')])
     ssn = models.CharField(max_length=50, unique=True)
     mma = models.CharField(max_length=50, null=True, blank=True)
@@ -370,6 +371,48 @@ class YearlyPhysical(models.Model):
 
     def __str__(self):
         return f"Yearly Physical for {self.encrypted_file.file.name}"
+
+""" Nuevos Modelos """
+class FocusArea(models.Model):
+    TIPO_CHOICES = [
+        ('PSR', 'PSR'),
+        ('Individual', 'Individual Therapy'),
+    ]
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='focus_areas')
+    title = models.CharField(max_length=100)
+    description = models.TextField(default='Just a description')
+    focus_area_type = models.CharField(max_length=20, choices=TIPO_CHOICES)
+
+    def __str__(self):
+        return f"Focus Area {self.id}: {self.title}"
+
+class Goal(models.Model):
+    focus_area = models.ForeignKey(FocusArea, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"GOAL {self.id}: {self.title}"
+
+class Objective(models.Model):
+    goal = models.ForeignKey(Goal, on_delete=models.CASCADE)
+    number = models.PositiveIntegerField()
+    description = models.TextField('Just a description')
+    open_date = models.DateField(default=timezone.now)
+    close_date = models.DateField(default=timezone.now)
+    static_text = models.TextField(default="Static text.")
+
+    def __str__(self):
+        return f"Objective {self.number} - GOAL {self.goal.id}"
+
+class Intervention(models.Model):
+    goal = models.ForeignKey(Goal, on_delete=models.CASCADE)
+    description = models.TextField('Just a description')
+
+    def __str__(self):
+        return f"Object Intervention {self.goal.id} - {self.description}"
+
+
+""" Fin nuevos modelos """
     
 class HistoricalSection1(models.Model):
     create_datetime_at = models.DateTimeField(auto_created=True,default=timezone.now)
@@ -410,7 +453,7 @@ class GroupCustomer(models.Model):
 
     def __str__(self):
         return f"{self.customer.full_name}"
-    
+
 class IndividualTherapy(models.Model):
     therapist = models.ForeignKey(User, on_delete=models.CASCADE, related_name='individual_therapists')
     customer = models.OneToOneField(Customer, on_delete=models.CASCADE, related_name='individual_customer')
