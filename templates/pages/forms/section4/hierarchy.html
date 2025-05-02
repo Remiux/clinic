@@ -51,7 +51,7 @@
             <strong>Focus Area: {{ fa.title }} ({{ fa.focus_area_type }})</strong>
             <div>
                 <!-- Botón Editar FocusArea -->
-                <button class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#modalEditFocusArea{{ fa.id }}">Edit</button>
+                <button class="badge badge-light-warning btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modalEditFocusArea{{ fa.id }}">Edit</button>
                 
                 <!-- Modal -->
                 <div class="modal fade" id="modalEditFocusArea{{ fa.id }}" tabindex="-1">
@@ -65,7 +65,7 @@
                         </div>
                         <div class="modal-body">
                         <input type="text" name="title" class="form-control mb-2" value="{{ fa.title }}" required>
-                        <textarea name="description" class="form-control mb-2" required>{{ fa.description }}</textarea>
+                        <textarea name="description" class="form-control mb-2" rows="5" required style="resize: none;">{{ fa.description }}</textarea>
                         <select name="focus_area_type" class="form-select" required>
                             <option value="PSR" {% if fa.focus_area_type == "PSR" %}selected{% endif %}>PSR</option>
                             <option value="Individual" {% if fa.focus_area_type == "Individual" %}selected{% endif %}>Individual Therapy</option>
@@ -82,7 +82,7 @@
 
                 <form action="{% url 'delete_focusarea' fa.id %}" method="post" class="d-inline">
                     {% csrf_token %}
-                    <button class="btn btn-sm btn-danger">Delete</button>
+                    <button class="badge badge-light-danger btn btn-sm btn-outline-danger">Delete</button>
                 </form>
             </div>
         </div>
@@ -167,7 +167,7 @@
                             </div>
                         </div>
                         <input type="hidden" name="static_text" value="Texto constante que nunca cambia.">
-                        <button type="submit" class="btn btn-sm btn-outline-success mt-2">+ Objective</button>
+                        <button type="submit" class="badge badge-light-success btn btn-sm btn-outline-success mt-2">+ Objective</button>
                     </form>
 
                     <!-- OBJECTIVES -->
@@ -176,10 +176,10 @@
                         
                         <li>
                             Objective {{ obj.number }} - {{ obj.description }}
-                            <div><small>Since {{ obj.open_date }} until {{ obj.close_date }}</small></div>
+                            <div class="mb-2"><small>Since {{ obj.open_date }} until {{ obj.close_date }}</small></div>
                             <div>
                                 <!-- Botón -->
-                                <button class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalEditObjective{{ obj.id }}">Edit</button>
+                                <button class="badge badge-light-warning btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modalEditObjective{{ obj.id }}">Edit</button>
 
                                 <!-- Modal -->
                                 <div class="modal fade" id="modalEditObjective{{ obj.id }}" tabindex="-1">
@@ -218,7 +218,7 @@
 
                                 <form action="{% url 'delete_objective' obj.id %}" method="post" class="d-inline">
                                     {% csrf_token %}
-                                    <button class="btn btn-sm btn-outline-danger">Delete</button>
+                                    <button class="badge badge-light-danger btn btn-sm btn-outline-danger">Delete</button>
                                 </form>
                             </div>
                         </li>
@@ -232,7 +232,7 @@
                         {% csrf_token %}
                         <input type="hidden" name="goal" value="{{ goal.id }}">
                         <textarea name="description" rows="2" required placeholder="New Intervention" class="form-control"></textarea>
-                        <button type="submit" class="btn btn-outline-primary btn-sm mt-2">+ Intervention</button>
+                        <button type="submit" class="badge badge-light-primary btn btn-sm btn-outline-primary mt-2">+ Intervention</button>
                     </form>
 
                     <!-- INTERVENCIONES -->
