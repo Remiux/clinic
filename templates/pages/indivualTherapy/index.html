@@ -37,8 +37,8 @@
                 <!--end::Menu toggle-->
                 <!--begin::Menu 1-->
                 <form 
-                hx-get="{% url 'filter_therapists_groups_view' %}" 
-                hx-target="#therapistsGroupTableResult"
+                hx-get="{% url 'filter_individual_therapy_view' %}" 
+                hx-target="#individualTherapyTableResult"
                 hx-trigger="submit"
                 hx-indicator="#spinnerFilter"
                 class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" id="kt_menu_673c0c868c157" style="" data-select2-id="select2-data-kt_menu_673c0c868c157">
@@ -56,23 +56,29 @@
                         <!--begin::Input group-->
                         <div class="mb-3">
                             <!--begin::Label-->
-                            <label class="form-label fw-semibold">Therapist first name:</label>
+                            <label class="form-label fw-semibold">Therapist:</label>
                             <!--end::Label-->
                             <!--begin::Switch-->
-                            <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
-                                <input type="text" name="therapist_first_name" class="form-control  form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="First name"  />
-                            </div>
+                            <select name="therapist"   data-control="select2" aria-label="Select a therpist..." class="form-select form-select-solid form-select-sm fw-semibold">
+                                <option value="" selected >Select a therpist...</option>    
+                                {% for therapist in therapists %}
+                                    <option value="{{therapist.pk}}" >{{therapist.first_name}} {{therapist.last_name}}</option>
+                                {% endfor %}
+                            </select>
                             
                             <!--end::Switch-->
                         </div>
                         <div class="mb-3">
                             <!--begin::Label-->
-                            <label class="form-label fw-semibold">Therapist last name:</label>
+                            <label class="form-label fw-semibold">Customer:</label>
                             <!--end::Label-->
                             <!--begin::Switch-->
-                            <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
-                                <input type="text" name="therapist_last_name" class="form-control  form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="Last name"  />
-                            </div>
+                            <select name="customer"   data-control="select2" aria-label="Select a customer..." class="form-select form-select-solid form-select-sm fw-semibold">
+                                <option value="" selected >Select a customer...</option>     
+                                {% for customer in customers %}
+                                    <option value="{{customer.pk}}" >{{customer.full_name}}</option>
+                                {% endfor %}
+                            </select>
                             
                             <!--end::Switch-->
                         </div>
@@ -122,7 +128,7 @@
         
     </div>
     <div class="col-12 ">
-        <div id="therapistsGroupTableResult">
+        <div id="individualTherapyTableResult">
             {% include "pages/indivualTherapy/GroupsCardList.html" %}
         </div>
     </div>

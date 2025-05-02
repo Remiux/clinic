@@ -1,61 +1,43 @@
 <form 
-                    hx-post="{% url 'create_individual_therapy_view' %}"
-                    hx-target="#individualTherapyTableResult"
+                    hx-post="{% url 'create_group_view' %}"
+                    hx-target="#therapistsGroupTableResult"
                     hx-trigger="submit"
                     hx-indicator="#spinnerCreate"
                     class=""
                     >
                     {% csrf_token %}    
                         <!--begin::Header-->
-                        <div class="px-7 py-5">
-                            <div class="fs-5 text-gray-900 fw-bold">Create group</div>
+                        <div class="px-7 pt-5 py-3">
+                            <div class="fs-5 text-gray-900 fw-bold">Create PSR</div>
                         </div>
                         
                         <!--end::Header-->
                         <!--begin::Form-->
-                        <div class="overflow-hidden  overflow-y-auto px-5 py-3">
+                        <div class="overflow-hidden  overflow-y-auto px-5 ">
                             <div class="mb-3">
-                                <!--begin::Label-->
-                                <label class="form-label fw-semibold">Therapist:</label>
-                                <!--end::Label-->
-                                <!--begin::Switch-->
-                                <select name="therapist" required   data-control="select2" aria-label="Select a therpist..." class="form-select form-select-solid form-select-sm fw-semibold">
-                                    <option value="" selected >Select a therpist...</option>    
-                                    {% for therapist in therapists %}
-                                        <option value="{{therapist.pk}}" >{{therapist.first_name}} {{therapist.last_name}}</option>
-                                    {% endfor %}
-                                </select>
+                                <label class="form-label fw-semibold">Header:</label>
+                                <input class="form-control  form-control-sm form-control-solid mb-3 mb-lg-0" type="text" placeholder="Header"/>
                                 {% if form.therapist.errors %}
                                     <div class="alert alert-danger mt-2 py-1 px-2">
+                                        
                                         {% for error in form.therapist.errors %}
                                             {{ error }}
                                         {% endfor %}
                                     </div>
                                 {% endif %}
-                                <!--end::Switch-->
                             </div>
                             <div class="mb-3">
-                                <!--begin::Label-->
-                                <label class="form-label fw-semibold">Customer:</label>
-                                <!--end::Label-->
-                                <!--begin::Switch-->
-                                <select name="customer"  required data-control="select2" aria-label="Select a customer..." class="form-select form-select-solid form-select-sm fw-semibold">
-                                    <option value="" selected >Select a customer...</option>     
-                                    {% for customer in customers %}
-                                        <option value="{{customer.pk}}" >{{customer.full_name}}</option>
-                                    {% endfor %}
-                                </select>
-                                {% if form.customer.errors %}
+                                <label class="form-label fw-semibold">Description:</label>
+                                <textarea class="form-control  form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="Header"></textarea>
+                                {% if form.therapist.errors %}
                                     <div class="alert alert-danger mt-2 py-1 px-2">
                                         
-                                        {% for error in form.customer.errors %}
+                                        {% for error in form.therapist.errors %}
                                             {{ error }}
                                         {% endfor %}
                                     </div>
                                 {% endif %}
-                                <!--end::Switch-->
                             </div>
-                            
                             
                             
                         </div>

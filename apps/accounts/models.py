@@ -7,4 +7,5 @@ from django.core.validators import MinValueValidator
 class User(AbstractUser):
     phone_number = models.PositiveIntegerField(blank=True, null=True)
     sign= models.ImageField(upload_to='user_sign',blank=True,null=True)
+    is_master= models.BooleanField(default=False)
     

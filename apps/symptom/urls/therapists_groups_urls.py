@@ -23,9 +23,5 @@ urlpatterns = [
     path('therapists-add-customer-assist-section/<int:pk>/', therapists_add_customer_assist_view, name='therapists_add_customer_assist_view'),
     path('therapists-customer-remove-assist-list-section/<int:pk>/', therapists_customer_remove_assist_list_view, name='therapists_customer_remove_assist_list_view'),
     path('therapists-confirm-assist-section/<int:pk>/', therapists_confirm_assist_view, name='therapists_confirm_assist_view'),
-    # Individual Therapy
-    path('individual-terapy/', individual_terapy_view, name='individual_terapy_view'),
-    path('individual-terapy-filter/', filter_individual_terapy_view, name='filter_individual_terapy_view'),
-    
-   
+
 ]

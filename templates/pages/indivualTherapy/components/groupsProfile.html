@@ -5,16 +5,7 @@
     <!--end::Pic-->
     <!--begin::Info-->
     <div class="flex-grow-1">
-        <form method="Post" action="{% url "therapists_customer_check_view" pk=group.pk %}"  class="p-5 d-flex justify-content-end">
-            {% csrf_token %}    
-            <button
-                type="submit"
-                class="badge badge-light-success bi-person-lines-fill btn btn-sm btn-outline-success btn-flex btn-center fs-2 px-2"
-                
-                >
-            <span class="fs-6 ms-2">Create new section PSR</span>
-            </button>
-        </form>
+        
        
             <div class="p-5">
                 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -38,7 +29,7 @@
                     >
                         <div id="updateTherapistGroupForm">
                         <form class="p-3"
-                        hx-post="{% url 'update_therapist_group_view' pk=group.pk %}"
+                        hx-post="{% url 'update_therapist_individual_therapy_view' pk=individual_therapy.pk %}"
                         hx-target="#updateTherapistGroupPerfil"
                         hx-trigger="submit"
                         hx-indicator="#spinnerUpdateTherapistGroup"
@@ -66,7 +57,7 @@
                 </div>
                 <div class="row mb-7" id="updateTherapistGroupPerfil">
                     
-                    {% include "pages/therapistsGroup/components/updateTherapistGroupPerfil.html" %}
+                    {% include "pages/indivualTherapy/components/updateTherapistGroupPerfil.html" %}
                     
                     
                     
@@ -79,7 +70,7 @@
                         
                     </h2>
                     <form
-                        hx-post="{% url 'update_service_group_view' pk=group.pk %}"
+                        hx-post="{% url 'update_service_individual_therapy_view' pk=individual_therapy.pk %}"
                         hx-target="#updateServiceGroupPerfil"
                         hx-trigger="submit"
                         hx-indicator="#spinnerUpdateServiceGroup"
@@ -96,76 +87,143 @@
                     
                 </div>
                 <div class="row mb-7" id="updateServiceGroupPerfil">
-                    {% include "pages/therapistsGroup/components/updateServiceGroupPerfil.html" %}
+                    {% include "pages/indivualTherapy/components/updateServiceGroupPerfil.html" %}
                 </div>
                 <div class="separator border-gray-200 mb-8"></div>
                 <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2>Customers</h2>
-                <button
-                      {% comment %} href="{% url "update_customer_view" pk=customer.pk %}"  {% endcomment %}
-                        class="badge badge-light-success bi-person-plus-fill btn btn-sm btn-outline-success btn-flex btn-center fs-2 px-2"
-                        data-kt-menu-trigger="click"
-                        data-kt-menu-placement="bottom-end"
-                      >
+                    <h2>
+                        Customer
+                        
+                    </h2>
                     
-                    </button>
-                      <div 
-                    class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" 
-                    data-kt-menu="true" 
-                    id="kt_menu_673c0c868c157" 
-                    style="" 
-                    data-select2-id="select2-data-kt_menu_673c0c868c157"
-                    >
-                        <div id="updateTherapistGroupForm">
-                        <form class="p-3"
-                        hx-post="{% url 'create_customer_group_view' pk=group.pk %}"
-                        hx-target="#customerGroupResult"
-                        hx-trigger="submit"
-                        hx-indicator="#spinnerCreateCustomerGroup"
-                        >
-                        {% csrf_token %}
-                            <div class="mb-3">
-                                <label class="form-label fw-semibold">Customer:</label>
-                                <select name="customer" required aria-label="Select a rol" data-control="select2" data-placeholder="Select a customer..." class="form-select form-select-solid form-select-sm fw-semibold">
-                                    <option value="">Select a customer...</option>
-                                    {% for customer in customers %}
-                                        <option value="{{customer.pk}}" >{{customer.case_no}}-{{customer.full_name}}-00000</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label fw-semibold">Sections for week:</label>
-                                <select name="max_sections" required  class="form-select form-select-sm fw-semibold">
-                                    
-                                    <option value=4 >4</option>
-                                    <option value=8 >8</option>
-                                    <option value=12 >12</option>
-                                    <option value=16 selected >16</option>
-                                </select>
-                            </div>
-                            <div class="mb-3 d-flex justify-content-end">
-                                <button type="submit" class="btn btn-sm btn-primary d-flex justify-content-center align-items-center " >
-                                    <span id="spinnerCreateCustomerGroup" class="htmx-indicator spinner-border spinner-border-sm me-2" ></span>
-                                    Create
-                                </button>
-                                
-                            </div>
-                        </form>
+                    
+                </div>
+                <div class="row mb-7" >
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold ">Case No</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{individual_therapy.customer.case_no}}</span>
                         </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold ">Full name</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{individual_therapy.customer.full_name}}</span>
+                        </div>
+                        <!--end::Col-->
                     </div>
                     
+                    <div class="col-sm-6 col-md-4 ">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold ">Phone number</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{individual_therapy.customer.movile}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold ">Email</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{individual_therapy.customer.email}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold ">Phone</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{individual_therapy.customer.movile}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    
+                    <div class="col-sm-6 col-md-4 ">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold ">Insure</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{individual_therapy.customer.insurance.name}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4 mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold ">Principal Diagnostic</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{individual_therapy.customer.diagnostic.code}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    
+                    
+                    
+                    <div class="col-sm-6 col-md-4 ">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold ">Gender</label>
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="fw-bold fs-6 text-gray-800">{{individual_therapy.customer.get_gender_display}}</span>
+                        </div>
+                        <!--end::Col-->
+                    </div>
+                    <div class="col-sm-6 col-md-4  mt-4 mt-sm-0"> 
+                        <!--begin::Label-->
+                        
+                        <!--end::Label-->
+                        <!--begin::Col-->
+                        <div class="col-lg-8 d-flex justify-content-sm-start justify-content-end">
+                            <a  href="{% url 'detail_customer_view' pk=individual_therapy.customer.pk %}" class="btn btn-primary fw-bold fs-6">More info</a>
+                        </div>
+                        <!--end::Col-->
+                    </div>
                 </div>
-                <div id="customerGroupResult">
-                    {% include "pages/therapistsGroup/components/customerGroupList.html" %}
+                <div class="separator border-gray-200 mb-8"></div>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>
+                        Sections
+                        
+                    </h2>
+                        <form
+                        hx-post="{% url 'create_section_individual_therapy_view' pk=individual_therapy.pk %}"
+                        hx-trigger="submit"
+                        hx-target="#sectionResults" 
+                        >
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm  btn-flex btn-success fw-bold"
+                        
+                        >
+                            Create
+                        </button>
+                        </form>
+                       
                 </div>
-                
-              
+                <div id="sectionResults">
+                    {% include "pages/indivualTherapy/components/sectionIndividualTherapyList.html" %}
+                </div>
                 
             </div>
             <!--end::Card body-->
             <!--begin::Actions-->
             
-      
+            
     </div>
     <!--end::Info-->
 </div>

@@ -4,7 +4,7 @@
     <!--end::Label-->
     <!--begin::Col-->
     <div class="col-lg-8">
-        <span class="fw-bold fs-6 text-gray-800">{{group.therapist.first_name}} {{group.therapist.last_name}}</span>
+        <span class="fw-bold fs-6 text-gray-800">{{individual_therapy.therapist.first_name}} {{individual_therapy.therapist.last_name}}</span>
     </div>
     <!--end::Col-->
 </div>
@@ -14,7 +14,7 @@
     <!--end::Label-->
     <!--begin::Col-->
     <div class="col-lg-8">
-        <span class="fw-bold fs-6 text-gray-800">{{group.therapist.username}}</span>
+        <span class="fw-bold fs-6 text-gray-800">{{individual_therapy.therapist.username}}</span>
     </div>
     <!--end::Col-->
 </div>
@@ -24,7 +24,7 @@
     <!--end::Label-->
     <!--begin::Col-->
     <div class="col-lg-8">
-        <span class="fw-bold fs-6 text-gray-800">{{group.therapist.email}}</span>
+        <span class="fw-bold fs-6 text-gray-800">{{individual_therapy.therapist.email}}</span>
     </div>
     <!--end::Col-->
 </div>
@@ -34,7 +34,7 @@
     <!--end::Label-->
     <!--begin::Col-->
     <div class="col-lg-8">
-        <span class="fw-bold fs-6 text-gray-800">{% if group.therapist.phone_number %}{{group.therapist.phone_number}}{% else %}-{% endif %}</span>
+        <span class="fw-bold fs-6 text-gray-800">{% if individual_therapy.therapist.phone_number %}{{individual_therapy.therapist.phone_number}}{% else %}-{% endif %}</span>
     </div>
     <!--end::Col-->
 </div>

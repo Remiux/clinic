@@ -2,7 +2,7 @@
   <!--begin::Products-->
   <div class="row g-6 mb-6 g-xl-9 mb-xl-9">
     <!--begin::Customers-->
-    {% for group in paginator %}
+    {% for individual_therapy in paginator %}
     <!--begin::Col-->
       <div class="col-sm-6 col-md-4 col-xxl-3">
         <!--begin::Card-->
@@ -20,30 +20,37 @@
               Therapist
               <div class="d-flex flex-row align-items-center gap-2">
                 <i class="fs-2 bi-person-circle "></i>
-                <a href="{% url "detail_user_view" pk=group.therapist.pk %}" 
+                <a href="{% url "detail_user_view" pk=individual_therapy.therapist.pk %}" 
                 class=" badge badge-light-primary  "
                 >
-                {{group.therapist.first_name}} {{group.therapist.first_name}}
+                {{individual_therapy.therapist.first_name}} {{individual_therapy.therapist.last_name}}
                 </a>
               </div>
               Customer
               <div class="d-flex flex-row align-items-center gap-2">
                 <i class="fs-2 bi-person-circle "></i>
-                <a href="{% url "detail_customer_view" pk=group.group_customer.all.0.pk %}" 
+                <a href="{% url "detail_customer_view" pk=individual_therapy.customer.pk %}" 
                 class="badge badge-light-primary "
                 >
-                {{group.group_customer.all.0}}
+                {{individual_therapy.customer.full_name}}
                 </a>
               </div>
              
-              
+              <div class="mt-1 d-flex flex-row align-items-center gap-2 ">
+                {% if individual_therapy.type %}
+                  <i class="text-warning fs-2 bi-sunrise-fill "></i><span >AM</a>
+                  {% else %}
+                  <i class="text-danger fs-2 bi-sunset-fill "></i><span >PM</a>
+                {% endif %}
+                
+              </div>
             </div>
 
             
             <!--begin::Follow-->
             <div class="w-100 d-flex justify-content-end align-items-center gap-2">
               <a
-                      {% comment %} href="{% url "detail_therapists_groups_view" pk=group.pk %}"  {% endcomment %}
+                      href="{% url "detail_individual_therapy_view" pk=individual_therapy.pk %}" 
                       class="badge badge-light-primary bi-eye btn btn-sm btn-outline-primary btn-flex btn-center fs-2 px-2"
                       
                       ></a>
@@ -132,3 +139,15 @@
   
   <!--end::Products-->
 </div>
+{% if error %}
+        <script>                
+            Swal.fire({
+                position: "top-center",
+                icon: '{% if "error" in tags %}error{% elif "success" in tags %}success{% elif "info" in tags %}info{% elif "warning" in tags %}warning{% else %}question{% endif %}',
+                title: "{{error}}",
+                showConfirmButton: false,
+                timer: 3000
+            });
+        </script>
+
+    {% endif %}

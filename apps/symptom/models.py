@@ -413,7 +413,8 @@ class GroupCustomer(models.Model):
     
 class IndividualTherapy(models.Model):
     therapist = models.ForeignKey(User, on_delete=models.CASCADE, related_name='individual_therapists')
-    customer = models.OneToOneField(Customer, on_delete=models.CASCADE, related_name='individual_therapist')
+    customer = models.OneToOneField(Customer, on_delete=models.CASCADE, related_name='individual_customer')
+    type = models.BooleanField(default=True)
     
     class Meta:
         verbose_name = "IndividualTherapy"
@@ -421,6 +422,26 @@ class IndividualTherapy(models.Model):
 
     def __str__(self):
         return f"{self.customer.full_name} managed by {self.therapist.first_name}"
+    
+class IndividualTherapySection(models.Model):
+    individual_therapy_pk =  models.CharField(max_length=20)
+    therapist_pk = models.CharField(max_length=20)
+    therapist_full_name = models.CharField(max_length=80)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='customer_individual_therapy')
+    create_at = models.DateField(auto_created=True,default=timezone.now)
+    init_hour = models.TimeField(null=True, blank=True)
+    end_hour = models.TimeField(null=True, blank=True)
+    is_active= models.BooleanField(default=True)
+    points = models.PositiveIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100000)])
+    after_points = models.PositiveIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100000)])
+    before_points = models.PositiveIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100000)])
+    
+    class Meta:
+        verbose_name = "IndividualTherapySection"
+        verbose_name_plural = "IndividualTherapiesSections"
+
+    def __str__(self):
+        return f"{self.pk}"
 
 
 class GroupsPSRSections(models.Model):

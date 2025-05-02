@@ -20,6 +20,7 @@ admin.site.register(BioPsychoSocial)
 admin.site.register(BriefBehavioralHealth)
 admin.site.register(DischargeSummary)
 admin.site.register(IndividualTherapy)
+admin.site.register(IndividualTherapySection)
 
 
 class AdminGroupCustomer(admin.TabularInline):

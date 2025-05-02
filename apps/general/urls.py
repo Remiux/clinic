@@ -16,4 +16,6 @@ urlpatterns = [
     path('', include('apps.symptom.urls.diagnostic_urls')),
     path('', include('apps.symptom.urls.sections_urls')),
     path('', include('apps.symptom.urls.therapists_groups_urls')),
+    path('', include('apps.symptom.urls.individual_therapy_urls')),
+    
 ]

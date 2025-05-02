@@ -1,4 +1,5 @@
-from apps.symptom.models import Customer, Diagnostic, Symptom,Insurance, EncryptedFile, TherapistsGroups, EncryptedFileUser
+from apps.accounts.models import User
+from apps.symptom.models import Customer, Diagnostic, IndividualTherapy, Symptom,Insurance, EncryptedFile, TherapistsGroups, EncryptedFileUser
 import django_filters
 from django.db.models.functions import Substr, Length
 
@@ -87,3 +88,12 @@ class TherapistsGroupsFilter(django_filters.FilterSet):
     class Meta:
         model = TherapistsGroups
         fields = ['therapist_first_name','therapist_last_name','section']
+    
+
+class IndividualTherapyFilter(django_filters.FilterSet):
+    customer = django_filters.ModelChoiceFilter(queryset=Customer.objects.all())
+    therapist = django_filters.ModelChoiceFilter(queryset=User.objects.all())
+    
+    class Meta:
+        model = IndividualTherapy
+        fields = ['therapist','customer']

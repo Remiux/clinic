@@ -1,5 +1,5 @@
 from django import forms
-from apps.symptom.models import Diagnostic, GroupCustomer, Symptom,Insurance, Customer, EncryptedFile, TherapistsGroups
+from apps.symptom.models import Diagnostic, GroupCustomer, IndividualTherapy, Symptom,Insurance, Customer, EncryptedFile, TherapistsGroups
 from apps.symptom.models import Diagnostic, Symptom,Insurance, Customer, EncryptedFile, EncryptedFileUser, PsychiatricEvaluation
 from apps.accounts.models import User
 
@@ -79,6 +79,8 @@ class TherapistsGroupsForm(forms.ModelForm):
         model = TherapistsGroups
         fields = '__all__'
 
+
+
 class GroupCustomerForm(forms.ModelForm):
     
     class Meta:
@@ -117,3 +119,8 @@ class FileUploadFormUser(forms.ModelForm):
         return cleaned_data
 
 
+class IndividualTherapyForm(forms.ModelForm):
+    
+    class Meta:
+        model = IndividualTherapy
+        fields = '__all__'
