@@ -32,6 +32,21 @@ def section_four_view(request, pk):
     }
     return render(request, 'pages/customers/actions/sections/section4/index.html', context)
 
+def reload_data(request, pk):
+    customer = get_object_or_404(Customer, pk=pk)
+    focus_areas = FocusArea.objects.prefetch_related('goal_set__objective_set', 'goal_set__intervention_set')
+    
+    context = {
+        'customer': customer,
+        'focus_areas': focus_areas,
+        'goal_form': GoalForm(),
+        'objective_form': ObjectiveForm(),
+        'intervention_form': InterventionForm(),
+    }
+    
+    return render(request, 'pages/forms/section4/partials/focus_area.html', context)
+    
+
 
 @login_required(login_url='/login')
 def section_four_document_suicida_risk_history(request,pk):
@@ -93,6 +108,7 @@ def section_four_document_discharge_summary_history(request,pk):
 def create_focus_area(request, pk):
     customer = get_object_or_404(Customer, pk=pk)
     form = FocusAreaForm(request.POST or None)
+    context = {}
     if form.is_valid():
         focus_area = form.save(commit=False)
         focus_area.customer = customer
@@ -100,24 +116,71 @@ def create_focus_area(request, pk):
         focus_area.description = form.cleaned_data['description']
         focus_area.focus_area_type = form.cleaned_data['focus_area_type']
         focus_area.save()
-        return redirect('section_four_view', pk=pk)
-    return render(request, 'pages/forms/section4/form.html', {'form': form, 'title': 'Crear FocusArea'})
+        # return redirect('section_four_view', pk=pk)
+        
+        context['tags'] = 'success'
+        context['tag_message'] = 'Focus Area created successfully!'
+        context['message'] = 'Focus Area created successfully!'
+    else:
+        context['tags'] = 'error'
+        context['tag_message'] = 'Something went wrong!'
+        
+    focus_areas = FocusArea.objects.prefetch_related('goal_set__objective_set', 'goal_set__intervention_set')
+    context['form'] = form
+    context['customer'] = customer
+    context['focus_areas'] = focus_areas
+    context['goal_form'] = GoalForm()
+    context['objective_form'] = ObjectiveForm()
+    context['intervention_form'] = InterventionForm()
+    return render(request, 'pages/forms/section4/partials/modal_form_add_focus_area.html', context)
+
 
 def edit_focus_area(request, pk):
     instance = get_object_or_404(FocusArea, pk=pk)
+    customer = instance.customer
+    context = {}
     form = FocusAreaForm(request.POST or None, instance=instance)
     if form.is_valid():
-        form.save()
-        return redirect('section_four_view', pk=instance.customer.pk)
-    return render(request, 'main/form.html', {'form': form, 'title': 'Editar FocusArea'})
+        focus_area = form.save(commit=False)
+        focus_area.customer = customer
+        focus_area.title = form.cleaned_data['title']
+        focus_area.description = form.cleaned_data['description']
+        focus_area.focus_area_type = form.cleaned_data['focus_area_type']
+        focus_area.save()
+        context['tags'] = 'success'
+        context['tag_message'] = 'Focus Area modified successfully!'
+        context['message'] = 'Focus Area modified successfully!'
+    else:
+        context['tags'] = 'error'
+        context['tag_message'] = 'Something went wrong!'
+    
+    context['form'] = form
+    context['customer'] = customer
+    context['fa'] = instance
+    
+    return render(request, 'pages/forms/section4/partials/modal_form_edit_focus_area.html', context)
 
 def delete_focus_area(request, pk):
     instance = get_object_or_404(FocusArea, pk=pk)
     customer_pk = instance.customer.pk
+    context = {}
     if request.method == 'POST':
         instance.delete()
-        return redirect('section_four_view', pk=instance.customer.pk)
-    return render(request, 'main/confirm_delete.html', {'object': instance})
+        context['tags'] = 'success'
+        context['tag_message'] = 'Focus Area deleted successfully!'
+        context['message'] = 'Focus Area deleted successfully!'
+    else:
+        context['tags'] = 'error'
+        context['tag_message'] = 'Something went wrong!'
+    
+    focus_areas = FocusArea.objects.prefetch_related('goal_set__objective_set', 'goal_set__intervention_set')
+    context['focus_areas'] = focus_areas
+    context['goal_form'] = GoalForm()
+    context['objective_form'] = ObjectiveForm()
+    context['intervention_form'] = InterventionForm()
+    
+    return render(request, 'pages/forms/section4/partials/focus_area.html', context)    
+
 
 # GOAL
 def create_goal(request, focus_area_id):
@@ -129,30 +192,52 @@ def create_goal(request, focus_area_id):
         goal.title = form.cleaned_data['title']
         form.save()
         return redirect('section_four_view', pk=focus_area.customer.pk)
-    print(form.errors)
     return render(request, 'main/form.html', {'form': form, 'title': 'Crear Goal'})
 
 def edit_goal(request, pk):
     instance = get_object_or_404(Goal, pk=pk)
     focus_area = instance.focus_area
     customer = focus_area.customer
+    context = {}
     
     form = GoalForm(request.POST or None, instance=instance)
     if form.is_valid():
         form.save()
-        return redirect('section_four_view', pk=focus_area.customer.pk)
-    print(form.errors)
+        context['tags'] = 'success'
+        context['tag_message'] = 'Goal modified successfully!'
+        context['message'] = 'Goal modified successfully!'
+    else:
+        context['tags'] = 'error'
+        context['tag_message'] = 'Something went wrong!'
     
-    return render(request, 'main/form.html', {'form': form, 'title': 'Editar Goal'})
+    context['form'] = form
+    context['customer'] = customer
+    context['goal'] = instance
+    
+    return render(request, 'pages/forms/section4/partials/modal_form_edit_goal.html', context)
 
 def delete_goal(request, pk):
     instance = get_object_or_404(Goal, pk=pk)
     focus_area = instance.focus_area
     customer = focus_area.customer
+    context = {}
     if request.method == 'POST':
         instance.delete()
-        return redirect('section_four_view', pk=focus_area.customer.pk)
-    return render(request, 'main/confirm_delete.html', {'object': instance})
+        context['tags'] = 'success'
+        context['tag_message'] = 'Goal deleted successfully!'
+        context['message'] = 'Goal Area deleted successfully!'
+    else:
+        context['tags'] = 'error'
+        context['tag_message'] = 'Something went wrong!'
+    
+    focus_areas = FocusArea.objects.prefetch_related('goal_set__objective_set', 'goal_set__intervention_set')
+    context['customer'] = customer
+    context['focus_areas'] = focus_areas
+    context['goal_form'] = GoalForm()
+    context['objective_form'] = ObjectiveForm()
+    context['intervention_form'] = InterventionForm()
+    
+    return render(request, 'pages/forms/section4/partials/focus_area.html', context)
 
 
 # OBJECTIVE
@@ -221,12 +306,27 @@ def delete_intervention(request, pk):
 def create_goal_inline(request, focus_area_id):
     focus_area = get_object_or_404(FocusArea, pk=focus_area_id)
     customer = focus_area.customer
+    context = {}
     form = GoalForm(request.POST)
     if form.is_valid():
         goal = form.save(commit=False) 
         goal.focus_area = focus_area 
         goal.save()
-    return redirect('section_four_view', pk=customer.pk)
+        context['tags'] = 'success'
+        context['tag_message'] = 'Goal created successfully!'
+        context['message'] = 'Goal created successfully!'
+    else:
+        context['tags'] = 'error'
+        context['tag_message'] = 'Something went wrong!'
+    
+    focus_areas = FocusArea.objects.prefetch_related('goal_set__objective_set', 'goal_set__intervention_set')
+    context['form'] = form
+    context['customer'] = customer
+    context['fa'] = focus_area
+    
+    return render(request, 'pages/forms/section4/partials/goal_creation_form.html', context)
+    
+    
 
 @require_POST
 def create_objective_inline(request, goal_id):

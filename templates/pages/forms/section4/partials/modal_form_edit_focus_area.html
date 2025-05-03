@@ -1,0 +1,85 @@
+<form hx-post="{% url 'edit_focusarea' fa.id %}" hx-target="#modal-content-replace-edit-focus-area" method="post">
+    {% csrf_token %}
+    <div class="modal-header">
+    <h5 class="modal-title">Edit FocusArea</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    </div>
+    <div class="modal-body">
+    <input type="text" name="title" class="form-control mb-2" value="{{ fa.title }}">
+    {% if form.title.errors %}
+        <div class="text-danger">
+            {% for error in form.title.errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+    {% endif %}
+    <textarea name="description" class="form-control mb-2" rows="5" style="resize: none;">{{ fa.description }}</textarea>
+    {% if form.description.errors %}
+        <div class="text-danger">
+            {% for error in form.description.errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+    {% endif %}
+    <select name="focus_area_type" class="form-select">
+        <option value="PSR" {% if fa.focus_area_type == "PSR" %}selected{% endif %}>PSR</option>
+        <option value="Individual" {% if fa.focus_area_type == "Individual" %}selected{% endif %}>Individual Therapy</option>
+    </select>
+    {% if form.focus_area_type.errors %}
+        <div class="text-danger">
+            {% for error in form.focus_area_type.errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+    {% endif %}
+    </div>
+    <div class="modal-footer">
+    <button class="btn btn-success">Save</button>
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+    </div>
+
+    {% if tag_message %}
+        <script>                
+            Swal.fire({
+                position: "top-center",
+                icon: '{% if "error" in tags %}error{% elif "success" in tags %}success{% elif "info" in tags %}info{% elif "warning" in tags %}warning{% else %}question{% endif %}',
+                title: "{{tag_message}}",
+                showConfirmButton: false,
+                timer: 3000
+            });
+        </script>
+    {% endif %}
+
+    {% if message %}
+        <script>
+            // Función para cerrar el modal y luego realizar la solicitud hx-get
+            (function closeModalAndReload() {
+                // Cierra el modal utilizando Bootstrap
+                const modal = document.querySelector('.modal.show'); // Selecciona el modal abierto
+                if (modal) {
+                    const modalInstance = bootstrap.Modal.getInstance(modal);
+                    if (modalInstance) {
+                        modalInstance.hide(); // Cierra el modal
+                    }
+                }
+        
+                // Elimina el backdrop manualmente
+                const backdrop = document.querySelector('.modal-backdrop');
+                if (backdrop) {
+                    backdrop.remove();
+                }
+        
+                // Realiza la solicitud hx-get para recargar el contenedor
+                setTimeout(() => {
+                    const container = document.querySelector('#focus-area-container');
+                    if (container) {
+                        htmx.ajax('GET', '{% url "reload_data" pk=customer.pk %}', { target: '#focus-area-container' });
+                    }
+                }, 500); // Espera un breve momento para asegurarse de que el modal se cierre
+            })();
+        </script>
+    {% endif %}
+
+</form>
+
+

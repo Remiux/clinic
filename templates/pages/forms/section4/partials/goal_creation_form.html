@@ -1,0 +1,38 @@
+<form hx-post="{% url 'add_goal_inline' fa.id %}" hx-target="#goal-creation-form" method="post" class="mb-3">
+    {% csrf_token %}
+    <input type="hidden" name="focus_area" value="{{ fa.id }}">
+    <div class="input-group">
+        <input type="text" name="title" placeholder="New Goal" class="form-control">
+        <button type="submit" class="badge badge-light-success btn btn-sm btn-outline-success fs-4 px-2">+ Goal</button>
+    </div>
+    {% if form.title.errors %}
+        <div class="text-danger">
+            {% for error in form.title.errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if tag_message %}
+        <script>                
+            Swal.fire({
+                position: "top-center",
+                icon: '{% if "error" in tags %}error{% elif "success" in tags %}success{% elif "info" in tags %}info{% elif "warning" in tags %}warning{% else %}question{% endif %}',
+                title: "{{tag_message}}",
+                showConfirmButton: false,
+                timer: 3000
+            });
+        </script>
+    {% endif %}
+
+    {% if  message == "Goal created successfully!" %}
+        <div
+        hx-get="{% url 'reload_data' pk=customer.pk %}"
+        hx-target="#focus-area-container"
+        hx-trigger="load"
+        >
+        </div>
+    {% endif %}
+
+</form>
+

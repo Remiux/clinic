@@ -373,7 +373,7 @@ class FocusArea(models.Model):
     ]
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='focus_areas')
     title = models.CharField(max_length=100)
-    description = models.TextField(default='Just a description')
+    description = models.TextField(null=False, blank=False)
     focus_area_type = models.CharField(max_length=20, choices=TIPO_CHOICES)
 
     def __str__(self):
