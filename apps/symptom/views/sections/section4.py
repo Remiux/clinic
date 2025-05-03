@@ -333,12 +333,25 @@ def create_objective_inline(request, goal_id):
     goal = get_object_or_404(Goal, pk=goal_id)
     focus_area = goal.focus_area
     customer = focus_area.customer
+    context = {}
     form = ObjectiveForm(request.POST)
     if form.is_valid():
         objective = form.save(commit=False)  
         objective.goal = goal
-        objective.save()  
-    return redirect('section_four_view', pk=customer.pk)
+        objective.save() 
+        context['tags'] = 'success'
+        context['tag_message'] = 'Objective created successfully!'
+        context['message'] = 'Objective created successfully!'
+    else:
+        context['tags'] = 'error'
+        context['tag_message'] = 'Something went wrong!'
+    
+    focus_areas = FocusArea.objects.prefetch_related('goal_set__objective_set', 'goal_set__intervention_set')
+    context['form'] = form
+    context['customer'] = customer
+    context['goal'] = goal
+    
+    return render(request, 'pages/forms/section4/partials/objective_creation_form.html', context)
 
 @require_POST
 def create_intervention_inline(request, goal_id):
