@@ -1,18 +1,11 @@
-<div class="card bg-light shadow-sm">
-    <div class="card-header">
-        <h2 class="card-title fs-1">Fee Agreement</h2>
-        <div class="card-toolbar">
-            <!-- Content -->
-        </div>
-    </div>
-    <div class="card-body card-scroll h-550px">
+
         <div class="row">
             <div class="col-md-8">
-                <c-input_text spanTitle="Recipient" inputType="text" >
+                <c-input_text spanTitle="Recipient" disabled="disabled" inputValue="{{ customer.first_name }} {{ customer.last_name }}" inputType="text" >
                 </c-input_text >
             </div>
             <div class="col-md-4">
-                <c-input_text spanTitle="Case No" inputType="number" >
+                <c-input_text spanTitle="Case No" disabled="disabled" inputValue="{{ customer.case_no }}" inputType="text" >
                 </c-input_text >
             </div>
         </div>
@@ -128,35 +121,36 @@
         <div class="row mt-5">
             <div class="col-md-12 mb-5">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault6" />
+                    <input checked disabled="disabled" class="form-check-input" type="checkbox" value="" id="flexCheckDefault6" />
                     <label for="flexCheckDefault6">
                         Documents were translated to me in my native language (if needed).
                     </label>
                 </div>
             </div>
         </div>
-        
-        <div class="row mt-10">
+
+        <div class="row mt-10 mb-5 align-items-end">
             <div class="col-md-8">
-                <c-input_text inputType="text" helpText="Recipient, Parent, Legal Guardian or Authorized Representative Signature">
-                </c-input_text>
+                <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+                    <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/>
+                </div>
+                <h6 class="text-gray-900 mb-5 text-center">Recipient, Parent, Legal Guardian or Authorized Representative Signature.</h6>    
             </div>
             <div class="col-md-4">
-                <c-input_text inputType="date" helpText="Date">
+                <c-input_text inputType="date" disabled="disabled" helpText="Date" inputValue="{{customer.create_at|date:'Y-m-d'}}">
                 </c-input_text>
             </div>
         </div>
 
-        <div class="row mt-10">
+        <div class="row mt-10 align-items-end">
             <div class="col-md-8">
-                <c-input_text inputType="text" helpText="Employee Signature">
-                </c-input_text>
+                <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+                    <img class="" width="130" src="{% if user.sign %}{{user.sign.url}}{% endif %}"/>
+                </div>
+                <h6 class="text-gray-900 mb-5 text-center">Employee Signature</h6>
             </div>
             <div class="col-md-4">
-                <c-input_text inputType="date" helpText="Date">
+                <c-input_text disabled="disabled" inputType="date" helpText="Date" inputValue="{{customer.create_at|date:'Y-m-d'}}">
                 </c-input_text>
             </div>
         </div>
-
-    </div>
-</div>

@@ -4,8 +4,15 @@ from django.contrib.auth.models import Group
 from apps.accounts.filters import UserFilter
 from apps.accounts.forms.user_form import CreateForm, ProfileUpdateForm, UpdateForm
 from apps.accounts.models import User
+from apps.symptom.models import Customer, EncryptedFileUser
 from utils.paginator import _get_paginator 
 from django.contrib.auth.forms import PasswordChangeForm
+from apps.symptom.filters import EncryptedFileFilter, EncryptedFileFilterUser
+from apps.symptom.form import FileUploadForm, FileUploadFormUser
+from utils.file_extension import get_file_extension
+from apps.symptom.utils import encrypt_file, decrypt_file
+from django.http import HttpResponse
+from django.template.loader import render_to_string
 
 # Create your views here.
 @login_required(login_url='/login')
@@ -40,11 +47,27 @@ def filter_users_view(request):
 @login_required(login_url='/login')
 def detail_user_view(request,pk):
     user = get_object_or_404(User,pk=pk)
+    context = _show_files_filter(request, pk)
     
-    context={}
     if user:
         context['user']=user
     return render(request,'pages/accounts/actions/userDetail.html',context)
+
+@login_required(login_url='/login')
+def filter_files_user_view(request, pk):
+    context = _show_files_filter(request, pk)
+    return render(request, 'pages/accounts/actions/partials/files.html', context)
+
+
+def _show_files_filter(request, pk):
+    get_copy = request.GET.copy()
+    parameters = get_copy.pop('page', True) and get_copy.urlencode()
+    files = EncryptedFileFilterUser(request.GET, queryset=EncryptedFileUser.objects.filter(belongs_to=pk).order_by('-id'))
+    context = _get_paginator(request, files.qs)
+    context['user'] = get_object_or_404(User, pk=pk)
+    context['parameters'] = parameters
+    return context
+
 
 def _show_user_filter(request):
     get_copy = request.GET.copy()
@@ -120,3 +143,68 @@ def user_profile_view(request):
     context['form']=form
     context['user']=request.user
     return render(request,'pages/accounts/actions/userProfile.html',context)
+
+
+"""
+|--------------------------|
+ File Management for Users |
+|--------------------------|
+"""
+
+
+
+@login_required(login_url='/login')
+def upload_file_user(request, pk):
+    user = get_object_or_404(User, pk=pk)
+    context = {}
+    if request.method == 'POST':
+        form = FileUploadFormUser(request.POST, request.FILES)
+        if form.is_valid():
+            document = form.save(commit=False)
+            document.uploaded_by = request.user
+            document.belongs_to = user
+            document.file_type = get_file_extension(request.FILES.get('file'))
+            # Leer y encriptar el archivo
+            file = request.FILES.get('file')
+            encrypted_data = encrypt_file(file.read())
+            # Asignar el archivo encriptado al campo correspondiente
+            document.encrypted_file = encrypted_data
+            
+            document.save()
+            
+            
+            context['tags'] = 'success'
+            context['tag_message'] = 'File uploaded successfully!'
+            context['message'] = 'File uploaded successfully!'
+        else:
+            context['tags'] = 'error'
+            context['tag_message'] = 'Error uploading file!'
+        
+    context['user'] = user
+    context['form'] = form
+    
+    
+    return render(request, 'pages/accounts/actions/partials/modal_form.html', context)
+
+
+@login_required(login_url='/login')
+def delete_file_user_view(request, pk):
+    try:
+        file = get_object_or_404(EncryptedFileUser, pk=pk)
+        user = file.belongs_to  
+        file.delete()  
+
+        # Renderizar la plantilla actualizada
+        context = _show_files_filter(request, user.pk)
+        context['tags'] = 'success'
+        context['tag_message'] = 'File deleted successfully!'
+        context['message'] = 'File deleted successfully!'
+        html = render_to_string('pages/accounts/actions/partials/files.html', context)
+        return HttpResponse(html, status=200)
+    except Exception as e:
+        # Renderizar la plantilla con un mensaje de error
+        context = _show_files_filter(request, file.belongs_to.pk)
+        context['tags'] = 'error'
+        context['tag_message'] = 'Error deleting file!'
+        html = render_to_string('pages/accounts/actions/partials/files.html', context)
+        return HttpResponse(html, status=400)

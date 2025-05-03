@@ -1,0 +1,171 @@
+{% load static %}
+<div class="d-flex flex-wrap flex-sm-nowrap">
+    <!--begin: Pic-->
+    
+    <!--end::Pic-->
+    <!--begin::Info-->
+    <div class="flex-grow-1">
+        <form method="Post" action="{% url "therapists_customer_check_view" pk=group.pk %}"  class="p-5 d-flex justify-content-end">
+            {% csrf_token %}    
+            <button
+                type="submit"
+                class="badge badge-light-success bi-person-lines-fill btn btn-sm btn-outline-success btn-flex btn-center fs-2 px-2"
+                
+                >
+            <span class="fs-6 ms-2">Create new section PSR</span>
+            </button>
+        </form>
+       
+            <div class="p-5">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>
+                        Therapist
+                        
+                    </h2>
+                    <button
+                      {% comment %} href="{% url "update_customer_view" pk=customer.pk %}"  {% endcomment %}
+                      class="badge badge-light-warning bi-pencil-square btn btn-sm btn-outline-warning btn-flex btn-center fs-2 px-2"
+                      data-kt-menu-trigger="click"
+                      data-kt-menu-placement="bottom-end"
+                      
+                      ></button>
+                      <div 
+                    class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" 
+                    data-kt-menu="true" 
+                    id="kt_menu_673c0c868c157" 
+                    style="" 
+                    data-select2-id="select2-data-kt_menu_673c0c868c157"
+                    >
+                        <div id="updateTherapistGroupForm">
+                        <form class="p-3"
+                        hx-post="{% url 'update_therapist_group_view' pk=group.pk %}"
+                        hx-target="#updateTherapistGroupPerfil"
+                        hx-trigger="submit"
+                        hx-indicator="#spinnerUpdateTherapistGroup"
+                        >
+                        {% csrf_token %}
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Therapist:</label>
+                                <select name="therapist" required aria-label="Select a therpist..." data-control="select2" data-placeholder="Select a therpist..." class="form-select form-select-solid form-select-sm fw-semibold">
+                                    <option value="">Select a therpist...</option>
+                                    {% for therapist in therapists %}
+                                        <option value="{{therapist.pk}}" >{{therapist.first_name}} {{therapist.last_name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="mb-3 d-flex justify-content-end">
+                                <button type="submit" class="btn btn-sm btn-primary d-flex justify-content-center align-items-center " >
+                                    <span id="spinnerUpdateTherapistGroup" class="htmx-indicator spinner-border spinner-border-sm me-2" ></span>
+                                    Change
+                                </button>
+                                
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-7" id="updateTherapistGroupPerfil">
+                    
+                    {% include "pages/therapistsGroup/components/updateTherapistGroupPerfil.html" %}
+                    
+                    
+                    
+                    
+                </div>
+                <div class="separator border-gray-200 mb-8"></div>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>
+                        Service
+                        
+                    </h2>
+                    <form
+                        hx-post="{% url 'update_service_group_view' pk=group.pk %}"
+                        hx-target="#updateServiceGroupPerfil"
+                        hx-trigger="submit"
+                        hx-indicator="#spinnerUpdateServiceGroup"
+                        >
+                        {% csrf_token %}
+                        <button
+                      type="submit"
+                      class="position-relative d-flex justify-content-center align-items-center badge badge-light-warning bi-pencil-square btn btn-sm btn-outline-warning btn-flex btn-center fs-2 px-2"
+
+                      >
+                      <span id="spinnerUpdateServiceGroup" class="htmx-indicator position-absolute spinner-border spinner-border" ></span>
+                    </button>
+                    </form>
+                    
+                </div>
+                <div class="row mb-7" id="updateServiceGroupPerfil">
+                    {% include "pages/therapistsGroup/components/updateServiceGroupPerfil.html" %}
+                </div>
+                <div class="separator border-gray-200 mb-8"></div>
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2>Customers</h2>
+                <button
+                      {% comment %} href="{% url "update_customer_view" pk=customer.pk %}"  {% endcomment %}
+                        class="badge badge-light-success bi-person-plus-fill btn btn-sm btn-outline-success btn-flex btn-center fs-2 px-2"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                      >
+                    
+                    </button>
+                      <div 
+                    class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" 
+                    data-kt-menu="true" 
+                    id="kt_menu_673c0c868c157" 
+                    style="" 
+                    data-select2-id="select2-data-kt_menu_673c0c868c157"
+                    >
+                        <div id="updateTherapistGroupForm">
+                        <form class="p-3"
+                        hx-post="{% url 'create_customer_group_view' pk=group.pk %}"
+                        hx-target="#customerGroupResult"
+                        hx-trigger="submit"
+                        hx-indicator="#spinnerCreateCustomerGroup"
+                        >
+                        {% csrf_token %}
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Customer:</label>
+                                <select name="customer" required aria-label="Select a rol" data-control="select2" data-placeholder="Select a customer..." class="form-select form-select-solid form-select-sm fw-semibold">
+                                    <option value="">Select a customer...</option>
+                                    {% for customer in customers %}
+                                        <option value="{{customer.pk}}" >{{customer.case_no}}-{{customer.full_name}}-00000</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Sections for week:</label>
+                                <select name="max_sections" required  class="form-select form-select-sm fw-semibold">
+                                    
+                                    <option value=4 >4</option>
+                                    <option value=8 >8</option>
+                                    <option value=12 >12</option>
+                                    <option value=16 selected >16</option>
+                                </select>
+                            </div>
+                            <div class="mb-3 d-flex justify-content-end">
+                                <button type="submit" class="btn btn-sm btn-primary d-flex justify-content-center align-items-center " >
+                                    <span id="spinnerCreateCustomerGroup" class="htmx-indicator spinner-border spinner-border-sm me-2" ></span>
+                                    Create
+                                </button>
+                                
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div id="customerGroupResult">
+                    {% include "pages/therapistsGroup/components/customerGroupList.html" %}
+                </div>
+                
+              
+                
+            </div>
+            <!--end::Card body-->
+            <!--begin::Actions-->
+            
+      
+    </div>
+    <!--end::Info-->
+</div>

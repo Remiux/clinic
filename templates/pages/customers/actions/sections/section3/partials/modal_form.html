@@ -1,0 +1,60 @@
+<form hx-post="{% url 'upload_file' pk=customer.pk %}" 
+                    hx-target="#modal-file-replace" 
+                    enctype="multipart/form-data" 
+                    method="post">
+                        {% csrf_token %}
+                        {% comment %} <input type="hidden" name="belongs_to" value="{{ customer.id }}">  <!-- Asociar al cliente actual --> {% endcomment %}
+                        <div class="mb-3">
+                            <label for="id_file" class="form-label">File</label>
+                            <input type="file" name="file" id="id_file" class="form-control">
+                            {% if form.file.errors %}
+                                <div class="text-danger">{{ form.file.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_psychiatrist" class="form-label">Psychiatrist</label>
+                            <input type="text" name="psychiatrist" id="id_psychiatrist" class="form-control" placeholder="John Doe">
+                            {% if form.psychiatrist.errors %}
+                                <div class="text-danger">{{ form.psychiatrist.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_procedence" class="form-label">Procedence</label>
+                            <select name="procedence" id="id_procedence" class="form-select">
+                                <option value="Email">Email</option>
+                                <option value="Fax">Fax</option>
+                                <option value="ClientDirectly">Client Directly</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_process_start_date" class="form-label">Document Creation Date</label>
+                            <input type="date" name="process_start_date" id="id_process_start_date" class="form-control">
+                            {% if form.process_start_date.errors %}
+                                <div class="text-danger">{{ form.process_start_date.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_observation" class="form-label">Observation</label>
+                            <textarea name="observation" id="id_observation" class="form-control" rows="3" style="resize: none;"></textarea>
+                            {% if form.observation.errors %}
+                                <div class="text-danger">{{ form.observation.errors.0 }}</div>
+                            {% endif %}
+                        </div>
+
+                        {% if tag_message %}
+                            <script>                
+                                Swal.fire({
+                                    position: "top-center",
+                                    icon: '{% if "error" in tags %}error{% elif "success" in tags %}success{% elif "info" in tags %}info{% elif "warning" in tags %}warning{% else %}question{% endif %}',
+                                    title: "{{tag_message}}",
+                                    showConfirmButton: false,
+                                    timer: 3000
+                                });
+                            </script>
+                        {% endif %}
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Upload</button>
+                        </div>
+                    </form>

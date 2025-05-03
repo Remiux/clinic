@@ -1,0 +1,23 @@
+<div id="sectionCustomerList" class="container-fluid">
+    <!--begin::Products-->
+    <div class="row  mb-6 g-3 mb-xl-9">
+      <!--begin::Customers-->
+      {% for customer in section.customer_psr_section.all %}
+        {% include "pages/therapistsGroup/actions/sections/sectionCustomerCard.html" %}
+      {% endfor %}
+    </div>
+  
+    <!--end::Products-->
+  </div>
+  {% if error_messsage %}
+        <script>                
+            Swal.fire({
+                position: "top-center",
+                icon: '{% if "error" in tags %}error{% elif "success" in tags %}success{% elif "info" in tags %}info{% elif "warning" in tags %}warning{% else %}question{% endif %}',
+                title: "{{error_messsage}}",
+                showConfirmButton: false,
+                timer: 3000
+            });
+        </script>
+
+    {% endif %}

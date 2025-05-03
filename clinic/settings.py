@@ -81,6 +81,10 @@ TEMPLATES = [
             "builtins": [
                 "django_cotton.templatetags.cotton"
             ],
+            "libraries": {
+                'format_time': 'apps.symptom.templatetags.time',
+                
+            },
         },
     },
 ]

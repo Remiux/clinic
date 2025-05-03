@@ -161,12 +161,122 @@
                 </div>
                 <!--end::Input group-->
                 
+                <div class="row mb-10">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 fw-semibold text-muted">Master</label>
+                    <!--begin::Label-->
+                    <!--begin::Label-->
+                    <div class="col-lg-8">
+                        <span class="fw-semibold fs-6 text-gray-800">
+                            {% if user.is_master %}
+                                <div class="badge badge-light-success badge-lg">enable</div>
+                            {% else %}
+                            <div class="badge badge-light-danger badge-lg">inactive</div>
+                            {% endif %}
+                        </span>
+                    </div>
+                    <!--begin::Label-->
+                </div>
+                
+
             </div>
             <!--end::Card body-->
         </div>
+        
     </div>
     
+    <script>
+        document.addEventListener('htmx:configRequest', (event) => {
+            const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+            event.detail.headers['X-CSRFToken'] = csrfToken;
     
+            // Si el formulario contiene archivos, usa FormData
+            const form = event.target;
+            if (form.tagName === 'FORM' && form.enctype === 'multipart/form-data') {
+                const formData = new FormData(form);
+                event.detail.body = formData;
+                event.detail.headers['Content-Type'] = null; // Deja que el navegador maneje el encabezado
+            }
+        });
+    </script>
   
 </div>
+<div class="col-12 mb-6 ">
+    <div class="d-flex justify-content-end align-items-center gap-2 gap-lg-3 w-100" data-select2-id="select2-data-124-ppgx">
+        <!--begin::Filter menu-->
+        <div class="m-0" data-select2-id="select2-data-123-9c37">
+            <!--begin::Menu toggle-->
+            <a href="#" class="btn btn-sm  btn-flex btn-secondary fw-bold" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+            <i class="ki-duotone ki-filter fs-6 text-muted me-1">
+                <span class="path1"></span>
+                <span class="path2"></span>
+            </i>Filter</a>
+            <!--end::Menu toggle-->
+            <!--begin::Menu 1-->
+            <form 
+            hx-get="{% url 'filter_files_user_view' pk=user.pk %}"
+            hx-target="#files-container-user"
+            hx-trigger="submit"
+            hx-indicator="#spinnerFilter"
+            class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" id="kt_menu_673c0c868c157" style="" data-select2-id="select2-data-kt_menu_673c0c868c157">
+            {% csrf_token %}    
+            <!--begin::Header-->
+                <div class="px-7 py-5">
+                    <div class="fs-5 text-gray-900 fw-bold">Filter Options</div>
+                </div>
+                <!--end::Header-->
+                <!--begin::Menu separator-->
+                <div class="separator border-gray-200"></div>
+                <!--end::Menu separator-->
+                <!--begin::Form-->
+                <div class="px-7 py-3">
+                    <!--begin::Input group-->
+                    <div class="mb-3">
+                        <!--begin::Label-->
+                        <label class="form-label fw-semibold">File Name:</label>
+                        <!--end::Label-->
+                        <input type="text" name="file" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="File Name" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">File Type:</label>
+                        <select name="file_type" class="form-select form-select-sm form-select-solid">
+                            <option select>-----------</option>
+                            <option value=".doc">DOC</option>
+                            <option value=".pdf">PDF</option>
+                            <option value=".jpg">JPG</option>
+                            <option value=".png">PNG</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Uploaded By:</label>
+                        <input type="text" name="uploaded_by" class="form-control form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="Uploaded By" />
+                    </div>
+                    <!--end::Input group-->
+                    <!--begin::Actions-->
+                    
+                    <!--begin::Actions-->
+                    <div class="d-flex justify-content-end">
+                        <button type="reset" class="btn btn-sm btn-light btn-active-light-danger me-2" >Reset</button>
+                        <button type="submit" class="btn btn-sm btn-primary d-flex justify-content-center align-items-center " >
+                            <span id="spinnerFilter" class="htmx-indicator spinner-border spinner-border-sm me-2" ></span>
+                            Apply
+                        </button>
+                    </div>
+                    <!--end::Actions-->
+                </div>
+                <!--end::Form-->
+            </form>
+            <!--end::Menu 1-->
+        </div>
+        <!--end::Filter menu-->
+        {% include "pages/accounts/actions/partials/modal.html" %}
+    </div>
+<div>
+<div id="files-container-user" class="row g-6 mt-2 mb-6">
+    {% include "pages/accounts/actions/partials/files.html" %}
+</div>
 {% endblock content %}
+
+
+
+

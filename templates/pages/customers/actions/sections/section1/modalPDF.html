@@ -1,0 +1,28 @@
+
+
+    <!-- Modal de Bootstrap -->
+    <div class="modal fade" id="uploadFileModal" tabindex="-1" aria-labelledby="uploadFileModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="uploadFileModalLabel">Create PDF</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" >
+                    <form  action="{% url "section_one_document_one_export_pdf" pk=customer.pk %}" method="post">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label for="id_process_start_date" class="form-label">Date</label>
+                            <input required type="date" value="{{customer.create_at|date:'Y-m-d'}}" name="date" id="id_process_start_date" class="form-control">  
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Create</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    

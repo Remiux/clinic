@@ -1,0 +1,13 @@
+<div class="col-sm-6 col-md-4 mb-7">
+    <!--begin::Label-->
+    <!--end::Label-->
+    <!--begin::Col-->
+    <div class="d-flex align-items-center gap-2">
+        {% if  individual_therapy.type %}
+            <i class="text-warning fs-1 bi-sunrise-fill "></i> AM
+            {% else %}
+            <i class="text-danger fs-1 bi-sunset-fill "></i> PM
+            {% endif %}
+    </div>
+    <!--end::Col-->
+</div>

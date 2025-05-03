@@ -15,8 +15,9 @@
           style="width: 100%"
         >
           <colgroup>
-            <col data-dt-column="0" style="width: 393.288px" />
-            <col data-dt-column="1" style="width: 293.288px" />
+            <col data-dt-column="0" style="width: 193.288px" />
+            <col data-dt-column="1" style="width: 593.288px" />
+            <col data-dt-column="1" style="width: 50px" />
             
             
           
@@ -34,11 +35,21 @@
                 
                 tabindex="0"
               >
-                <span class="dt-column-title" role="button">Code</span
+                <span class="dt-column-title text-gray-800" role="button">Code</span
                 ><span class="dt-column-order"></span>
               </th>
               
-              
+              <th
+                class="min-w-200px dt-orderable-asc dt-orderable-desc"
+                data-dt-column="1"
+                rowspan="1"
+                colspan="1"
+                
+                tabindex="0"
+              >
+                <span class="dt-column-title text-gray-800" role="button">Description</span
+                ><span class="dt-column-order"></span>
+              </th>
               <th
                 class="text-end min-w-70px dt-type-numeric dt-orderable-asc dt-orderable-desc"
                 data-dt-column="2"
@@ -47,7 +58,7 @@
                 
                 tabindex="0"
               >
-                <span class="dt-column-title" role="button">Actions</span
+                <span class="dt-column-title text-gray-800" role="button">Actions</span
                 ><span class="dt-column-order"></span>
               </th>
               
@@ -68,6 +79,15 @@
                         data-kt-ecommerce-product-filter="diagnostic_code"
                         >{{diagnostic.code}}</a
                       >
+                      <!--end::Title-->
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div class="">
+                      <!--begin::Title-->
+                      {{diagnostic.description}}
                       <!--end::Title-->
                     </div>
                   </div>

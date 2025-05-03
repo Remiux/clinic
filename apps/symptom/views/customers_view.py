@@ -2,7 +2,7 @@ from django.shortcuts import render,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from apps.symptom.filters import ClientFilter, InsuranceFilter, EncryptedFileFilter
 from apps.symptom.form import CustomerForm, CustomerSignForm
-from apps.symptom.models import Customer, Diagnostic, Insurance, Symptom
+from apps.symptom.models import *
 from utils.paginator import _get_paginator
 from utils.file_extension import get_file_extension
 from apps.symptom.models import Customer
@@ -12,6 +12,8 @@ from apps.symptom.form import FileUploadForm
 from django.contrib import messages
 from django.shortcuts import redirect
 from apps.symptom.utils import encrypt_file, decrypt_file
+from django.http import HttpResponse
+from django.template.loader import render_to_string
 
 # Create your views here.
 @login_required(login_url='/login')
@@ -63,7 +65,8 @@ def create_customer_view(request):
         if form.is_valid():
            form.save()
            context['message'] = 'Customer created successfully'
-        
+        else:
+            print(form.errors)
     context['form'] = form
     return render(request,'pages/customers/actions/create/customerCreate.html',context)
 
@@ -81,6 +84,8 @@ def update_customer_view(request,pk):
         if form.is_valid():
            form.save()
            context['message'] = 'Customer update successfully'
+        else:
+            print(form.errors)
     context['form'] = form
     return render(request,'pages/customers/actions/update/customerUpdate.html',context)
 
@@ -95,7 +100,11 @@ def detail_customer_view(request, pk):
 def upload_file(request, pk):
     customer = get_object_or_404(Customer, pk=pk)
     context = {}
+    option = 0
+    
     if request.method == 'POST':
+        if 'procedence' in request.POST:
+            option = 2
         form = FileUploadForm(request.POST, request.FILES)
         if form.is_valid():
             document = form.save(commit=False)
@@ -107,20 +116,247 @@ def upload_file(request, pk):
             encrypted_data = encrypt_file(file.read())
             # Asignar el archivo encriptado al campo correspondiente
             document.encrypted_file = encrypted_data
-            
             document.save()
+            
+            file_name = file.name
+            option = __file_type_handler(file_name, document, request)
+            
             context['tags'] = 'success'
             context['tag_message'] = 'File uploaded successfully!'
             context['message'] = 'File uploaded successfully!'
+            
         else:
             context['tags'] = 'error'
             context['tag_message'] = 'Error uploading file!'
         
     context['customer'] = customer
     context['form'] = form
+    print(option)
+    if option == 0:
+        return render(request, 'pages/customers/actions/components/partials/modal_form.html', context)
+    elif option == 2:
+        return render(request, 'pages/customers/actions/sections/section3/partials/modal_form.html', context)
+
+@login_required(login_url='/login')
+def delete_file_view(request, pk):
+    try:
+        file = get_object_or_404(EncryptedFile, pk=pk)
+        customer = file.belongs_to  
+        file.delete()  
+
+        # Renderizar la plantilla actualizada
+        context = _show_files_filter(request, customer.pk)
+        context['tags'] = 'success'
+        context['tag_message'] = 'File deleted successfully!'
+        context['message'] = 'File deleted successfully!'
+        html = render_to_string('pages/customers/actions/components/partials/files.html', context)
+        return HttpResponse(html, status=200)
+    except Exception as e:
+        # Renderizar la plantilla con un mensaje de error
+        context = _show_files_filter(request, file.belongs_to.pk)
+        context['tags'] = 'error'
+        context['tag_message'] = 'Error deleting file!'
+        html = render_to_string('pages/customers/actions/components/partials/files.html', context)
+        return HttpResponse(html, status=400)
     
     
-    return render(request, 'pages/customers/actions/components/partials/modal_form.html', context)
+@login_required(login_url='/login')
+def delete_elegibility_file_view(request, pk):
+    try:
+        file = get_object_or_404(EncryptedFile, pk=pk)
+        customer = file.belongs_to  
+        file.delete()  
+
+        # Renderizar la plantilla actualizada
+        context = _show_files_filter(request, customer.pk)
+        context['tags'] = 'success'
+        context['tag_message'] = 'File deleted successfully!'
+        context['message'] = 'File deleted successfully!'
+        context['elegibilities'] = Eligibility.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-created_at')
+        html = render_to_string('pages/customers/actions/sections/section2/partials/timeline.html', context)
+        return HttpResponse(html, status=200)
+    except Exception as e:
+        # Renderizar la plantilla con un mensaje de error
+        context = _show_files_filter(request, file.belongs_to.pk)
+        context['tags'] = 'error'
+        context['tag_message'] = 'Error deleting file!'
+        context['elegibilities'] = Eligibility.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-created_at')
+        html = render_to_string('pages/customers/actions/sections/section2/partials/timeline.html', context)
+        return HttpResponse(html, status=400)
+
+
+@login_required(login_url='/login')
+def delete_psichiatric_evaluation_file_view(request, pk):
+    try:
+        file = get_object_or_404(EncryptedFile, pk=pk)
+        customer = file.belongs_to  
+        file.delete()  
+
+        # Renderizar la plantilla actualizada
+        context = _show_files_filter(request, customer.pk)
+        context['tags'] = 'success'
+        context['tag_message'] = 'File deleted successfully!'
+        context['message'] = 'File deleted successfully!'
+        context['psichiatric_evaluations'] = PsychiatricEvaluation.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
+        html = render_to_string('pages/customers/actions/sections/section3/partials/timeline.html', context)
+        return HttpResponse(html, status=200)
+    except Exception as e:
+        # Renderizar la plantilla con un mensaje de error
+        context = _show_files_filter(request, file.belongs_to.pk)
+        context['tags'] = 'error'
+        context['tag_message'] = 'Error deleting file!'
+        context['psichiatric_evaluations'] = PsychiatricEvaluation.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
+        html = render_to_string('pages/customers/actions/sections/section3/partials/timeline.html', context)
+        return HttpResponse(html, status=400)
+
+@login_required(login_url='/login')
+def delete_yearly_physical_file_view(request, pk):
+    try:
+        file = get_object_or_404(EncryptedFile, pk=pk)
+        customer = file.belongs_to  
+        file.delete()  
+
+        # Renderizar la plantilla actualizada
+        context = _show_files_filter(request, customer.pk)
+        context['tags'] = 'success'
+        context['tag_message'] = 'File deleted successfully!'
+        context['message'] = 'File deleted successfully!'
+        context['yearly_physical'] = YearlyPhysical.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
+        html = render_to_string('pages/customers/actions/sections/section3/partials/timeline2.html', context)
+        return HttpResponse(html, status=200)
+    except Exception as e:
+        # Renderizar la plantilla con un mensaje de error
+        context = _show_files_filter(request, file.belongs_to.pk)
+        context['tags'] = 'error'
+        context['tag_message'] = 'Error deleting file!'
+        context['yearly_physical'] = YearlyPhysical.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
+        html = render_to_string('pages/customers/actions/sections/section3/partials/timeline2.html', context)
+        return HttpResponse(html, status=400)
+    
+
+def delete_suicide_risk_file_view(request, pk):
+    try:
+        file = get_object_or_404(EncryptedFile, pk=pk)
+        customer = file.belongs_to  
+        file.delete()  
+
+        # Renderizar la plantilla actualizada
+        context = _show_files_filter(request, customer.pk)
+        context['tags'] = 'success'
+        context['tag_message'] = 'File deleted successfully!'
+        context['message'] = 'File deleted successfully!'
+        context['suicide_risks'] = SuicideRisk.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
+        html = render_to_string('pages/customers/actions/sections/section4/partials/timeline_suicide_risk.html', context)
+        
+        return HttpResponse(html, status=200)
+    except Exception as e:
+        # Renderizar la plantilla con un mensaje de error
+        context = _show_files_filter(request, file.belongs_to.pk)
+        context['tags'] = 'error'
+        context['tag_message'] = 'Error deleting file!'
+        context['suicide_risks'] = SuicideRisk.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
+        html = render_to_string('pages/customers/actions/sections/section4/partials/timeline_suicidal_risk.html', context)
+        return HttpResponse(html, status=400)
+    
+
+def delete_behavioral_health_file_view(request, pk):
+    try:
+        file = get_object_or_404(EncryptedFile, pk=pk)
+        customer = file.belongs_to  
+        file.delete()  
+
+        # Renderizar la plantilla actualizada
+        context = _show_files_filter(request, customer.pk)
+        context['tags'] = 'success'
+        context['tag_message'] = 'File deleted successfully!'
+        context['message'] = 'File deleted successfully!'
+        context['behavioral_health_evaluations'] = BehavioralHealth.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
+        html = render_to_string('pages/customers/actions/sections/section4/partials/timeline_behavioral_health.html', context)
+        
+        return HttpResponse(html, status=200)
+    except Exception as e:
+        # Renderizar la plantilla con un mensaje de error
+        context = _show_files_filter(request, file.belongs_to.pk)
+        context['tags'] = 'error'
+        context['tag_message'] = 'Error deleting file!'
+        context['behavioral_health_evaluations'] = BehavioralHealth.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
+        html = render_to_string('pages/customers/actions/sections/section4/partials/timeline_suicidal_risk.html', context)
+        return HttpResponse(html, status=400)
+    
+
+def delete_bio_psycho_social_assessments_file_view(request, pk):
+    try:
+        file = get_object_or_404(EncryptedFile, pk=pk)
+        customer = file.belongs_to  
+        file.delete()  
+
+        # Renderizar la plantilla actualizada
+        context = _show_files_filter(request, customer.pk)
+        context['tags'] = 'success'
+        context['tag_message'] = 'File deleted successfully!'
+        context['message'] = 'File deleted successfully!'
+        context['bio_psycho_social_assessments'] = BioPsychoSocial.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
+        html = render_to_string('pages/customers/actions/sections/section4/partials/timeline_bio_psycho_social.html', context)
+        
+        return HttpResponse(html, status=200)
+    except Exception as e:
+        # Renderizar la plantilla con un mensaje de error
+        context = _show_files_filter(request, file.belongs_to.pk)
+        context['tags'] = 'error'
+        context['tag_message'] = 'Error deleting file!'
+        context['bio_psycho_social_assessments'] = BioPsychoSocial.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
+        html = render_to_string('pages/customers/actions/sections/section4/partials/timeline_bio_psycho_social.html', context)
+        return HttpResponse(html, status=400)
+    
+
+def delete_brief_behavioral_health_file_view(request, pk):
+    try:
+        file = get_object_or_404(EncryptedFile, pk=pk)
+        customer = file.belongs_to  
+        file.delete()  
+
+        # Renderizar la plantilla actualizada
+        context = _show_files_filter(request, customer.pk)
+        context['tags'] = 'success'
+        context['tag_message'] = 'File deleted successfully!'
+        context['message'] = 'File deleted successfully!'
+        context['brief_behavioral_health_assessments'] = BriefBehavioralHealth.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
+        html = render_to_string('pages/customers/actions/sections/section4/partials/timeline_brief_behavioral_health.html', context)
+        
+        return HttpResponse(html, status=200)
+    except Exception as e:
+        # Renderizar la plantilla con un mensaje de error
+        context = _show_files_filter(request, file.belongs_to.pk)
+        context['tags'] = 'error'
+        context['tag_message'] = 'Error deleting file!'
+        context['brief_behavioral_health_assessments'] = BriefBehavioralHealth.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
+        html = render_to_string('pages/customers/actions/sections/section4/partials/timeline_brief_behavioral_health.html', context)
+        return HttpResponse(html, status=400)
+
+
+def delete_discharge_summary_file_view(request, pk):
+    try:
+        file = get_object_or_404(EncryptedFile, pk=pk)
+        customer = file.belongs_to  
+        file.delete()  
+
+        # Renderizar la plantilla actualizada
+        context = _show_files_filter(request, customer.pk)
+        context['tags'] = 'success'
+        context['tag_message'] = 'File deleted successfully!'
+        context['message'] = 'File deleted successfully!'
+        context['discharge_sumaries'] = DischargeSummary.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
+        html = render_to_string('pages/customers/actions/sections/section4/partials/timeline_discharge_summary.html', context)
+        
+        return HttpResponse(html, status=200)
+    except Exception as e:
+        # Renderizar la plantilla con un mensaje de error
+        context = _show_files_filter(request, file.belongs_to.pk)
+        context['tags'] = 'error'
+        context['tag_message'] = 'Error deleting file!'
+        context['discharge_sumaries'] = DischargeSummary.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
+        html = render_to_string('pages/customers/actions/sections/section4/partials/timeline_discharge_summary.html', context)
+        return HttpResponse(html, status=400)
 
 
 @login_required(login_url='/login')
@@ -153,3 +389,59 @@ def sign_customer_view(request, pk):
     return render(request, 'pages/customers/actions/detail/customerGenerateSign.html', context)
 
 
+def __file_type_handler(file_name, document, request):
+    option = 0
+    if (file_name.lower() == 'elegibility' or file_name.lower() == 'elegibility.pdf'):
+        Eligibility.objects.create(
+            encrypted_file=document,
+            description="Elegibility document uploaded."
+        )
+        option = 0
+    elif (file_name.lower() == 'psychiatric_evaluation' or file_name.lower() == 'psychiatric_evaluation.pdf'):
+        psychiatrist = request.POST.get('psychiatrist')
+        procedence = request.POST.get('procedence')
+        PsychiatricEvaluation.objects.create(
+            encrypted_file=document,
+            procedence=procedence,
+            observation=request.POST.get('observation'),
+            psychiatrist=psychiatrist,
+        )
+        option = 2
+    elif (file_name.lower() == 'yearly_physical.' or file_name.lower() == 'yearly_physical.pdf'):
+        YearlyPhysical.objects.create(
+            encrypted_file=document,
+            description="Yearly Physical for document uploaded."
+        )
+        option = 0
+    elif (file_name.lower() == 'suicide_risk_assessment' or file_name.lower() == 'suicide_risk_assessment.pdf'):
+        SuicideRisk.objects.create(
+            encrypted_file=document,
+            description="Suicide Risk document uploaded."
+        )
+        option = 0
+    elif (file_name.lower() == 'behavioral_health_evaluation' or file_name.lower() == 'behavioral_health_evaluation.pdf'):
+        BehavioralHealth.objects.create(
+            encrypted_file=document,
+            description="Behavioral Health document uploaded."
+        )
+        option = 0
+    elif (file_name.lower() == 'bio_psycho_social_assessment' or file_name.lower() == 'bio_psycho_social_assessment.pdf'):
+        BioPsychoSocial.objects.create(
+            encrypted_file=document,
+            description="Bio Psycho Social Assessment document uploaded."
+        )
+        option = 0
+    elif (file_name.lower() == 'brief_behavioral_health_assessment' or file_name.lower() == 'brief_behavioral_health_assessment.pdf'):
+        BriefBehavioralHealth.objects.create(
+            encrypted_file=document,
+            description="Brief Behavioral Health document uploaded."
+        )
+        option = 0
+    elif (file_name.lower() == 'discharge_summary' or file_name.lower() == 'discharge_summary.pdf'):
+        DischargeSummary.objects.create(
+            encrypted_file=document,
+            description="Discharge Summary document uploaded."
+        )
+        option = 0
+    
+    return option

@@ -1,0 +1,154 @@
+{% if customer %}
+<div class="card mb-5 position-relative" id="customerCard-{{customer.pk}}">
+    <a href="#" 
+        class="badge badge-light-danger btn btn-sm btn-outline-danger position-absolute top-0 end-0 m-1 rounded p-2 d-flex align-items-center justify-content-center delete-btn" 
+        hx-delete="{% url 'delete_customer_group_view' pk=customer.pk %}"
+        hx-trigger="click"
+        hx-swap="outerHTML"
+        hx-target="#customerCard-{{customer.pk}}" 
+        hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}'
+        >
+            <i class="p-0 fs-2 bi-trash"></i>
+        </a>
+    <!--begin::Body-->
+    <div class="card-body pb-0 p-3 ">
+        <!--begin::Header-->
+        <div class="d-flex align-items-center">
+            <!--begin::User-->
+            <div class="d-flex align-items-start flex-grow-1">
+                <!--begin::Avatar-->
+                <div class="symbol symbol-45px me-5 px-2 border border-1 bg-dark-subtle border-dark">
+                    <i class=" bi-person-circle fs-1"></i>
+                </div>
+                <!--end::Avatar-->
+                <!--begin::Info-->
+                <div class="d-flex flex-column">
+                    <a href="{% url "detail_customer_view" pk=customer.customer.pk %}" class="text-gray-900 text-hover-primary fs-6 fw-bold">{{customer.customer.full_name}}</a>
+                    <span class=" fw-bold">
+                        <i class=" bi-telephone-fill fs-4 me-2"></i>
+                        {{customer.customer.movile}}
+                    </span>
+                </div>
+                
+                <!--end::Info-->
+            </div>
+            <!--end::User-->
+            
+        </div>
+       
+        <!--end::Header-->
+        <!--begin::Form-->
+        
+        <div id="kt_forms_widget_1_form" class="ql-quil ql-quil-plain pb-3">
+            <!--begin::Editor-->
+             <!--end::Editor-->
+            
+            <div class="separator mt-4">
+              
+            </div>
+            <span class=" mb-2 fw-bold">
+                        
+                Diagnostics:
+            </span>
+            <div class="d-flex gap-3">
+                {% if customer.customer.diagnostic %}
+                    <div class="d-flex flex-row align-items-center gap-2">
+                        <i class="fs-2 bi-clipboard2-pulse-fill "></i>
+                        <a href="{% url "detail_diagnostic_view" pk=customer.customer.diagnostic.pk %}" 
+                        class="badge badge-light-danger badge-lg"
+                        >
+                        {{customer.customer.diagnostic}}
+                        </a>
+                    </div>
+                {% endif %}
+                {% if customer.customer.diagnostic_two %}
+                    <div class="d-flex flex-row align-items-center gap-2">
+                        <i class="fs-2 bi-clipboard2-pulse-fill "></i>
+                        <a href="{% url "detail_diagnostic_view" pk=customer.customer.diagnostic.pk %}" 
+                        class="badge badge-light-danger badge-lg"
+                        >
+                        {{customer.customer.diagnostic_two}}
+                        </a>
+                    </div>
+                {% endif %}
+                {% if customer.customer.diagnostic_three %}
+                    <div class="d-flex flex-row align-items-center gap-2">
+                        <i class="fs-2 bi-clipboard2-pulse-fill "></i>
+                        <a href="{% url "detail_diagnostic_view" pk=customer.customer.diagnostic.pk %}" 
+                        class="badge badge-light-danger badge-lg"
+                        >
+                        {{customer.customer.diagnostic_three}}
+                        </a>
+                    </div>
+                {% endif %}
+                
+                
+            </div>
+            
+            <!--begin::Toolbar-->
+            <div id="kt_forms_widget_1_editor_toolbar" class="ql-toolbar d-flex flex-stack py-2 ql-snow">
+                <div class="me-2">
+                    <span class=" fw-bold">
+                        
+                        Sections for week: {{customer.max_sections}}  
+                    </span>
+                </div>
+                <div class="me-n3">
+                    
+                    <span class="btn btn-icon btn-sm m-1">
+                        {% if customer.is_active %}
+                        
+                        <div 
+                        class="position-relative badge badge-light-success btn btn-sm btn-outline-success  rounded p-2 d-flex align-items-center justify-content-center " 
+                        hx-post="{% url 'update_active_service_group_view' pk=customer.pk %}"
+                        hx-trigger="click"
+                        hx-swap="outerHTML"
+                        hx-indicator="#spinnerUpdateCustomerActiveGroup-{{customer.pk}}"
+                        hx-target="#customerCard-{{customer.pk}}" 
+                        hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}'
+                        >
+                        <i class="fs-2  bi-person-check-fill"></i>
+                        <span id="spinnerUpdateCustomerActiveGroup-{{customer.pk}}" class="htmx-indicator position-absolute spinner-border spinner-border" ></span>
+                        </div>
+                        {% else %}
+                        <div 
+                        class="position-relative badge badge-light-danger btn btn-sm btn-outline-danger  rounded p-2 d-flex align-items-center justify-content-center " 
+                        hx-post="{% url 'update_active_service_group_view' pk=customer.pk %}"
+                        hx-trigger="click"
+                        hx-swap="outerHTML"
+                        hx-target="#customerCard-{{customer.pk}}" 
+                        hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}'
+                        >
+                        <span id="spinnerUpdateCustomerActiveGroup-{{customer.pk}}" class="htmx-indicator position-absolute spinner-border spinner-border" ></span>
+                        <i class="fs-2  bi-person-x-fill"></i>
+                        </div>
+                        
+                        {% endif %}
+                        
+                        
+                    </span>
+                   
+                </div>
+            </div>
+            <!--end::Toolbar-->
+        </div>
+        <!--end::Form-->
+    </div>
+    <!--end::Body-->
+</div>
+{% else %}
+
+    {% if message %}
+        <script>                
+            Swal.fire({
+                position: "top-center",
+                icon: '{% if "error" in tags %}error{% elif "success" in tags %}success{% elif "info" in tags %}info{% elif "warning" in tags %}warning{% else %}question{% endif %}',
+                title: "{{message}}",
+                showConfirmButton: false,
+                timer: 3000
+            });
+        </script>
+
+    {% endif %}
+
+{% endif %}

@@ -26,7 +26,7 @@
           </colgroup>
           <thead>
             <tr
-              class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0"
+              class="text-start  fw-bold text-gray-800 fs-7 text-uppercase gs-0"
             >
               
               <th
@@ -37,7 +37,7 @@
                 aria-label="Product: Activate to sort"
                 tabindex="0"
               >
-                <span class="dt-column-title" role="button">Username</span
+                <span class="dt-column-title text-gray-800" role="button">Username</span
                 ><span class="dt-column-order"></span>
               </th>
               
@@ -49,7 +49,7 @@
                 aria-label="Qty: Activate to sort"
                 tabindex="0"
               >
-                <span class="dt-column-title" role="button">Email</span
+                <span class="dt-column-title text-gray-800" role="button">Email</span
                 ><span class="dt-column-order"></span>
               </th>
               <th
@@ -60,7 +60,7 @@
                 aria-label="Price: Activate to sort"
                 tabindex="0"
               >
-                <span class="dt-column-title" role="button">Phone</span
+                <span class="dt-column-title text-gray-800" role="button">Phone</span
                 ><span class="dt-column-order"></span>
               </th>
               <th
@@ -71,7 +71,7 @@
                 aria-label="SKU: Activate to sort"
                 tabindex="0"
               >
-                <span class="dt-column-title" role="button">Rol</span
+                <span class="dt-column-title text-gray-800" role="button">Rol</span
                 ><span class="dt-column-order"></span>
               </th>
               <th
@@ -82,7 +82,7 @@
                 aria-label="Status: Activate to sort"
                 tabindex="0"
               >
-                <span class="dt-column-title" role="button">Sign</span
+                <span class="dt-column-title text-gray-800" role="button">Sign</span
                 ><span class="dt-column-order"></span>
               </th>
               
@@ -94,7 +94,7 @@
                 aria-label="Status: Activate to sort"
                 tabindex="0"
               >
-                <span class="dt-column-title" role="button">Active</span
+                <span class="dt-column-title text-gray-800" role="button">Active</span
                 ><span class="dt-column-order"></span>
               </th>
               <th
@@ -104,7 +104,7 @@
                 colspan="1"
                 aria-label="Actions"
               >
-                <span class="dt-column-title">Actions</span
+                <span class="dt-column-title text-gray-800">Actions</span
                 ><span class="dt-column-order"></span>
               </th>
             </tr>
@@ -129,12 +129,12 @@
                   </div>
                 </td>
                 <td class="text-end pe-0 dt-type-numeric">
-                  <span class="fw-bold">{{user.email}}</span>
+                  <span class="fw-bold text-gray-800">{{user.email}}</span>
                 </td>
                 <td class="text-end pe-0 dt-type-numeric" data-order="22">
-                  <span class="fw-bold ms-3">{% if user.phone_number %}{{user.phone_number}}{% else %}-{% endif %}</span>
+                  <span class="fw-bold text-gray-800 ms-3">{% if user.phone_number %}{{user.phone_number}}{% else %}-{% endif %}</span>
                 </td>
-                <td class="text-end pe-0 dt-type-numeric">
+                <td class="text-end pe-0 dt-type-numeric text-gray-800">
                   {% if user.groups.all %}
                   {{user.groups.all.0}}
                   {% else %}

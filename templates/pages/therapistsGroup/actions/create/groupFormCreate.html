@@ -1,0 +1,64 @@
+<form 
+                    hx-post="{% url 'create_group_view' %}"
+                    hx-target="#therapistsGroupTableResult"
+                    hx-trigger="submit"
+                    hx-indicator="#spinnerCreate"
+                    class=""
+                    >
+                    {% csrf_token %}    
+                        <!--begin::Header-->
+                        <div class="px-7 py-5">
+                            <div class="fs-5 text-gray-900 fw-bold">Create PSR</div>
+                        </div>
+                        
+                        <!--end::Header-->
+                        <!--begin::Form-->
+                        <div class="overflow-hidden  overflow-y-auto px-5 py-3">
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Therapist:</label>
+                                <select name="therapist" required  data-control="select2" data-placeholder="Select a terpist..." class="form-select form-select-solid form-select-sm fw-semibold">
+                                    
+                                    {% for therapist in therapists %}
+                                        <option value="{{therapist.pk}}" >{{therapist.first_name}} {{therapist.last_name}}</option>
+                                    {% endfor %}
+                                </select>
+                                {% if form.therapist.errors %}
+                                    <div class="alert alert-danger mt-2 py-1 px-2">
+                                        
+                                        {% for error in form.therapist.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                            
+                        </div>
+                        
+                        <div class="px-5 py-3">
+                            <!--begin::Input group-->
+                            
+                           
+                            <!--begin::Actions-->
+                            {% comment %} {% if  message %}
+                                <div class="alert alert-success mt-2 py-1 px-2">
+                                    {{message}}
+                                </div>
+                                <div
+                                hx-get="{% url 'filter_therapists_groups_view' %}"
+                                hx-target="#therapistsGroupTableResult"
+                                hx-trigger="load"
+                                >
+                                </div>
+                            {% endif %} {% endcomment %}
+                            <div class="d-flex justify-content-end">
+                                <button type="reset" class="btn btn-sm btn-light btn-active-light-danger me-2" >Reset</button>
+                                <button type="submit" class="btn btn-sm btn-primary d-flex justify-content-center align-items-center " >
+                                    <span id="spinnerCreate" class="htmx-indicator spinner-border spinner-border-sm me-2" ></span>
+                                    Create
+                                </button>
+                            </div>
+                            <!--end::Actions-->
+                        </div>
+                        <!--end::Form-->
+                    </form>

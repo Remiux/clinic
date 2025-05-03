@@ -20,14 +20,14 @@
                         <label class="form-label ms-2 me-4">Gender</label>
             
                         <div class="form-check me-8">
-                            <input {% if customer.gerder == "M" %}checked{% else %}disabled{% endif %} class="form-check-input" type="radio" value="" id="flexCheckDefault1" name="radio2">
+                            <input {% if customer.gender == "M" %}checked{% else %}disabled{% endif %} class="form-check-input" type="radio" value="" id="flexCheckDefault1" name="radio2">
                             <label class="form-check-label" for="flexCheckDefault1">
                                 Male
                             </label>
                         </div>
                         
                         <div class="form-check">
-                            <input class="form-check-input" {% if customer.gerder == "F" %}checked{% else %}disabled{% endif %} type="radio" value="" id="flexCheckChecked2" name="radio2" >
+                            <input class="form-check-input" {% if customer.gender == "F" %}checked{% else %}disabled{% endif %} type="radio" value="" id="flexCheckChecked2" name="radio2" >
                             <label class="form-check-label" for="flexCheckChecked2">
                                 Female
                             </label>

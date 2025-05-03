@@ -1,0 +1,53 @@
+
+{% if section %}
+
+<div id="customerCard-{{section.pk}}" class="card p-3">
+    <div class="d-flex justify-content-between align-items-start gap-2 pb-2 border-bottom-2 border-light mb-4 ">
+        <div class="d-flex flex-column">
+            <span class="badge badge-light-primary p-2 fw-bold fs-4">
+                {{section.create_at}}
+            </span>
+            
+            
+        </div>
+        
+            <a 
+            hx-delete="{% url 'delete_section_individual_therapy_view' pk=section.pk %}"
+            hx-trigger="click"
+            hx-swap="outerHTML"
+            hx-target="#customerCard-{{section.pk}}" 
+            hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}'
+            class="badge badge-light-danger btn btn-sm btn-outline-danger rounded p-2 d-flex align-items-center justify-content-center delete-btn" >
+                <i class="p-0 fs-2 bi-trash"></i>
+            </a>
+            
+            
+ 
+        
+    </div>
+    <div class="d-flex justify-content-between justify-content-end align-items-center gap-2">
+            <div class="d-flex justify-content-end gap-2  mb-4" >
+                
+                <select name='option_date' class="form-select form-select-sm" aria-label="Default select example"
+                hx-get={% url "update_date_individual_therapy_view" pk=section.pk %}
+                hx-trigger='input changed,load'
+                hx-target="#ChangeDateSection"
+                > 
+                        <option value="1" selected>{% if individual_therapy.type %}8:00 AM - 9:00 AM{% else %}12:45 PM - 1:45 PM{% endif %}</option>
+                        <option value="2" >{% if individual_therapy.type %}9:00 AM - 10:00 AM{% else %}1:45 PM - 2:45 PM{% endif %}</option>
+                        <option value="3" >{% if individual_therapy.type %}10:30 AM - 11:30 AM{% else %}3:00 PM - 4:00 PM{% endif %}</option>
+                        <option value="4" >{% if individual_therapy.type %}11:30 AM - 12:30 PM{% else %}4:30 PM - 5:00 PM{% endif %}</option>
+                  </select>
+            </div>
+            <div id="ChangeDateSection">
+                {% include "pages/indivualTherapy/components/sectionIndividualTherapyDateCard.html" %}
+            <div>
+           
+           
+    </div>
+    <div class="separator ">
+                  
+    </div>
+</div>
+
+{% endif %}
