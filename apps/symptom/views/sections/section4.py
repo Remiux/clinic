@@ -254,21 +254,46 @@ def edit_objective(request, pk):
     goal = instance.goal
     focus_area = goal.focus_area
     customer = focus_area.customer
+    context = {}
     form = ObjectiveForm(request.POST or None, instance=instance)
     if form.is_valid():
         form.save()
-        return redirect('section_four_view', pk=customer.pk)
-    return render(request, 'main/form.html', {'form': form, 'title': 'Editar Objetivo'})
+        context['tags'] = 'success'
+        context['tag_message'] = 'Objective modified successfully!'
+        context['message'] = 'Objective modified successfully!'
+    else:
+        context['tags'] = 'error'
+        context['tag_message'] = 'Something went wrong!'
+    
+    context['form'] = form
+    context['customer'] = customer
+    context['obj'] = instance
+    
+    return render(request, 'pages/forms/section4/partials/modal_form_edit_objective.html', context)
 
 def delete_objective(request, pk):
     instance = get_object_or_404(Objective, pk=pk)
     goal = instance.goal
     focus_area = goal.focus_area
     customer = focus_area.customer
+    context = {}
     if request.method == 'POST':
         instance.delete()
-        return redirect('section_four_view', pk=customer.pk)
-    return render(request, 'main/confirm_delete.html', {'object': instance})
+        context['tags'] = 'success'
+        context['tag_message'] = 'Objective deleted successfully!'
+        context['message'] = 'Objective deleted successfully!'
+    else:
+        context['tags'] = 'error'
+        context['tag_message'] = 'Something went wrong!'
+    
+    focus_areas = FocusArea.objects.prefetch_related('goal_set__objective_set', 'goal_set__intervention_set')
+    context['customer'] = customer
+    context['focus_areas'] = focus_areas
+    context['goal_form'] = GoalForm()
+    context['objective_form'] = ObjectiveForm()
+    context['intervention_form'] = InterventionForm()
+    
+    return render(request, 'pages/forms/section4/partials/focus_area.html', context)
 
 
 # INTERVENTION
