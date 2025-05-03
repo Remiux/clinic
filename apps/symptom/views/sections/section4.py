@@ -310,21 +310,46 @@ def edit_intervention(request, pk):
     goal = instance.goal
     focus_area = goal.focus_area
     customer = focus_area.customer
+    context = {}
     form = InterventionForm(request.POST or None, instance=instance)
     if form.is_valid():
         form.save()
-        return redirect('section_four_view', pk=customer.pk)
-    return render(request, 'main/form.html', {'form': form, 'title': 'Editar Intervención'})
+        context['tags'] = 'success'
+        context['tag_message'] = 'Intervention modified successfully!'
+        context['message'] = 'Intervention modified successfully!'
+    else:
+        context['tags'] = 'error'
+        context['tag_message'] = 'Something went wrong!'
+    
+    context['form'] = form
+    context['customer'] = customer
+    context['interv'] = instance
+    
+    return render(request, 'pages/forms/section4/partials/modal_form_edit_intervention.html', context)
 
 def delete_intervention(request, pk):
     instance = get_object_or_404(Intervention, pk=pk)
     goal = instance.goal
     focus_area = goal.focus_area
     customer = focus_area.customer
+    context = {}
     if request.method == 'POST':
         instance.delete()
-        return redirect('section_four_view', pk=customer.pk)
-    return render(request, 'main/confirm_delete.html', {'object': instance})
+        context['tags'] = 'success'
+        context['tag_message'] = 'Intervention deleted successfully!'
+        context['message'] = 'Intervention deleted successfully!'
+    else:
+        context['tags'] = 'error'
+        context['tag_message'] = 'Something went wrong!'
+    
+    focus_areas = FocusArea.objects.prefetch_related('goal_set__objective_set', 'goal_set__intervention_set')
+    context['customer'] = customer
+    context['focus_areas'] = focus_areas
+    context['goal_form'] = GoalForm()
+    context['objective_form'] = ObjectiveForm()
+    context['intervention_form'] = InterventionForm()
+    
+    return render(request, 'pages/forms/section4/partials/focus_area.html', context)
 
 
 @require_POST
@@ -384,9 +409,22 @@ def create_intervention_inline(request, goal_id):
     focus_area = goal.focus_area
     customer = focus_area.customer
     form = InterventionForm(request.POST)
+    context = {}
     if form.is_valid():
         intervention = form.save(commit=False)
         intervention.goal = goal
         intervention.description = form.cleaned_data['description']
         intervention.save()
-    return redirect('section_four_view', pk=customer.pk)
+        context['tags'] = 'success'
+        context['tag_message'] = 'Intervention created successfully!'
+        context['message'] = 'Intervention created successfully!'
+    else:
+        context['tags'] = 'error'
+        context['tag_message'] = 'Something went wrong!'
+    
+    focus_areas = FocusArea.objects.prefetch_related('goal_set__objective_set', 'goal_set__intervention_set')
+    context['form'] = form
+    context['customer'] = customer
+    context['goal'] = goal
+    
+    return render(request, 'pages/forms/section4/partials/intervention_creation_form.html', context)

@@ -104,12 +104,9 @@
             </ul>
 
             <!-- FORMULARIO PARA CREAR INTERVENCIÓN -->
-            <form action="{% url 'add_intervention_inline' goal.id %}" method="post" class="mt-3">
-                {% csrf_token %}
-                <input type="hidden" name="goal" value="{{ goal.id }}">
-                <textarea name="description" rows="2" required placeholder="New Intervention" class="form-control"></textarea>
-                <button type="submit" class="badge badge-light-primary btn btn-sm btn-outline-primary mt-2">+ Intervention</button>
-            </form>
+            <div id="intervention-creation-form">
+                {% include "pages/forms/section4/partials/intervention_creation_form.html" %}
+            </div>
 
             <!-- INTERVENCIONES -->
             <ul class="mt-2 list-group">
@@ -126,27 +123,14 @@
 
                             <!-- Modal -->
                             <div class="modal fade" id="modalEditIntervention{{ interv.id }}" tabindex="-1">
-                                <div class="modal-dialog">
+                                <div class="modal-dialog" id="modal-content-replace-edit-intervention">
                                     <div class="modal-content">
-                                        <form action="{% url 'edit_intervention' interv.id %}" method="post">
-                                            {% csrf_token %}
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Edit Intervention</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <textarea name="description" class="form-control" required>{{ interv.description }}</textarea>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button class="btn btn-success">Save</button>
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                            </div>
-                                        </form>
+                                        {% include "pages/forms/section4/partials/modal_form_edit_intervention.html" %}
                                     </div>
                                 </div>
                             </div>
 
-                            <form action="{% url 'delete_intervention' interv.id %}" method="post" class="d-inline">
+                            <form hx-post="{% url 'delete_intervention' interv.id %}" hx-target="#focus-area-container" method="post" class="d-inline">
                                 {% csrf_token %}
                                 <button class="badge badge-light-danger btn btn-sm btn-outline-danger btn-flex btn-center fs-5 px-2">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
