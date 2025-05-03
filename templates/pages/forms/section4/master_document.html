@@ -168,25 +168,66 @@
     {% include "pages\forms\section4\partials\treatment_duration_form.html" %}
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const radioButtons = document.querySelectorAll('input[type="radio"][name="treatment_duration"]');
-        const otherInput = document.getElementById('other_duration');
+<div class="row mt-10 align-items-end">
+    <div class="col-md-4">
+        <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+            <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/>
+        </div>
+        <h6 class="text-gray-900 mb-5 text-center">Client Signature</h6>
+    </div>
+    <div class="col-md-4 ">
+        <c-input_text inputType="text" disabled="disabled" helpText="Printed Name" inputValue="{{customer.first_name}} {{customer.last_name}}">
+        </c-input_text>
+    </div>
+    <div class="col-md-4 ">
+        <c-input_text inputType="date" disabled="disabled" helpText="Date" inputValue="{{customer.create_at|date:'Y-m-d'}}">
+        </c-input_text>
+    </div>
+</div>
 
-        // Desmarcar los radio buttons al escribir en el input
-        otherInput.addEventListener('input', function () {
-            radioButtons.forEach(radio => {
-                radio.checked = false;
-            });
-        });
+<div class="row mt-10 align-items-end">
+    <div class="col-md-4">
+        <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+            {% comment %} <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/> {% endcomment %}
+        </div>
+        <h6 class="text-gray-900 mb-5 text-center">Parent/Legal Guardian Signature</h6>
+    </div>
+    <div class="col-md-4 ">
+        <c-input_text inputType="text" disabled="disabled" helpText="Printed Name/Relationship to Client" inputValue="">
+        </c-input_text>
+    </div>
+    <div class="col-md-4 ">
+        <c-input_text inputType="date" disabled="disabled" helpText="Date" inputValue="">
+        </c-input_text>
+    </div>
+</div>
 
-        // Borrar el valor del input al seleccionar un radio button
-        radioButtons.forEach(radio => {
-            radio.addEventListener('change', function () {
-                if (radio.checked) {
-                    otherInput.value = '';
-                }
-            });
-        });
-    });
-</script>
+<div class="row mt-5">
+    <div class="col-md-12">
+        <p class="lh-lg">
+            The signatures of the treating psychiatrist/LPHA, Client, and other members of this Client's
+            Treatment Team formally accept the services, goals, and objectives, as outlined within, for a persson of ({{customer.treatment_duration}}) months, unless agreed upon to extend such treatment.
+        </p>
+    </div>
+    <div class="col-md-12">
+        <strong><em style="font-style: italic;">Treatment Team Members:</em></strong>
+    </div>
+</div>
+
+
+<div class="row mt-5 align-items-end">
+    <div class="col-md-4">
+        <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+            {% comment %} <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/> {% endcomment %}
+        </div>
+        <h6 class="text-gray-900 mb-5 text-center">Therapist Signature</h6>
+    </div>
+    <div class="col-md-4 ">
+        <c-input_text inputType="text" disabled="disabled" helpText="Printed Name/Credentials" inputValue="">
+        </c-input_text>
+    </div>
+    <div class="col-md-4 ">
+        <c-input_text inputType="date" disabled="disabled" helpText="Date" inputValue="">
+        </c-input_text>
+    </div>
+</div>
