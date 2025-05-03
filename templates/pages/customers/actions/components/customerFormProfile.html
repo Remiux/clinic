@@ -213,10 +213,60 @@
                         <!--end::Label-->
                         <!--begin::Col-->
                         <div class="col-lg-8">
-                            <span class="fw-bold fs-6 text-gray-800">{{customer.insurance.name}}</span>
+                            <span class="fw-bold fs-6 text-gray-800">{{customer.insurance.name}}
+                            </span>
+                            {% if not customer.insurance.auth_required %}
+                                <span class="badge badge-light-danger">unauthorized</span>
+                                {% else %}
+                                <span class="badge badge-light-success">authorized</span>
+                            {% endif %}
                         </div>
                         <!--end::Col-->
                     </div>
+                    {% if customer.insurance.auth_required %}
+                        <div class="col-sm-6 col-md-4 mb-7">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 fw-semibold text-muted">Units</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8">
+                                {% if customer.insurance_unit < 65 %}
+                                    <span class="badge badge-light-danger px-3 fs-7">{{customer.insurance_unit}} units</span>
+                                    {% else %}
+                                    
+                                        <span class="badge badge-light-success px-3 fs-7">{{customer.insurance_unit}} units</span>
+                                  
+                                {% endif %}
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <div class="col-sm-6 col-md-4 mb-7">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 fw-semibold text-muted">Init valid date</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8">
+                                <div class="">{% if customer.insurance_init_date %}{{customer.insurance_init_date}}{% else %}
+                                    <span class="badge badge-light-danger px-3 fs-7">You need add init date</span>
+                                    {% endif %} </div>
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <div class="col-sm-6 col-md-4 mb-7">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 fw-semibold text-muted">End valid date</label>
+                            <!--end::Label-->
+                            <!--begin::Col-->
+                            <div class="col-lg-8">
+                                <div class="">{% if customer.insurance_end_date %}{{customer.insurance_end_date}}{% else %}
+                                    <span class="badge badge-light-danger px-3 fs-7">You need add end date</span>
+                                    {% endif %} </div>
+                         
+                                    
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                    {% endif %}
                     <div class="col-sm-6 col-md-4 mb-7">
                         <!--begin::Label-->
                         <label class="col-lg-4 fw-semibold text-muted">MMA</label>

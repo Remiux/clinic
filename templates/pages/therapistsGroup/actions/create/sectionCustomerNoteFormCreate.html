@@ -7,21 +7,28 @@
                     >
                     {% csrf_token %}    
                         <!--begin::Header-->
-                        <div class="px-7 py-5">
+                        <div class="px-7 pt-5 py-3">
                             <div class="fs-5 text-gray-900 fw-bold">Create PSR</div>
                         </div>
                         
                         <!--end::Header-->
                         <!--begin::Form-->
-                        <div class="overflow-hidden  overflow-y-auto px-5 py-3">
+                        <div class="overflow-hidden  overflow-y-auto px-5 ">
                             <div class="mb-3">
-                                <label class="form-label fw-semibold">Therapist:</label>
-                                <select name="therapist" required  data-control="select2" data-placeholder="Select a terpist..." class="form-select form-select-solid form-select-sm fw-semibold">
-                                    
-                                    {% for therapist in therapists %}
-                                        <option value="{{therapist.pk}}" >{{therapist.first_name}} {{therapist.last_name}}</option>
-                                    {% endfor %}
-                                </select>
+                                <label class="form-label fw-semibold">Header:</label>
+                                <input class="form-control  form-control-sm form-control-solid mb-3 mb-lg-0" type="text" placeholder="Header"/>
+                                {% if form.therapist.errors %}
+                                    <div class="alert alert-danger mt-2 py-1 px-2">
+                                        
+                                        {% for error in form.therapist.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Description:</label>
+                                <textarea class="form-control  form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="Header"></textarea>
                                 {% if form.therapist.errors %}
                                     <div class="alert alert-danger mt-2 py-1 px-2">
                                         

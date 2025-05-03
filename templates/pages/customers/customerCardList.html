@@ -28,7 +28,13 @@
                 <i class="fs-4 bi-person-badge-fill"></i> Medicaid : {{customer.medicaid_no}}
               </div>
               <div>
-                <i class="fs-4 bi-shield-check "></i> Insure : {{customer.insurance.name}}
+                <i class="fs-4 bi-shield-check "></i> Insure : {{customer.insurance.name}} 
+                {% if not customer.insurance.auth_required %}
+                <span class="badge badge-light-danger">unauthorized</span>
+                {% else %}
+                <span class="badge badge-light-success">authorized</span>
+                {% endif %}
+                
               </div>
               
               
@@ -36,20 +42,33 @@
             <!--end::Position-->
             
             <!--begin::Follow-->
-            <div class="w-100 d-flex justify-content-end align-items-center gap-2">
-              <a
-                      href="{% url "detail_customer_view" pk=customer.pk %}" 
-                      class="badge badge-light-primary bi-eye btn btn-sm btn-outline-primary btn-flex btn-center fs-5 px-2"
-                      data-kt-menu-trigger="click"
-                      data-kt-menu-placement="bottom-end"
-                      ></a>
-                    <a
-                      href="{% url "update_customer_view" pk=customer.pk %}" 
-                      class="badge badge-light-warning bi-pencil-square btn btn-sm btn-outline-warning btn-flex btn-center fs-5 px-2"
-                      data-kt-menu-trigger="click"
-                      data-kt-menu-placement="bottom-end"
-                      ></a>
+            <div class="w-100 d-flex justify-content-between">
+              {% if  customer.insurance.auth_required %}
+              {% if customer.insurance_unit < 65 %}
+              <span class="badge badge-light-danger px-3 fs-7">{{customer.insurance_unit}} units</span>
+              {% else %}
+              
+                  <span class="badge badge-light-success px-3 fs-7">{{customer.insurance_unit}} units</span>
+            
+          {% endif %}
+              {% endif %}
+              <div class="w-100 d-flex justify-content-end align-items-center gap-2">
+                <a
+                        href="{% url "detail_customer_view" pk=customer.pk %}" 
+                        class="badge badge-light-primary bi-eye btn btn-sm btn-outline-primary btn-flex btn-center fs-5 px-2"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                        ></a>
+                      <a
+                        href="{% url "update_customer_view" pk=customer.pk %}" 
+                        class="badge badge-light-warning bi-pencil-square btn btn-sm btn-outline-warning btn-flex btn-center fs-5 px-2"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                        ></a>
+              </div>
             </div>
+            
+            
             <!--end::Follow-->
           </div>
           <!--begin::Card body-->

@@ -1,3 +1,4 @@
+from apps.symptom.views.individual_therapy_view import *
 from apps.symptom.views.therapists_customer_check_section_view import *
 from apps.symptom.views.therapists_groups_view import *
 from apps.symptom.views.customers_view import *
@@ -22,5 +23,5 @@ urlpatterns = [
     path('therapists-add-customer-assist-section/<int:pk>/', therapists_add_customer_assist_view, name='therapists_add_customer_assist_view'),
     path('therapists-customer-remove-assist-list-section/<int:pk>/', therapists_customer_remove_assist_list_view, name='therapists_customer_remove_assist_list_view'),
     path('therapists-confirm-assist-section/<int:pk>/', therapists_confirm_assist_view, name='therapists_confirm_assist_view'),
-   
+
 ]

@@ -71,6 +71,18 @@ class Insurance(models.Model):
     def __str__(self):
         return self.name
     
+class Diagnostic(models.Model):
+    code = models.CharField(max_length=15, unique=True)
+    description = models.TextField(max_length=500)
+    # customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='diagnostics', null=True, blank=True)
+    
+    class Meta:
+        verbose_name = "Diagnostic"
+        verbose_name_plural = "Diagnostics"
+
+    def __str__(self):
+        return self.code
+
 
 class Customer(models.Model):
     case_no = models.CharField(max_length=40, unique=True)
@@ -121,9 +133,14 @@ class Customer(models.Model):
     discount_standard_rate = models.DecimalField(max_digits=15, decimal_places=2, default=0.00,null=True, blank=True)
     sign = models.ImageField(upload_to='customer_sign',blank=True,null=True)
     insurance = models.ForeignKey(Insurance, on_delete=models.CASCADE)
-    # diagnostic_two = models.ForeignKey(Diagnostic, on_delete=models.CASCADE,null=True,blank=True, related_name='diagnostic_two_client')
-    # diagnostic_three = models.ForeignKey(Diagnostic, on_delete=models.CASCADE,null=True,blank=True, related_name='diagnostic_three_client')
-    
+    insurance_unit = models.PositiveIntegerField(default=0)
+    insurance_init_date = models.DateField(null=True,blank=True)
+    insurance_end_date = models.DateField(null=True,blank=True)
+    diagnostic = models.ForeignKey(Diagnostic, on_delete=models.CASCADE)
+    diagnostic_two = models.ForeignKey(Diagnostic, on_delete=models.CASCADE,null=True,blank=True, related_name='diagnostic_two_client')
+    diagnostic_three = models.ForeignKey(Diagnostic, on_delete=models.CASCADE,null=True,blank=True, related_name='diagnostic_three_client')
+
+ 
     
     def save(self, *args, **kwargs):
         # if not self.code:
@@ -155,18 +172,8 @@ class Customer(models.Model):
         return age
     
 
-class Diagnostic(models.Model):
-    code = models.CharField(max_length=15, unique=True)
-    description = models.TextField(max_length=500)
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='diagnostics', null=True, blank=True)
-    
 
-    class Meta:
-        verbose_name = "Diagnostic"
-        verbose_name_plural = "Diagnostics"
 
-    def __str__(self):
-        return self.code
 
 class EncryptedFile(models.Model):
     file = models.FileField(upload_to='uploads/')
@@ -438,7 +445,7 @@ class GroupCustomer(models.Model):
     group = models.ForeignKey(TherapistsGroups, on_delete=models.CASCADE, related_name='group_customer')
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='customer_group')
     is_active = models.BooleanField(default=True)
-    max_sections = models.PositiveIntegerField( default=4 , validators=[MinValueValidator(1), MaxValueValidator(4)])
+    max_sections = models.PositiveIntegerField( default=16 , validators=[MinValueValidator(1), MaxValueValidator(16)])
     
     class Meta:
         verbose_name = "GroupCustomer"
@@ -449,7 +456,8 @@ class GroupCustomer(models.Model):
 
 class IndividualTherapy(models.Model):
     therapist = models.ForeignKey(User, on_delete=models.CASCADE, related_name='individual_therapists')
-    customer = models.OneToOneField(Customer, on_delete=models.CASCADE, related_name='individual_therapist')
+    customer = models.OneToOneField(Customer, on_delete=models.CASCADE, related_name='individual_customer')
+    type = models.BooleanField(default=True)
     
     class Meta:
         verbose_name = "IndividualTherapy"
@@ -457,6 +465,26 @@ class IndividualTherapy(models.Model):
 
     def __str__(self):
         return f"{self.customer.full_name} managed by {self.therapist.first_name}"
+    
+class IndividualTherapySection(models.Model):
+    individual_therapy_pk =  models.CharField(max_length=20)
+    therapist_pk = models.CharField(max_length=20)
+    therapist_full_name = models.CharField(max_length=80)
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='customer_individual_therapy')
+    create_at = models.DateField(auto_created=True,default=timezone.now)
+    init_hour = models.TimeField(null=True, blank=True)
+    end_hour = models.TimeField(null=True, blank=True)
+    is_active= models.BooleanField(default=True)
+    points = models.PositiveIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100000)])
+    after_points = models.PositiveIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100000)])
+    before_points = models.PositiveIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100000)])
+    
+    class Meta:
+        verbose_name = "IndividualTherapySection"
+        verbose_name_plural = "IndividualTherapiesSections"
+
+    def __str__(self):
+        return f"{self.pk}"
 
 
 class GroupsPSRSections(models.Model):

@@ -161,7 +161,22 @@
                 </div>
                 <!--end::Input group-->
                 
-                
+                <div class="row mb-10">
+                    <!--begin::Label-->
+                    <label class="col-lg-4 fw-semibold text-muted">Master</label>
+                    <!--begin::Label-->
+                    <!--begin::Label-->
+                    <div class="col-lg-8">
+                        <span class="fw-semibold fs-6 text-gray-800">
+                            {% if user.is_master %}
+                                <div class="badge badge-light-success badge-lg">enable</div>
+                            {% else %}
+                            <div class="badge badge-light-danger badge-lg">inactive</div>
+                            {% endif %}
+                        </span>
+                    </div>
+                    <!--begin::Label-->
+                </div>
                 
 
             </div>

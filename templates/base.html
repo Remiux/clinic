@@ -464,12 +464,31 @@ License: For each use you must have a valid license purchased only from above li
                         <span class="path2"></span>
                       </i>
                     </span>
-                    <span class="menu-title text-primary">Groups</span>
+                    <span class="menu-title text-primary">PSR</span>
+                  </a>
+                  <!--end:Menu link-->
+                </div>
+                <!--end:Menu item-->
+                <div
+                  data-kt-menu-trigger="click"
+                  class="menu-item menu-accordion rounded  {% if request.path == '/individual-terapy/' %}bg-primary-subtle{% endif %}"
+                >
+                  <!--begin:Menu link-->
+                  <a href="{% url 'individual_terapy_view' %}" class="menu-link">
+                    <span class="menu-icon">
+                      <i class="bi-person-bounding-box text-primary fs-2">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                      </i>
+                    </span>
+                    <span class="menu-title text-primary">Individual Therapy</span>
                   </a>
                   <!--end:Menu link-->
                 </div>
                 <!--end:Menu item-->
                 <!--begin:Menu item-->
+                <!--begin:Menu item-->
+                
                 <div
                   data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
                   data-kt-menu-placement="right-start"
@@ -559,6 +578,22 @@ License: For each use you must have a valid license purchased only from above li
                       </i>
                     </span>
                     <span class="menu-title text-primary">Customers</span>
+                  </a>
+                  <!--end:Menu link-->
+                </div>
+                <div
+                  data-kt-menu-trigger="click"
+                  class="menu-item menu-accordion rounded  {% if request.path == 'asd/' %}bg-primary-subtle{% endif %}"
+                >
+                  <!--begin:Menu link-->
+                  <a href="#" class="menu-link">
+                    <span class="menu-icon">
+                      <i class="bi-currency-dollar text-primary fs-2">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                      </i>
+                    </span>
+                    <span class="menu-title text-primary">Billing</span>
                   </a>
                   <!--end:Menu link-->
                 </div>

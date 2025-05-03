@@ -201,7 +201,20 @@
                                 </div>
                                 <!--end::Input group-->
                                 <!--begin::Input group-->
-                                
+                                <div class="row">
+                                    <label class="col-lg-4 col-form-label  fw-semibold fs-6">Master</label>
+                                    <!--begin::Options-->
+                                    <div class="d-flex align-items-center mt-3">
+                                        <!--begin::Option-->
+                                        <div class="form-check form-check-solid form-switch form-check-custom fv-row">
+                                            <input class="form-check-input w-45px h-30px" name="is_master" type="checkbox" id="is_master_check" {% if user.is_master %}checked{% endif %} />
+                                            <label class="form-check-label" for="is_master_check"></label>
+                                        </div>
+                                        <label class="fs-8 text-small">Enamble and disabled master</label>
+                                        <!--end::Option-->
+                                    </div>
+                                    <!--end::Options-->
+                                </div>
                                 <!--end::Input group-->
                             </div>
                             <!--end::Card body-->

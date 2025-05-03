@@ -1,0 +1,40 @@
+<div class="col-sm-6 col-md-4 mb-7">
+    <!--begin::Label-->
+    <label class="col-lg-4 fw-semibold ">Full name</label>
+    <!--end::Label-->
+    <!--begin::Col-->
+    <div class="col-lg-8">
+        <span class="fw-bold fs-6 text-gray-800">{{individual_therapy.therapist.first_name}} {{individual_therapy.therapist.last_name}}</span>
+    </div>
+    <!--end::Col-->
+</div>
+<div class="col-sm-6 col-md-4 mb-7">
+    <!--begin::Label-->
+    <label class="col-lg-4 fw-semibold ">Username</label>
+    <!--end::Label-->
+    <!--begin::Col-->
+    <div class="col-lg-8">
+        <span class="fw-bold fs-6 text-gray-800">{{individual_therapy.therapist.username}}</span>
+    </div>
+    <!--end::Col-->
+</div>
+<div class="col-sm-6 col-md-4 mb-7">
+    <!--begin::Label-->
+    <label class="col-lg-4 fw-semibold ">Email</label>
+    <!--end::Label-->
+    <!--begin::Col-->
+    <div class="col-lg-8">
+        <span class="fw-bold fs-6 text-gray-800">{{individual_therapy.therapist.email}}</span>
+    </div>
+    <!--end::Col-->
+</div>
+<div class="col-sm-6 col-md-4 ">
+    <!--begin::Label-->
+    <label class="col-lg-4 fw-semibold ">Phone number</label>
+    <!--end::Label-->
+    <!--begin::Col-->
+    <div class="col-lg-8">
+        <span class="fw-bold fs-6 text-gray-800">{% if individual_therapy.therapist.phone_number %}{{individual_therapy.therapist.phone_number}}{% else %}-{% endif %}</span>
+    </div>
+    <!--end::Col-->
+</div>

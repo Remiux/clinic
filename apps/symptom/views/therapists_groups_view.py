@@ -53,12 +53,16 @@ def create_customer_group_view(request, pk):
     context = {'group':group} 
     if request.method == 'POST':
         form = GroupCustomerForm(request.POST)
-        if form.is_valid():
-            customer = form.save(commit=False)
-            customer.group = group
-            customer.save()
-            context['create_messsage']="Create customer successfull"
-            context['tags']="success"
+        if GroupCustomer.objects.filter(group=group,customer=Customer.objects.get(pk=request.POST['customer'])).exists():
+            context['create_messsage']="The customer is listed"
+            context['tags']="error"
+        else:  
+            if form.is_valid():
+                customer = form.save(commit=False)
+                customer.group = group
+                customer.save()
+                context['create_messsage']="Create customer successfull"
+                context['tags']="success"
     return render(request, 'pages/therapistsGroup/components/customerGroupList.html', context)
 
 @login_required(login_url='/login')

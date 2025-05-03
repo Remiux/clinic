@@ -1,0 +1,25 @@
+
+      <!--begin::Customers-->
+      
+        {% include "pages/indivualTherapy/components/sectionIndividualTherapyCard.html" %}
+      
+      <!--end::Customers-->
+  
+    
+    
+    <!--end::Products-->
+
+  {% if error %}
+          <script>                
+              Swal.fire({
+                  position: "top-center",
+                  icon: '{% if "error" in tags %}error{% elif "success" in tags %}success{% elif "info" in tags %}info{% elif "warning" in tags %}warning{% else %}question{% endif %}',
+                  title: "{{error}}",
+                  showConfirmButton: false,
+                  timer: 3000
+              });
+          </script>
+  
+      {% endif %}
+
+      

@@ -10,10 +10,7 @@
             </span>
         </div>
         <div class="d-flex justify-content-end align-items-center gap-2">
-            <span class="btn btn-icon btn-sm m-1"
-                data-kt-menu-trigger="click" 
-                data-kt-menu-placement="bottom-end"
-                >
+            <span class="btn btn-icon btn-sm m-1">
                 
                 <div 
                 class="position-relative badge badge-light-primary btn btn-sm btn-outline-primary  rounded p-2 d-flex align-items-center justify-content-center " 
@@ -22,21 +19,10 @@
                 <span id="spinnerUpdateCustomerMessageActiveGroup-{{customer.pk}}" class="htmx-indicator position-absolute spinner-border spinner-border" ></span>
                 <i class="fs-2 bi-journals"></i>
                 </div>
-               
+         
                 
                 
             </span>
-            <div 
-            class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" 
-            data-kt-menu="true" 
-            id="kt_menu_673c0c868c157" 
-            style="" 
-            data-select2-id="select2-data-kt_menu_673c0c868c157"
-            >
-                <div id="diagnosticFormCreate">
-                    {% include "pages/therapistsGroup/actions/create/sectionCustomerNoteFormCreate.html" %}
-                </div>
-            </div>
             <span class="btn btn-icon btn-sm m-1 ">
                 {% if customer.assist %}
                 
