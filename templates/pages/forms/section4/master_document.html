@@ -1,3 +1,13 @@
+<div class="row">
+    <div class="col-md-6">
+        <c-input_text spanTitle="Date of admission" disabled="disabled" inputValue="{{ customer.create_at|date:'Y-m-d' }}" inputType="date" >
+        </c-input_text >
+    </div>
+    <div class="col-md-6">
+        <c-input_text spanTitle="Treatment plan developed date" inputValue="{{ customer.treatment_plan_developed_date|date:'Y-m-d' }}"  inputType="date" >
+        </c-input_text >
+    </div>
+</div>
 <div class="rounded border p-4">
     <div class="row justify-content-between text-center align-items-center">
         <div class="col-lg-2 col-md-3 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
@@ -100,7 +110,7 @@
 </div>
 
 <div class="rounded border p-4 mt-5">
-    <h4 class="text-center">Client Diagnostics</h4>
+    <h4 class="text-center">Client Diagnosis</h4>
     <table class="table table-bordered mt-3 text-center">
         <thead>
             <tr>
@@ -109,16 +119,16 @@
             </tr>
         </thead>
         <tbody>
-            {% for diagnostic in customer.diagnostics.all %}
-            <tr>
-                <td>{{ diagnostic.code }}</td>
-                <td>{{ diagnostic.description }}</td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="2" class="text-center">No hay diagnósticos disponibles para este cliente.</td>
-            </tr>
-            {% endfor %}
+            {% if customer.diagnostic %}
+                <tr>
+                    <td>{{ customer.diagnostic.code }}</td>
+                    <td>{{ customer.diagnostic.description }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="2" class="text-center">No diagnosis yet!</td>
+                </tr>
+            {% endif %}
         </tbody>
     </table>
     
@@ -152,3 +162,31 @@
 <div class="row mt-5" id="form-creation">
     {% include "pages\forms\section4\hierarchy.html" %}
 </div>
+
+<!-- Formulario de duracion de tratamiento -->
+<div id="treatment-duration-form">
+    {% include "pages\forms\section4\partials\treatment_duration_form.html" %}
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const radioButtons = document.querySelectorAll('input[type="radio"][name="treatment_duration"]');
+        const otherInput = document.getElementById('other_duration');
+
+        // Desmarcar los radio buttons al escribir en el input
+        otherInput.addEventListener('input', function () {
+            radioButtons.forEach(radio => {
+                radio.checked = false;
+            });
+        });
+
+        // Borrar el valor del input al seleccionar un radio button
+        radioButtons.forEach(radio => {
+            radio.addEventListener('change', function () {
+                if (radio.checked) {
+                    otherInput.value = '';
+                }
+            });
+        });
+    });
+</script>

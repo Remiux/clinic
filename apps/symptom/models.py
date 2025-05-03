@@ -139,6 +139,41 @@ class Customer(models.Model):
     diagnostic = models.ForeignKey(Diagnostic, on_delete=models.CASCADE)
     diagnostic_two = models.ForeignKey(Diagnostic, on_delete=models.CASCADE,null=True,blank=True, related_name='diagnostic_two_client')
     diagnostic_three = models.ForeignKey(Diagnostic, on_delete=models.CASCADE,null=True,blank=True, related_name='diagnostic_three_client')
+    treatment_duration = models.PositiveIntegerField(
+        default=6,
+        validators=[MinValueValidator(1), MaxValueValidator(12)]
+    )
+    treatment_plan_developed_date = models.DateField(
+        null=True,
+        blank=True,
+        help_text="Date when the treatment plan was developed."
+    )
+
+    # def clean(self):
+    #     from django.core.exceptions import ValidationError
+    #     # Validar que la fecha no coincida con ninguna fecha de atención de terapeutas
+    #     if self.treatment_plan_developed_date:
+    #         # Verificar en terapias individuales
+    #         individual_therapy_dates = IndividualTherapySection.objects.filter(
+    #             customer=self,
+    #             create_at=self.treatment_plan_developed_date
+    #         )
+    #         if individual_therapy_dates.exists():
+    #             raise ValidationError(
+    #                 {"treatment_plan_developed_date": "The treatment plan developed date cannot coincide with any therapist's session date."}
+    #             )
+
+    #         # Verificar en sesiones grupales
+    #         group_therapy_dates = CustomerPSRSections.objects.filter(
+    #             customer=self,
+    #             section__create_at=self.treatment_plan_developed_date
+    #         )
+    #         if group_therapy_dates.exists():
+    #             raise ValidationError(
+    #                 {"treatment_plan_developed_date": "The treatment plan developed date cannot coincide with any group session date."}
+    #             )
+
+    #     super().clean()
 
  
     

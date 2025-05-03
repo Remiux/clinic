@@ -13,11 +13,11 @@ from django.views.decorators.http import require_POST
 def section_four_view(request, pk):
     customer = get_object_or_404(Customer, pk=pk)
     
-    # Verificar si el cliente está asociado a alguna IndividualTherapy
-    is_in_individual_therapy = IndividualTherapy.objects.filter(customer=customer).exists()
-    
-    # Verificar si el cliente está asociado a algún GroupCustomer
-    is_in_group_customer = GroupCustomer.objects.filter(customer=customer).exists()
+    # Verificar si el cliente está en una terapia individual
+    is_in_individual_therapy = IndividualTherapySection.objects.filter(customer=customer).exists()
+
+    # Verificar si el cliente está en un terapia PSR
+    is_in_group_customer = CustomerPSRSections.objects.filter(customer=customer).exists()
     
     focus_areas = FocusArea.objects.prefetch_related('goal_set__objective_set', 'goal_set__intervention_set').order_by('-focus_area_type')
     context = {
@@ -427,3 +427,43 @@ def create_intervention_inline(request, goal_id):
     context['goal'] = goal
     
     return render(request, 'pages/forms/section4/partials/intervention_creation_form.html', context)
+
+
+def update_treatment_duration(request, pk):
+    customer = get_object_or_404(Customer, pk=pk)
+    context = {}
+    if request.method == 'POST':
+        duration = request.POST.get('treatment_duration')
+        duration_other = request.POST.get('treatment_duration_other')
+
+        if duration == '3':
+            customer.treatment_duration = 3
+        elif duration == '6':
+            customer.treatment_duration = 6
+        elif duration_other and duration_other.strip().isdigit():
+            duration_value = int(duration_other.strip())
+            if 1 <= duration_value <= 12:
+                customer.treatment_duration = duration_value
+            else:
+                # Si el valor está fuera del rango permitido, devolver un mensaje de error
+                context['tags'] = 'error'
+                context['tag_message'] = 'Please select a treatment duration between 1 and 12.'
+                context['message'] = 'Please select a treatment duration between 1 and 12.'
+                context['customer'] = customer
+                return render(request, 'pages/forms/section4/partials/treatment_duration_form.html', context)
+        else:
+            # Si no hay un valor válido, devolver un mensaje de error
+            context['tags'] = 'error'
+            context['tag_message'] = 'Please select a valid treatment duration.'
+            context['message'] = 'Please select a valid treatment duration.'
+            context['customer'] = customer
+            return render(request, 'pages/forms/section4/partials/treatment_duration_form.html', context)
+
+        customer.save()
+        
+        context['tags'] = 'success'
+        context['tag_message'] = 'Treatment duration updated successfully!'
+        context['message'] = 'Treatment duration updated successfully!'
+        context['customer'] = customer
+    
+    return render(request, 'pages/forms/section4/partials/treatment_duration_form.html', context)

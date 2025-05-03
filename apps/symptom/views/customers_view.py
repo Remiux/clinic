@@ -70,6 +70,7 @@ def create_customer_view(request):
     context['form'] = form
     return render(request,'pages/customers/actions/create/customerCreate.html',context)
 
+from django.core.exceptions import ValidationError
 @login_required(login_url='/login')
 def update_customer_view(request,pk):
     customer = get_object_or_404(Customer, pk=pk)
@@ -83,9 +84,20 @@ def update_customer_view(request,pk):
         form = CustomerForm(request.POST, instance=customer)
         if form.is_valid():
            form.save()
-           context['message'] = 'Customer update successfully'
-        else:
-            print(form.errors)
+           context['message'] = 'Customer updated successfully'
+        # if form.is_valid():
+        #     try:
+        #         # Llama al método clean() del modelo para validar
+        #         customer = form.save(commit=False)
+        #         customer.clean()  # Aplica la validación definida en el modelo
+        #         customer.save()  # Guarda el cliente si pasa la validación
+        #         context['message'] = 'Customer updated successfully'
+        #     except ValidationError as e:
+        #         # Agrega los errores al formulario
+        #         form.add_error(None, e)
+        #         context['message'] = 'Please correct the errors below.'
+        # else:
+        #     context['message'] = 'Please correct the errors below.'
     context['form'] = form
     return render(request,'pages/customers/actions/update/customerUpdate.html',context)
 

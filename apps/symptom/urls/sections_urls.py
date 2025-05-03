@@ -30,6 +30,7 @@ urlpatterns = [
     path('customer-section_four-history-brief-behavioral-health/<int:pk>/', section_four_document_brief_behavioral_health_history, name='section_four_document_brief_behavioral_health_history'),
     path('customer-section_four-history-discharge-summary/<int:pk>/', section_four_document_discharge_summary_history, name='section_four_document_discharge_summary_history'),
     path('customer-section_four-reload-data/<int:pk>/', reload_data, name='reload_data'),
+    path('customer-section_four-update-treatment-duration/<int:pk>/', update_treatment_duration, name='update_treatment_duration'),
     
     # """ MASTER DOCUMENT URLS """
     
