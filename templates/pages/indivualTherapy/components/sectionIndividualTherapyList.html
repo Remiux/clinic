@@ -1,14 +1,14 @@
 
       <!--begin::Customers-->
-      {% for section in sections %}
+      
         {% include "pages/indivualTherapy/components/sectionIndividualTherapyCard.html" %}
-      {% endfor %}
+      
       <!--end::Customers-->
   
     
     
     <!--end::Products-->
-  </div>
+
   {% if error %}
           <script>                
               Swal.fire({
@@ -21,4 +21,5 @@
           </script>
   
       {% endif %}
+
       

@@ -20,8 +20,8 @@ def therapists_customer_check_view(request,pk):
     }
     create_new_section=False
     count = GroupsPSRSections.objects.filter(group_pk=str(group.pk), create_at=timezone.now().date()).count()
-    
-    print()
+    if count == 0:
+        count = 1
     if count <= 3:
         create_new_section=True
     section = GroupsPSRSections.objects.filter(group_pk=group.pk,is_active=True).first()

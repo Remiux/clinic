@@ -6,6 +6,7 @@ from apps.symptom.form import GroupCustomerForm, IndividualTherapyForm, Therapis
 from apps.symptom.models import Customer, IndividualTherapy, IndividualTherapySection, TherapistsGroups
 from utils.hours import individual_therapy_dateValues
 from utils.paginator import _get_paginator
+from utils.validates import validate_creation
 
 
 # Create your views here.
@@ -64,8 +65,8 @@ def detail_individual_therapy_view(request,pk):
     individual_therapy = get_object_or_404(IndividualTherapy, pk=pk)
     context = {'individual_therapy':individual_therapy} 
     context['therapists'] =  User.objects.filter(groups__name='therapist',is_master=True).order_by('first_name')
-    context['sections'] = IndividualTherapySection.objects.filter(is_active=True,individual_therapy_pk=pk)
-    context['dateValues']=individual_therapy_dateValues(individual_therapy)
+    context['section'] = IndividualTherapySection.objects.filter(individual_therapy_pk=individual_therapy.pk, is_active=True).first()
+    context['dateValues']=individual_therapy_dateValues(individual_therapy,request.GET.get('option_date','1'))
     return render(request, 'pages/indivualTherapy/actions/detail/GroupDetail.html', context)
 
 
@@ -97,15 +98,34 @@ def update_service_individual_therapy_view(request, pk):
 def create_section_individual_therapy_view(request, pk):
     individual_therapy = get_object_or_404(IndividualTherapy, pk=pk)
     context = {'individual_therapy':individual_therapy} 
+    section = None
     if request.method == 'POST':
-        IndividualTherapySection.objects.create(
-            individual_therapy_pk=individual_therapy.pk,
-            customer=individual_therapy.customer,
-            therapist_pk= individual_therapy.therapist.pk,
-            therapist_full_name= f"{individual_therapy.therapist.first_name} {individual_therapy.therapist.last_name}"
-        )
-    return render(request, 'pages/indivualTherapy/components/updateServiceGroupPerfil.html', context)
+        if not validate_creation(individual_therapy):
+            section = IndividualTherapySection.objects.create(
+                individual_therapy_pk=individual_therapy.pk,
+                customer=individual_therapy.customer,
+                therapist_pk= individual_therapy.therapist.pk,
+                therapist_full_name= f"{individual_therapy.therapist.first_name} {individual_therapy.therapist.last_name}"
+            )
+        else:
+            context['error']="There is already a session in the week "
+            context['tags']="error"
+    if section is None:
+        section = IndividualTherapySection.objects.filter(individual_therapy_pk=individual_therapy.pk,is_active = True).first()
+    context['section'] = section
+    context['dateValues']=individual_therapy_dateValues(individual_therapy,request.GET.get('option_date','1'))
+    return render(request, 'pages/indivualTherapy/components/sectionIndividualTherapyList.html', context)
 
+@login_required(login_url='/login')
+def update_date_individual_therapy_view(request, pk):
+    section = get_object_or_404(IndividualTherapySection, pk=pk)
+    individual_therapy = get_object_or_404(IndividualTherapy, pk=section.individual_therapy_pk)
+    context = {
+        'section':section,
+        'individual_therapy':individual_therapy
+        } 
+    context['dateValues']=individual_therapy_dateValues(individual_therapy,request.GET.get('option_date','1'))
+    return render(request, 'pages/indivualTherapy/components/sectionIndividualTherapyDateCard.html', context)
 
 @login_required(login_url='/login')
 def delete_section_individual_therapy_view(request,pk):
@@ -118,3 +138,23 @@ def delete_section_individual_therapy_view(request,pk):
         context['section']=[]
     
     return render(request,'pages/indivualTherapy/components/sectionIndividualTherapyCard.html',context)
+
+@login_required(login_url='/login')
+def confirm_section_individual_therapy_view(request,pk):
+    section = get_object_or_404(IndividualTherapySection, pk=pk)
+    context = {
+        'section':section,
+    }
+    if request.method == 'POST':
+        if section:
+            section.init_hour = request.POST.get('init_hour')
+            section.end_hour = request.POST.get('end_hour')
+            section.is_active = False
+            section.save()
+            context['section']=[]
+            context['error'] = "Section confirm succesfull"
+            context['tags'] = "success"
+        else:
+            context['error'] = "Section don't exist"
+            context['tags'] = "error"
+    return render(request,'pages/indivualTherapy/components/sectionIndividualTherapyList.html',context)
