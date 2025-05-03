@@ -19,7 +19,7 @@ def section_four_view(request, pk):
     # Verificar si el cliente está asociado a algún GroupCustomer
     is_in_group_customer = GroupCustomer.objects.filter(customer=customer).exists()
     
-    focus_areas = FocusArea.objects.prefetch_related('goal_set__objective_set', 'goal_set__intervention_set')
+    focus_areas = FocusArea.objects.prefetch_related('goal_set__objective_set', 'goal_set__intervention_set').order_by('-focus_area_type')
     context = {
         'customer': customer,
         'agency': Agency.objects.first(),
@@ -34,7 +34,7 @@ def section_four_view(request, pk):
 
 def reload_data(request, pk):
     customer = get_object_or_404(Customer, pk=pk)
-    focus_areas = FocusArea.objects.prefetch_related('goal_set__objective_set', 'goal_set__intervention_set')
+    focus_areas = FocusArea.objects.prefetch_related('goal_set__objective_set', 'goal_set__intervention_set').order_by('-focus_area_type')
     
     context = {
         'customer': customer,
@@ -162,7 +162,7 @@ def edit_focus_area(request, pk):
 
 def delete_focus_area(request, pk):
     instance = get_object_or_404(FocusArea, pk=pk)
-    customer_pk = instance.customer.pk
+    customer = instance.customer
     context = {}
     if request.method == 'POST':
         instance.delete()
@@ -178,6 +178,8 @@ def delete_focus_area(request, pk):
     context['goal_form'] = GoalForm()
     context['objective_form'] = ObjectiveForm()
     context['intervention_form'] = InterventionForm()
+    context['fa'] = instance
+    context['customer'] = customer
     
     return render(request, 'pages/forms/section4/partials/focus_area.html', context)    
 
@@ -369,7 +371,6 @@ def create_goal_inline(request, focus_area_id):
         context['tags'] = 'error'
         context['tag_message'] = 'Something went wrong!'
     
-    focus_areas = FocusArea.objects.prefetch_related('goal_set__objective_set', 'goal_set__intervention_set')
     context['form'] = form
     context['customer'] = customer
     context['fa'] = focus_area
@@ -396,7 +397,6 @@ def create_objective_inline(request, goal_id):
         context['tags'] = 'error'
         context['tag_message'] = 'Something went wrong!'
     
-    focus_areas = FocusArea.objects.prefetch_related('goal_set__objective_set', 'goal_set__intervention_set')
     context['form'] = form
     context['customer'] = customer
     context['goal'] = goal
@@ -422,7 +422,6 @@ def create_intervention_inline(request, goal_id):
         context['tags'] = 'error'
         context['tag_message'] = 'Something went wrong!'
     
-    focus_areas = FocusArea.objects.prefetch_related('goal_set__objective_set', 'goal_set__intervention_set')
     context['form'] = form
     context['customer'] = customer
     context['goal'] = goal
