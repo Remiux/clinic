@@ -20,6 +20,7 @@ urlpatterns = [
     path('customer-delete-bio-psycho-social-assessments-file/<int:pk>/', delete_bio_psycho_social_assessments_file_view, name='delete_bio_psycho_social_assessments_file_view'),
     path('customer-delete-brief-behavioral-health-file/<int:pk>/', delete_brief_behavioral_health_file_view, name='delete_brief_behavioral_health_file_view'),
     path('customer-delete-discharge-summary-file/<int:pk>/', delete_discharge_summary_file_view, name='delete_discharge_summary_file_view'),
+    path('customer-delete-far-file/<int:pk>/', delete_far_file_view, name='delete_far_file_view'),
     
     
 ]

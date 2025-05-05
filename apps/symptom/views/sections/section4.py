@@ -14,10 +14,10 @@ def section_four_view(request, pk):
     customer = get_object_or_404(Customer, pk=pk)
     
     # Verificar si el cliente está en una terapia individual
-    is_in_individual_therapy = IndividualTherapySection.objects.filter(customer=customer).exists()
+    is_in_individual_therapy = IndividualTherapy.objects.filter(customer=customer).exists()
 
     # Verificar si el cliente está en un terapia PSR
-    is_in_group_customer = CustomerPSRSections.objects.filter(customer=customer).exists()
+    is_in_group_customer = GroupCustomer.objects.filter(customer=customer).exists()
     
     focus_areas = FocusArea.objects.prefetch_related('goal_set__objective_set', 'goal_set__intervention_set').order_by('-focus_area_type')
     context = {

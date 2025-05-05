@@ -57,9 +57,19 @@ def exclude_brief_behavioral_health_assessment_files(files):
     """
     return [file for file in files if not os.path.basename(file.file.name).lower().startswith('brief_behavioral_health_assessment')]
 
+
+
 @register.filter
 def exclude_discharge_summary_files(files):
     """
     Excluye archivos cuyo nombre contenga 'discharge_summary_' (insensible a mayúsculas).
     """
     return [file for file in files if not os.path.basename(file.file.name).lower().startswith('discharge_summary')]
+
+
+@register.filter
+def exclude_fars_files(files):
+    """
+    Excluye archivos cuyo nombre contenga 'fars' (insensible a mayúsculas).
+    """
+    return [file for file in files if not os.path.basename(file.file.name).lower().startswith('fars')]
