@@ -58,7 +58,12 @@
                                 <div class="fs-6"></div>
                             </div>
                             <div class="col-md-12 mb-1">
-                                <div class="fs-8 fw-semibold">Status: {{ far.status }}</div>
+                                <div class="fs-8 fw-semibold">
+                                    Status: 
+                                    <span class="{% if far.status == 'Initial' %}badge badge-light-danger{% elif far.status == 'Checked' %}badge badge-light-warning{% elif far.status == 'Finished' %}badge badge-light-primary{% endif %}">
+                                        {{ far.status }}
+                                    </span>
+                                </div>
                                 <div class="fs-6"></div>
                             </div>
                         </div>
