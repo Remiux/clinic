@@ -14,20 +14,17 @@ from django.views.decorators.http import require_POST
 def section_four_view(request, pk):
     customer = get_object_or_404(Customer, pk=pk)
     # Verificar si el cliente está en una terapia individual
-<<<<<<< HEAD
     is_in_individual_therapy = IndividualTherapySection.objects.filter(customer=customer).exists()
     master = Master.objects.filter(user=request.user,customer = customer).first()
     # Verificar si el cliente está en un terapia PSR
     is_in_group_customer = CustomerPSRSections.objects.filter(customer=customer).exists()
     focus_areas = FocusArea.objects.prefetch_related('goal__objective_set').order_by('-focus_area_type')
-=======
     is_in_individual_therapy = IndividualTherapy.objects.filter(customer=customer).exists()
 
     # Verificar si el cliente está en un terapia PSR
     is_in_group_customer = GroupCustomer.objects.filter(customer=customer).exists()
     
     focus_areas = FocusArea.objects.prefetch_related('goal_set__objective_set', 'goal_set__intervention_set').order_by('-focus_area_type')
->>>>>>> 0be112d78d8cb98d4cf5d080a040de73f0a50a97
     context = {
         'master':master,
         'customer': customer,
