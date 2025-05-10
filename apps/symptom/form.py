@@ -159,3 +159,41 @@ class MasterInitialDischargeCriteriaForm(forms.ModelForm):
 """ End Section 4 Forms """
 
 
+<<<<<<< HEAD
+=======
+from django import forms
+from apps.symptom.models import FARS
+
+class FarsForm(forms.ModelForm):
+    class Meta:
+        model = FARS
+        exclude = ['encrypted_file']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        status = cleaned_data.get('status')
+
+        # Verificar que solo exista un FARS con status = 'Finished'
+        if status == 'Finished':
+            if FARS.objects.filter(status='Finished').exists():
+                self.add_error(
+                    'status',
+                    "There can only be one FARS with the status 'Finished'."
+                )
+            # Verificar que exista al menos un FARS con status = 'Checked'
+            if not FARS.objects.filter(status='Checked').exists():
+                self.add_error(
+                    'status',
+                    "To create a FARS with the status 'Finished', there must be at least one FARS with the status 'Checked'."
+                )
+
+        # Verificar que para crear un FARS con status = 'Checked' exista al menos uno con status = 'Initial'
+        if status == 'Checked':
+            if not FARS.objects.filter(status='Initial').exists():
+                self.add_error(
+                    'status',
+                    "To create a FARS with the status 'Checked', there must be at least one FARS with the status 'Initial'."
+                )
+
+        return cleaned_data
+>>>>>>> 0be112d78d8cb98d4cf5d080a040de73f0a50a97

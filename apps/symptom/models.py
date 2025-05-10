@@ -467,6 +467,30 @@ class Intervention(models.Model):
 
 
 """ Fin nuevos modelos """
+
+
+class FARS(models.Model):
+    STATUS_CHOICES = [
+        ('Initial', 'Initial'),
+        ('Checked', 'Checked'),
+        ('Finished', 'Finished'),
+    ]
+    
+    encrypted_file = models.OneToOneField(
+        EncryptedFile, 
+        on_delete=models.CASCADE, 
+        related_name='fars_document'
+    )
+    description = models.TextField(max_length=500, null=True, blank=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Initial')
+
+    class Meta:
+        verbose_name = "FarsDocument"
+        verbose_name_plural = "FarsDocuments"
+
+    def __str__(self):
+        return f"FarsDocument for {self.encrypted_file.file.name}"
+
     
 class HistoricalSection1(models.Model):
     create_datetime_at = models.DateTimeField(auto_created=True,default=timezone.now)

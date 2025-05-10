@@ -5,6 +5,7 @@ from apps.symptom.views.sections.section1 import *
 from apps.symptom.views.sections.section2 import *
 from apps.symptom.views.sections.section3 import *
 from apps.symptom.views.sections.section4 import *
+from apps.symptom.views.sections.section5 import *
 
 
 urlpatterns = [
@@ -68,7 +69,8 @@ urlpatterns = [
     
     
     # Section 5
-    # path('customer-section_five/<int:pk>/', section_five_view, name='section_five_view'),
+    path('customer-section_five/<int:pk>/', section_five_view, name='section_five_view'),
+    path('customer-section_five-history/<int:pk>/', section_five_document_three_history, name='section_five_document_three_history'),
     
     # Section 6
     # path('customer-section_six/<int:pk>/', section_six_view, name='section_six_view'),
