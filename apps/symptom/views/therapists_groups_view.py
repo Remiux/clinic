@@ -16,6 +16,12 @@ def therapists_groups_view(request):
 
 
 @login_required(login_url='/login')
+def therapists_sections_groups_view(request):
+    context = _show_therapists_groups_filter(request)
+    context['therapists'] = User.objects.filter(groups__name='therapist').order_by('first_name')
+    return render(request,'pages/sections_successfully/psr_sections//index.html',context)
+
+@login_required(login_url='/login')
 def filter_therapists_groups_view(request):
     context=_show_therapists_groups_filter(request)
     return render(request,'pages/therapistsGroup/GroupsCardList.html',context)
