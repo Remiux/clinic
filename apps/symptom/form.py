@@ -159,8 +159,6 @@ class MasterInitialDischargeCriteriaForm(forms.ModelForm):
 """ End Section 4 Forms """
 
 
-<<<<<<< HEAD
-=======
 from django import forms
 from apps.symptom.models import FARS
 
@@ -196,4 +194,3 @@ class FarsForm(forms.ModelForm):
                 )
 
         return cleaned_data
->>>>>>> 0be112d78d8cb98d4cf5d080a040de73f0a50a97
