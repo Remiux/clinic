@@ -31,6 +31,11 @@ urlpatterns = [
     path('customer-section_four-history-discharge-summary/<int:pk>/', section_four_document_discharge_summary_history, name='section_four_document_discharge_summary_history'),
     path('customer-section_four-reload-data/<int:pk>/', reload_data, name='reload_data'),
     path('customer-section_four-update-treatment-duration/<int:pk>/', update_treatment_duration, name='update_treatment_duration'),
+    path('update-master-psr-section/<int:pk>/', update_psr_master_view, name='update_psr_master_view'),
+    path('update-master-individual-therapy-section/<int:pk>/', update_individual_therapy_master_view, name='update_individual_therapy_master_view'),
+    path('update-master-initial-discharge-criteria-section/<int:pk>/', update_initial_discharge_criteria_master_view, name='update_initial_discharge_criteria_master_view'),
+    path('master-confirm-section/<int:pk>/', confirm_master_view, name='confirm_master_view'),
+    
     
     # """ MASTER DOCUMENT URLS """
     

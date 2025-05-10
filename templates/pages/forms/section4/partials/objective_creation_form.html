@@ -1,17 +1,9 @@
-<form hx-post="{% url 'add_objective_inline' goal.id %}" hx-target="#objective-creation-form" method="post" class="my-2">
+<form hx-post="{% url "add_objective_inline" focus_area.goal.pk %}" 
+hx-indicator="#CreateObjectiveSpinner-{{focus_area.goal.pk}}"
+hx-target="#objective-creation-form" method="post" class="my-2">
     {% csrf_token %}
-    <input type="hidden" name="goal" value="{{ goal.id }}">
+    <input type="hidden" name="goal" value="{{ focus_area.goal.pk }}">
     <div class="row g-2">
-        <div class="col-md-2">
-            <input type="number" name="number" placeholder="N°" class="form-control">
-            {% if form.number.errors %}
-                <div class="text-danger">
-                    {% for error in form.number.errors %}
-                        {{ error }}
-                    {% endfor %}
-                </div>
-            {% endif %}
-        </div>
         <div class="col-md-4">
             <input type="text" name="description" placeholder="Description" class="form-control">
             {% if form.description.errors %}
@@ -22,7 +14,7 @@
                 </div>
             {% endif %}
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <input type="date" name="open_date" class="form-control">
             {% if form.open_date.errors %}
                 <div class="text-danger">
@@ -32,7 +24,7 @@
                 </div>
             {% endif %}
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <input type="date" name="close_date" class="form-control">
             {% if form.close_date.errors %}
                 <div class="text-danger">
@@ -42,9 +34,22 @@
                 </div>
             {% endif %}
         </div>
+        <div class="col-12">
+            <textarea name="intervention" rows="2" placeholder="New Intervention" class="form-control"></textarea>
+            {% if form.description.errors %}
+                <div class="text-danger">
+                    {% for error in form.description.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
     </div>
+    
     <input type="hidden" name="static_text" value="Texto constante que nunca cambia.">
-    <button type="submit" class="badge badge-light-success btn btn-sm btn-outline-success mt-2">+ Objective</button>
+    <button type="submit" class="badge badge-light-success btn btn-sm btn-outline-success mt-2 d-flex justify-content-center align-items-center">
+        <span id="CreateObjectiveSpinner-{{focus_area.goal.pk}}" class="htmx-indicator spinner-border spinner-border-sm me-2"></span>
+        + Objective</button>
 
     {% if tag_message %}
         <script>

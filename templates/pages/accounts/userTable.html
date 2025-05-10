@@ -193,102 +193,74 @@
           <tfoot></tfoot>
         </table>
       </div>
-      {% comment %} <div id="" class="row justify-content-end">
-        
-        <div
-          id=""
-          class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end"
+      {% if paginator.has_next or paginator.has_previous%}
+    <nav aria-label="Page navigation example ">
+      <ul class="pagination justify-content-center justify-content-md-end mt-2">
+        {% if paginator.has_previous %}
+        <li class="page-item">
+          <a
+            class="page-link cursor-pointer"
+            hx-get="{% url 'filter_users_view' %}?page=1&{{ parameters }}"
+            hx-target="#userTableResult"
+            hx-indicator="#spinner"
+          >
+            Inicio
+          </a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <a class="page-link cursor-pointer">Inicio</a>
+        </li>
+
+        {% endif %} {% for page_number in paginator.paginator.page_range %} 
+        {%if paginator.number|add:'-2' <= page_number and paginator.number|add:"2" >= page_number%} {%if paginator.number == paginator.paginator.num_pages %}
+        <li
+          class="page-item {% if page_number == paginator.number %}active{% endif %}"
         >
-          <div class="dt-paging paging_simple_numbers">
-            <nav aria-label="pagination">
-              <ul class="pagination">
-                <li class="dt-paging-button page-item disabled">
-                  <button
-                    class="page-link previous"
-                    role="link"
-                    type="button"
-                    aria-controls="kt_ecommerce_products_table"
-                    aria-disabled="true"
-                    aria-label="Previous"
-                    data-dt-idx="previous"
-                    tabindex="-1"
-                  >
-                    <i class="previous"></i>
-                  </button>
-                </li>
-                <li class="dt-paging-button page-item active">
-                  <button
-                    class="page-link"
-                    role="link"
-                    type="button"
-                    aria-controls="kt_ecommerce_products_table"
-                    aria-current="page"
-                    data-dt-idx="0"
-                  >
-                    1
-                  </button>
-                </li>
-                <li class="dt-paging-button page-item">
-                  <button
-                    class="page-link"
-                    role="link"
-                    type="button"
-                    aria-controls="kt_ecommerce_products_table"
-                    data-dt-idx="1"
-                  >
-                    2
-                  </button>
-                </li>
-                <li class="dt-paging-button page-item">
-                  <button
-                    class="page-link"
-                    role="link"
-                    type="button"
-                    aria-controls="kt_ecommerce_products_table"
-                    data-dt-idx="2"
-                  >
-                    3
-                  </button>
-                </li>
-                <li class="dt-paging-button page-item">
-                  <button
-                    class="page-link"
-                    role="link"
-                    type="button"
-                    aria-controls="kt_ecommerce_products_table"
-                    data-dt-idx="3"
-                  >
-                    4
-                  </button>
-                </li>
-                <li class="dt-paging-button page-item">
-                  <button
-                    class="page-link"
-                    role="link"
-                    type="button"
-                    aria-controls="kt_ecommerce_products_table"
-                    data-dt-idx="4"
-                  >
-                    5
-                  </button>
-                </li>
-                <li class="dt-paging-button page-item">
-                  <button
-                    class="page-link next"
-                    role="link"
-                    type="button"
-                    aria-controls="kt_ecommerce_products_table"
-                    aria-label="Next"
-                    data-dt-idx="next"
-                  >
-                    <i class="next"></i>
-                  </button>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </div> {% endcomment %}
+          
+          <a
+            class="page-link cursor-pointer"
+            hx-get="{% url 'filter_users_view' %}?page={{ page_number }}&{{ parameters }}"
+            hx-target="#userTableResult"
+            hx-indicator="#spinner"
+          >
+            {{ page_number }}
+          </a>
+        </li>
+        {% else %}
+        <li
+          class="page-item {% if page_number == paginator.number %}active{% endif %}"
+        >
+          <a
+            class="page-link cursor-pointer"
+            hx-get="{% url 'filter_users_view' %}?page={{ page_number }}&{{ parameters }}"
+            hx-target="#userTableResult"
+            hx-indicator="#spinner"
+          >
+            {{ page_number }}
+          </a>
+          
+        </li>
+        {% endif %} {% endif %} {% endfor %} {% if paginator.has_next %}
+        <li class="page-item">
+          <a
+            class="page-link cursor-pointer"
+            hx-get="{% url 'filter_users_view' %}?page={{ paginator.paginator.num_pages }}&{{ parameters }}"
+            hx-target="#userTableResult"
+            hx-indicator="#spinner"
+          >
+            Fin
+          </a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+          <a class="page-link cursor-pointer">Fin</a>
+        </li>
+
+        {% endif %}
+      </ul>
+    </nav>
+    {% endif %}
     </div>
     <!--end::Table-->
   </div>

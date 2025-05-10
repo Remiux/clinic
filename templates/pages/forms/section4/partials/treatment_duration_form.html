@@ -1,4 +1,4 @@
-<form hx-post="{% url 'update_treatment_duration' customer.pk %}" hx-target="#treatment-duration-form" method="post">
+<form hx-post="{% url 'update_treatment_duration' pk=master.pk %}" hx-target="#treatment-duration-form" method="post">
     {% csrf_token %}
     <div class="rounded border p-4 mt-5">
         <div class="row justify-content-between text-center align-items-center">
@@ -7,7 +7,7 @@
             </div>
             <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
                 <div class="form-check d-flex align-items-center">
-                    <input class="form-check-input" type="radio" name="treatment_duration" id="length_3" value="3" {% if customer.treatment_duration == 3 %}checked{% endif %}>
+                    <input class="form-check-input" type="radio" name="treatment_duration" id="length_3" value="3" {% if master.treatment_duration == 3 %}checked{% endif %}>
                     <label class="form-check-label ms-2" for="length_3">
                         3 months
                     </label>
@@ -15,7 +15,7 @@
             </div>
             <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
                 <div class="form-check d-flex align-items-center">
-                    <input class="form-check-input" type="radio" name="treatment_duration" id="length_6" value="6" {% if customer.treatment_duration == 6 %}checked{% endif %}>
+                    <input class="form-check-input" type="radio" name="treatment_duration" id="length_6" value="6" {% if master.treatment_duration == 6 %}checked{% endif %}>
                     <label class="form-check-label ms-2" for="length_6">
                         6 months
                     </label>
@@ -27,7 +27,7 @@
                         Other
                     </label>
                     <input class="form-control" type="text" name="treatment_duration_other" id="other_duration" placeholder="Enter duration" 
-                    {% if customer.treatment_duration != 3 and customer.treatment_duration != 6 %}value="{{ customer.treatment_duration }}"{% endif %}>
+                    {% if master.treatment_duration != 3 and master.treatment_duration != 6 %}value="{{ master.treatment_duration }}"{% endif %}>
                 </div>
             </div>
         </div>
@@ -38,7 +38,7 @@
         </div>
         <div class="row">
             <div class="col-md-12 text-center mb-8">
-                <label>Date of next scheduled Treatment Plan Review:09/03/25</label>
+                <label>Date of next scheduled Treatment Plan Review: {{master.next_scheduled}}</label>
             </div>
             <div class="col-md-12">
                 <p class="lh-lg">

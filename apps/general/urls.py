@@ -8,6 +8,7 @@ urlpatterns = [
     path('login', login_view, name='login'),
     path('logout',LogoutView.as_view(),name='logout'),
     path('', include('apps.accounts.urls.users_urls')),
+    path('', include('apps.accounts.urls.master_generate_urls')),
     path('', include('apps.symptom.urls.symptom_urls')),
     path('', include('apps.symptom.urls.insurance_urls')),
     path('load-section/<str:section_name>/', load_section, name='load_section'),
@@ -17,5 +18,6 @@ urlpatterns = [
     path('', include('apps.symptom.urls.sections_urls')),
     path('', include('apps.symptom.urls.therapists_groups_urls')),
     path('', include('apps.symptom.urls.individual_therapy_urls')),
+    
     
 ]

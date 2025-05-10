@@ -1,0 +1,376 @@
+<div class="row">
+    <div class="col-md-6">
+        <c-input_text spanTitle="Client name" disabled="disabled" inputValue="{{ master.customer.full_name }}" inputType="text" >
+        </c-input_text >
+    </div>
+    <div class="col-md-6">
+        <c-input_text spanTitle="MR #" disabled="disabled" inputValue="{{ master.customer.case_no }}" inputType="text" >
+        </c-input_text >
+    </div>
+    <div class="col-md-6">
+        <c-input_text spanTitle="Date of admission" disabled="disabled" inputValue="{{ customer.create_at|date:'Y-m-d' }}" inputType="date" >
+        </c-input_text >
+    </div>
+    <div class="col-md-6">
+        <c-input_text disabled="disabled" spanTitle="Treatment plan developed date" inputValue="{{ master.date|date:'Y-m-d' }}"  inputType="date" >
+        </c-input_text >
+    </div>
+    <div class="col-md-6">
+        <c-input_text disabled="disabled" spanTitle="Start time" inputValue="{{ master.start_time }}"  inputType="text" >
+        </c-input_text >
+    </div>
+    <div class="col-md-6">
+        <c-input_text disabled="disabled" spanTitle="End time" inputValue="{{ master.end_time }}"  inputType="text" >
+        </c-input_text >
+    </div>
+    <div class="col-md-6">
+        <c-input_text disabled="disabled" spanTitle="Service code" inputValue="H0032"  inputType="text" >
+        </c-input_text >
+    </div>
+    <div class="col-md-6">
+        <c-input_text disabled="disabled" spanTitle="Setting" inputValue="53 CMHC"  inputType="text" >
+        </c-input_text >
+    </div>
+</div>
+<div class="row">
+    <div class="row justify-content-between text-center align-items-center">
+        <div class="col-lg-2 col-md-3 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
+            <label>Participants:</label>
+        </div>
+        <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
+            <div class="form-check d-flex align-items-center">
+                <input checked disabled="disabled" class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault1" />
+                <label for="flexCheckDefault1">
+                    Client only
+                </label>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
+            <div class="form-check d-flex align-items-center">
+                <input disabled="disabled" class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault2" />
+                <label for="flexCheckDefault2">
+                    Client and others
+                </label>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
+            <div class="form-check d-flex align-items-center">
+                <input disabled="disabled" class="form-check-input me-2" type="checkbox" value=""  />
+                <label for="flexCheckDefault3" class="text-wrap">
+                    Others (Client not present)
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <c-input_text spanTitle="Specify others" disabled="disabled" inputValue="" inputType="text" >
+            </c-input_text >
+        </div>
+    </div>
+</div>
+
+<div class="rounded  p-4 mt-5">
+    <div class="row justify-content-between text-center align-items-center">
+        <div class="col-lg-2 col-md-3 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
+            <label>Level of care:</label>
+        </div>
+        <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
+            <div class="form-check d-flex align-items-center">
+                <input disabled="disabled" class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault1" />
+                <label for="flexCheckDefault1">
+                    Outpatient therapy
+                </label>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
+            <div class="form-check d-flex align-items-center">
+                <input disabled="disabled" class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault2" />
+                <label for="flexCheckDefault2">
+                    Medication Management
+                </label>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
+            <form class="form-check d-flex align-items-center">
+                <input 
+                disabled
+                
+                {% if master.as_psr %} checked {% endif %} class="disabled form-check-input me-2" type="checkbox" value="" name="as_psr" id="id_as_psr"  />
+                <label for="id_as_psr" class="text-wrap">
+                    PSR
+                </label>
+            </form>
+        </div>
+        <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
+            <div class="form-check d-flex align-items-center">
+                <input disabled="disabled" class="form-check-input me-2" type="checkbox" value=""  />
+                <label for="flexCheckDefault3" class="text-wrap">
+                    Clubhouse
+                </label>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
+            <form class="form-check d-flex align-items-center">
+                <input 
+                disabled
+                {% if master.as_individual_therapy %} checked {% endif %} class=" form-check-input me-2" type="checkbox" value="" name="as_individual_therapy" id="id_as_individual_therapy"  />
+                <label for="id_as_individual_therapy" class="text-wrap">
+                    Individual Therapy
+                </label>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5 mb-5">
+    <div class="col-md-12">
+        <label><span class="fw-bold h4 text-decoration-underline">INITIAL DISCHARGE CRITERIA:</span></label>
+    </div>
+</div>
+<div class="row" id="initialDischargeCriteriaForm">
+   <div class="col-12 disabled">
+    <textarea  rows="4" class="col-12 form-control input-group" name="initial_discharge_criteria">{% if master.initial_discharge_criteria %}{{master.initial_discharge_criteria}}{% endif %}</textarea>
+   </div>
+    
+</div>
+
+<div class="rounded border p-4 mt-5">
+    <h4 class="text-center">Client Diagnosis</h4>
+    <div id="" class="table-responsive">
+        <table class="table table-bordered mt-3 text-center">
+            <thead>
+                <tr>
+                    <th class="min-w-125px dt-orderable-asc dt-orderable-desc" scope="col">Code</th>
+                    <th class="min-w-300px dt-orderable-asc dt-orderable-desc" scope="col">Diagnosis</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if master.customer.diagnostic %}
+                    <tr>
+                        <td>{{ master.customer.diagnostic.code }}</td>
+                        <td>{{ master.customer.diagnostic.description }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="2" class="text-center">No diagnosis yet!</td>
+                    </tr>
+                {% endif %}
+                {% if master.customer.diagnostic_two %}
+                    <tr>
+                        <td>{{ master.customer.diagnostic_two.code }}</td>
+                        <td>{{ master.customer.diagnostic_two.description }}</td>
+                    </tr>
+                {% endif %}
+                {% if master.customer.diagnostic_three %}
+                    <tr>
+                        <td>{{ master.customer.diagnostic_three.code }}</td>
+                        <td>{{ master.customer.diagnostic_three.description }}</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <div id="" class="table-responsive">
+        <table class="table table-bordered mt-10 text-center ">
+            <thead>
+                <tr>
+                    <th class="min-w-300px dt-orderable-asc dt-orderable-desc" scope="col">Who will do that</th>
+                    <th class="min-w-300px dt-orderable-asc dt-orderable-desc" scope="col">Modality</th>
+                    <th class="min-w-300px dt-orderable-asc dt-orderable-desc" scope="col">Frequency</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if master.as_psr  %}
+                    <tr>
+                        <td>Client and Facilitator</td>
+                        <td>PSR</td>
+                        <td>16 units daily, four times per week </td>
+                    </tr>
+                {% endif %}
+                {% if master.as_individual_therapy %}
+                    <tr>
+                        <td>Client and Therapist</td>
+                        <td>Inidividual Therapy</td>
+                        <td>1 hour per week</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% if master.as_psr %}
+<div class="row p-4 mt-5 g-4">
+    <h4>PSR Therapy</h4>
+    
+    {% for focus_area in master.master_focus_areas.all %}
+    {% if focus_area.focus_area_type == "PSR" %}
+        <div class="col-12 rounded border p-4">
+            <h5>{{focus_area.title}}: <span class="fs-7 ">{{focus_area.description}}</span></h5>
+            <div class="rounded border p-4">
+                {% if focus_area.goal %}
+                    <h5>Goal #{{focus_area.goal.number}}: <span class="fs-7 ">{{focus_area.goal.title}}</span></h5>
+                    <div id="" class="table-responsive">
+                        <table class="table table-bordered  text-center ">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Objetive</th>
+                                    <th class="min-w-300px dt-orderable-asc dt-orderable-desc" scope="col">Description</th>
+                                    <th class="min-w-125px dt-orderable-asc dt-orderable-desc" scope="col">Open date</th>
+                                    <th class="min-w-125px dt-orderable-asc dt-orderable-desc" scope="col">Close date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for objetive in focus_area.goal.objective_set.all %}
+                                    {% if objetive %}
+                                        <tr>
+                                            <td>{{objetive.number}}</td>
+                                            <td>{{objetive.description}}</td>
+                                            <td>{{objetive.open_date}}</td>
+                                            <td>{{objetive.close_date}}</td>
+                                        </tr>
+                                        {% if objetive.intervention %}
+                                        <tr>
+                                            <td>Intervention</td>
+                                            <td>{{objetive.intervention}}</td>
+                                            <td></td>
+                                            <td></td>
+                                    
+                                            
+                                        </tr>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                                
+                            
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
+               
+                
+            </div>
+        </div>
+        
+    {% endif %}
+    
+    
+    {% endfor %}
+    <h5></h5>
+</div>
+{% endif %}
+{% if master.as_individual_therapy %}
+<div class="row p-4 mt-5 g-4">
+    <h4>Individual Therapy</h4>
+    
+    {% for focus_area in master.master_focus_areas.all %}
+    
+    {% if focus_area.focus_area_type == "Individual" %}
+        <div class="col-12 rounded border p-4">
+            <h5>{{focus_area.title}}: <span class="fs-7 ">{{focus_area.description}}</span></h5>
+            <div class="rounded border p-4">
+                {% if focus_area.goal %}
+                    <h5>Goal #{{focus_area.goal.number}}: <span class="fs-7 ">{{focus_area.goal.title}}</span></h5>
+                    <div id="" class="table-responsive">
+                        <table class="table table-bordered  text-center ">
+                            
+                            <thead>
+                                <tr>
+                                    <th 
+                                    
+                                    scope="col">Objetive</th>
+                                    <th  scope="col"
+                                    class="min-w-300px dt-orderable-asc dt-orderable-desc">Description</th>
+                                    <th  scope="col"
+                                    class="min-w-125px dt-orderable-asc dt-orderable-desc">Open date</th>
+                                    <th  scope="col"
+                                    class="min-w-125px dt-orderable-asc dt-orderable-desc">Close date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for objetive in focus_area.goal.objective_set.all %}
+                                    {% if objetive %}
+                                        <tr>
+                                            <td>{{objetive.number}}</td>
+                                            <td>{{objetive.description}}</td>
+                                            <td>{{objetive.open_date}}</td>
+                                            <td>{{objetive.close_date}}</td>
+                                        </tr>
+                                        {% if objetive.intervention %}
+                                        <tr>
+                                            <td>Intervention</td>
+                                            <td>{{objetive.intervention}}</td>
+                                            <td></td>
+                                            <td></td>
+                                    
+                                            
+                                        </tr>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                                
+                            
+                            </tbody>
+                        </table>
+                    </div>
+                {% endif %}
+               
+                
+            </div>
+        </div>
+        
+    {% endif %}
+    
+    
+    {% endfor %}
+    <h5></h5>
+</div>
+{% endif %}
+<div class="row p-4 mt-5 g-4">
+    
+        <div class="row justify-content-between text-center align-items-center">
+            <div class="col-lg-2 col-md-3 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
+                <label>ANTICIPATED LENGTH OF TREATMENT:</label>
+            </div>
+            <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
+                <div class="form-check d-flex align-items-center">
+                    <input disabled class="form-check-input" type="radio" name="treatment_duration" id="length_3" value="3" {% if master.treatment_duration == 3 %}checked{% endif %}>
+                    <label class="form-check-label ms-2" for="length_3">
+                        3 months
+                    </label>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
+                <div class="form-check d-flex align-items-center">
+                    <input disabled class="form-check-input" type="radio" name="treatment_duration" id="length_6" value="6" {% if master.treatment_duration == 6 %}checked{% endif %}>
+                    <label class="form-check-label ms-2" for="length_6">
+                        6 months
+                    </label>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
+                <div class="form-check d-flex align-items-center">
+                    <label class="form-check-label me-2" for="other_duration">
+                        Other
+                    </label>
+                    <input class="form-control" disabled type="text" name="treatment_duration_other" id="other_duration" 
+                    {% if master.treatment_duration != 3 and master.treatment_duration != 6 %}value="{{ master.treatment_duration }}"{% endif %}>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12 text-center mb-8">
+                <label>Date of next scheduled Treatment Plan Review: {{master.next_scheduled}}</label>
+            </div>
+            <div class="col-md-12">
+                <p class="lh-lg">
+                    <strong class="text-decoration-underline">Certification of need for outpatient treatment</strong>: As a Certified Addictions Professional and/or Licensed Practitioner to provide Mental Health Services in the State of Florida and trained in the diagnosis and treatment of substance abuse and psychiatric illnesses, I certify that services are medically necessary and appropriate to the patient's diagnosis and needs.
+                </p>
+                <p class="lh-lg">
+                    Patient has reviewed and agreed to comply with the goals as established in the Master Treatment Plan. This service plan has been explained to the patient in terms that patient can understand, and a copy has been provided to the patient.
+                </p>
+            </div>
+        </div>
+
+</div>

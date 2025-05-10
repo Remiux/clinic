@@ -1,11 +1,11 @@
-<form hx-post="{% url 'edit_focusarea' fa.id %}" hx-target="#modal-content-replace-edit-focus-area" method="post">
+<form hx-post="{% url 'edit_focusarea' focus_area.id %}" hx-target="#modal-content-replace-edit-focus-area" method="post">
     {% csrf_token %}
     <div class="modal-header">
     <h5 class="modal-title">Edit FocusArea</h5>
     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
     </div>
     <div class="modal-body">
-    <input type="text" name="title" class="form-control mb-2" value="{{ fa.title }}">
+    <input type="text" name="title" class="form-control mb-2" value="{{ focus_area.title }}">
     {% if form.title.errors %}
         <div class="text-danger">
             {% for error in form.title.errors %}
@@ -13,7 +13,7 @@
             {% endfor %}
         </div>
     {% endif %}
-    <textarea name="description" class="form-control mb-2" rows="5" style="resize: none;">{{ fa.description }}</textarea>
+    <textarea name="description" class="form-control mb-2" rows="5" style="resize: none;">{{ focus_area.description }}</textarea>
     {% if form.description.errors %}
         <div class="text-danger">
             {% for error in form.description.errors %}
@@ -22,8 +22,8 @@
         </div>
     {% endif %}
     <select name="focus_area_type" class="form-select">
-        <option value="PSR" {% if fa.focus_area_type == "PSR" %}selected{% endif %}>PSR</option>
-        <option value="Individual" {% if fa.focus_area_type == "Individual" %}selected{% endif %}>Individual Therapy</option>
+        <option value="PSR" {% if focus_area.focus_area_type == "PSR" %}selected{% endif %}>PSR</option>
+        <option value="Individual" {% if focus_area.focus_area_type == "Individual" %}selected{% endif %}>Individual Therapy</option>
     </select>
     {% if form.focus_area_type.errors %}
         <div class="text-danger">

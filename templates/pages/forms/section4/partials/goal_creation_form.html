@@ -1,9 +1,12 @@
-<form hx-post="{% url 'add_goal_inline' fa.id %}" hx-target="#goal-creation-form" method="post" class="mb-3">
+<form hx-post="{% url 'add_goal_inline' focus_area.id %}" hx-target="#goal-creation-form"
+hx-indicator="#CreateGoalSpinner-{{focus_area.id}}" method="post" class="mb-3">
     {% csrf_token %}
-    <input type="hidden" name="focus_area" value="{{ fa.id }}">
+    <input type="hidden" name="focus_area" value="{{ focus_area.id }}">
     <div class="input-group">
         <input type="text" name="title" placeholder="New Goal" class="form-control">
-        <button type="submit" class="badge badge-light-success btn btn-sm btn-outline-success fs-4 px-2">+ Goal</button>
+        <button type="submit" class="badge d-flex justify-content-center align-items-center badge-light-success btn btn-sm btn-outline-success fs-4 px-2">
+            <span id="CreateGoalSpinner-{{focus_area.id}}" class="htmx-indicator spinner-border spinner-border-sm me-2"></span>
+            + Goal</button>
     </div>
     {% if form.title.errors %}
         <div class="text-danger">

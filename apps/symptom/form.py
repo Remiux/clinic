@@ -132,7 +132,7 @@ class IndividualTherapyForm(forms.ModelForm):
 class FocusAreaForm(forms.ModelForm):
     class Meta:
         model = FocusArea
-        exclude = ['customer']
+        exclude = ['master','number']
 
 class GoalForm(forms.ModelForm):
     class Meta:
@@ -142,11 +142,20 @@ class GoalForm(forms.ModelForm):
 class ObjectiveForm(forms.ModelForm):
     class Meta:
         model = Objective
-        exclude = ['goal']
+        exclude = ['goal','number']
 
 class InterventionForm(forms.ModelForm):
     class Meta:
         model = Intervention
         exclude = ['goal']
         
+        
+class MasterInitialDischargeCriteriaForm(forms.ModelForm):
+    
+    class Meta:
+        model = Master
+        fields = ['initial_discharge_criteria']
+        
 """ End Section 4 Forms """
+
+

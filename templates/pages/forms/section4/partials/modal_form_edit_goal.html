@@ -1,11 +1,11 @@
-<form hx-post="{% url 'edit_goal' goal.id %}" hx-target="#modal-content-replace-edit-goal" method="post">
+<form hx-post="{% url 'edit_goal' pk=focus_area.goal.id %}" hx-target="#modal-content-replace-edit-goal" method="post">
     {% csrf_token %}
     <div class="modal-header">
     <h5 class="modal-title">Edit Goal</h5>
     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
     </div>
     <div class="modal-body">
-    <input type="text" name="title" value="{{ goal.title }}" class="form-control">
+    <input type="text" name="title" value="{{ focus_area.goal.title }}" class="form-control">
     {% if form.title.errors %}
         <div class="text-danger">
             {% for error in form.title.errors %}

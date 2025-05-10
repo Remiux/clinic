@@ -139,15 +139,7 @@ class Customer(models.Model):
     diagnostic = models.ForeignKey(Diagnostic, on_delete=models.CASCADE)
     diagnostic_two = models.ForeignKey(Diagnostic, on_delete=models.CASCADE,null=True,blank=True, related_name='diagnostic_two_client')
     diagnostic_three = models.ForeignKey(Diagnostic, on_delete=models.CASCADE,null=True,blank=True, related_name='diagnostic_three_client')
-    treatment_duration = models.PositiveIntegerField(
-        default=6,
-        validators=[MinValueValidator(1), MaxValueValidator(12)]
-    )
-    treatment_plan_developed_date = models.DateField(
-        null=True,
-        blank=True,
-        help_text="Date when the treatment plan was developed."
-    )
+    
 
     # def clean(self):
     #     from django.core.exceptions import ValidationError
@@ -408,12 +400,38 @@ class YearlyPhysical(models.Model):
         return f"Yearly Physical for {self.encrypted_file.file.name}"
 
 """ Nuevos Modelos """
+
+class Master(models.Model):
+    customer = models.OneToOneField(Customer, on_delete=models.CASCADE, related_name='customer_master')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_is_master_master')
+    initial_discharge_criteria = models.TextField()
+    date = models.DateField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+    as_psr = models.BooleanField(default=False)
+    as_individual_therapy = models.BooleanField(default=False)
+    treatment_duration = models.PositiveIntegerField(
+        default=6,
+        validators=[MinValueValidator(1), MaxValueValidator(6)]
+    )
+    is_active = models.BooleanField(default=True)
+    
+    def __str__(self):
+        return f"{self.pk}"
+
+    def next_scheduled(self):
+        from dateutil.relativedelta import relativedelta
+        next_date = self.date + relativedelta(months=self.treatment_duration)
+        return next_date
+
+
 class FocusArea(models.Model):
     TIPO_CHOICES = [
         ('PSR', 'PSR'),
         ('Individual', 'Individual Therapy'),
     ]
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='focus_areas')
+    number = models.PositiveIntegerField(default=1)
+    master = models.ForeignKey(Master, on_delete=models.CASCADE, related_name='master_focus_areas')
     title = models.CharField(max_length=100)
     description = models.TextField(null=False, blank=False)
     focus_area_type = models.CharField(max_length=20, choices=TIPO_CHOICES)
@@ -422,7 +440,7 @@ class FocusArea(models.Model):
         return f"Focus Area {self.id}: {self.title}"
 
 class Goal(models.Model):
-    focus_area = models.ForeignKey(FocusArea, on_delete=models.CASCADE)
+    focus_area = models.OneToOneField(FocusArea, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
 
     def __str__(self):
@@ -435,7 +453,8 @@ class Objective(models.Model):
     open_date = models.DateField(default=timezone.now)
     close_date = models.DateField(default=timezone.now)
     static_text = models.TextField(default="Static text.")
-
+    intervention = models.TextField(blank=True)
+    
     def __str__(self):
         return f"Objective {self.number} - GOAL {self.goal.id}"
 

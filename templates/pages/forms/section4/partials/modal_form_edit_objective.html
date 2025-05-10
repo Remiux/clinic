@@ -6,16 +6,7 @@
     </div>
     <div class="modal-body row g-2">
     <input type="hidden" name="goal" value="{{ obj.goal.id }}">
-    <div class="col-md-2">
-        <input type="number" name="number" value="{{ obj.number }}" class="form-control">
-        {% if form.number.errors %}
-            <div class="text-danger">
-                {% for error in form.number.errors %}
-                    {{ error }}
-                {% endfor %}
-            </div>
-        {% endif %}
-    </div>
+    
     <div class="col-md-4">
         <input type="text" name="description" value="{{ obj.description }}" class="form-control">
         {% if form.description.errors %}
@@ -26,7 +17,7 @@
             </div>
         {% endif %}
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <input type="date" name="open_date" value="{{ obj.open_date|date:'Y-m-d'}}" class="form-control">
         {% if form.open_date.errors %}
             <div class="text-danger">
@@ -36,11 +27,21 @@
             </div>
         {% endif %}
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <input type="date" name="close_date" value="{{ obj.close_date|date:'Y-m-d' }}" class="form-control">
         {% if form.close_date.errors %}
             <div class="text-danger">
                 {% for error in form.close_date.errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    <div class="col-12">
+        <textarea name="intervention" rows="2" placeholder="New Intervention" class="form-control">{{ obj.intervention }}</textarea>
+        {% if form.description.errors %}
+            <div class="text-danger">
+                {% for error in form.description.errors %}
                     {{ error }}
                 {% endfor %}
             </div>

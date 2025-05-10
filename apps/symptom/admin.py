@@ -25,6 +25,8 @@ admin.site.register(FocusArea)
 admin.site.register(Goal)
 admin.site.register(Objective)
 admin.site.register(Intervention)
+admin.site.register(Master)
+
 
 
 class AdminGroupCustomer(admin.TabularInline):
