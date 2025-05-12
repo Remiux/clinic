@@ -605,3 +605,11 @@ class CustomerPSRSections(models.Model):
             if customer:
                 return False
         return True
+    
+# class Note(models.Model):
+#     # crea una relacion con Goal, donde una nota pueda tener uno o varios Goals asociados
+#     goals = models.ManyToManyField('Goal', related_name='notes')
+    
+    
+#     def __str__(self):
+#         return self.title

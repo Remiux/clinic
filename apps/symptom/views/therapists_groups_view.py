@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from apps.accounts.models import User
 from apps.symptom.filters import TherapistsGroupsFilter, GroupsPSRSectionsFilter
 from apps.symptom.form import GroupCustomerForm, TherapistsGroupsForm
-from apps.symptom.models import Customer, GroupCustomer, TherapistsGroups, GroupsPSRSections
+from apps.symptom.models import Customer, GroupCustomer, TherapistsGroups, GroupsPSRSections, Goal, Objective
 from utils.paginator import _get_paginator
 
 
@@ -27,10 +27,43 @@ def therapists_sections_groups_view(request):
 def _show_psrSections_filter(request):
     get_copy = request.GET.copy()
     parameters = get_copy.pop('page', True) and get_copy.urlencode()
-    PSRSections = GroupsPSRSectionsFilter(request.GET, queryset=GroupsPSRSections.objects.filter(is_active=False).order_by('-pk'))
+    PSRSections = GroupsPSRSectionsFilter(request.GET, queryset=GroupsPSRSections.objects.filter(is_active=False).order_by('-init_hour'))
     context = _get_paginator(request, PSRSections.qs)
     context['parameters'] = parameters
     return context
+
+from datetime import time
+from apps.symptom.models import Master, FocusArea
+
+def update_psr_notes_view(request, pk, date):
+    #init_hour__lte=time(13, 5)    
+    psrSections = GroupsPSRSections.objects.filter(create_at=date, is_active=False).order_by('init_hour')
+    customer = get_object_or_404(Customer, pk=pk)
+    
+    # Obtener los Goals asociados al Customer
+    
+    goals = Goal.objects.filter(focus_area__master__customer=customer)
+    if goals:
+        print('YES')
+    else:
+        print('NO')
+    
+    # Obtener los Objectives asociados a los Goals
+    objectives = Objective.objects.filter(goal__in=goals)
+    
+    
+    # Pasar los datos al contexto
+    context = {
+        'psrSections': psrSections,
+        'customer': customer,
+        'goals': goals,
+        'objectives': objectives,
+    }
+    
+    return render(request, 'pages/sections_successfully/psr_sections/update_note.html', context)
+    
+    
+
 
 @login_required(login_url='/login')
 def filter_therapists_groups_view(request):

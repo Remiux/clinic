@@ -23,6 +23,10 @@ urlpatterns = [
     path('therapists-add-customer-assist-section/<int:pk>/', therapists_add_customer_assist_view, name='therapists_add_customer_assist_view'),
     path('therapists-customer-remove-assist-list-section/<int:pk>/', therapists_customer_remove_assist_list_view, name='therapists_customer_remove_assist_list_view'),
     path('therapists-confirm-assist-section/<int:pk>/', therapists_confirm_assist_view, name='therapists_confirm_assist_view'),
+    # Therapists PSR Sections
     path('therapists-psr-sections/', therapists_sections_groups_view, name='therapists_sections_groups_view'),
-
+    # path('therapist-psr-notes-create/<int:pk>/', create_psr_notes_view, name='create_psr_notes_view'),
+    # path('therapist-update-psr-notes/<int:pk>/', update_psr_notes_view, name='update_psr_notes_view'),
+    path('therapist-update-psr-notes/<int:pk>/<str:date>/', update_psr_notes_view, name='update_psr_notes_view'),
+    
 ]

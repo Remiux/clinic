@@ -1,573 +1,607 @@
-<table class="table table-bordered mt-3 text-center">
-    <thead>
-        <tr>
-            <th colspan="2" scope="col">SERVICE DAY/DATE: </th>
-            <th scope="col">Tuesday 4/22/2025</th>
-            <th scope="col">Morning</th>
-            <th scope="col">Code H2017</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Begin-End Time</td>
-            <td>8:14 AM to 9:13 AM</td>
-            <td>9:14 AM to 10:15 AM</td>
-            <td>10:30 AM to 11:29 AM</td>
-            <td>11:30 AM to 12:31 PM</td>
-        </tr>
-        <tr>
-            <td>Setting: 53</td>
-            <td>Session 1: 4 Units</td>
-            <td>Session 2: 4 Units</td>
-            <td>Session 3: 4 Units</td>
-            <td>Session 4: 4 Units</td>
-        </tr>
-    </tbody>
-</table>
 
-<table class="table table-bordered mt-3 text-center">
-    <thead>
-        <tr>
-            <th scope="col">Client's Name: Enrique Vega</th>
-            <th scope="col">Total Units: 4</th>
-            <th scope="col">F 33,2</th>
-            <th scope="col">Client ID#: S0071-2</th>
-        </tr>
-    </thead>
-</table>
+<!--begin::Card body-->
+<div class="card-body border-top p-9">                                
+    <table class="table table-bordered mt-3 text-center">
+        <thead>
+            <tr>
+                <th colspan="2" scope="col">SERVICE DAY/DATE: </th>
+                <th scope="col">{{ psrSections.all.first.create_at }}</th>
+                <th scope="col">Morning</th>
+                <th scope="col">Code {{customer.case_no}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Begin-End Time</td>
+                {% for psrSection in psrSections %}
+                    <td>{{ psrSection.init_hour }} to {{ psrSection.end_hour }}</td>
+                {% endfor %}
+                {% comment %} <td>8:14 AM to 9:13 AM</td>
+                <td>9:14 AM to 10:15 AM</td>
+                <td>10:30 AM to 11:29 AM</td>
+                <td>11:30 AM to 12:31 PM</td> {% endcomment %}
+            </tr>
+            <tr>
+                <td>Setting: 53</td>
+                <td>Session 1: 4 Units</td>
+                <td>Session 2: 4 Units</td>
+                <td>Session 3: 4 Units</td>
+                <td>Session 4: 4 Units</td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <table class="table table-bordered mt-3 text-center">
+        <thead>
+            <tr>
+                <th scope="col">Client's Name: {{ customer.full_name }}</th>
+                <th scope="col">Total Units: 4</th>
+                <th scope="col">F 33,2</th>
+                <th scope="col">Client ID#: {{ customer.case_no }}</th>
+            </tr>
+        </thead>
+    </table>
+    
+    <label class="text-decoration-underline">Goals/Objective Addressed from Client's treatment Plan: </label>
 
-<label class="text-decoration-underline">Goals/Objective Addressed from Client's treatment Plan: </label>
-<!-- Lista de Goals -->
-<div class="row mt-5">
-    <div class="col-md-12 mb-3">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" checked disabled value="" id="flexCheckDefault1" />
-            <label for="flexCheckDefault1">
-                GOAL#2: Enriqueta will increase communicational and social skills. She will increase frequency of social interactions.
-            </label>
+    {% comment %} <div class="row mt-5">
+        <div class="col-md-3">
+            <label class="form-label fw-semibold">Goal:</label>
+            <select name="groups" multiple required aria-label="Select a rol" data-control="select2" data-placeholder="Select a goal..." class="form-select form-select-solid form-select-sm fw-semibold">
+                <option value="">Select a goal...</option>
+                {% for objective in objectives %}
+                    <option value="{{objective.pk}}" >{{objective.goal}}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div> {% endcomment %}
+
+    <div class="row mt-5">
+        {% for objective in objectives %}
+            <div class="col-md-12 mb-3">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault{{ forloop.counter }}" />
+                    <label for="flexCheckDefault{{ forloop.counter }}">
+                        {{ objective.goal }} {{ objective.description }}
+                    </label>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+     
+    <label class="mt-5">Description of Client’s Mental Status</label>
+    
+    
+    <table class="table table-bordered mt-3 text-center">
+        <thead>
+            <tr>
+                <th scope="col">Peer Interaction</th>
+                <th scope="col">Mood/Affect</th>
+                <th scope="col">Attitude and Cooperation</th>
+                <th scope="col">Attention/Concentration</th>
+                <th scope="col">Orientation</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" checked disabled value="" id="flexCheckDefault1" />
+                                <label for="flexCheckDefault1">
+                                    Moderate
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                                <label for="flexCheckDefault1">
+                                    Adequate
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                                <label for="flexCheckDefault1">
+                                    Negativistic 
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" checked disabled value="" id="flexCheckDefault1" />
+                                <label for="flexCheckDefault1">
+                                    Positive
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                                <label for="flexCheckDefault1">
+                                    Moderate 
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                                <label for="flexCheckDefault1">
+                                    Inadequate 
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" checked disabled value="" id="flexCheckDefault1" />
+                                <label for="flexCheckDefault1">
+                                    Normal 
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" checked disabled value="" id="flexCheckDefault1" />
+                                <label for="flexCheckDefault1">
+                                    OrientatedX3 
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                                <label for="flexCheckDefault1">
+                                    Limited
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                                <label for="flexCheckDefault1">
+                                    Depressed  
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                                <label for="flexCheckDefault1">
+                                    Anxious
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                                <label for="flexCheckDefault1">
+                                    Motivated 
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                                <label for="flexCheckDefault1">
+                                    Unmotivated 
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                                <label for="flexCheckDefault1">
+                                    Mildly Impaired 
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox"  disabled value="" id="flexCheckDefault1" />
+                                <label for="flexCheckDefault1">
+                                    Not Time 
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox"  disabled value="" id="flexCheckDefault1" />
+                                <label for="flexCheckDefault1">
+                                    Not Place 
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                                <label for="flexCheckDefault1">
+                                    Poor
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                                <label for="flexCheckDefault1">
+                                    Withdrawn   
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                                <label for="flexCheckDefault1">
+                                    Irritable
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                                <label for="flexCheckDefault1">
+                                    Poor 
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                                <label for="flexCheckDefault1">
+                                    Severely Impaired
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox"  disabled value="" id="flexCheckDefault1" />
+                                <label for="flexCheckDefault1">
+                                    Not Person
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <label class="text-decoration-underline mb-5">SKILL SETS ADDRESSED/ACTIVITIES PROVIDED BY FACILITATOR TO BUILD CLIENT SKILLS:</label>
+    <br>
+    <!-- Grupo de Skills -->
+
+    <div class="row">
+        {% for psrSection in psrSections %}
+            <div class="col-md-6 mb-3">
+                <c-input_text inputType="text" spanTitle="Section {{ forloop.counter }}:"></c-input_text>
+            </div>
+            <div class="col-md-6 mb-3">
+                <select name="groups" multiple required aria-label="Select goals" data-control="select2" data-placeholder="Select goals..." class="form-select form-select-solid form-select-sm fw-semibold">
+                    <option value="">Select goals...</option>
+                    {% for objective in objectives %}
+                        <option value="{{objective.pk}}" >{{objective.goal}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="com-md-12 mb-5">
+                <textarea class="form-control" name="" rows="3" id="" style="resize: none;"></textarea>
+            </div>
+        {% endfor %}        
+    </div>
+
+    
+    <label class="text-decoration-underline mb-2">Group 1: Money Management (Goals 2, 3): </label>
+    <p class="lh-lg">
+        The facilitator began the session by addressing the importance of properly managing money to cover basic needs, avoid debt, and reduce financial stress. The facilitator explained how to create a simple monthly budget, identifying income, fixed, and variable expenses. Participants shared examples of unnecessary expenses and saving strategies. The use of envelopes or lists to organize money was encouraged. The group reflected on how financial control can increase their sense of autonomy and stability.
+    </p>
+    
+    <div class="row">
+        <div class="col-md-2 mb-3">
+            <label>Client Response:</label>
+        </div>
+        <div class="col-md-2 mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                <label for="flexCheckDefault1">
+                    Cooperative  
+                </label>
+            </div>
+        </div>
+        <div class="col-md-2 mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" checked disabled value="" id="flexCheckDefault1" />
+                <label for="flexCheckDefault1">
+                    Uninterested   
+                </label>
+            </div>
+        </div>
+        <div class="col-md-2 mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                <label for="flexCheckDefault1">
+                    Distractible   
+                </label>
+            </div>
+        </div>
+        <div class="col-md-2 mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                <label for="flexCheckDefault1">
+                    Confused   
+                </label>
+            </div>
+        </div>
+        <div class="col-md-2 mb-3">
+            <label>Other: </label>
         </div>
     </div>
-    <div class="col-md-12 mb-3">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" checked disabled value="" id="flexCheckDefault1" />
-            <label for="flexCheckDefault1">
-                GOAL#3: Enriqueta will increase her independence skills. She will learn how to use available sources of support.
-            </label>
+    
+    <label class="fw-bold mb-5">Facilitator Intervention: Financial Psychoeducation, Practical Budgeting Activity, Group Brainstorming</label>
+    
+    
+    
+    <br>
+    <label class="text-decoration-underline mb-2">Group 2: Resolving Interpersonal Conflicts: (Goals 2, 3,4): </label>
+    <p class="lh-lg">
+        The facilitator proposed a discussion about how disagreements are a normal part of life but can be managed without violence or ruptures. Common causes of conflict were identified (misunderstandings, intense emotions, lack of listening). The facilitator promoted the practice of assertive communication strategies. The facilitator encouraged participants to engage in small role-plays with everyday situations, such as disagreements with neighbors or family members, to rehearse respectful and firm responses.
+    </p>
+    
+    <div class="row">
+        <div class="col-md-2 mb-3">
+            <label>Client Response:</label>
+        </div>
+        <div class="col-md-2 mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" checked disabled value="" id="flexCheckDefault1" />
+                <label for="flexCheckDefault1">
+                    Cooperative  
+                </label>
+            </div>
+        </div>
+        <div class="col-md-2 mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                <label for="flexCheckDefault1">
+                    Uninterested   
+                </label>
+            </div>
+        </div>
+        <div class="col-md-2 mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                <label for="flexCheckDefault1">
+                    Distractible   
+                </label>
+            </div>
+        </div>
+        <div class="col-md-2 mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                <label for="flexCheckDefault1">
+                    Confused   
+                </label>
+            </div>
+        </div>
+        <div class="col-md-2 mb-3">
+            <label>Other: </label>
         </div>
     </div>
-    <div class="col-md-12 mb-3">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" checked disabled value="" id="flexCheckDefault1" />
-            <label for="flexCheckDefault1">
-                GOAL#4: Enriqueta will decrease crying episodes, recurrent negative thoughts, and self-neglect behaviors.
-            </label>
+    
+    <label class="fw-bold mb-5">Facilitator Intervention: Conflict psychoeducation, Identification of triggers, Assertive communication techniques, Role-playing</label>
+    
+    
+    <br>
+    <label class="text-decoration-underline mb-2">Group 3: Relapse prevention: (Goals 2, 3): </label>
+    <p class="lh-lg">
+        The facilitator explained what a mental health relapse is and how to identify early signs of decompensation (changes in sleep, mood, thoughts). The facilitator encouraged participants to reflect on their previous experiences and identify personal risk factors. The facilitator reinforced the idea that preventing relapse is an act of self-care and responsibility.
+    </p>
+    
+    <div class="row">
+        <div class="col-md-2 mb-3">
+            <label>Client Response:</label>
+        </div>
+        <div class="col-md-2 mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                <label for="flexCheckDefault1">
+                    Cooperative  
+                </label>
+            </div>
+        </div>
+        <div class="col-md-2 mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" checked disabled value="" id="flexCheckDefault1" />
+                <label for="flexCheckDefault1">
+                    Uninterested   
+                </label>
+            </div>
+        </div>
+        <div class="col-md-2 mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                <label for="flexCheckDefault1">
+                    Distractible   
+                </label>
+            </div>
+        </div>
+        <div class="col-md-2 mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                <label for="flexCheckDefault1">
+                    Confused   
+                </label>
+            </div>
+        </div>
+        <div class="col-md-2 mb-3">
+            <label>Other: </label>
+        </div>
+    </div>
+    
+    <label class="fw-bold mb-5">Facilitator Intervention: Analysis of past experiences, Development of a personalized prevention plan, Identification of warning signs</label>
+    
+    
+    
+    <label class="text-decoration-underline mt-5 mb-5">Update of progress toward meeting goals and objectives on treatment plan (check only one):</label>
+    
+    <div class="row border p-3">
+        <div class="col-md-3 mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                <label for="flexCheckDefault1">
+                    Significant progress.
+                </label>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" checked disabled value="" id="flexCheckDefault1" />
+                <label for="flexCheckDefault1">
+                    Moderate progress.
+                </label>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                <label for="flexCheckDefault1">
+                    Minimal progress.
+                </label>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                <label for="flexCheckDefault1">
+                    No progress.
+                </label>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                <label for="flexCheckDefault1">
+                    Regression.
+                </label>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                <label for="flexCheckDefault1">
+                    Decompensating.
+                </label>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                <label for="flexCheckDefault1">
+                    Unable to determine at this time.
+                </label>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row align-items-end mt-10">
+        <div class="col-md-4">
+            <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+                <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/>
+            </div>
+            <h6 class="text-gray-900 mb-5 text-center">Group Facilitator / Credentials</h6>
+        </div>
+        <div class="col-md-4 ">
+            <c-input_text inputType="date" helpText="Date" inputValue="{{customer.create_at|date:'Y-m-d'}}">
+            </c-input_text>
+        </div>
+        <div class="col-md-4">
+            <c-input_text inputType="text" helpText="Group Facilitator (print legibly)">
+            </c-input_text>
+        </div>
+    
+        <div class="col-md-4">
+            <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+                <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/>
+            </div>
+            <h6 class="text-gray-900 mb-5 text-center">Supervisor / Credentials</h6>
+        </div>
+        <div class="col-md-4 ">
+            <c-input_text inputType="date" helpText="Date" inputValue="{{customer.create_at|date:'Y-m-d'}}">
+            </c-input_text>
+        </div>
+        <div class="col-md-4">
+            <c-input_text inputType="text" helpText="Supervisor (print legibly)">
+            </c-input_text>
         </div>
     </div>
 </div>
- 
-<label class="mt-5">Description of Client’s Mental Status</label>
-
-
-<table class="table table-bordered mt-3 text-center">
-    <thead>
-        <tr>
-            <th scope="col">Peer Interaction</th>
-            <th scope="col">Mood/Affect</th>
-            <th scope="col">Attitude and Cooperation</th>
-            <th scope="col">Attention/Concentration</th>
-            <th scope="col">Orientation</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" checked disabled value="" id="flexCheckDefault1" />
-                            <label for="flexCheckDefault1">
-                                Moderate
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-                            <label for="flexCheckDefault1">
-                                Adequate
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-                            <label for="flexCheckDefault1">
-                                Negativistic 
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" checked disabled value="" id="flexCheckDefault1" />
-                            <label for="flexCheckDefault1">
-                                Positive
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-                            <label for="flexCheckDefault1">
-                                Moderate 
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-                            <label for="flexCheckDefault1">
-                                Inadequate 
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="row">
-                    <div class="col-md-12 mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" checked disabled value="" id="flexCheckDefault1" />
-                            <label for="flexCheckDefault1">
-                                Normal 
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="row">
-                    <div class="col-md-12 mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" checked disabled value="" id="flexCheckDefault1" />
-                            <label for="flexCheckDefault1">
-                                OrientatedX3 
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="row">
-                    <div class="col-md-12 mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-                            <label for="flexCheckDefault1">
-                                Limited
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-                            <label for="flexCheckDefault1">
-                                Depressed  
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-                            <label for="flexCheckDefault1">
-                                Anxious
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-                            <label for="flexCheckDefault1">
-                                Motivated 
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-                            <label for="flexCheckDefault1">
-                                Unmotivated 
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="row">
-                    <div class="col-md-12 mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-                            <label for="flexCheckDefault1">
-                                Mildly Impaired 
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox"  disabled value="" id="flexCheckDefault1" />
-                            <label for="flexCheckDefault1">
-                                Not Time 
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox"  disabled value="" id="flexCheckDefault1" />
-                            <label for="flexCheckDefault1">
-                                Not Place 
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div class="row">
-                    <div class="col-md-12 mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-                            <label for="flexCheckDefault1">
-                                Poor
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-                            <label for="flexCheckDefault1">
-                                Withdrawn   
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-                            <label for="flexCheckDefault1">
-                                Irritable
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="row">
-                    <div class="col-md-12 mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-                            <label for="flexCheckDefault1">
-                                Poor 
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="row">
-                    <div class="col-md-12 mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-                            <label for="flexCheckDefault1">
-                                Severely Impaired
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="row">
-                    <div class="col-md-12 mb-3">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox"  disabled value="" id="flexCheckDefault1" />
-                            <label for="flexCheckDefault1">
-                                Not Person
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            </td>
-        </tr>
-    </tbody>
-</table>
-
-<label class="text-decoration-underline mb-5">SKILL SETS ADDRESSED/ACTIVITIES PROVIDED BY FACILITATOR TO BUILD CLIENT SKILLS:</label>
-<br>
-<!-- Grupo de Skills -->
-
-<label class="text-decoration-underline mb-2">Group 1: Money Management (Goals 2, 3): </label>
-<p class="lh-lg">
-    The facilitator began the session by addressing the importance of properly managing money to cover basic needs, avoid debt, and reduce financial stress. The facilitator explained how to create a simple monthly budget, identifying income, fixed, and variable expenses. Participants shared examples of unnecessary expenses and saving strategies. The use of envelopes or lists to organize money was encouraged. The group reflected on how financial control can increase their sense of autonomy and stability.
-</p>
-
-<div class="row">
-    <div class="col-md-2 mb-3">
-        <label>Client Response:</label>
-    </div>
-    <div class="col-md-2 mb-3">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-            <label for="flexCheckDefault1">
-                Cooperative  
-            </label>
-        </div>
-    </div>
-    <div class="col-md-2 mb-3">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" checked disabled value="" id="flexCheckDefault1" />
-            <label for="flexCheckDefault1">
-                Uninterested   
-            </label>
-        </div>
-    </div>
-    <div class="col-md-2 mb-3">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-            <label for="flexCheckDefault1">
-                Distractible   
-            </label>
-        </div>
-    </div>
-    <div class="col-md-2 mb-3">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-            <label for="flexCheckDefault1">
-                Confused   
-            </label>
-        </div>
-    </div>
-    <div class="col-md-2 mb-3">
-        <label>Other: </label>
-    </div>
+<!--end::Card body-->
+<!--begin::Actions-->
+<div class="card-footer d-flex justify-content-end py-6 px-9">
+    <button type="submit" class="btn btn-primary btn-sm" id="kt_account_profile_details_submit">Save Changes</button>
 </div>
-
-<label class="fw-bold mb-5">Facilitator Intervention: Financial Psychoeducation, Practical Budgeting Activity, Group Brainstorming</label>
-
+<!--end::Actions-->
 
 
-<br>
-<label class="text-decoration-underline mb-2">Group 2: Resolving Interpersonal Conflicts: (Goals 2, 3,4): </label>
-<p class="lh-lg">
-    The facilitator proposed a discussion about how disagreements are a normal part of life but can be managed without violence or ruptures. Common causes of conflict were identified (misunderstandings, intense emotions, lack of listening). The facilitator promoted the practice of assertive communication strategies. The facilitator encouraged participants to engage in small role-plays with everyday situations, such as disagreements with neighbors or family members, to rehearse respectful and firm responses.
-</p>
-
-<div class="row">
-    <div class="col-md-2 mb-3">
-        <label>Client Response:</label>
-    </div>
-    <div class="col-md-2 mb-3">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" checked disabled value="" id="flexCheckDefault1" />
-            <label for="flexCheckDefault1">
-                Cooperative  
-            </label>
-        </div>
-    </div>
-    <div class="col-md-2 mb-3">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-            <label for="flexCheckDefault1">
-                Uninterested   
-            </label>
-        </div>
-    </div>
-    <div class="col-md-2 mb-3">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-            <label for="flexCheckDefault1">
-                Distractible   
-            </label>
-        </div>
-    </div>
-    <div class="col-md-2 mb-3">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-            <label for="flexCheckDefault1">
-                Confused   
-            </label>
-        </div>
-    </div>
-    <div class="col-md-2 mb-3">
-        <label>Other: </label>
-    </div>
-</div>
-
-<label class="fw-bold mb-5">Facilitator Intervention: Conflict psychoeducation, Identification of triggers, Assertive communication techniques, Role-playing</label>
-
-
-<br>
-<label class="text-decoration-underline mb-2">Group 3: Relapse prevention: (Goals 2, 3): </label>
-<p class="lh-lg">
-    The facilitator explained what a mental health relapse is and how to identify early signs of decompensation (changes in sleep, mood, thoughts). The facilitator encouraged participants to reflect on their previous experiences and identify personal risk factors. The facilitator reinforced the idea that preventing relapse is an act of self-care and responsibility.
-</p>
-
-<div class="row">
-    <div class="col-md-2 mb-3">
-        <label>Client Response:</label>
-    </div>
-    <div class="col-md-2 mb-3">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-            <label for="flexCheckDefault1">
-                Cooperative  
-            </label>
-        </div>
-    </div>
-    <div class="col-md-2 mb-3">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" checked disabled value="" id="flexCheckDefault1" />
-            <label for="flexCheckDefault1">
-                Uninterested   
-            </label>
-        </div>
-    </div>
-    <div class="col-md-2 mb-3">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-            <label for="flexCheckDefault1">
-                Distractible   
-            </label>
-        </div>
-    </div>
-    <div class="col-md-2 mb-3">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-            <label for="flexCheckDefault1">
-                Confused   
-            </label>
-        </div>
-    </div>
-    <div class="col-md-2 mb-3">
-        <label>Other: </label>
-    </div>
-</div>
-
-<label class="fw-bold mb-5">Facilitator Intervention: Analysis of past experiences, Development of a personalized prevention plan, Identification of warning signs</label>
-
-
-
-<label class="text-decoration-underline mt-5 mb-5">Update of progress toward meeting goals and objectives on treatment plan (check only one):</label>
-
-<div class="row border p-3">
-    <div class="col-md-3 mb-3">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-            <label for="flexCheckDefault1">
-                Significant progress.
-            </label>
-        </div>
-    </div>
-    <div class="col-md-3 mb-3">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" checked disabled value="" id="flexCheckDefault1" />
-            <label for="flexCheckDefault1">
-                Moderate progress.
-            </label>
-        </div>
-    </div>
-    <div class="col-md-3 mb-3">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-            <label for="flexCheckDefault1">
-                Minimal progress.
-            </label>
-        </div>
-    </div>
-    <div class="col-md-3 mb-3">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-            <label for="flexCheckDefault1">
-                No progress.
-            </label>
-        </div>
-    </div>
-    <div class="col-md-3 mb-3">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-            <label for="flexCheckDefault1">
-                Regression.
-            </label>
-        </div>
-    </div>
-    <div class="col-md-3 mb-3">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-            <label for="flexCheckDefault1">
-                Decompensating.
-            </label>
-        </div>
-    </div>
-    <div class="col-md-3 mb-3">
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-            <label for="flexCheckDefault1">
-                Unable to determine at this time.
-            </label>
-        </div>
-    </div>
-</div>
-
-<div class="row align-items-end mt-10">
-    <div class="col-md-4">
-        <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
-            <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/>
-        </div>
-        <h6 class="text-gray-900 mb-5 text-center">Group Facilitator / Credentials</h6>
-    </div>
-    <div class="col-md-4 ">
-        <c-input_text inputType="date" helpText="Date" inputValue="{{customer.create_at|date:'Y-m-d'}}">
-        </c-input_text>
-    </div>
-    <div class="col-md-4">
-        <c-input_text inputType="text" helpText="Group Facilitator (print legibly)">
-        </c-input_text>
-    </div>
-
-    <div class="col-md-4">
-        <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
-            <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/>
-        </div>
-        <h6 class="text-gray-900 mb-5 text-center">Supervisor / Credentials</h6>
-    </div>
-    <div class="col-md-4 ">
-        <c-input_text inputType="date" helpText="Date" inputValue="{{customer.create_at|date:'Y-m-d'}}">
-        </c-input_text>
-    </div>
-    <div class="col-md-4">
-        <c-input_text inputType="text" helpText="Supervisor (print legibly)">
-        </c-input_text>
-    </div>
-</div>
