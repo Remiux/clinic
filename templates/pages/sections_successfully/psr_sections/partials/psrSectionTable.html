@@ -1,0 +1,159 @@
+<div id="kt_app_content_container" class="app-container container-fluid">
+  <!--begin::Products-->
+
+  <!--begin::Card body-->
+  <div class="card-body pt-0">
+    <!--begin::Table-->
+    <div
+      id="kt_ecommerce_products_table_wrapper"
+      class="dt-container dt-bootstrap5 dt-empty-footer"
+    >
+      <div id="" class="table-responsive">
+        <table
+          class="table align-middle table-row-dashed fs-6 gy-5 dataTable"
+          id="kt_ecommerce_products_table"
+          style="width: 100%"
+        >
+          <colgroup>
+            <col data-dt-column="0" style="width: 5.4px" />
+            <col data-dt-column="1" style="width: 5.4px" />
+            <col data-dt-column="2" style="width: 5.4px" />
+            <col data-dt-column="3" style="width: 5.4px" />
+            <col data-dt-column="4" style="width: 5.4px" />
+            <col data-dt-column="5" style="width: 5.4px" />
+            <col data-dt-column="6" style="width: 5.4px" />
+          
+          </colgroup>
+          <thead>
+            <tr
+              class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0"
+            >
+            
+            <th
+                class="min-w-200px dt-orderable-asc dt-orderable-desc"
+                data-dt-column="1"
+                rowspan="1"
+                colspan="1"
+                
+                tabindex="0"
+              >
+                <span class="dt-column-title text-gray-800" role="button">Date</span
+                ><span class="dt-column-order"></span>
+              </th>
+              <th
+                class="min-w-200px dt-orderable-asc dt-orderable-desc"
+                data-dt-column="2"
+                rowspan="1"
+                colspan="1"
+                
+                tabindex="0"
+              >
+                <span class="dt-column-title text-gray-800" role="button">Init-End-Date</span
+                ><span class="dt-column-order"></span>
+              </th>
+              <th
+                class="text-end dt-orderable-asc dt-orderable-desc"
+                data-dt-column="3"
+                rowspan="1"
+                colspan="1"
+                
+                tabindex="0"
+              >
+                <span class="dt-column-title text-gray-800" role="button">Therapist</span
+                ><span class="dt-column-order"></span>
+              </th>
+              <th
+                class="text-end dt-orderable-asc dt-orderable-desc"
+                data-dt-column="4"
+                rowspan="1"
+                colspan="1"
+                
+                tabindex="0"
+              >
+                <span class="dt-column-title text-gray-800" role="button">Customer</span
+                ><span class="dt-column-order"></span>
+              </th>
+
+              <th
+                class="text-end dt-orderable-asc dt-orderable-desc"
+                data-dt-column="5"
+                rowspan="1"
+                colspan="1"
+                tabindex="0"
+              >
+                <span class="dt-column-title text-gray-800" role="button">Notes</span>
+                <span class="dt-column-order"></span>
+              </th>
+              
+              <th
+                class="text-end min-w-70px dt-type-numeric dt-orderable-asc dt-orderable-desc"
+                data-dt-column="6"
+                rowspan="1"
+                colspan="1"
+                
+                tabindex="0"
+              >
+                <span class="dt-column-title text-gray-800" role="button">Actions</span
+                ><span class="dt-column-order"></span>
+              </th>
+              
+            </tr>
+            {% if paginator %}
+            
+            <tbody class="fw-semibold text-gray-600">
+              {% for psrSection in paginator %}
+              <tr>
+                <td>
+                  <span class="fw-bold text-gray-800">{{ psrSection.create_at }}</span>
+                </td>
+                <td>
+                  <span class="fw-bold text-gray-800">{{ psrSection.init_hour }} - {{ psrSection.end_hour }}</span>
+                </td>
+                <td class="text-end pe-0 dt-type-numeric">
+                  <span class="fw-bold text-gray-800">{{ psrSection.therapist_full_name }}</span>
+                </td>
+                <td class="text-end pe-0 dt-type-numeric">
+                  <span class="fw-bold text-gray-800">
+                    {% for customer in psrSection.customer_psr_section.all %}
+                      {{ customer.customer.full_name }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}</span>
+                </td>
+
+                <td class="text-end pe-0">
+                  <div class="badge badge-light-success badge-lg">
+                      note
+                  </div>
+                </td>
+
+                <td class="text-end">
+                  <a
+                     href="#" 
+                    class="badge badge-light-warning bi-pencil-square btn btn-sm btn-outline-warning btn-flex btn-center fs-5 px-2"
+                    data-kt-menu-trigger="click"
+                    data-kt-menu-placement="bottom-end"
+                    ></a>
+                    
+                 
+                  </div>
+                  <!--end::Menu-->
+                </td>
+                
+              </tr>
+              {% endfor %}
+            </tbody>
+            
+            {% endif %}
+            
+          </thead>
+          
+          <tfoot></tfoot>
+        </table>
+      </div>
+      
+    </div>
+    <!--end::Table-->
+  </div>
+  <!--end::Card body-->
+
+  <!--end::Products-->
+</div>
