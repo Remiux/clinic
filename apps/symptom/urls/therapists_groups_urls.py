@@ -27,5 +27,6 @@ urlpatterns = [
     path('therapists-psr-sections/', therapists_sections_groups_view, name='therapists_sections_groups_view'),
     path('therapist-psr-notes-create/<int:pk>/', create_psr_notes_view, name='create_psr_notes_view'),
     path('therapist-update-psr-notes/<int:pk>/<str:date>/', update_psr_notes_view, name='update_psr_notes_view'),
+    path('therapist-save-note-changes/<int:pk>/', save_note_changes, name='save_note_changes'),
     
 ]

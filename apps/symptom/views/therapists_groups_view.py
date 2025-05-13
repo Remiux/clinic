@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.decorators import login_required
 from apps.accounts.models import User
 from apps.symptom.filters import TherapistsGroupsFilter, GroupsPSRSectionsFilter
-from apps.symptom.form import GroupCustomerForm, TherapistsGroupsForm
+from apps.symptom.form import GroupCustomerForm, TherapistsGroupsForm, NoteForm
 from apps.symptom.models import Customer, GroupCustomer, TherapistsGroups, GroupsPSRSections, Goal, Objective
 from utils.paginator import _get_paginator
 
@@ -57,6 +57,7 @@ def update_psr_notes_view(request, pk, date):
     #init_hour__lte=time(13, 5)    
     psrSections = GroupsPSRSections.objects.filter(create_at=date, is_active=False).order_by('init_hour')
     customer = get_object_or_404(Customer, pk=pk)
+    note = psrSections.first().note if psrSections.exists() else None
     
     # Obtener los Goals asociados al Customer
     goals = Goal.objects.filter(focus_area__master__customer=customer)
@@ -71,11 +72,30 @@ def update_psr_notes_view(request, pk, date):
         'customer': customer,
         'goals': goals,
         'objectives': objectives,
+        'note': note,
     }
     
     return render(request, 'pages/sections_successfully/psr_sections/update_note.html', context)
     
     
+def save_note_changes(request, pk):
+    psrSection = get_object_or_404(GroupsPSRSections, pk=pk)
+    note = psrSection.note
+    
+    context = {}
+    form = NoteForm(request.POST or None, instance=note)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            context['tags']="success"
+            context['tag_messsage']="Changes saved successfully!"
+        else:
+            print(form.errors)
+            context['tags']="error"
+            context['tag_messsage']="Something went wrong!"
+    
+    context['form'] = form
+    return render(request,'pages/sections_successfully/psr_sections/partials/notes.html', context)
 
 
 @login_required(login_url='/login')
@@ -124,7 +144,7 @@ def create_customer_group_view(request, pk):
                 customer = form.save(commit=False)
                 customer.group = group
                 customer.save()
-                context['create_messsage']="Create customer successfull"
+                context['create_messsage']="Create customer successfully"
                 context['tags']="success"
     return render(request, 'pages/therapistsGroup/components/customerGroupList.html', context)
 

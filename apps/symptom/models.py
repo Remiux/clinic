@@ -567,9 +567,9 @@ class IndividualTherapySection(models.Model):
 
 class Note(models.Model):
     PEER_INTERACTION = [
-        ('Modedrate', 'Initial'),
-        ('Adequate', 'Checked'),
-        ('Limited', 'Finished'),
+        ('Moderate', 'Moderate'),
+        ('Adequate', 'Adequate'),
+        ('Limited', 'Limited'),
         ('Poor', 'Poor'),
     ]
     
@@ -604,13 +604,15 @@ class Note(models.Model):
     
     peer_interaction = models.CharField(max_length=20, choices=PEER_INTERACTION, null=True, blank=True)
     mood_affect = models.CharField(max_length=20, choices=MOOD_AFFECT, null=True, blank=True)
-    attitude_cooperation = models.CharField(max_length=20, choices=ATTENTION_CONCENTRATION, null=True, blank=True)
+    attitude_cooperation = models.CharField(max_length=20, choices=ATTITUDE_COOPERATION, null=True, blank=True)
     attention_concentration = models.CharField(max_length=20, choices=ATTENTION_CONCENTRATION, null=True, blank=True)
     orientation = models.CharField(max_length=20, choices=ORIENTATION, null=True, blank=True)
     
     
+    
+    
     def __str__(self):
-        return f"Note of {self.sections.first().create_at if self.sections.exists() else 'Sin fecha'}"
+        return f"Note of {self.sections.first().create_at if self.sections.exists() else 'No Date'}"
 
 
 class GroupsPSRSections(models.Model):
