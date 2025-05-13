@@ -565,6 +565,54 @@ class IndividualTherapySection(models.Model):
         return f"{self.pk}"
 
 
+class Note(models.Model):
+    PEER_INTERACTION = [
+        ('Modedrate', 'Initial'),
+        ('Adequate', 'Checked'),
+        ('Limited', 'Finished'),
+        ('Poor', 'Poor'),
+    ]
+    
+    MOOD_AFFECT = [
+        ('Negativistic', 'Negativistic'),
+        ('Positive', 'Positive'),
+        ('Depressed', 'Depressed'),
+        ('Anxious', 'Anxious'),
+        ('Withdrawn', 'Withdrawn'),
+    ]
+    
+    ATTITUDE_COOPERATION = [
+        ('Moderate', 'Moderate'),
+        ('Inadequate', 'Inadequate'),
+        ('Motivated', 'Motivated'),
+        ('Unmotivated', 'Unmotivated'),
+        ('Poor', 'Poor'),
+    ]
+    
+    ATTENTION_CONCENTRATION = [
+        ('Normal', 'Normal'),
+        ('MildlyImpaired', 'Mildly Impaired'),
+        ('SeverelyImpaired', 'Severely Impaired'),
+    ]
+    
+    ORIENTATION = [
+        ('OrientedX3', 'OrientedX3'),
+        ('NotTime', 'Not Time'),
+        ('NotPlace', 'Not Place'),
+        ('NotPerson', 'Not Person'),
+    ]
+    
+    peer_interaction = models.CharField(max_length=20, choices=PEER_INTERACTION, null=True, blank=True)
+    mood_affect = models.CharField(max_length=20, choices=MOOD_AFFECT, null=True, blank=True)
+    attitude_cooperation = models.CharField(max_length=20, choices=ATTENTION_CONCENTRATION, null=True, blank=True)
+    attention_concentration = models.CharField(max_length=20, choices=ATTENTION_CONCENTRATION, null=True, blank=True)
+    orientation = models.CharField(max_length=20, choices=ORIENTATION, null=True, blank=True)
+    
+    
+    def __str__(self):
+        return f"Note of {self.sections.first().create_at if self.sections.exists() else 'Sin fecha'}"
+
+
 class GroupsPSRSections(models.Model):
     therapist_pk = models.CharField(max_length=20)
     therapist_full_name = models.CharField(max_length=80)
@@ -573,13 +621,14 @@ class GroupsPSRSections(models.Model):
     init_hour = models.TimeField(null=True, blank=True)
     end_hour = models.TimeField(null=True, blank=True)
     is_active= models.BooleanField(default=True)
+    note = models.ForeignKey(Note, on_delete=models.SET_NULL, related_name='sections', blank=True, null=True)
 
     class Meta:
         verbose_name = "GroupsPSRSections"
         verbose_name_plural = "GroupsPSRSectionss"
 
     def __str__(self):
-        return f"{self.pk}"
+        return f"Section of {self.create_at} ({self.init_hour} - {self.end_hour})"
 
     
 class CustomerPSRSections(models.Model):
@@ -606,10 +655,3 @@ class CustomerPSRSections(models.Model):
                 return False
         return True
     
-# class Note(models.Model):
-#     # crea una relacion con Goal, donde una nota pueda tener uno o varios Goals asociados
-#     goals = models.ManyToManyField('Goal', related_name='notes')
-    
-    
-#     def __str__(self):
-#         return self.title

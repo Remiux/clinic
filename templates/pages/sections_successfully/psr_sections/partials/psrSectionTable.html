@@ -119,28 +119,53 @@
                     {% endfor %}</span>
                 </td>
 
-                <td class="text-end pe-0">
-                  <div class="badge badge-light-success badge-lg">
-                      note
-                  </div>
-                </td>
+                {% if psrSection.note %}
+                  <td class="text-end pe-0">
+                    <div class="badge badge-light-success badge-lg">
+                        note
+                    </div>
+                  </td>
 
-                <td class="text-end">
-                  <a
-                  {% for customer in psrSection.customer_psr_section.all %}
-                      href="{% url 'update_psr_notes_view' pk=customer.customer.pk date=psrSection.create_at %}"
-                  {% endfor %}
+                  <td class="text-end">
+                    <a
+                    {% for customer in psrSection.customer_psr_section.all %}
+                        href="{% url 'update_psr_notes_view' pk=customer.customer.pk date=psrSection.create_at %}"
+                    {% endfor %}
+                        
+                      class="badge badge-light-warning bi-pencil-square btn btn-sm btn-outline-warning btn-flex btn-center fs-5 px-2"
+                      data-kt-menu-trigger="click"
+                      data-kt-menu-placement="bottom-end"
+                      ></a>
                       
-                    class="badge badge-light-warning bi-pencil-square btn btn-sm btn-outline-warning btn-flex btn-center fs-5 px-2"
-                    data-kt-menu-trigger="click"
-                    data-kt-menu-placement="bottom-end"
-                    ></a>
+                  
+                    </div>
+                    <!--end::Menu-->
+                  </td>
+                  {% else %}
+                    <td class="text-end pe-0">
+                      <div class="badge badge-light-danger badge-lg">
+                          no note
+                      </div>
+                    </td>
+
+                    <td class="text-end">
+                      <a href="#"
+                      {% for customer in psrSection.customer_psr_section.all %}
+                          hx-get="{% url 'create_psr_notes_view' pk=psrSection.pk %}"
+                          hx-target="#psrSectionsTableResult"
+                      {% endfor %}
+                          
+                        class="badge badge-light-success bi-plus-square btn btn-sm btn-outline-success btn-flex btn-center fs-5 px-2"
+                        data-kt-menu-trigger="click"
+                        data-kt-menu-placement="bottom-end"
+                        ></a>
+                        
                     
-                 
-                  </div>
-                  <!--end::Menu-->
-                </td>
-                
+                      </div>
+                      <!--end::Menu-->
+                    </td>
+
+                {% endif %}
               </tr>
               {% endfor %}
             </tbody>

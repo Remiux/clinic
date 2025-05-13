@@ -194,3 +194,15 @@ class FarsForm(forms.ModelForm):
                 )
 
         return cleaned_data
+
+
+class NoteForm(forms.ModelForm):
+    class Meta:
+        model = Note
+        fields = [
+            'peer_interaction',
+            'mood_affect',
+            'attitude_cooperation',
+            'attention_concentration',
+            'orientation',
+        ]

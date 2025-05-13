@@ -33,7 +33,25 @@ def _show_psrSections_filter(request):
     return context
 
 from datetime import time
-from apps.symptom.models import Master, FocusArea
+from apps.symptom.models import Master, FocusArea, Note
+
+def create_psr_notes_view(request, pk):
+    psrSection = get_object_or_404(GroupsPSRSections, pk=pk)
+    psrSectionsOnDate = GroupsPSRSections.objects.filter(create_at=psrSection.create_at)
+    note = Note.objects.create()
+    
+    # a cada elemento de psrSectionsOnDate asignarle la nota creada
+    for item in psrSectionsOnDate:
+        item.note = note
+        item.save()
+    
+    
+    context = _show_psrSections_filter(request)
+    context['therapists'] = User.objects.filter(groups__name='therapist').order_by('first_name')
+    context['GroupsPSRSections'] = GroupsPSRSections.objects.filter(is_active=False)
+    
+    return render(request,'pages/sections_successfully/psr_sections/partials/psrSectionTable.html',context)
+    
 
 def update_psr_notes_view(request, pk, date):
     #init_hour__lte=time(13, 5)    
@@ -41,12 +59,7 @@ def update_psr_notes_view(request, pk, date):
     customer = get_object_or_404(Customer, pk=pk)
     
     # Obtener los Goals asociados al Customer
-    
     goals = Goal.objects.filter(focus_area__master__customer=customer)
-    if goals:
-        print('YES')
-    else:
-        print('NO')
     
     # Obtener los Objectives asociados a los Goals
     objectives = Objective.objects.filter(goal__in=goals)

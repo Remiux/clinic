@@ -62,7 +62,7 @@
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault{{ forloop.counter }}" />
                     <label for="flexCheckDefault{{ forloop.counter }}">
-                        {{ objective.goal }} {{ objective.description }}
+                        {{ objective.goal }} {{ objective.goal.title }}
                     </label>
                 </div>
             </div>
@@ -349,6 +349,50 @@
             <div class="com-md-12 mb-5">
                 <textarea class="form-control" name="" rows="3" id="" style="resize: none;"></textarea>
             </div>
+
+            <div class="row">
+                <div class="col-md-2 mb-3">
+                    <label>Client Response:</label>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                        <label for="flexCheckDefault1">
+                            Cooperative  
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" checked disabled value="" id="flexCheckDefault1" />
+                        <label for="flexCheckDefault1">
+                            Uninterested   
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                        <label for="flexCheckDefault1">
+                            Distractible   
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
+                        <label for="flexCheckDefault1">
+                            Confused   
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label>Other: </label>
+                </div>
+            </div>
+            
+            <label class="fw-bold mb-5">Facilitator Intervention: Financial Psychoeducation, Practical Budgeting Activity, Group Brainstorming</label>
+
         {% endfor %}        
     </div>
 
@@ -358,48 +402,7 @@
         The facilitator began the session by addressing the importance of properly managing money to cover basic needs, avoid debt, and reduce financial stress. The facilitator explained how to create a simple monthly budget, identifying income, fixed, and variable expenses. Participants shared examples of unnecessary expenses and saving strategies. The use of envelopes or lists to organize money was encouraged. The group reflected on how financial control can increase their sense of autonomy and stability.
     </p>
     
-    <div class="row">
-        <div class="col-md-2 mb-3">
-            <label>Client Response:</label>
-        </div>
-        <div class="col-md-2 mb-3">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-                <label for="flexCheckDefault1">
-                    Cooperative  
-                </label>
-            </div>
-        </div>
-        <div class="col-md-2 mb-3">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" checked disabled value="" id="flexCheckDefault1" />
-                <label for="flexCheckDefault1">
-                    Uninterested   
-                </label>
-            </div>
-        </div>
-        <div class="col-md-2 mb-3">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-                <label for="flexCheckDefault1">
-                    Distractible   
-                </label>
-            </div>
-        </div>
-        <div class="col-md-2 mb-3">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" disabled value="" id="flexCheckDefault1" />
-                <label for="flexCheckDefault1">
-                    Confused   
-                </label>
-            </div>
-        </div>
-        <div class="col-md-2 mb-3">
-            <label>Other: </label>
-        </div>
-    </div>
     
-    <label class="fw-bold mb-5">Facilitator Intervention: Financial Psychoeducation, Practical Budgeting Activity, Group Brainstorming</label>
     
     
     
