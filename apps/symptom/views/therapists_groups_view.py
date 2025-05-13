@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from apps.accounts.models import User
 from apps.symptom.filters import TherapistsGroupsFilter, GroupsPSRSectionsFilter
 from apps.symptom.form import GroupCustomerForm, TherapistsGroupsForm, NoteForm
-from apps.symptom.models import Customer, GroupCustomer, TherapistsGroups, GroupsPSRSections, Goal, Objective
+from apps.symptom.models import Customer, GroupCustomer, TherapistsGroups, GroupsPSRSections, Goal, Objective, NoteSectionDetail
 from utils.paginator import _get_paginator
 
 
@@ -109,51 +109,116 @@ def update_psr_notes_view(request, pk, date):
 #     context['psrSections'] = psrSections
 #     return render(request,'pages/sections_successfully/psr_sections/partials/saveNoteForm.html', context)
 
-from apps.symptom.models import NoteSectionDetail
+# from apps.symptom.models import NoteSectionDetail
+# def save_note_changes(request, pk, cs_pk):
+#     psrSection = get_object_or_404(GroupsPSRSections, pk=pk)
+#     psrSections = GroupsPSRSections.objects.filter(create_at=psrSection.create_at)
+#     customer = get_object_or_404(Customer, pk=cs_pk)
+#     note = psrSection.note
+
+#     # Obtener los Goals asociados al Customer
+#     goals = Goal.objects.filter(focus_area__master__customer=customer)
+#     objectives = Objective.objects.filter(goal__in=goals)
+
+    
+
+#     if request.method == 'POST':
+#         for psr_section in psrSections:
+#             section_number = request.POST.get(f'section_number_{psr_section.pk}')
+#             description = request.POST.get(f'description_{psr_section.pk}')
+#             goals_ids = request.POST.getlist(f'goals_{psr_section.pk}')
+#             client_response = request.POST.get(f'client_response_{psr_section.pk}')
+#             facilitator = request.POST.get(f'facilitator_{psr_section.pk}')
+#             update_progress = request.POST.get('update_progress')
+
+#             # Obtener o crear el detalle de la sección
+#             note_detail, created = NoteSectionDetail.objects.get_or_create(
+#                 note=note,
+#                 psr_section=psr_section
+#             )
+#             note_detail.section_number = section_number
+#             note_detail.description = description
+#             note_detail.client_response = client_response
+#             note_detail.facilitator = facilitator
+#             note_detail.update_progress = update_progress
+#             note_detail.goals.set(objectives.filter(pk__in=goals_ids))
+            
+#             # Procesar los checkboxes de objetivos
+#             checkbox_goals_ids = request.POST.getlist(f'checkbox_goals_{psr_section.pk}')
+#             note_detail.checkbox_goals.set(objectives.filter(pk__in=checkbox_goals_ids))
+            
+#             note_detail.save()
+
+#     context = {
+#         'form': NoteForm(instance=note),
+#         'note': note,
+#         'customer': customer,
+#         'objectives': objectives,
+#         'psrSections': psrSections,
+#     }
+#     return render(request, 'pages/sections_successfully/psr_sections/partials/saveNoteForm.html', context)
+
+
 def save_note_changes(request, pk, cs_pk):
+    # Obtener la sección PSR, las secciones relacionadas y el cliente
     psrSection = get_object_or_404(GroupsPSRSections, pk=pk)
     psrSections = GroupsPSRSections.objects.filter(create_at=psrSection.create_at)
     customer = get_object_or_404(Customer, pk=cs_pk)
     note = psrSection.note
 
-    # Obtener los Goals asociados al Customer
+    # Obtener los Goals y Objectives asociados al cliente
     goals = Goal.objects.filter(focus_area__master__customer=customer)
     objectives = Objective.objects.filter(goal__in=goals)
 
+    # Inicializar el formulario de la nota
+    note_form = NoteForm(request.POST or None, instance=note)
+
     if request.method == 'POST':
-        for psr_section in psrSections:
-            section_number = request.POST.get(f'section_number_{psr_section.pk}')
-            description = request.POST.get(f'description_{psr_section.pk}')
-            goals_ids = request.POST.getlist(f'goals_{psr_section.pk}')
-            client_response = request.POST.get(f'client_response_{psr_section.pk}')
-            facilitator = request.POST.get(f'facilitator_{psr_section.pk}')
-            update_progress = request.POST.get('update_progress')
+        if note_form.is_valid():
+            note_form.save()
 
-            # Obtener o crear el detalle de la sección
-            note_detail, created = NoteSectionDetail.objects.get_or_create(
-                note=note,
-                psr_section=psr_section
-            )
-            note_detail.section_number = section_number
-            note_detail.description = description
-            note_detail.client_response = client_response
-            note_detail.facilitator = facilitator
-            note_detail.update_progress = update_progress
-            note_detail.goals.set(objectives.filter(pk__in=goals_ids))
-            
-            # Procesar los checkboxes de objetivos
-            checkbox_goals_ids = request.POST.getlist(f'checkbox_goals_{psr_section.pk}')
-            note_detail.checkbox_goals.set(objectives.filter(pk__in=checkbox_goals_ids))
-            
-            note_detail.save()
+            # Procesar los datos enviados para cada sección PSR
+            for psr_section in psrSections:
+                section_number = request.POST.get(f'section_number_{psr_section.pk}')
+                description = request.POST.get(f'description_{psr_section.pk}')
+                goals_ids = request.POST.getlist(f'goals_{psr_section.pk}')
+                client_response = request.POST.get(f'client_response_{psr_section.pk}')
+                facilitator = request.POST.get(f'facilitator_{psr_section.pk}')
+                update_progress = request.POST.get('update_progress')
 
-    context = {
-        'form': NoteForm(instance=note),
+                # Obtener o crear el detalle de la sección
+                note_detail, created = NoteSectionDetail.objects.get_or_create(
+                    note=note,
+                    psr_section=psr_section
+                )
+                # Actualizar los campos del detalle de la sección
+                note_detail.section_number = section_number
+                note_detail.description = description
+                note_detail.client_response = client_response
+                note_detail.facilitator = facilitator
+                note_detail.update_progress = update_progress
+                note_detail.goals.set(objectives.filter(pk__in=goals_ids))
+                note_detail.save()
+
+            context = {
+                'tags': "success",
+                'tag_message': "Changes saved successfully!",
+            }
+        else:
+            context = {
+                'tags': "error",
+                'tag_message': "Something went wrong!",
+                'form_errors': note_form.errors,
+            }
+
+    context.update({
+        'form': note_form,
         'note': note,
         'customer': customer,
         'objectives': objectives,
         'psrSections': psrSections,
-    }
+    })
+
     return render(request, 'pages/sections_successfully/psr_sections/partials/saveNoteForm.html', context)
 
 
