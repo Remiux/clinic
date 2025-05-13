@@ -28,6 +28,7 @@ admin.site.register(Objective)
 admin.site.register(Intervention)
 admin.site.register(Master)
 admin.site.register(Note)
+admin.site.register(NoteSectionDetail)
 
 
 

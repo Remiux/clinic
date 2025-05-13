@@ -1,0 +1,293 @@
+<form 
+        {% if psrSections and customer %} 
+        hx-post="{% url 'save_note_changes' pk=psrSections.first.pk cs_pk=customer.pk %}"
+        {% else %}
+        hx-psot="#"
+        {% endif %}
+        hx-target="#saveNoteFormContainer"
+        >
+        {% csrf_token %}
+            <label class="text-decoration-underline">Goals/Objective Addressed from Client's treatment Plan: </label>
+
+            {% comment %} <div class="row mt-5">
+                {% for objective in objectives %}
+                    <div class="col-md-12 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheck{{ forloop.counter }}" />
+                            <label for="flexCheck{{ forloop.counter }}">
+                                {{ objective.goal }} {{ objective.goal.title }}
+                            </label>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div> {% endcomment %}
+
+            <div class="row mt-5">
+                {% for objective in objectives %}
+                    <div class="col-md-12 mb-3">
+                        <div class="form-check">
+                            <input 
+                                class="form-check-input" 
+                                type="checkbox" 
+                                value="{{ objective.pk }}" 
+                                id="flexCheck{{ forloop.counter }}" 
+                                name="checkbox_goals_{{ psrSection.pk }}" 
+                                {% if objective in psrSection.note_details.first.checkbox_goals.all %}checked{% endif %} />
+                            <label for="flexCheck{{ forloop.counter }}">
+                                {{ objective.goal }} {{ objective.goal.title }}
+                            </label>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            
+            <label class="mt-5">Description of Client’s Mental Status</label>
+            
+            {% include "pages/sections_successfully/psr_sections/partials/clientMentalStatusTable.html" %}
+            
+            <label class="text-decoration-underline mb-5">SKILL SETS ADDRESSED/ACTIVITIES PROVIDED BY FACILITATOR TO BUILD CLIENT SKILLS:</label>
+            <br>
+            <!-- Grupo de Skills -->
+
+            
+            {% for psrSection in psrSections %}
+                <div class="row">
+                    <div class="col-sm-6 fv-row mb-3">
+                        <label class="col-lg-4 col-form-label required fw-semibold fs-6" for="sectionNumber{{ forloop.counter }}">Section {{ forloop.counter }}</label>
+                        <input 
+                            type="text" 
+                            class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" 
+                            id="sectionNumber{{ forloop.counter }}" 
+                            name="section_number_{{ psrSection.pk }}" 
+                            value="{{ psrSection.note_details.first.section_number|default:'' }}">
+                    </div>
+
+                    <div class="col-sm-6 fv-row mb-3">
+                        <label class="col-form-label required fw-semibold fs-6">Goals </label>
+                        <select 
+                            name="goals_{{ psrSection.pk }}" 
+                            multiple 
+                            aria-label="Select goals" 
+                            data-control="select2" 
+                            data-placeholder="Select goals..." 
+                            class="form-select form-select-solid form-select-lg fw-semibold select2-hidden-accessible">
+                            {% for objective in objectives %}
+                                <option 
+                                    value="{{ objective.pk }}" 
+                                    {% if objective in psrSection.note_details.first.goals.all %}selected{% endif %}>
+                                    {{ objective.goal }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="com-md-12 mb-5">
+                        <textarea 
+                            class="form-control" 
+                            name="description_{{ psrSection.pk }}" 
+                            rows="3" 
+                            id="description{{ forloop.counter }}" 
+                            style="resize: none;">{{ psrSection.note_details.first.description|default:'' }}</textarea>
+                    </div>
+                </div>
+
+                <!-- Client Response -->
+                <div class="row">
+                    <div class="col-md-2 mb-3">
+                        <label>Client Response:</label>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="Cooperative" 
+                                    name="client_response_{{ psrSection.pk }}" 
+                                    id="flexCheckSession1{{ forloop.counter }}" 
+                                    {% if psrSection.note_details.first.client_response == 'Cooperative' %}checked{% endif %} />
+                            <label for="flexCheckSession1{{ forloop.counter }}">
+                                Cooperative  
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="Uninterested" 
+                                    name="client_response_{{ psrSection.pk }}" 
+                                    id="flexCheckSession2{{ forloop.counter }}" 
+                                    {% if psrSection.note_details.first.client_response == 'Uninterested' %}checked{% endif %} />
+                            <label for="flexCheckSession2{{ forloop.counter }}">
+                                Uninterested   
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="Distractible" 
+                                    name="client_response_{{ psrSection.pk }}" 
+                                    id="flexCheckSession3{{ forloop.counter }}" 
+                                    {% if psrSection.note_details.first.client_response == 'Distractible' %}checked{% endif %} />
+                            <label for="flexCheckSession3{{ forloop.counter }}">
+                                Distractible   
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="Confused" 
+                                    name="client_response_{{ psrSection.pk }}" 
+                                    id="flexCheckSession4{{ forloop.counter }}" 
+                                    {% if psrSection.note_details.first.client_response == 'Confused' %}checked{% endif %} />
+                            <label for="flexCheckSession4{{ forloop.counter }}">
+                                Confused   
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-2 mb-3">
+                        <label>Other: </label>
+                    </div>
+                </div>
+
+                <!-- Facilitator -->
+                <div class="row">
+                    <div class="col-sm-12 fv-row mb-3">
+                        <label class=" col-form-label required fw-semibold fs-6" for="sessionFacilitator{{ forloop.counter }}">Facilitator Intervention</label>
+                        <input 
+                            type="text" 
+                            class="form-control form-control-lg form-control-solid mb-3 mb-lg-0" 
+                            id="sessionFacilitator{{ forloop.counter }}" 
+                            name="facilitator_{{ psrSection.pk }}" 
+                            value="{{ psrSection.note_details.first.facilitator|default:'' }}">
+                    </div>
+                </div>
+
+            {% endfor %}
+            
+            
+            <!-- Update of progress -->
+            <label class="text-decoration-underline mt-5 mb-5">Update of progress toward meeting goals and objectives on treatment plan (check only one):</label>
+
+            <div class="row border p-3">
+                <div class="col-md-3 mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="update_progress" value="SignificantProgress" id="flexCheckUpdateProgress1" 
+                            {% if psrSections.first.note_details.first.update_progress == 'SignificantProgress' %}checked{% endif %} />
+                        <label for="flexCheckUpdateProgress1">
+                            Significant progress.
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="update_progress" value="ModerateProgress" id="flexCheckUpdateProgress2" 
+                            {% if psrSections.first.note_details.first.update_progress == 'ModerateProgress' %}checked{% endif %} />
+                        <label for="flexCheckUpdateProgress2">
+                            Moderate progress.
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="update_progress" value="MinimalProgress" id="flexCheckUpdateProgress3" 
+                            {% if psrSections.first.note_details.first.update_progress == 'MinimalProgress' %}checked{% endif %} />
+                        <label for="flexCheckUpdateProgress3">
+                            Minimal progress.
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="update_progress" value="NoProgress" id="flexCheckUpdateProgress4" 
+                            {% if psrSections.first.note_details.first.update_progress == 'NoProgress' %}checked{% endif %} />
+                        <label for="flexCheckUpdateProgress4">
+                            No progress.
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="update_progress" value="Regression" id="flexCheckUpdateProgress5" 
+                            {% if psrSections.first.note_details.first.update_progress == 'Regression' %}checked{% endif %} />
+                        <label for="flexCheckUpdateProgress5">
+                            Regression.
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="update_progress" value="Decompensating" id="flexCheckUpdateProgress6" 
+                            {% if psrSections.first.note_details.first.update_progress == 'Decompensating' %}checked{% endif %} />
+                        <label for="flexCheckUpdateProgress6">
+                            Decompensating.
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="update_progress" value="Unable" id="flexCheckUpdateProgress7" 
+                            {% if psrSections.first.note_details.first.update_progress == 'Unable' %}checked{% endif %} />
+                        <label for="flexCheckUpdateProgress7">
+                            Unable to determine at this time.
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row align-items-end mt-10">
+                <div class="col-md-4">
+                    <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+                        <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/>
+                    </div>
+                    <h6 class="text-gray-900 mb-5 text-center">Group Facilitator / Credentials</h6>
+                </div>
+                <div class="col-md-4 ">
+                    <c-input_text inputType="date" helpText="Date" inputValue="{{customer.create_at|date:'Y-m-d'}}">
+                    </c-input_text>
+                </div>
+                <div class="col-md-4">
+                    <c-input_text inputType="text" helpText="Group Facilitator (print legibly)">
+                    </c-input_text>
+                </div>
+            
+                <div class="col-md-4">
+                    <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+                        <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/>
+                    </div>
+                    <h6 class="text-gray-900 mb-5 text-center">Supervisor / Credentials</h6>
+                </div>
+                <div class="col-md-4 ">
+                    <c-input_text inputType="date" helpText="Date" inputValue="{{customer.create_at|date:'Y-m-d'}}">
+                    </c-input_text>
+                </div>
+                <div class="col-md-4">
+                    <c-input_text inputType="text" helpText="Supervisor (print legibly)">
+                    </c-input_text>
+                </div>
+            </div>
+
+        
+        <div class="card-footer d-flex justify-content-end py-6 px-9">
+            <button type="submit" class="btn btn-primary btn-sm" id="kt_account_profile_details_submit">Save Changes</button>
+        </div>
+
+
+        {% if tag_message %}
+            <script>                
+                Swal.fire({
+                    position: "top-center",
+                    icon: '{% if "error" in tags %}error{% elif "success" in tags %}success{% elif "info" in tags %}info{% elif "warning" in tags %}warning{% else %}question{% endif %}',
+                    title: "{{tag_message}}",
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+            </script>
+        {% endif %}
+
+</form>
+
+<script>
+    document.body.addEventListener('htmx:afterSwap', function(event) {
+        // Verifica si el contenedor actualizado contiene un select con select2
+        const selects = event.target.querySelectorAll('select[data-control="select2"]');
+        selects.forEach(select => {
+            $(select).select2(); // Re-inicializa select2
+        });
+    });
+</script>

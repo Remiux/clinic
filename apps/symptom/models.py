@@ -564,7 +564,7 @@ class IndividualTherapySection(models.Model):
     def __str__(self):
         return f"{self.pk}"
 
-
+from django.db import models
 class Note(models.Model):
     PEER_INTERACTION = [
         ('Moderate', 'Moderate'),
@@ -609,8 +609,6 @@ class Note(models.Model):
     orientation = models.CharField(max_length=20, choices=ORIENTATION, null=True, blank=True)
     
     
-    
-    
     def __str__(self):
         return f"Note of {self.sections.first().create_at if self.sections.exists() else 'No Date'}"
 
@@ -632,6 +630,44 @@ class GroupsPSRSections(models.Model):
     def __str__(self):
         return f"Section of {self.create_at} ({self.init_hour} - {self.end_hour})"
 
+
+class NoteSectionDetail(models.Model):
+    note = models.ForeignKey(Note, on_delete=models.CASCADE, related_name='section_details')
+    psr_section = models.ForeignKey(GroupsPSRSections, on_delete=models.CASCADE, related_name='note_details')
+    section_number = models.CharField(max_length=50, null=True, blank=True)
+    checkbox_goals = models.ManyToManyField(Objective, blank=True, related_name='goals_from_checkboxes')
+    goals = models.ManyToManyField(Objective, blank=True)
+    description = models.TextField(null=True, blank=True)
+    facilitator = models.CharField(max_length=50, blank=True, null=True)
+    client_response = models.CharField(
+        max_length=20,
+        choices=[
+            ('Cooperative', 'Cooperative'),
+            ('Uninterested', 'Uninterested'),
+            ('Distractible', 'Distractible'),
+            ('Confused', 'Confused'),
+            ('Other', 'Other'),
+        ],
+        null=True,
+        blank=True
+    )
+    update_progress = models.CharField(
+        max_length=50, 
+        choices=[
+            ('SignificantProgress', 'Significant Progress'),
+            ('ModerateProgress', 'Moderate Progress'),
+            ('MinimalProgress', 'Minimal Progress'),
+            ('NoProgress', 'No Progress'),
+            ('Regression', 'Regression'),
+            ('Decompensating', 'Decompensating'),
+            ('Unable', 'Unable to determine at this time'),
+        ],
+        blank=True, 
+        null=True
+    )
+
+    def __str__(self):
+        return f"Detail for Section {self.psr_section.pk} in Note {self.note.pk}"
     
 class CustomerPSRSections(models.Model):
     section = models.ForeignKey(GroupsPSRSections, on_delete=models.CASCADE, related_name='customer_psr_section')
