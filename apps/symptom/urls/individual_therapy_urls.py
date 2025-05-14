@@ -1,3 +1,4 @@
+from apps.symptom.views.successfully_individual_therapy_section_view import *
 from apps.symptom.views.individual_therapy_view import *
 from apps.symptom.views.therapists_customer_check_section_view import *
 from apps.symptom.views.therapists_groups_view import *
@@ -18,5 +19,9 @@ urlpatterns = [
     path('individual-terapy-update-date-section/<int:pk>/', update_date_individual_therapy_view, name='update_date_individual_therapy_view'),
     path('individual-terapy-confirm-section/<int:pk>/', confirm_section_individual_therapy_view, name='confirm_section_individual_therapy_view'),
     
-   
+   # Individual Therapy Section Successfully
+    path('individual-terapy-successfully/', successfully_individual_therapy_section_view, name='successfully_individual_therapy_section_view'),
+    path('individual-terapy-successfully-filter/', filter_successfully_individual_therapy_section_view, name='filter_successfully_individual_therapy_section_view'),
+    
+    
 ]

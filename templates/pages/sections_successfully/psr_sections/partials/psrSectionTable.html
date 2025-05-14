@@ -52,7 +52,7 @@
                 ><span class="dt-column-order"></span>
               </th>
               <th
-                class="text-end dt-orderable-asc dt-orderable-desc"
+                class="min-w-200px text-end dt-orderable-asc dt-orderable-desc"
                 data-dt-column="3"
                 rowspan="1"
                 colspan="1"
@@ -63,7 +63,7 @@
                 ><span class="dt-column-order"></span>
               </th>
               <th
-                class="text-end dt-orderable-asc dt-orderable-desc"
+                class="min-w-300px text-end dt-orderable-asc dt-orderable-desc"
                 data-dt-column="4"
                 rowspan="1"
                 colspan="1"
@@ -120,11 +120,11 @@
                 </td>
 
                 {% if psrSection.note %}
-                  <td class="text-end pe-0">
-                    <div class="badge badge-light-success badge-lg">
-                        note
-                    </div>
-                  </td>
+                <td class="text-end pe-0">
+                  <div class="badge badge-light-success badge-lg p-2">
+                    <i class=" bi-journal-check fs-3"></i>
+                  </div>
+                </td>
 
                   <td class="text-end">
                     <a
@@ -142,11 +142,11 @@
                     <!--end::Menu-->
                   </td>
                   {% else %}
-                    <td class="text-end pe-0">
-                      <div class="badge badge-light-danger badge-lg">
-                          no note
-                      </div>
-                    </td>
+                  <td class="text-end pe-0">
+                    <div class="badge badge-light-danger badge-lg p-2">
+                      <i class=" bi-journal-x fs-3"></i>
+                    </div>
+                  </td>
 
                     <td class="text-end">
                       <a href="#"
