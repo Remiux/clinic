@@ -1,3 +1,31 @@
+{% if master %}
+{% if master.is_active %}
+<div class="row">
+    <div class="col-md-6">
+        <c-input_text spanTitle="Date of admission" disabled="disabled" inputValue="{{ customer.create_at|date:'Y-m-d' }}" inputType="date" >
+        </c-input_text >
+    </div>
+    <div class="col-md-6">
+        <c-input_text disabled="disabled" spanTitle="Treatment plan developed date" inputValue="{{ master.date|date:'Y-m-d' }}"  inputType="date" >
+        </c-input_text >
+    </div>
+    <div class="col-md-6">
+        <c-input_text disabled="disabled" spanTitle="Start time" inputValue="{{ master.start_time }}"  inputType="text" >
+        </c-input_text >
+    </div>
+    <div class="col-md-6">
+        <c-input_text disabled="disabled" spanTitle="End time" inputValue="{{ master.end_time }}"  inputType="text" >
+        </c-input_text >
+    </div>
+    <div class="col-md-6">
+        <c-input_text disabled="disabled" spanTitle="Service code" inputValue="H0032"  inputType="text" >
+        </c-input_text >
+    </div>
+    <div class="col-md-6">
+        <c-input_text disabled="disabled" spanTitle="Setting" inputValue="53 CMHC"  inputType="text" >
+        </c-input_text >
+    </div>
+</div>
 <div class="rounded border p-4">
     <div class="row justify-content-between text-center align-items-center">
         <div class="col-lg-2 col-md-3 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
@@ -21,7 +49,7 @@
         </div>
         <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
             <div class="form-check d-flex align-items-center">
-                <input disabled="disabled" class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault3" />
+                <input disabled="disabled" class="form-check-input me-2" type="checkbox" value=""  />
                 <label for="flexCheckDefault3" class="text-wrap">
                     Others (Client not present)
                 </label>
@@ -58,28 +86,38 @@
             </div>
         </div>
         <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
-            <div class="form-check d-flex align-items-center">
-                <input {% if is_in_group_customer %} checked {% endif %} disabled="disabled" class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault3" />
-                <label for="flexCheckDefault3" class="text-wrap">
+            <form class="form-check d-flex align-items-center">
+                <input 
+                hx-get="{% url "update_psr_master_view" pk=master.pk %}"
+                hx-trigger="click"
+                hx-target="#kt_accordion_3_item_0"
+                
+                {% if master.as_psr %} checked {% endif %} class="form-check-input me-2" type="checkbox" value="" name="as_psr" id="id_as_psr"  />
+                <label for="id_as_psr" class="text-wrap">
                     PSR
                 </label>
-            </div>
+            </form>
         </div>
         <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
             <div class="form-check d-flex align-items-center">
-                <input disabled="disabled" class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault3" />
+                <input disabled="disabled" class="form-check-input me-2" type="checkbox" value=""  />
                 <label for="flexCheckDefault3" class="text-wrap">
                     Clubhouse
                 </label>
             </div>
         </div>
         <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
-            <div class="form-check d-flex align-items-center">
-                <input {% if is_in_individual_therapy %} checked {% endif %} disabled="disabled" class="form-check-input me-2" type="checkbox" value="" id="flexCheckDefault3" />
-                <label for="flexCheckDefault3" class="text-wrap">
+            <form class="form-check d-flex align-items-center">
+                <input 
+                hx-get="{% url "update_individual_therapy_master_view" pk=master.pk %}"
+                hx-trigger="click"
+                hx-target="#kt_accordion_3_item_0"
+                
+                {% if master.as_individual_therapy %} checked {% endif %} class="form-check-input me-2" type="checkbox" value="" name="as_individual_therapy" id="id_as_individual_therapy"  />
+                <label for="id_as_individual_therapy" class="text-wrap">
                     Individual Therapy
                 </label>
-            </div>
+            </form>
         </div>
     </div>
 </div>
@@ -89,18 +127,12 @@
         <label><span class="fw-bold h4 text-decoration-underline">INITIAL DISCHARGE CRITERIA:</span></label>
     </div>
 </div>
-<div class="row">
-    <div class="col-md-12">
-        <p class="lh-lg">
-            1) The client will be discharge from services upon meeting the goals and objetives proposed in the Initial Treatment Plan. <br>
-            2) Client will be able to decrease her isolation by socializing more often and implementing better communication skills. <br>
-            3) Client will learn and implement coping skills that result in a reduction of depression and anxiety.
-        </p>
-    </div>
+<div class="row" id="initialDischargeCriteriaForm">
+    {% include "pages/forms/section4/partials/initial_discharge_criteria.html" %}
 </div>
 
 <div class="rounded border p-4 mt-5">
-    <h4 class="text-center">Client Diagnostics</h4>
+    <h4 class="text-center">Client Diagnosis</h4>
     <table class="table table-bordered mt-3 text-center">
         <thead>
             <tr>
@@ -109,16 +141,28 @@
             </tr>
         </thead>
         <tbody>
-            {% for diagnostic in customer.diagnostics.all %}
-            <tr>
-                <td>{{ diagnostic.code }}</td>
-                <td>{{ diagnostic.description }}</td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="2" class="text-center">No hay diagnósticos disponibles para este cliente.</td>
-            </tr>
-            {% endfor %}
+            {% if customer.diagnostic %}
+                <tr>
+                    <td>{{ customer.diagnostic.code }}</td>
+                    <td>{{ customer.diagnostic.description }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="2" class="text-center">No diagnosis yet!</td>
+                </tr>
+            {% endif %}
+            {% if customer.diagnostic_two %}
+                <tr>
+                    <td>{{ customer.diagnostic_two.code }}</td>
+                    <td>{{ customer.diagnostic_two.description }}</td>
+                </tr>
+            {% endif %}
+            {% if customer.diagnostic_three %}
+                <tr>
+                    <td>{{ customer.diagnostic_three.code }}</td>
+                    <td>{{ customer.diagnostic_three.description }}</td>
+                </tr>
+            {% endif %}
         </tbody>
     </table>
     
@@ -131,14 +175,14 @@
             </tr>
         </thead>
         <tbody>
-            {% if is_in_group_customer %}
+            {% if master.as_psr  %}
                 <tr>
                     <td>Client and Facilitator</td>
                     <td>PSR</td>
                     <td>16 units daily, four times per week </td>
                 </tr>
             {% endif %}
-            {% if is_in_individual_therapy %}
+            {% if master.as_individual_therapy %}
                 <tr>
                     <td>Client and Therapist</td>
                     <td>Inidividual Therapy</td>
@@ -150,5 +194,121 @@
 </div>
 
 <div class="row mt-5" id="form-creation">
-    {% include "pages\forms\section4\hierarchy.html" %}
+    {% include "pages/forms/section4/hierarchy.html" %}
 </div>
+
+<!-- Formulario de duracion de tratamiento -->
+<div id="treatment-duration-form">
+     {% include "pages\forms\section4\partials\treatment_duration_form.html" %}
+</div>
+
+<div class="row mt-10 align-items-end">
+    <div class="col-md-4">
+        <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+            <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/>
+        </div>
+        <h6 class="text-gray-900 mb-5 text-center">Client Signature</h6>
+    </div>
+    <div class="col-md-4 ">
+        <c-input_text inputType="text" disabled="disabled" helpText="Printed Name" inputValue="{{customer.first_name}} {{customer.last_name}}">
+        </c-input_text>
+    </div>
+    <div class="col-md-4 ">
+        <c-input_text inputType="date" disabled="disabled" helpText="Date" inputValue="{{master.customer.create_at|date:'Y-m-d'}}">
+        </c-input_text>
+    </div>
+</div>
+
+<div class="row mt-10 align-items-end">
+    <div class="col-md-4">
+        <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+            <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/> 
+        </div>
+        <h6 class="text-gray-900 mb-5 text-center">Parent/Legal Guardian Signature</h6>
+    </div>
+    <div class="col-md-4 ">
+        <c-input_text inputType="text" disabled="disabled" helpText="Printed Name/Relationship to Client" inputValue="">
+        </c-input_text>
+    </div>
+    <div class="col-md-4 ">
+        <c-input_text inputType="date" disabled="disabled" helpText="Date" inputValue="{{master.customer.create_at|date:'Y-m-d'}}">
+        </c-input_text>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-12">
+        <p class="lh-lg">
+            The signatures of the treating psychiatrist/LPHA, Client, and other members of this Client's
+            Treatment Team formally accept the services, goals, and objectives, as outlined within, for a period of ({{customer.treatment_duration}}) months, unless agreed upon to extend such treatment.
+        </p>
+    </div>
+    <div class="col-md-12">
+        <strong><em style="font-style: italic;">Treatment Team Members:</em></strong>
+    </div>
+</div>
+
+
+<div class="row mt-5 align-items-end">
+    <div class="col-md-4">
+        <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+            <img class="" width="130" src="{% if master.user.sign %}{{master.user.sign.url}}{% endif %}"/> 
+        </div>
+        <h6 class="text-gray-900 mb-5 text-center">Therapist Signature</h6>
+    </div>
+    <div class="col-md-4 ">
+        <c-input_text inputType="text" disabled="disabled" helpText="Printed Name/Credentials" inputValue="">
+        </c-input_text>
+    </div>
+    <div class="col-md-4 ">
+        <c-input_text inputType="date" disabled="disabled" helpText="Date" inputValue="{{master.customer.create_at|date:'Y-m-d'}}">
+        </c-input_text>
+    </div>
+</div>
+<div class="row mt-5 align-items-end">
+    <div class="col-md-4">
+        <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+            {% comment %} <img class="" width="130" src="{% if customer.sign %}{{customer.sign.url}}{% endif %}"/> {% endcomment %}
+        </div>
+        <h6 class="text-gray-900 mb-5 text-center">Clinical Supervisor Signature</h6>
+    </div>
+    <div class="col-md-4 ">
+        <c-input_text inputType="text" disabled="disabled" helpText="Printed Name/Credentials" inputValue="Angela Maria Hansen. LCSW">
+        </c-input_text>
+    </div>
+    <div class="col-md-4 ">
+        <c-input_text inputType="date" disabled="disabled" helpText="Date" inputValue="{{master.customer.create_at|date:'Y-m-d'}}">
+        </c-input_text>
+    </div>
+</div>
+<div class="d-flex justify-content-end " 
+
+>
+    <a class="btn btn-light-primary d-flex justify-content-center align-items-center"
+    hx-get="{% url "confirm_master_view" pk=master.pk %}"
+    hx-target="#kt_accordion_3_item_0"
+    hx-trigger="click"
+    hx-indicator = "#spinnerMasterConfirm"
+>
+        <span id="spinnerMasterConfirm" class="htmx-indicator spinner-border spinner-border-sm me-2" ></span>
+        Confirm</a>
+</div>
+
+{% else %}
+
+    
+    {% include "pages/forms/section4/master_confirm_document.html" %}
+    
+
+{% endif %}
+
+
+{% else %}
+    
+        <div class="alert alert-danger ">
+            You don't have permission to generate a master's degree or you don't contain an assignment.
+        </div>
+ 
+    
+    
+{% endif %}

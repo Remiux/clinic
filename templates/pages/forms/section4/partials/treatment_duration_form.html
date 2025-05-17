@@ -1,0 +1,108 @@
+<form hx-post="{% url 'update_treatment_duration' pk=master.pk %}" hx-target="#treatment-duration-form" method="post">
+    {% csrf_token %}
+    <div class="rounded border p-4 mt-5">
+        <div class="row justify-content-between text-center align-items-center">
+            <div class="col-lg-2 col-md-3 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
+                <label>ANTICIPATED LENGTH OF TREATMENT:</label>
+            </div>
+            <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
+                <div class="form-check d-flex align-items-center">
+                    <input class="form-check-input" type="radio" name="treatment_duration" id="length_3" value="3" {% if master.treatment_duration == 3 %}checked{% endif %}>
+                    <label class="form-check-label ms-2" for="length_3">
+                        3 months
+                    </label>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
+                <div class="form-check d-flex align-items-center">
+                    <input class="form-check-input" type="radio" name="treatment_duration" id="length_6" value="6" {% if master.treatment_duration == 6 %}checked{% endif %}>
+                    <label class="form-check-label ms-2" for="length_6">
+                        6 months
+                    </label>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-6 d-flex flex-column justify-content-center align-items-center mb-3">
+                <div class="form-check d-flex align-items-center">
+                    <label class="form-check-label me-2" for="other_duration">
+                        Other
+                    </label>
+                    <input class="form-control" type="text" name="treatment_duration_other" id="other_duration" placeholder="Enter duration" 
+                    {% if master.treatment_duration != 3 and master.treatment_duration != 6 %}value="{{ master.treatment_duration }}"{% endif %}>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col text-center">
+                <button type="submit" class="badge badge-light-primary btn btn-outline-primary">Update Duration</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-center mb-8">
+                <label>Date of next scheduled Treatment Plan Review: {{master.next_scheduled}}</label>
+            </div>
+            <div class="col-md-12">
+                <p class="lh-lg">
+                    <strong class="text-decoration-underline">Certification of need for outpatient treatment</strong>: As a Certified Addictions Professional and/or Licensed Practitioner to provide Mental Health Services in the State of Florida and trained in the diagnosis and treatment of substance abuse and psychiatric illnesses, I certify that services are medically necessary and appropriate to the patient's diagnosis and needs.
+                </p>
+                <p class="lh-lg">
+                    Patient has reviewed and agreed to comply with the goals as established in the Master Treatment Plan. This service plan has been explained to the patient in terms that patient can understand, and a copy has been provided to the patient.
+                </p>
+            </div>
+        </div>
+    </div>
+    {% if tag_message %}
+        <script>                
+            Swal.fire({
+                position: "top-center",
+                icon: '{% if "error" in tags %}error{% elif "success" in tags %}success{% elif "info" in tags %}info{% elif "warning" in tags %}warning{% else %}question{% endif %}',
+                title: "{{tag_message}}",
+                showConfirmButton: false,
+                timer: 3000
+            });
+        </script>
+    {% endif %}
+
+    <script>
+        function initializeTreatmentDurationScript() {
+            // Seleccionar los elementos
+            const radio3 = document.getElementById('length_3');
+            const radio6 = document.getElementById('length_6');
+            const otherInput = document.getElementById('other_duration');
+    
+            if (!radio3 || !radio6 || !otherInput) {
+                console.error('Uno o más elementos no se encontraron en el DOM.');
+                return;
+            }
+    
+            // Desmarcar los radio buttons al escribir en el input
+            otherInput.addEventListener('input', function () {
+                if (otherInput.value.trim() !== '') {
+                    radio3.checked = false;
+                    radio6.checked = false;
+                }
+            });
+    
+            // Borrar el valor del input al seleccionar un radio button
+            [radio3, radio6].forEach(radio => {
+                radio.addEventListener('change', function () {
+                    if (radio.checked) {
+                        otherInput.value = '';
+                    }
+                });
+            });
+        }
+    
+        // Ejecutar al cargar la página
+        document.addEventListener('DOMContentLoaded', function () {
+            initializeTreatmentDurationScript();
+        });
+    
+        // Ejecutar después de que HTMX actualice el DOM
+        document.body.addEventListener('htmx:afterSwap', function (event) {
+            if (event.detail.target.id === 'treatment-duration-form') {
+                initializeTreatmentDurationScript();
+            }
+        });
+    </script>
+
+</form>

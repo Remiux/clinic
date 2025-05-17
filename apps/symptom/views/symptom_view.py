@@ -20,7 +20,7 @@ def create_symptom_view(request):
     if request.method == "POST":
         if form.is_valid():
             form.save()
-            context['message']='Successfull'
+            context['message']='Successfully'
             form=SymptomForm()
         else:
             pass
@@ -58,7 +58,7 @@ def update_symptom_view(request,pk):
     if request.method == "POST":  
         if form.is_valid():
             form.save()
-            context['message']='Successfull'
+            context['message']='Successfully'
         else:
             pass
     context['form']=form

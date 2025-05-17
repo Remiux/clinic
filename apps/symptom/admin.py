@@ -19,12 +19,17 @@ admin.site.register(BehavioralHealth)
 admin.site.register(BioPsychoSocial)
 admin.site.register(BriefBehavioralHealth)
 admin.site.register(DischargeSummary)
+admin.site.register(FARS)
 admin.site.register(IndividualTherapy)
 admin.site.register(IndividualTherapySection)
 admin.site.register(FocusArea)
 admin.site.register(Goal)
 admin.site.register(Objective)
 admin.site.register(Intervention)
+admin.site.register(Master)
+admin.site.register(Note)
+admin.site.register(NoteSectionDetail)
+
 
 
 class AdminGroupCustomer(admin.TabularInline):

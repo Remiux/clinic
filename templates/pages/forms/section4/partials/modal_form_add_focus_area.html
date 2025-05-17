@@ -1,0 +1,71 @@
+<form hx-post="{% url 'add_focusarea' pk=master.pk%}" hx-target="#modal-content-replace-add-focus-area" method="post">
+    {% csrf_token %}
+    <div class="modal-header">
+    <h5 class="modal-title" id="modalAddFocusAreaLabel">Add Focus Area</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+    </div>
+    <div class="modal-body">
+    <div class="mb-3">
+        <label for="titulo" class="form-label">Title</label>
+        <input type="text" name="title" id="titulo" class="form-control">
+        {% if form.title.errors %}
+            <div class="text-danger">
+                {% for error in form.title.errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        <label for="descripcion" class="form-label">Description</label>
+        <textarea name="description" id="descripcion" rows=5 style="resize: none;" class="form-control"></textarea>
+        {% if form.description.errors %}
+            <div class="text-danger">
+                {% for error in form.description.errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    <div class="mb-3">
+        <label for="tipo" class="form-label">Type</label>
+        <select name="focus_area_type" id="tipo" class="form-select">
+        <option value="PSR">PSR</option>
+        <option value="Individual">Individual Therapy</option>
+        </select>
+        {% if form.focus_area_type.errors %}
+            <div class="text-danger">
+                {% for error in form.focus_area_type.errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    </div>
+    <div class="modal-footer">
+    <button type="submit" class="btn btn-success">Create</button>
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+    </div>
+
+    {% if tag_message %}
+        <script>                
+            Swal.fire({
+                position: "top-center",
+                icon: '{% if "error" in tags %}error{% elif "success" in tags %}success{% elif "info" in tags %}info{% elif "warning" in tags %}warning{% else %}question{% endif %}',
+                title: "{{tag_message}}",
+                showConfirmButton: false,
+                timer: 3000
+            });
+        </script>
+    {% endif %}
+
+    {% if  message %}
+        <div
+        hx-get="{% url 'reload_data' pk=customer.pk %}"
+        hx-target="#focus-area-container"
+        hx-trigger="load"
+        >
+        </div>
+    {% endif %}
+
+</form>

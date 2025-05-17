@@ -17,7 +17,6 @@ def individual_terapy_view(request):
     context['customers'] = Customer.objects.all().order_by('first_name')
     return render(request,'pages/indivualTherapy/index.html',context)
 
-
 @login_required(login_url='/login')
 def filter_individual_therapy_view(request):
     context=_show_individual_terapy_filter(request)

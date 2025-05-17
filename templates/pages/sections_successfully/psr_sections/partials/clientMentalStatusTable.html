@@ -1,0 +1,299 @@
+<table class="table table-bordered mt-3 text-center">
+    <thead>
+        <tr>
+            <th scope="col">Peer Interaction</th>
+            <th scope="col">Mood/Affect</th>
+            <th scope="col">Attitude and Cooperation</th>
+            <th scope="col">Attention/Concentration</th>
+            <th scope="col">Orientation</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <div class="row">
+                    <!-- Radio Group 1 -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="Moderate" name="peer_interaction" id="flexCheckDefault1"
+                                {% if note.peer_interaction == "Moderate" %}checked{% endif %} />
+                            <label for="flexCheckDefault1">
+                                Moderate
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Radio Group 1 -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="Adequate" name="peer_interaction" id="flexCheckDefault2"
+                                {% if note.peer_interaction == "Adequate" %}checked{% endif %} />
+                            <label for="flexCheckDefault2">
+                                Adequate
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="row">
+                    <!-- Radio Group 2 -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="Negativistic" name="mood_affect" id="flexCheckDefault5"
+                                {% if note.mood_affect == "Negativistic" %}checked{% endif %} />
+                            <label for="flexCheckDefault5">
+                                Negativistic 
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Radio Group 2 -->                        
+                    <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="Positive" name="mood_affect" id="flexCheckDefault6"
+                                {% if note.mood_affect == "Positive" %}checked{% endif %} />
+                            <label for="flexCheckDefault6">
+                                Positive
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="row">
+                    <!-- Radio Group 3 -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="Moderate" name="attitude_cooperation" id="flexCheckDefault11"
+                                {% if note.attitude_cooperation == "Moderate" %}checked{% endif %} />
+                            <label for="flexCheckDefault11">
+                                Moderate 
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Radio Group 3 -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="Inadequate" name="attitude_cooperation" id="flexCheckDefault12"
+                                {% if note.attitude_cooperation == "Inadequate" %}checked{% endif %} />
+                            <label for="flexCheckDefault12">
+                                Inadequate 
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="row">
+                    <!-- Radio Group 4 -->
+                    <div class="col-md-12 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="Normal" name="attention_concentration" id="flexCheckDefault19"
+                                {% if note.attention_concentration == "Normal" %}checked{% endif %} />
+                            <label for="flexCheckDefault19">
+                                Normal 
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="row">
+                    <!-- Radio Group 5 -->
+                    <div class="col-md-12 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="OrientedX3" name="orientation" id="flexCheckDefault22"
+                                {% if note.orientation == "OrientedX3" %}checked{% endif %} />
+                            <label for="flexCheckDefault22">
+                                OrientatedX3 
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="row">
+                    <!-- Radio Group 1 -->
+                    <div class="col-md-12 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="Limited" name="peer_interaction" id="flexCheckDefault3" 
+                                {% if note.peer_interaction == "Limited" %}checked{% endif %} />
+                            <label for="flexCheckDefault3">
+                                Limited
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="row">
+                    <!-- Radio Group 2 -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="Depressed" name="mood_affect" id="flexCheckDefault7" 
+                                {% if note.mood_affect == "Depressed" %}checked{% endif %} />
+                            <label for="flexCheckDefault7">
+                                Depressed  
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Radio Group 2 -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="Anxious" name="mood_affect" id="flexCheckDefault8" 
+                                {% if note.mood_affect == "Anxious" %}checked{% endif %} />
+                            <label for="flexCheckDefault8">
+                                Anxious
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="row">
+                    <!-- Radio Group 3 -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="Motivated" name="attitude_cooperation" id="flexCheckDefault14" 
+                                {% if note.attitude_cooperation == "Motivated" %}checked{% endif %} />
+                            <label for="flexCheckDefault14">
+                                Motivated 
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Radio Group 3 -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="Unmotivated" name="attitude_cooperation" id="flexCheckDefault15" 
+                                {% if note.attitude_cooperation == "Unmotivated" %}checked{% endif %} />
+                            <label for="flexCheckDefault15">
+                                Unmotivated 
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="row">
+                    <!-- Radio Group 4 -->
+                    <div class="col-md-12 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="MildlyImpaired" name="attention_concentration" id="flexCheckDefault17" 
+                                {% if note.attention_concentration == "MildlyImpaired" %}checked{% endif %} />
+                            <label for="flexCheckDefault17">
+                                Mildly Impaired 
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="row">
+                    <!-- Radio Group 5 -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="NotTime" name="orientation" id="flexCheckDefault20" 
+                                {% if note.orientation == "NotTime" %}checked{% endif %} />
+                            <label for="flexCheckDefault20">
+                                Not Time 
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Radio Group 5 -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="NotPlace" name="orientation" id="flexCheckDefault21" 
+                                {% if note.orientation == "NotPlace" %}checked{% endif %} />
+                            <label for="flexCheckDefault21">
+                                Not Place 
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="row">
+                    <!-- Radio Group 1 -->
+                    <div class="col-md-12 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="Poor" name="peer_interaction" id="flexCheckDefault4" 
+                                {% if note.peer_interaction == "Poor" %}checked{% endif %} />
+                            <label for="flexCheckDefault4">
+                                Poor
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="row">
+                    <!-- Radio Group 2 -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="Withdrawn" name="mood_affect" id="flexCheckDefault9" 
+                                {% if note.mood_affect == "Withdrawn" %}checked{% endif %} />
+                            <label for="flexCheckDefault9">
+                                Withdrawn   
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Radio Group 2 -->
+                    <div class="col-md-6 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="Irritable" name="mood_affect" id="flexCheckDefault10" 
+                                {% if note.mood_affect == "Irritable" %}checked{% endif %} />
+                            <label for="flexCheckDefault10">
+                                Irritable
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="row">
+                    <!-- Radio Group 3 -->
+                    <div class="col-md-12 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="Poor" name="attitude_cooperation" id="flexCheckDefault16" 
+                                {% if note.attitude_cooperation == "Poor" %}checked{% endif %} />
+                            <label for="flexCheckDefault16">
+                                Poor 
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="row">
+                    <!-- Radio Group 4 -->
+                    <div class="col-md-12 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="SeverelyImpaired" name="attention_concentration" id="flexCheckDefault18" 
+                                {% if note.attention_concentration == "SeverelyImpaired" %}checked{% endif %} />
+                            <label for="flexCheckDefault18">
+                                Severely Impaired
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="row">
+                    <!-- Radio Group 5 -->
+                    <div class="col-md-12 mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" value="NotPerson" name="orientation" id="flexCheckDefault23" 
+                                {% if note.orientation == "NotPerson" %}checked{% endif %} />
+                            <label for="flexCheckDefault23">
+                                Not Person
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>

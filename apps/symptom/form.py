@@ -39,7 +39,17 @@ class CustomerSignForm(forms.ModelForm):
         model = Customer
         fields = ['sign']
         
-
+class SignIndividualTherapySectionNoteForm(forms.ModelForm):
+    
+    class Meta:
+        model = IndividualTherapySectionNote
+        fields = ['sign']
+        
+class IndividualTherapySectionNoteForm(forms.ModelForm):
+    
+    class Meta:
+        model = IndividualTherapySectionNote
+        exclude = ['individual_therapy_section','create_at','therapist','sign','date_sign','licensed_practitioner','licensed_practitioner_pk']
 
 from apps.symptom.models import EncryptedFile
 
@@ -132,7 +142,7 @@ class IndividualTherapyForm(forms.ModelForm):
 class FocusAreaForm(forms.ModelForm):
     class Meta:
         model = FocusArea
-        exclude = ['customer']
+        exclude = ['master','number']
 
 class GoalForm(forms.ModelForm):
     class Meta:
@@ -142,11 +152,67 @@ class GoalForm(forms.ModelForm):
 class ObjectiveForm(forms.ModelForm):
     class Meta:
         model = Objective
-        exclude = ['goal']
+        exclude = ['goal','number']
 
 class InterventionForm(forms.ModelForm):
     class Meta:
         model = Intervention
         exclude = ['goal']
         
+        
+class MasterInitialDischargeCriteriaForm(forms.ModelForm):
+    
+    class Meta:
+        model = Master
+        fields = ['initial_discharge_criteria']
+        
 """ End Section 4 Forms """
+
+
+from django import forms
+from apps.symptom.models import FARS
+
+class FarsForm(forms.ModelForm):
+    class Meta:
+        model = FARS
+        exclude = ['encrypted_file']
+
+    def clean(self):
+        cleaned_data = super().clean()
+        status = cleaned_data.get('status')
+
+        # Verificar que solo exista un FARS con status = 'Finished'
+        if status == 'Finished':
+            if FARS.objects.filter(status='Finished').exists():
+                self.add_error(
+                    'status',
+                    "There can only be one FARS with the status 'Finished'."
+                )
+            # Verificar que exista al menos un FARS con status = 'Checked'
+            if not FARS.objects.filter(status='Checked').exists():
+                self.add_error(
+                    'status',
+                    "To create a FARS with the status 'Finished', there must be at least one FARS with the status 'Checked'."
+                )
+
+        # Verificar que para crear un FARS con status = 'Checked' exista al menos uno con status = 'Initial'
+        if status == 'Checked':
+            if not FARS.objects.filter(status='Initial').exists():
+                self.add_error(
+                    'status',
+                    "To create a FARS with the status 'Checked', there must be at least one FARS with the status 'Initial'."
+                )
+
+        return cleaned_data
+
+
+class NoteForm(forms.ModelForm):
+    class Meta:
+        model = Note
+        fields = [
+            'peer_interaction',
+            'mood_affect',
+            'attitude_cooperation',
+            'attention_concentration',
+            'orientation',
+        ]

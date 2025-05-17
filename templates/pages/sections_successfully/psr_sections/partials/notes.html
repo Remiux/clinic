@@ -1,0 +1,45 @@
+
+    <!--begin::Card body-->
+    {% comment %} <h2>{{psrSections.first.pk}}</h2> {% endcomment %}
+    <div class="card-body border-top p-9">                                
+        <table class="table table-bordered mt-3 text-center">
+            <thead>
+                <tr>
+                    <th colspan="2" scope="col">SERVICE DAY/DATE: </th>
+                    <th scope="col">{{ psrSections.all.first.create_at }}</th>
+                    <th scope="col">Morning</th>
+                    <th scope="col">Code {{customer.case_no}}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Begin-End Time</td>
+                    {% for psrSection in psrSections %}
+                        <td>{{ psrSection.init_hour }} to {{ psrSection.end_hour }}</td>
+                    {% endfor %}
+                </tr>
+                <tr>
+                    <td>Setting: 53</td>
+                    <td>Session 1: 4 Units</td>
+                    <td>Session 2: 4 Units</td>
+                    <td>Session 3: 4 Units</td>
+                    <td>Session 4: 4 Units</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <table class="table table-bordered mt-3 text-center">
+            <thead>
+                <tr>
+                    <th scope="col">Client's Name: {{ customer.full_name }}</th>
+                    <th scope="col">Total Units: 4</th>
+                    <th scope="col">F 33,2</th>
+                    <th scope="col">Client ID#: {{ customer.case_no }}</th>
+                </tr>
+            </thead>
+        </table>
+        
+
+        <div id="saveNoteFormContainer">
+            {% include "pages/sections_successfully/psr_sections/partials/saveNoteForm.html" %}
+        </div>

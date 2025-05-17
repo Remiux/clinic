@@ -1,0 +1,69 @@
+{% if goal_note %}
+<div class="card p-5" id="GoalNoteCard-{{goal_note.pk}}">
+    <div class="d-flex align-items-center justify-content-end">
+        <a
+                hx-delete="{% url 'delete_goal_individual_therapy_note_view' pk=goal_note.pk %}" 
+                hx-trigger="click"
+                hx-swap="outerHTML"
+                hx-target="#GoalNoteCard-{{goal_note.pk}}" 
+                hx-indicator="#GoalNoteCardSpinner-{{goal_note.pk}}"
+                hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}'
+        class="btn btn-light-danger badge badge-light-danger text-end p-2 position-relative d-flex justify-content-center align-items-center">
+            <i class="fs-3 bi-trash3 p-0"></i>
+            <span id="GoalNoteCardSpinner-{{goal_note.pk}}" class="htmx-indicator  position-absolute spinner-border  " ></span>
+        </a>
+    </div>
+    
+    <span class="fw-bold fs-6 text-gray-800">
+        Goal#{{goal_note.goal_number}}:
+    </span>
+    <span class="fw-bold fs-6 text-gray-800 mb-5">
+        {{goal_note.goal_title}}
+    </span>
+    {% if goal_note.objective_goal_note_individual_therapy_note.all %}
+        {% for objective in goal_note.objective_goal_note_individual_therapy_note.all %}
+        
+            <div class="d-flex align-items-start justify-content-between w-100">
+                <span class="fw-bold fs-6 text-gray-800">
+                    Objective {{objective.objective_number}}:
+                </span>
+                
+                <a
+                hx-delete="{% url 'delete_objective_goal_individual_therapy_note_view' pk=objective.pk %}" 
+                hx-trigger="click"
+                hx-swap="outerHTML"
+                hx-target="#GoalNoteCard-{{objective.goal_note.pk}}" 
+                hx-indicator="#ObjectiveGoalNoteCardSpinner-{{objective.pk}}"
+                hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}'
+        class="btn btn-light-danger badge badge-light-danger text-end p-2 position-relative d-flex justify-content-center align-items-center">
+            <i class="fs-3 bi-trash3 p-0"></i>
+            <span id="ObjectiveGoalNoteCardSpinner-{{objective.pk}}" class="htmx-indicator  position-absolute spinner-border  " ></span>
+        </a>
+                
+            </div>
+            
+            <span class="fw-bold fs-6 text-gray-800">
+                {{objective.objective_description}}
+            </span>
+            <div class="separator border-gray-200 mt-2"></div>
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-danger d-flex align-items-center p-5">
+            No goals and objectives have been added yet.
+        </div>
+    {% endif %}
+</div>
+{% endif %}
+
+
+{% if message %}
+                            <script>                
+                                Swal.fire({
+                                    position: "top-center",
+                                    icon: '{% if "error" in tags %}error{% elif "success" in tags %}success{% elif "info" in tags %}info{% elif "warning" in tags %}warning{% else %}question{% endif %}',
+                                    title: "{{message}}",
+                                    showConfirmButton: false,
+                                    timer: 3000
+                                });
+            </script>
+{% endif %}

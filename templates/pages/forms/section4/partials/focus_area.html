@@ -1,0 +1,170 @@
+{% for focus_area in focus_areas %}
+    <div class="card mb-4">
+        <div class="card-header text-white d-flex justify-content-between align-items-center">
+            <strong>Focus Area {{focus_area.number}}: {{ focus_area.title }} ({{ focus_area.focus_area_type }})</strong>
+            <div>
+                <!-- Botón Editar FocusArea -->
+                <button class="badge badge-light-warning btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modalEditFocusArea{{ focus_area.id }}">Edit</button>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="modalEditFocusArea{{ focus_area.id }}" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content" id="modal-content-replace-edit-focus-area">
+                        {% include "pages/forms/section4/partials/modal_form_edit_focus_area.html" %}
+                    </div>
+                </div>
+                </div>
+
+                {% comment %} <form action="{% url 'delete_focusarea' focus_area.id %}" method="post" class="d-inline"> {% endcomment %}
+                <form hx-post="{% url 'delete_focusarea' focus_area.id %}" hx-target="#focus-area-container" method="post" class="d-inline">
+                    {% csrf_token %}
+                    <button class="badge badge-light-danger btn btn-sm btn-outline-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+        <div class="card-body">
+            <p>{{ focus_area.description }}</p>
+
+            <!-- FORMULARIO PARA CREAR GOAL -->
+            <div id="goal-creation-form">
+                {% include "pages/forms/section4/partials/goal_creation_form.html" %}
+            </div>
+
+            <!-- GOALS -->
+            <h5>Goals</h5>
+            <ul class="list-group mb-2" id="goals-container">
+                {% comment %} {% include "pages/forms/section4/partials/goals.html" %} {% endcomment %}
+                {% if focus_area.goal %}
+                <li class="list-group-item">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <strong>Goal #{{focus_area.number}}: {{ focus_area.goal.title }}</strong>
+                        <div>
+                            <!-- Botón -->
+                            <button class="badge badge-light-warning btn btn-sm btn-outline-warning btn-flex btn-center fs-5 px-2" data-bs-toggle="modal" data-bs-target="#modalEditGoal{{ focus_area.goal.id }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                    <path d="M12.146.854a.5.5 0 0 1 .708 0l2.292 2.292a.5.5 0 0 1 0 .708l-9.793 9.793a.5.5 0 0 1-.168.11l-4 1a.5.5 0 0 1-.621-.621l1-4a.5.5 0 0 1 .11-.168l9.793-9.793zM11.207 2L2 11.207V13h1.793L14 3.793 11.207 2zm1.586-.586L13.5 1.707 14.793 3 13.5 4.293 12.207 3z"/>
+                                </svg>
+                            </button>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="modalEditGoal{{ focus_area.goal.id }}" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content" id="modal-content-replace-edit-goal">
+                                    {% include "pages/forms/section4/partials/modal_form_edit_goal.html" %}
+                                </div>
+                            </div>
+                            </div>
+
+                            <form hx-post="{% url 'delete_goal' focus_area.goal.id %}" hx-target="#focus-area-container" method="post" class="d-inline">
+                                {% csrf_token %}
+                                <button class="badge badge-light-danger btn btn-sm btn-outline-danger btn-flex btn-center fs-5 px-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                        <path d="M5.5 5.5A.5.5 0 0 1 6 5h4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5H6a.5.5 0 0 1-.5-.5v-7zM4.118 4 4 4.059V4.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-.441L11.882 4H4.118zM2.5 3a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v1h1a.5.5 0 0 1 0 1h-1v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5H1a.5.5 0 0 1 0-1h1V3z"/>
+                                    </svg>
+                                </button>
+                                {% comment %} <a href="/users-update/1/" class="badge badge-light-warning bi-pencil-square btn btn-sm btn-outline-warning btn-flex btn-center fs-5 px-2" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end"></a> {% endcomment %}
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- FORMULARIO PARA CREAR OBJECTIVE -->
+                    <div id="objective-creation-form">
+                        {% include "pages/forms/section4/partials/objective_creation_form.html" %}
+                    </div>
+                    
+
+                    <!-- OBJECTIVES -->
+                    <ul class="mt-2">
+                        {% for obj in focus_area.goal.objective_set.all %}
+                            <li>
+                                Objective {{ obj.number }} - {{ obj.description }}
+                                <div class="mb-2"><small>Since {{ obj.open_date }} until {{ obj.close_date }}</small></div>
+                                <div class="mb-2">Intervention: {{ obj.intervention }}</div>
+                                <div>
+                                    <!-- Botón -->
+                                    <button class="badge badge-light-warning btn btn-sm btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modalEditObjective{{ obj.id }}">Edit</button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="modalEditObjective{{ obj.id }}" tabindex="-1">
+                                    <div class="modal-dialog modal-lg">
+                                        <div class="modal-content" id="modal-content-replace-edit-objective">
+                                            {% include "pages/forms/section4/partials/modal_form_edit_objective.html" %}
+                                        </div>
+                                    </div>
+                                    </div>
+
+                                    <form hx-post="{% url 'delete_objective' obj.id %}" hx-target="#focus-area-container" method="post" class="d-inline">
+                                        {% csrf_token %}
+                                        <button class="badge badge-light-danger btn btn-sm btn-outline-danger">Delete</button>
+                                    </form>
+                                </div>
+                            </li>
+                            {% empty %}
+                            <li class="text-muted">No objectives</li>
+                            {% endfor %}
+                        </ul>
+
+                        <!-- FORMULARIO PARA CREAR INTERVENCIÓN -->
+                        {% comment %} <div id="intervention-creation-form">
+                            {% include "pages/forms/section4/partials/intervention_creation_form.html" %}
+                        </div> {% endcomment %}
+
+                        <!-- INTERVENCIONES -->
+                        {% comment %} <ul class="mt-2 list-group">
+                            {% for interv in goal.intervention_set.all %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>{{ interv.description }}</span>
+                                    <div>
+                                        <!-- Botón -->
+                                        <button class="badge badge-light-warning btn btn-sm btn-outline-warning btn-flex btn-center fs-5 px-2" data-bs-toggle="modal" data-bs-target="#modalEditIntervention{{ interv.id }}">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                                <path d="M12.146.854a.5.5 0 0 1 .708 0l2.292 2.292a.5.5 0 0 1 0 .708l-9.793 9.793a.5.5 0 0 1-.168.11l-4 1a.5.5 0 0 1-.621-.621l1-4a.5.5 0 0 1 .11-.168l9.793-9.793zM11.207 2L2 11.207V13h1.793L14 3.793 11.207 2zm1.586-.586L13.5 1.707 14.793 3 13.5 4.293 12.207 3z"/>
+                                            </svg>
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="modalEditIntervention{{ interv.id }}" tabindex="-1">
+                                            <div class="modal-dialog" id="modal-content-replace-edit-intervention">
+                                                <div class="modal-content">
+                                                    {% include "pages/forms/section4/partials/modal_form_edit_intervention.html" %}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <form hx-post="{% url 'delete_intervention' interv.id %}" hx-target="#focus-area-container" method="post" class="d-inline">
+                                            {% csrf_token %}
+                                            <button class="badge badge-light-danger btn btn-sm btn-outline-danger btn-flex btn-center fs-5 px-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                    <path d="M5.5 5.5A.5.5 0 0 1 6 5h4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5H6a.5.5 0 0 1-.5-.5v-7zM4.118 4 4 4.059V4.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5v-.441L11.882 4H4.118zM2.5 3a1 1 0 0 1 1-1h9a1 1 0 0 1 1 1v1h1a.5.5 0 0 1 0 1h-1v9a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5H1a.5.5 0 0 1 0-1h1V3z"/>
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </li>
+                            {% empty %}
+                                <li class="list-group-item text-muted">No Interventions yet.</li>
+                            {% endfor %}
+                        </ul> {% endcomment %}
+                    
+                    {% else %}
+                    <li class="list-group-item text-muted">No goals yet.</li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    {% empty %}
+    <div class="alert alert-warning">No Focus Areas yet.</div>
+{% endfor %}
+
+
+{% if tag_message %}
+    <script>                
+        Swal.fire({
+            position: "top-center",
+            icon: '{% if "error" in tags %}error{% elif "success" in tags %}success{% elif "info" in tags %}info{% elif "warning" in tags %}warning{% else %}question{% endif %}',
+            title: "{{tag_message}}",
+            showConfirmButton: false,
+            timer: 3000
+        });
+    </script>
+{% endif %}

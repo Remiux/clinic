@@ -33,12 +33,14 @@
     <div class="col-12 ">
         <div class="card mb-5 mb-xl-10" >
             <!--begin::Card header-->
-            <div class="card-header cursor-pointer">
+            <div class="card-header cursor-pointer justify-content-end gap-2">
                 <!--begin::Card title-->
                 <div class="card-title m-0">
                     
                 </div>
                 <!--end::Card title-->
+                <a href="{% url "generate_master_view" pk=user.pk %}" class="btn btn-sm btn-primary align-self-center">Generate Master</a>
+                
                 <!--begin::Action-->
                 <a href="{% url "update_user_view" pk=user.pk %}" class="btn btn-sm btn-primary align-self-center">Edit user</a>
                 <!--end::Action-->

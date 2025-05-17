@@ -1,0 +1,63 @@
+<form hx-post="{% url 'add_intervention_inline' goal.id %}" hx-target="#intervention-creation-form" method="post" class="mt-3">
+    {% csrf_token %}
+    <input type="hidden" name="goal" value="{{ goal.id }}">
+    {% if form.goal.errors %}
+        <div class="text-danger">
+            {% for error in form.goal.errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+    {% endif %}
+    <textarea name="description" rows="2" placeholder="New Intervention" class="form-control"></textarea>
+    {% if form.description.errors %}
+        <div class="text-danger">
+            {% for error in form.description.errors %}
+                {{ error }}
+            {% endfor %}
+        </div>
+    {% endif %}
+    <button type="submit" class="badge badge-light-primary btn btn-sm btn-outline-primary mt-2">+ Intervention</button>
+
+    {% if tag_message %}
+        <script>
+            Swal.fire({
+                position: "top-center",
+                icon: '{% if "error" in tags %}error{% elif "success" in tags %}success{% elif "info" in tags %}info{% elif "warning" in tags %}warning{% else %}question{% endif %}',
+                title: "{{tag_message}}",
+                showConfirmButton: false,
+                timer: 3000
+            });
+        </script>
+    {% endif %}
+
+    {% if message == "Intervention created successfully!"%}
+        <script>
+            // Función para cerrar el modal y luego realizar la solicitud hx-get
+            (function closeModalAndReload() {
+                // Cierra el modal utilizando Bootstrap
+                const modal = document.querySelector('.modal.show'); // Selecciona el modal abierto
+                if (modal) {
+                    const modalInstance = bootstrap.Modal.getInstance(modal);
+                    if (modalInstance) {
+                        modalInstance.hide(); // Cierra el modal
+                    }
+                }
+        
+                // Elimina el backdrop manualmente
+                const backdrop = document.querySelector('.modal-backdrop');
+                if (backdrop) {
+                    backdrop.remove();
+                }
+        
+                // Realiza la solicitud hx-get para recargar el contenedor
+                setTimeout(() => {
+                    const container = document.querySelector('#focus-area-container');
+                    if (container) {
+                        htmx.ajax('GET', '{% url "reload_data" pk=customer.pk %}', { target: '#focus-area-container' });
+                    }
+                }, 500); // Espera un breve momento para asegurarse de que el modal se cierre
+            })();
+        </script>
+    {% endif %}
+
+</form>

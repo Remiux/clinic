@@ -1,7 +1,7 @@
 from django.shortcuts import render,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from apps.symptom.filters import ClientFilter, InsuranceFilter, EncryptedFileFilter
-from apps.symptom.form import CustomerForm, CustomerSignForm
+from apps.symptom.form import CustomerForm, CustomerSignForm, FarsForm
 from apps.symptom.models import *
 from utils.paginator import _get_paginator
 from utils.file_extension import get_file_extension
@@ -70,6 +70,7 @@ def create_customer_view(request):
     context['form'] = form
     return render(request,'pages/customers/actions/create/customerCreate.html',context)
 
+from django.core.exceptions import ValidationError
 @login_required(login_url='/login')
 def update_customer_view(request,pk):
     customer = get_object_or_404(Customer, pk=pk)
@@ -83,9 +84,20 @@ def update_customer_view(request,pk):
         form = CustomerForm(request.POST, instance=customer)
         if form.is_valid():
            form.save()
-           context['message'] = 'Customer update successfully'
-        else:
-            print(form.errors)
+           context['message'] = 'Customer updated successfully'
+        # if form.is_valid():
+        #     try:
+        #         # Llama al método clean() del modelo para validar
+        #         customer = form.save(commit=False)
+        #         customer.clean()  # Aplica la validación definida en el modelo
+        #         customer.save()  # Guarda el cliente si pasa la validación
+        #         context['message'] = 'Customer updated successfully'
+        #     except ValidationError as e:
+        #         # Agrega los errores al formulario
+        #         form.add_error(None, e)
+        #         context['message'] = 'Please correct the errors below.'
+        # else:
+        #     context['message'] = 'Please correct the errors below.'
     context['form'] = form
     return render(request,'pages/customers/actions/update/customerUpdate.html',context)
 
@@ -119,23 +131,43 @@ def upload_file(request, pk):
             document.save()
             
             file_name = file.name
-            option = __file_type_handler(file_name, document, request)
             
             context['tags'] = 'success'
             context['tag_message'] = 'File uploaded successfully!'
             context['message'] = 'File uploaded successfully!'
             
+            option = __file_type_handler(file_name, document, request)
+            
+            if (file_name.lower() == 'fars' or file_name.lower() == 'fars.pdf'):
+                status = request.POST.get('status')
+                form = FarsForm(request.POST)
+                if form.is_valid():
+                    document2 = form.save(commit=False)
+                    document2.encrypted_file = document
+                    document2.status = status
+                    document2.description = "FARS document uploaded."
+                    document2.save()
+                else:
+                    # Eliminar el EncryptedFile creado previamente
+                    document.delete()
+                    context['tags'] = 'error'
+                    context['tag_message'] = 'Validation errors in FARS form.'
+                
+                option = 3
         else:
             context['tags'] = 'error'
             context['tag_message'] = 'Error uploading file!'
+            
         
     context['customer'] = customer
     context['form'] = form
-    print(option)
+    
     if option == 0:
         return render(request, 'pages/customers/actions/components/partials/modal_form.html', context)
     elif option == 2:
         return render(request, 'pages/customers/actions/sections/section3/partials/modal_form.html', context)
+    elif option == 3:
+        return render(request, 'pages/customers/actions/sections/section5/partials/modal_form.html', context)
 
 @login_required(login_url='/login')
 def delete_file_view(request, pk):
@@ -357,6 +389,43 @@ def delete_discharge_summary_file_view(request, pk):
         context['discharge_sumaries'] = DischargeSummary.objects.filter(encrypted_file__belongs_to=customer.pk).order_by('-encrypted_file__created_at')
         html = render_to_string('pages/customers/actions/sections/section4/partials/timeline_discharge_summary.html', context)
         return HttpResponse(html, status=400)
+    
+    
+from django.db.models import Case, When, Value, IntegerField
+def delete_far_file_view(request, pk):
+    try:
+        file = get_object_or_404(EncryptedFile, pk=pk)
+        customer = file.belongs_to  
+        file.delete()  
+        
+         # Orden personalizado para el campo 'status'
+        fars = FARS.objects.filter(encrypted_file__belongs_to=customer.pk).annotate(
+            custom_order=Case(
+                When(status='Finished', then=Value(1)),
+                When(status='Checked', then=Value(2)),
+                When(status='Initial', then=Value(3)),
+                output_field=IntegerField(),
+            )
+        ).order_by('custom_order', '-encrypted_file__created_at')
+        
+
+        # Renderizar la plantilla actualizada
+        context = _show_files_filter(request, customer.pk)
+        context['tags'] = 'success'
+        context['tag_message'] = 'File deleted successfully!'
+        context['message'] = 'File deleted successfully!'
+        context['fars'] = fars
+        html = render_to_string('pages/customers/actions/sections/section5/partials/timeline.html', context)
+        
+        return HttpResponse(html, status=200)
+    except Exception as e:
+        # Renderizar la plantilla con un mensaje de error
+        context = _show_files_filter(request, file.belongs_to.pk)
+        context['tags'] = 'error'
+        context['tag_message'] = 'Error deleting file!'
+        context['fars'] = fars 
+        html = render_to_string('pages/customers/actions/sections/section5/partials/timeline.html', context)
+        return HttpResponse(html, status=400)
 
 
 @login_required(login_url='/login')
@@ -444,4 +513,5 @@ def __file_type_handler(file_name, document, request):
         )
         option = 0
     
-    return option
+        
+        return option

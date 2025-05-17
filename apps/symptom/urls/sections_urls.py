@@ -5,6 +5,7 @@ from apps.symptom.views.sections.section1 import *
 from apps.symptom.views.sections.section2 import *
 from apps.symptom.views.sections.section3 import *
 from apps.symptom.views.sections.section4 import *
+from apps.symptom.views.sections.section5 import *
 
 
 urlpatterns = [
@@ -29,6 +30,13 @@ urlpatterns = [
     path('customer-section_four-history-bio-psycho-social/<int:pk>/', section_four_document_bio_psycho_social_history, name='section_four_document_bio_psycho_social_history'),
     path('customer-section_four-history-brief-behavioral-health/<int:pk>/', section_four_document_brief_behavioral_health_history, name='section_four_document_brief_behavioral_health_history'),
     path('customer-section_four-history-discharge-summary/<int:pk>/', section_four_document_discharge_summary_history, name='section_four_document_discharge_summary_history'),
+    path('customer-section_four-reload-data/<int:pk>/', reload_data, name='reload_data'),
+    path('customer-section_four-update-treatment-duration/<int:pk>/', update_treatment_duration, name='update_treatment_duration'),
+    path('update-master-psr-section/<int:pk>/', update_psr_master_view, name='update_psr_master_view'),
+    path('update-master-individual-therapy-section/<int:pk>/', update_individual_therapy_master_view, name='update_individual_therapy_master_view'),
+    path('update-master-initial-discharge-criteria-section/<int:pk>/', update_initial_discharge_criteria_master_view, name='update_initial_discharge_criteria_master_view'),
+    path('master-confirm-section/<int:pk>/', confirm_master_view, name='confirm_master_view'),
+    
     
     # """ MASTER DOCUMENT URLS """
     
@@ -61,7 +69,8 @@ urlpatterns = [
     
     
     # Section 5
-    # path('customer-section_five/<int:pk>/', section_five_view, name='section_five_view'),
+    path('customer-section_five/<int:pk>/', section_five_view, name='section_five_view'),
+    path('customer-section_five-history/<int:pk>/', section_five_document_three_history, name='section_five_document_three_history'),
     
     # Section 6
     # path('customer-section_six/<int:pk>/', section_six_view, name='section_six_view'),

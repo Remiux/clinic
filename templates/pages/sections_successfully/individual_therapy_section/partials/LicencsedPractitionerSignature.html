@@ -1,0 +1,29 @@
+
+<div class="col-12 col-md-4 position-relative">
+    
+    <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+        <img class="" width="130" src="{% if individual_note.sign %}{{individual_note.sign.url}}{% endif %}"/> 
+    </div>
+    <h6 class="text-gray-900 mb-5 text-center">Licensed Practitioner Signature </h6>
+    
+</div>
+<div class="col-12 col-md-4 ">
+    <c-input_text inputType="text" helpText="Print Name/Credentials" disabled="disabled" inputValue="{% if individual_note.licensed_practitioner %}{{individual_note.licensed_practitioner}}{% endif %}">
+    </c-input_text>
+</div>
+<div class="col-12 col-md-4 ">
+    <c-input_text inputType="date" helpText="Date" disabled="disabled" inputValue="{{individual_note.date_sign|date:'Y-m-d'}}">
+    </c-input_text>
+</div>
+
+{% if message %}
+            <script>                
+                Swal.fire({
+                    position: "top-center",
+                    icon: '{% if "error" in tags %}error{% elif "success" in tags %}success{% elif "info" in tags %}info{% elif "warning" in tags %}warning{% else %}question{% endif %}',
+                    title: "{{message}}",
+                    showConfirmButton: false,
+                    timer: 3000
+                });
+            </script>
+{% endif %}

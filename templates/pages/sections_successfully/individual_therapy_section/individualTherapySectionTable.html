@@ -1,0 +1,240 @@
+<div id="kt_app_content_container" class="app-container container-fluid">
+  <!--begin::Products-->
+
+  <!--begin::Card body-->
+  <div class="card-body pt-0">
+    <!--begin::Table-->
+    <div
+      id="kt_ecommerce_products_table_wrapper"
+      class="dt-container dt-bootstrap5 dt-empty-footer"
+    >
+      <div id="" class="table-responsive">
+        <table
+          class="table align-middle table-row-dashed fs-6 gy-5 dataTable"
+          id="kt_ecommerce_products_table"
+          style="width: 100%"
+        >
+          <colgroup>
+            <col data-dt-column="0" style="width: 36.4px" />
+            <col data-dt-column="1" style="width: 320px" />
+            <col data-dt-column="2" style="width: 36.4px" />
+            <col data-dt-column="3" style="width: 36.4px" />
+            <col data-dt-column="4" style="width: 36.4px" />
+            
+          
+          </colgroup>
+          <thead>
+            <tr
+              class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0"
+            >
+            
+            <th
+                class="min-w-200px dt-orderable-asc dt-orderable-desc"
+                data-dt-column="1"
+                rowspan="1"
+                colspan="1"
+                
+                tabindex="0"
+              >
+                <span class="dt-column-title text-gray-800" role="button">Date</span
+                ><span class="dt-column-order"></span>
+              </th>
+              <th
+                class="min-w-200px dt-orderable-asc dt-orderable-desc"
+                data-dt-column="1"
+                rowspan="1"
+                colspan="1"
+                
+                tabindex="0"
+              >
+                <span class="dt-column-title text-gray-800" role="button">Init-End-Date</span
+                ><span class="dt-column-order"></span>
+              </th>
+              <th
+                class="text-end dt-orderable-asc dt-orderable-desc"
+                data-dt-column="1"
+                rowspan="1"
+                colspan="1"
+                
+                tabindex="0"
+              >
+                <span class="min-w-300px dt-column-title text-gray-800" role="button">Therapist</span
+                ><span class="dt-column-order"></span>
+              </th>
+              <th
+                class="text-end dt-orderable-asc dt-orderable-desc"
+                data-dt-column="1"
+                rowspan="1"
+                colspan="1"
+                
+                tabindex="0"
+              >
+                <span class="min-w-300px dt-column-title text-gray-800" role="button">Customer</span
+                ><span class="dt-column-order"></span>
+              </th>
+              <th
+                class="text-end dt-orderable-asc dt-orderable-desc"
+                data-dt-column="1"
+                rowspan="1"
+                colspan="1"
+                
+                tabindex="0"
+              >
+                <span class="min-w-300px dt-column-title text-gray-800" role="button">Note</span
+                ><span class="dt-column-order"></span>
+              </th>
+              <th
+                class="text-end min-w-70px dt-type-numeric dt-orderable-asc dt-orderable-desc"
+                data-dt-column="2"
+                rowspan="1"
+                colspan="1"
+                
+                tabindex="0"
+              >
+                <span class="dt-column-title text-gray-800" role="button">Actions</span
+                ><span class="dt-column-order"></span>
+              </th>
+              
+            </tr>
+            {% if paginator %}
+            
+            <tbody class="fw-semibold text-gray-600">
+              {% for individual_therapy_section in paginator %}
+              <tr>
+                <td>
+                  <span class="fw-bold text-gray-800">{{ individual_therapy_section.create_at }}</span>
+                </td>
+                <td>
+                  <span class="fw-bold text-gray-800">{{ individual_therapy_section.init_hour }} - {{ individual_therapy_section.end_hour }}</span>
+                </td>
+                <td class="min-w-300px text-end pe-0 dt-type-numeric">
+                  <span class="fw-bold text-gray-800">{{ individual_therapy_section.therapist_full_name }}</span>
+                </td>
+                <td class="min-w-300px text-end pe-0 dt-type-numeric">
+                  <span class="fw-bold text-gray-800">
+               
+                      {{ individual_therapy_section.customer.full_name }}
+                  </span>
+                </td>
+
+                  {% if  individual_therapy_section.have_note %}
+                    <td class="text-end pe-0">
+                      <div class="badge badge-light-success badge-lg p-2">
+                        <i class=" bi-journal-check fs-2"></i>
+                      </div>
+                    </td>
+
+                    
+                  {% else %}
+                    <td class="text-end pe-0">
+                      <div class="badge badge-light-danger badge-lg  p-2">
+                        <i class=" bi-journal-x fs-2"></i>
+                      </div>
+                    </td>
+                {% endif %}
+                <td class="text-end pe-0">
+                  
+                        {% if  individual_therapy_section.have_note %}
+                          <a href="{% url "detail_successfully_individual_therapy_view" pk=individual_therapy_section.pk %}"
+                        
+                            
+                          class="badge badge-light-warning bi-journal btn btn-sm btn-outline-warning btn-flex btn-center fs-2 px-2"
+                          data-kt-menu-trigger="click"
+                          data-kt-menu-placement="bottom-end"
+                          ></a>
+                        {% else %}
+                          <a href="{% url "detail_successfully_individual_therapy_view" pk=individual_therapy_section.pk %}"
+                        
+                            
+                          class="badge badge-light-success bi-journal-plus btn btn-sm btn-outline-success btn-flex btn-center fs-2 px-2"
+                          data-kt-menu-trigger="click"
+                          data-kt-menu-placement="bottom-end"
+                          ></a>
+                        {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+            
+            {% endif %}
+            
+          </thead>
+          
+          <tfoot></tfoot>
+        </table>
+      </div>
+      
+    </div>
+    <!--end::Table-->
+  </div>
+  <!--end::Card body-->
+  {% if paginator.has_next or paginator.has_previous%}
+  <nav aria-label="Page navigation example ">
+    <ul class="pagination justify-content-center justify-content-md-end mt-2">
+      {% if paginator.has_previous %}
+      <li class="page-item">
+        <a
+          class="page-link cursor-pointer"
+          hx-get="{% url 'filter_successfully_individual_therapy_section_view' %}?page=1&{{ parameters }}"
+          hx-target="#individualTherapySectionsTableResult"
+          hx-indicator="#spinner"
+        >
+          Inicio
+        </a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+        <a class="page-link cursor-pointer">Inicio</a>
+      </li>
+
+      {% endif %} {% for page_number in paginator.paginator.page_range %} 
+      {%if paginator.number|add:'-2' <= page_number and paginator.number|add:"2" >= page_number%} {%if paginator.number == paginator.paginator.num_pages %}
+      <li
+        class="page-item {% if page_number == paginator.number %}active{% endif %}"
+      >
+        
+        <a
+          class="page-link cursor-pointer"
+          hx-get="{% url 'filter_successfully_individual_therapy_section_view' %}?page={{ page_number }}&{{ parameters }}"
+          hx-target="#individualTherapySectionsTableResult"
+          hx-indicator="#spinner"
+        >
+          {{ page_number }}
+        </a>
+      </li>
+      {% else %}
+      <li
+        class="page-item {% if page_number == paginator.number %}active{% endif %}"
+      >
+        <a
+          class="page-link cursor-pointer"
+          hx-get="{% url 'filter_successfully_individual_therapy_section_view' %}?page={{ page_number }}&{{ parameters }}"
+          hx-target="#individualTherapySectionsTableResult"
+          hx-indicator="#spinner"
+        >
+          {{ page_number }}
+        </a>
+        
+      </li>
+      {% endif %} {% endif %} {% endfor %} {% if paginator.has_next %}
+      <li class="page-item">
+        <a
+          class="page-link cursor-pointer"
+          hx-get="{% url 'filter_successfully_individual_therapy_section_view' %}?page={{ paginator.paginator.num_pages }}&{{ parameters }}"
+          hx-target="#individualTherapySectionsTableResult"
+          hx-indicator="#spinner"
+        >
+          Fin
+        </a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+        <a class="page-link cursor-pointer">Fin</a>
+      </li>
+
+      {% endif %}
+    </ul>
+  </nav>
+  {% endif %}
+  <!--end::Products-->
+</div>

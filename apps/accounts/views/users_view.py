@@ -105,7 +105,7 @@ def update_user_view(request,pk):
                 profile.is_active=True if request.POST.get('is_active','') else False
                 profile.save() 
                 form.save_m2m()
-                context['message']="Update user successfull"
+                context['message']="User updated successfully"
             else:
                 pass
         context['user']=user

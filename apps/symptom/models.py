@@ -139,6 +139,33 @@ class Customer(models.Model):
     diagnostic = models.ForeignKey(Diagnostic, on_delete=models.CASCADE)
     diagnostic_two = models.ForeignKey(Diagnostic, on_delete=models.CASCADE,null=True,blank=True, related_name='diagnostic_two_client')
     diagnostic_three = models.ForeignKey(Diagnostic, on_delete=models.CASCADE,null=True,blank=True, related_name='diagnostic_three_client')
+    
+
+    # def clean(self):
+    #     from django.core.exceptions import ValidationError
+    #     # Validar que la fecha no coincida con ninguna fecha de atención de terapeutas
+    #     if self.treatment_plan_developed_date:
+    #         # Verificar en terapias individuales
+    #         individual_therapy_dates = IndividualTherapySection.objects.filter(
+    #             customer=self,
+    #             create_at=self.treatment_plan_developed_date
+    #         )
+    #         if individual_therapy_dates.exists():
+    #             raise ValidationError(
+    #                 {"treatment_plan_developed_date": "The treatment plan developed date cannot coincide with any therapist's session date."}
+    #             )
+
+    #         # Verificar en sesiones grupales
+    #         group_therapy_dates = CustomerPSRSections.objects.filter(
+    #             customer=self,
+    #             section__create_at=self.treatment_plan_developed_date
+    #         )
+    #         if group_therapy_dates.exists():
+    #             raise ValidationError(
+    #                 {"treatment_plan_developed_date": "The treatment plan developed date cannot coincide with any group session date."}
+    #             )
+
+    #     super().clean()
 
  
     
@@ -373,21 +400,47 @@ class YearlyPhysical(models.Model):
         return f"Yearly Physical for {self.encrypted_file.file.name}"
 
 """ Nuevos Modelos """
+
+class Master(models.Model):
+    customer = models.OneToOneField(Customer, on_delete=models.CASCADE, related_name='customer_master')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_is_master_master')
+    initial_discharge_criteria = models.TextField()
+    date = models.DateField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
+    as_psr = models.BooleanField(default=False)
+    as_individual_therapy = models.BooleanField(default=False)
+    treatment_duration = models.PositiveIntegerField(
+        default=6,
+        validators=[MinValueValidator(1), MaxValueValidator(6)]
+    )
+    is_active = models.BooleanField(default=True)
+    
+    def __str__(self):
+        return f"{self.pk}"
+
+    def next_scheduled(self):
+        from dateutil.relativedelta import relativedelta
+        next_date = self.date + relativedelta(months=self.treatment_duration)
+        return next_date
+
+
 class FocusArea(models.Model):
     TIPO_CHOICES = [
         ('PSR', 'PSR'),
         ('Individual', 'Individual Therapy'),
     ]
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='focus_areas')
+    number = models.PositiveIntegerField(default=1)
+    master = models.ForeignKey(Master, on_delete=models.CASCADE, related_name='master_focus_areas')
     title = models.CharField(max_length=100)
-    description = models.TextField(default='Just a description')
+    description = models.TextField(null=False, blank=False)
     focus_area_type = models.CharField(max_length=20, choices=TIPO_CHOICES)
 
     def __str__(self):
         return f"Focus Area {self.id}: {self.title}"
 
 class Goal(models.Model):
-    focus_area = models.ForeignKey(FocusArea, on_delete=models.CASCADE)
+    focus_area = models.OneToOneField(FocusArea, on_delete=models.CASCADE)
     title = models.CharField(max_length=100)
 
     def __str__(self):
@@ -400,7 +453,8 @@ class Objective(models.Model):
     open_date = models.DateField(default=timezone.now)
     close_date = models.DateField(default=timezone.now)
     static_text = models.TextField(default="Static text.")
-
+    intervention = models.TextField(blank=True)
+    
     def __str__(self):
         return f"Objective {self.number} - GOAL {self.goal.id}"
 
@@ -413,6 +467,30 @@ class Intervention(models.Model):
 
 
 """ Fin nuevos modelos """
+
+
+class FARS(models.Model):
+    STATUS_CHOICES = [
+        ('Initial', 'Initial'),
+        ('Checked', 'Checked'),
+        ('Finished', 'Finished'),
+    ]
+    
+    encrypted_file = models.OneToOneField(
+        EncryptedFile, 
+        on_delete=models.CASCADE, 
+        related_name='fars_document'
+    )
+    description = models.TextField(max_length=500, null=True, blank=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Initial')
+
+    class Meta:
+        verbose_name = "FarsDocument"
+        verbose_name_plural = "FarsDocuments"
+
+    def __str__(self):
+        return f"FarsDocument for {self.encrypted_file.file.name}"
+
     
 class HistoricalSection1(models.Model):
     create_datetime_at = models.DateTimeField(auto_created=True,default=timezone.now)
@@ -485,6 +563,267 @@ class IndividualTherapySection(models.Model):
 
     def __str__(self):
         return f"{self.pk}"
+    
+    @property
+    def have_note(self):
+        return IndividualTherapySectionNote.objects.filter(individual_therapy_section=self.pk).exists()
+
+
+class IndividualTherapySectionNote(models.Model):
+    APPEARANCE = [
+        ('well groomed', 'well groomed'),
+        ('unkempt', 'unkempt'),
+        ('disheveled', 'disheveled'),
+        ('malodorous', 'malodorous'),
+    ]
+    
+    DEMEANOR = [
+        ('cooperative', 'cooperative'),
+        ('hostile', 'hostile'),
+        ('guarded', 'guarded'),
+        ('withdrawn', 'withdrawn'),
+        ('preoccupied', 'preoccupied'),
+        ('demanding', 'demanding'),
+        ('seductive', 'seductive')
+    ]
+    
+    EYE_CONTACT = [
+        ('average', 'average'),
+        ('decreased', 'decreased'),
+        ('increased', 'increased'),
+        ('intermittent', 'intermittent')
+    ]
+    
+    SPEECH = [
+        ('clear', 'clear'),
+        ('slurred', 'slurred'),
+        ('rapid', 'rapid'),
+        ('slow', 'slow'),
+        ('pressured', 'pressured'),
+        ('soft', 'soft'),
+        ('loud', 'loud'),
+        ('monotone', 'monotone'),
+        
+    ]
+    THOUGHT_PROCESS = [
+        ('logical', 'logical'),
+        ('flight of ideas', 'flight of ideas'),
+        ('goal oriented', 'goal oriented'),
+        ('circumstantial', 'circumstantial'),
+        ('incoherent', 'incoherent'),
+        ('loose associations', 'loose associations'),
+        ('rapid thoughts', 'rapid thoughts'),
+        ('tangential', 'tangential'),
+        ('blocked', 'blocked'),
+        ('derailment', 'derailment'),
+        ('ruminative', 'ruminative'),
+        ('concrete', 'concrete'),
+    ]
+    
+    HALLUCINATIONS = [
+        ('none reported', 'none reported'),
+        ('auditory', 'auditory'),
+        ('visual', 'visual'),
+        ('gustatory', 'gustatory'),
+        ('tactile', 'tactile'),
+        ('olfactory', 'olfactory'),
+        ('Illusions', 'Illusions'),
+        ('Depersonalization', 'Depersonalization'),
+        
+        
+    ]
+    DELUSIONS = [
+        ('none reported', 'none reported'),
+        ('grandiose', 'grandiose'),
+        ('persecutory', 'persecutory'),
+        ('somatic', 'somatic'),
+        ('bizarre', 'bizarre'),
+        ('nihilist', 'nihilist'),
+        ('religious', 'religious'),
+        ('paranoia', 'paranoia'),
+    ]
+    OTHER = [
+        ('none reported', 'none reported'),
+        ('guilt', 'guilt'),
+        ('obsessions', 'obsessions'),
+        ('compulsions', 'compulsions'),
+        ('phobias', 'phobias'),
+        ('poverty of content', 'poverty of content'),
+        ('anhedonia', 'anhedonia'),
+        ('thought insertion', 'thought insertion'),
+        ('ideas of reference', 'ideas of reference'),
+        ('thought broadcasting', 'thought broadcasting'),
+    ]
+    MOOD = [
+        ('euthymic', 'euthymic'),
+        ('anxious', 'anxious'),
+        ('angry', 'angry'),
+        ('euphoric', 'euphoric'),
+        ('depressed', 'depressed'),
+        ('irritable', 'irritable'),
+    ]
+    AFFECT = [
+        ('flat', 'flat'),
+        ('inappropriate', 'inappropriate'),
+        ('labile', 'labile'),
+        ('blunted', 'blunted'),
+        ('full', 'full'),
+        ('congruent with mood', 'congruent with mood'),
+        ('constricted', 'constricted'),
+    ]
+    BEHAVIOR = [
+        ('no behavior issues', 'no behavior issues'),
+        ('assaultive', 'assaultive'),
+        ('resistant', 'resistant'),
+        ('agitated', 'agitated'),
+        ('restless', 'restless'),
+        ('hyperactive', 'hyperactive'),
+        ('intrusive', 'intrusive'),
+        ('aggressive', 'aggressive'),
+    ]
+    
+    MOVEMENT = [
+        ('Akathisia', 'Akathisia'),
+        ('Dystonia', 'Dystonia'),
+        ('Tardive dyskinesia', 'Tardive dyskinesia'),
+        ('Tics', 'Tics'),
+    ]
+    
+    IMPAIRMENT_OF = [
+        ('none reported', 'none reported'),
+        ('orientation', 'orientation'),
+        ('memory', 'memory'),
+        ('ability to abstract', 'ability to abstract'),
+        ('attention/concentration', 'attention/concentration'),
+    ]
+    
+    IMPULSE_CONTROL = [
+        ('good', 'good'),
+        ('fair', 'fair'),
+        ('poor', 'poor'),
+    ]
+
+    INSIGHT = [
+        ('good', 'good'),
+        ('fair', 'fair'),
+        ('poor', 'poor'),
+    ]
+    JUDGMENT = [
+        ('good', 'good'),
+        ('fair', 'fair'),
+        ('poor', 'poor'),
+    ]
+    
+    appearance = models.CharField(max_length=20, choices=APPEARANCE, null=True, blank=True)
+    demeanor = models.CharField(max_length=20, choices=DEMEANOR, null=True, blank=True)
+    eye_contact = models.CharField(max_length=20, choices=EYE_CONTACT, null=True, blank=True)
+    speech = models.CharField(max_length=20, choices=SPEECH, null=True, blank=True)
+    thought_process = models.CharField(max_length=20, choices=THOUGHT_PROCESS, null=True, blank=True)
+    hallucinations = models.CharField(max_length=20, choices=HALLUCINATIONS, null=True, blank=True)
+    delusions = models.CharField(max_length=20, choices=DELUSIONS, null=True, blank=True)
+    other = models.CharField(max_length=20, choices=OTHER, null=True, blank=True)
+    mood = models.CharField(max_length=20, choices=MOOD, null=True, blank=True)
+    affect = models.CharField(max_length=20, choices=AFFECT, null=True, blank=True)
+    behavior = models.CharField(max_length=20, choices=BEHAVIOR, null=True, blank=True)
+    movement = models.CharField(max_length=20, choices=MOVEMENT, null=True, blank=True)
+    impairment_of = models.CharField(max_length=25, choices=IMPAIRMENT_OF, null=True, blank=True)
+    impulse_control = models.CharField(max_length=20, choices=IMPULSE_CONTROL, null=True, blank=True)
+    insight = models.CharField(max_length=20, choices=INSIGHT, null=True, blank=True)
+    judgment = models.CharField(max_length=20, choices=JUDGMENT, null=True, blank=True)
+    individual_therapy_section = models.OneToOneField(IndividualTherapySection, on_delete=models.CASCADE)
+    create_at = models.DateField(auto_created=True,default=timezone.now)
+    session_content = models.TextField(null=True, blank=True)
+    thought_content_describe = models.TextField(null=True, blank=True,default="N/A")
+    thought_process_describe = models.TextField(null=True, blank=True,default="N/A")
+    perception_describe = models.TextField(null=True, blank=True,default="N/A")
+    other_describe = models.TextField(null=True, blank=True,default="N/A")
+    movement_describe = models.TextField(null=True, blank=True,default="N/A")
+    cognition_describe = models.TextField(null=True, blank=True,default="N/A")
+    clients_response_to_the_intervention = models.TextField(null=True, blank=True)
+    clients_progress_toward_goals_and_objectives = models.TextField(null=True, blank=True)
+    plan_for_next_session = models.TextField(null=True, blank=True)
+    therapist = models.ForeignKey(User, on_delete=models.CASCADE, related_name='individual_therapy_section_note')
+    family_systemic = models.BooleanField(default=False)
+    role_playing = models.BooleanField(default=False)
+    cognitive_behavioral = models.BooleanField(default=False)
+    psychoeducation = models.BooleanField(default=False)
+    psychodynamic = models.BooleanField(default=False)
+    motivational_intervention = models.BooleanField(default=False)
+    relaxation_technique = models.BooleanField(default=False)
+    existential_therapy = models.BooleanField(default=False)
+    active_listening = models.BooleanField(default=False)
+    sign = models.ImageField(upload_to='customer_sign',blank=True,null=True)
+    date_sign = models.DateField(null=True, blank=True)
+    licensed_practitioner = models.CharField(max_length=80, null=True, blank=True)
+    licensed_practitioner_pk = models.CharField(max_length=20, null=True, blank=True)
+    
+    def __str__(self):
+        return f"{self.pk}"
+
+class GoalNoteIndividualTherapySections(models.Model):
+    individual_note = models.ForeignKey(IndividualTherapySectionNote, on_delete=models.CASCADE, related_name='goal_note_individual_therapy_note')
+    goal_number = models.PositiveIntegerField()
+    goal_title = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"{self.pk}"
+
+class ObjectiveNoteIndividualTherapySections(models.Model):
+    objective_number = models.PositiveIntegerField()
+    objective_description = models.CharField(max_length=255)
+    goal_note = models.ForeignKey(GoalNoteIndividualTherapySections, on_delete=models.CASCADE, related_name='objective_goal_note_individual_therapy_note')
+
+    def __str__(self):
+        return f"{self.pk}"
+
+
+from django.db import models
+class Note(models.Model):
+    PEER_INTERACTION = [
+        ('Moderate', 'Moderate'),
+        ('Adequate', 'Adequate'),
+        ('Limited', 'Limited'),
+        ('Poor', 'Poor'),
+    ]
+    
+    MOOD_AFFECT = [
+        ('Negativistic', 'Negativistic'),
+        ('Positive', 'Positive'),
+        ('Depressed', 'Depressed'),
+        ('Anxious', 'Anxious'),
+        ('Withdrawn', 'Withdrawn'),
+    ]
+    
+    ATTITUDE_COOPERATION = [
+        ('Moderate', 'Moderate'),
+        ('Inadequate', 'Inadequate'),
+        ('Motivated', 'Motivated'),
+        ('Unmotivated', 'Unmotivated'),
+        ('Poor', 'Poor'),
+    ]
+    
+    ATTENTION_CONCENTRATION = [
+        ('Normal', 'Normal'),
+        ('MildlyImpaired', 'Mildly Impaired'),
+        ('SeverelyImpaired', 'Severely Impaired'),
+    ]
+    
+    ORIENTATION = [
+        ('OrientedX3', 'OrientedX3'),
+        ('NotTime', 'Not Time'),
+        ('NotPlace', 'Not Place'),
+        ('NotPerson', 'Not Person'),
+    ]
+    
+    peer_interaction = models.CharField(max_length=20, choices=PEER_INTERACTION, null=True, blank=True)
+    mood_affect = models.CharField(max_length=20, choices=MOOD_AFFECT, null=True, blank=True)
+    attitude_cooperation = models.CharField(max_length=20, choices=ATTITUDE_COOPERATION, null=True, blank=True)
+    attention_concentration = models.CharField(max_length=20, choices=ATTENTION_CONCENTRATION, null=True, blank=True)
+    orientation = models.CharField(max_length=20, choices=ORIENTATION, null=True, blank=True)
+    
+    
+    def __str__(self):
+        return f"Note of {self.sections.first().create_at if self.sections.exists() else 'No Date'}"
 
 
 class GroupsPSRSections(models.Model):
@@ -495,14 +834,53 @@ class GroupsPSRSections(models.Model):
     init_hour = models.TimeField(null=True, blank=True)
     end_hour = models.TimeField(null=True, blank=True)
     is_active= models.BooleanField(default=True)
+    note = models.ForeignKey(Note, on_delete=models.SET_NULL, related_name='sections', blank=True, null=True)
 
     class Meta:
         verbose_name = "GroupsPSRSections"
         verbose_name_plural = "GroupsPSRSectionss"
 
     def __str__(self):
-        return f"{self.pk}"
+        return f"Section of {self.create_at} ({self.init_hour} - {self.end_hour})"
 
+
+class NoteSectionDetail(models.Model):
+    note = models.ForeignKey(Note, on_delete=models.CASCADE, related_name='section_details')
+    psr_section = models.ForeignKey(GroupsPSRSections, on_delete=models.CASCADE, related_name='note_details')
+    section_number = models.CharField(max_length=50, null=True, blank=True)
+    checkbox_goals = models.ManyToManyField(Objective, blank=True, related_name='goals_from_checkboxes')
+    goals = models.ManyToManyField(Objective, blank=True)
+    description = models.TextField(null=True, blank=True)
+    facilitator = models.CharField(max_length=50, blank=True, null=True)
+    client_response = models.CharField(
+        max_length=20,
+        choices=[
+            ('Cooperative', 'Cooperative'),
+            ('Uninterested', 'Uninterested'),
+            ('Distractible', 'Distractible'),
+            ('Confused', 'Confused'),
+            ('Other', 'Other'),
+        ],
+        null=True,
+        blank=True
+    )
+    update_progress = models.CharField(
+        max_length=50, 
+        choices=[
+            ('SignificantProgress', 'Significant Progress'),
+            ('ModerateProgress', 'Moderate Progress'),
+            ('MinimalProgress', 'Minimal Progress'),
+            ('NoProgress', 'No Progress'),
+            ('Regression', 'Regression'),
+            ('Decompensating', 'Decompensating'),
+            ('Unable', 'Unable to determine at this time'),
+        ],
+        blank=True, 
+        null=True
+    )
+
+    def __str__(self):
+        return f"Detail for Section {self.psr_section.pk} in Note {self.note.pk}"
     
 class CustomerPSRSections(models.Model):
     section = models.ForeignKey(GroupsPSRSections, on_delete=models.CASCADE, related_name='customer_psr_section')
@@ -527,3 +905,4 @@ class CustomerPSRSections(models.Model):
             if customer:
                 return False
         return True
+    

@@ -1,0 +1,76 @@
+{% if master %}
+<tr id="Master-{{master.pk}}">
+                  
+    <td>
+      <div class="d-flex align-items-center">
+        <div class="">
+          <!--begin::Title-->
+          <a
+            href="{% url "detail_customer_view" pk=master.customer_pk %}"
+            class="text-gray-800 text-hover-primary fs-5 fw-bold"
+            data-kt-ecommerce-product-filter="product_name"
+            >{{master.customer_full_name}}</a
+          >
+          <!--end::Title-->
+        </div>
+      </div>
+    </td>
+    <td class="text-end pe-0 dt-type-numeric">
+      <span class="fw-bold text-gray-800">{{master.create_at}}</span>
+    </td>
+    <td class="text-end pe-0 dt-type-numeric" data-order="22">
+      <span class="fw-bold text-gray-800 ms-3">{{master.generate_date}}</span>
+    </td>
+    <td class="text-end pe-0 dt-type-numeric text-gray-800">
+        {{master.generate_init_time}}
+    </td>
+    <td class="text-end pe-0">
+      <!--begin::Badges-->
+      {{master.generate_end_time}}
+      
+      <!--end::Badges-->
+    </td>
+    <td class="text-end pe-0" data-order="Inactive">
+      <!--begin::Badges-->
+      {% if not master.is_active %}
+      <div class="badge badge-light-success badge-lg">
+        Successfull
+      </div>
+      {% else %}
+      <div class="badge badge-light-danger badge-lg">
+
+        No successfull
+      </div>
+      {% endif %}
+      <!--end::Badges-->
+    </td>
+    <td class=" d-flex flex-nowrap justify-content-end gap-1 text-end">
+      {% if master.is_active %}
+      <a
+        hx-delete="{% url 'delete_generate_master_view' pk=master.pk %}"
+        hx-target="#Master-{{master.pk}}"
+        hx-indicator="#indicator-Master-{{master.pk}}"
+        hx-trigger="click"
+        hx-swap="outerHTML"
+        hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}'
+        class="badge badge-light-danger bi-trash btn btn-sm btn-outline-danger btn-flex btn-center d-f fs-5 px-2 position-relative d-flex justify-content-center align-items-center"
+        data-kt-menu-trigger="click"
+        data-kt-menu-placement="bottom-end"
+        >
+        <span id="indicator-Master-{{master.pk}}" class=" htmx-indicator spinner-border spinner-border position-absolute" ></span>
+      </a>
+      {% else %}
+      <a
+        
+        class="badge badge-light-danger disabled bi-trash btn btn-sm btn-outline-danger btn-flex btn-center d-f fs-5 px-2 position-relative d-flex justify-content-center align-items-center"
+        >
+        <span id="indicator-Master-{{master.pk}}" class="fs-1 fw-bold position-absolute bi-x-circle" ></span>
+     
+      </a>
+      {% endif %}
+     
+      </div>
+      <!--end::Menu-->
+    </td>
+  </tr>
+{% endif %}

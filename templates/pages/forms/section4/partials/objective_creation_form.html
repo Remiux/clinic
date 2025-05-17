@@ -1,0 +1,94 @@
+<form hx-post="{% url "add_objective_inline" focus_area.goal.pk %}" 
+hx-indicator="#CreateObjectiveSpinner-{{focus_area.goal.pk}}"
+hx-target="#objective-creation-form" method="post" class="my-2">
+    {% csrf_token %}
+    <input type="hidden" name="goal" value="{{ focus_area.goal.pk }}">
+    <div class="row g-2">
+        <div class="col-md-4">
+            <input type="text" name="description" placeholder="Description" class="form-control">
+            {% if form.description.errors %}
+                <div class="text-danger">
+                    {% for error in form.description.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-md-4">
+            <input type="date" name="open_date" class="form-control">
+            {% if form.open_date.errors %}
+                <div class="text-danger">
+                    {% for error in form.open_date.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-md-4">
+            <input type="date" name="close_date" class="form-control">
+            {% if form.close_date.errors %}
+                <div class="text-danger">
+                    {% for error in form.close_date.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-12">
+            <textarea name="intervention" rows="2" placeholder="New Intervention" class="form-control"></textarea>
+            {% if form.description.errors %}
+                <div class="text-danger">
+                    {% for error in form.description.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <input type="hidden" name="static_text" value="Texto constante que nunca cambia.">
+    <button type="submit" class="badge badge-light-success btn btn-sm btn-outline-success mt-2 d-flex justify-content-center align-items-center">
+        <span id="CreateObjectiveSpinner-{{focus_area.goal.pk}}" class="htmx-indicator spinner-border spinner-border-sm me-2"></span>
+        + Objective</button>
+
+    {% if tag_message %}
+        <script>
+            Swal.fire({
+                position: "top-center",
+                icon: '{% if "error" in tags %}error{% elif "success" in tags %}success{% elif "info" in tags %}info{% elif "warning" in tags %}warning{% else %}question{% endif %}',
+                title: "{{tag_message}}",
+                showConfirmButton: false,
+                timer: 3000
+            });
+        </script>
+    {% endif %}
+    {% if  message == "Objective created successfully!" %}
+        <script>
+            // Función para cerrar el modal y luego realizar la solicitud hx-get
+            (function closeModalAndReload() {
+                // Cierra el modal utilizando Bootstrap
+                const modal = document.querySelector('.modal.show'); // Selecciona el modal abierto
+                if (modal) {
+                    const modalInstance = bootstrap.Modal.getInstance(modal);
+                    if (modalInstance) {
+                        modalInstance.hide(); // Cierra el modal
+                    }
+                }
+        
+                // Elimina el backdrop manualmente
+                const backdrop = document.querySelector('.modal-backdrop');
+                if (backdrop) {
+                    backdrop.remove();
+                }
+        
+                // Realiza la solicitud hx-get para recargar el contenedor
+                setTimeout(() => {
+                    const container = document.querySelector('#focus-area-container');
+                    if (container) {
+                        htmx.ajax('GET', '{% url "reload_data" pk=customer.pk %}', { target: '#focus-area-container' });
+                    }
+                }, 500); // Espera un breve momento para asegurarse de que el modal se cierre
+            })();
+        </script>
+    {% endif %}
+</form>

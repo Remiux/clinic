@@ -1,0 +1,1423 @@
+{% extends "base.html" %} {% load static %} 
+{% block title %}Individual Therapy Note Detail{%endblock title %} 
+{% block content %}
+<!-- Modal -->
+{% include "pages/sections_successfully/individual_therapy_section/partials/GoalAddFormModal.html" %}
+
+<div class="row g-6">
+    <div class="col-12 w-100 d-flex justify-content-between align-items-center">
+        <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
+            <!--begin::Title-->
+            <h1 class="page-heading d-flex text-gray-900 fw-bold fs-3 flex-column justify-content-center my-0">Individual Therapy Note Detail</h1>
+            <!--end::Title-->
+            <!--begin::Breadcrumb-->
+            <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-muted">
+                    <a href="{% url "successfully_individual_therapy_section_view" %}" class="text-muted text-hover-primary">Successfully Individual Therapy Sections List</a>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item">
+                    <span class="bullet bg-gray-500 w-5px h-2px"></span>
+                </li>
+                <!--end::Item-->
+                <!--begin::Item-->
+                <li class="breadcrumb-item text-muted">Individual Therapy Note Detail</li>
+                <!--end::Item-->
+            </ul>
+            <!--end::Breadcrumb-->
+        </div>
+        
+        
+        
+        
+    </div>
+    <div class="col-12">
+        <div class="card " >
+            <div class="card-body p-5">
+                <div class="row g-4 mb-5">
+                    <div class="col-12 col-md-6">
+                        <span class="fw-bold fs-6 text-gray-800">
+                            Client name: {{ individual_therapy.customer.full_name }}
+                        </span>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <span class="fw-bold fs-6 text-gray-800">
+                            MR# : {{ individual_therapy.customer.case_no }}
+                        </span>
+                    </div>
+                    
+                </div>
+                
+                <div class="row g-4">
+                    <div class="col-12 col-md-3">
+                        <span class="fw-bold fs-6 text-gray-800">
+                            Session Date: {{ individual_therapy.create_at }}
+                        </span>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <span class="fw-bold fs-6 text-gray-800">
+                            Start time: {{ individual_therapy.init_hour }}
+                        </span>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <span class="fw-bold fs-6 text-gray-800">
+                            End Time: {{ individual_therapy.end_hour }}
+                        </span>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <span class="fw-bold fs-6 text-gray-800">
+                            Total Units: 4
+                        </span>
+                    </div>
+                </div>
+                <div class="my-4">
+                    <span class="fw-bold fs-6 text-gray-800">
+                        Session type: Individual Therapy Progress Note   
+                    </span>
+                </div>
+                <div class="mb-4">
+                    <span class="fw-bold fs-6 text-gray-800">
+                        Modality: Outpatient
+                    </span>
+                </div>
+                <div class="mb-4">
+                    <span class="fw-bold fs-6 text-gray-800">
+                        Location of Services: 53     
+                    </span>
+                    <span class="badge badge-light-danger badge-lg">
+                        {{ individual_therapy.customer.diagnostic }}
+                    </span>
+                </div>
+                
+                
+                
+                
+                
+            </div>
+        </div>
+      
+    </div>
+   
+    
+    
+    
+    
+  
+</div>
+<div id="individualTherapySectionFormCheck"></div>
+<form 
+    hx-post="{% url 'update_individual_therapy_section_view' pk=individual_note.pk %}"
+    hx-target="#individualTherapySectionFormCheck"
+    hx-indicator="#individualTherapySectionFormCheckSpinner"
+    hx-trigger="submit"
+    hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}'
+    >
+    <div class="row mt-5">
+        <span class="fw-bold fs-6 text-gray-800">
+            MENTAL STATUS EXAM
+        </span>
+        <div class="table-responsive">
+            <table class="table table-bordered table- table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 my-0">
+                <thead>
+                    <tr class="fw-bold text-gray-800  ">
+                        <th class="p-2">Genera Observations</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                     
+                  
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr >
+                        <td class="p-2 min-w-150px">
+                            <span class="fw-bold fs-6 text-gray-800">
+                                Appearance
+                            </span>
+                        </td>
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="appearance"  value="well groomed" {% if individual_note.appearance == 'well groomed' %}checked{% endif %} /> well groomed
+                            </div>
+                            
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="appearance" value="unkempt" {% if individual_note.appearance == 'unkempt' %}checked{% endif %}/> unkempt
+                            </div>
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="appearance" value="disheveled" {% if individual_note.appearance == 'disheveled' %}checked{% endif %}/> disheveled
+                            </div>
+                        </td>
+                   
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="appearance" value="malodorous" {% if individual_note.appearance == 'malodorous' %}checked{% endif %}/> malodorous
+                            </div>
+                        </td>
+                    </tr>
+                    <tr >
+                        <td class="p-2 min-w-150px">
+                            <span class="fw-bold fs-6 text-gray-800">
+                                Demeanor
+                            </span>
+                        </td>
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="demeanor"  value="cooperative" {% if individual_note.demeanor == 'cooperative' %}checked{% endif %}/> cooperative
+                            </div>
+                            
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="demeanor" value="hostile" {% if individual_note.demeanor == 'hostile' %}checked{% endif %}/> hostile
+                            </div>
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="demeanor" value="guarded" {% if individual_note.demeanor == 'guarded' %}checked{% endif %}/> guarded
+                            </div>
+                        </td>
+                   
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="demeanor" value="withdrawn" {% if individual_note.demeanor == 'withdrawn' %}checked{% endif %}/> withdrawn
+                            </div>
+                        </td>
+                    </tr>
+                    <tr >
+                        <td class="p-2 min-w-150px">
+                            
+                        </td>
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="demeanor"  value="preoccupied" {% if individual_note.demeanor == 'preoccupied' %}checked{% endif %}/> preoccupied
+                            </div>
+                            
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="demeanor" value="demanding" {% if individual_note.demeanor == 'demanding' %}checked{% endif %}/> demanding
+                            </div>
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="demeanor" value="seductive" {% if individual_note.demeanor == 'seductive' %}checked{% endif %}/> seductive
+                            </div>
+                        </td>
+                   
+                        <td class=" p-2 min-w-100px ">
+                           
+                        </td>
+                    </tr>
+                    <tr >
+                        <td class="p-2 min-w-150px">
+                            <span class="fw-bold fs-6 text-gray-800">
+                                Eye contact
+                            </span>
+                        </td>
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="eye_contact"  value="average" {% if individual_note.eye_contact == 'average' %}checked{% endif %}/> average
+                            </div>
+                            
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="eye_contact" value="decreased" {% if individual_note.eye_contact == 'decreased' %}checked{% endif %}/> decreased
+                            </div>
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="eye_contact" value="increased" {% if individual_note.eye_contact == 'increased' %}checked{% endif %}/> increased
+                            </div>
+                        </td>
+                   
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="eye_contact" value="intermittent" {% if individual_note.eye_contact == 'intermittent' %}checked{% endif %}/> intermittent
+                            </div>
+                        </td>
+                    </tr>
+                    <tr >
+                        <td class="p-2 min-w-150px">
+                            <span class="fw-bold fs-6 text-gray-800">
+                                Speech
+                            </span>
+                        </td>
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="speech"  value="clear" {% if individual_note.speech == 'clear' %}checked{% endif %} /> clear
+                            </div>
+                            
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="speech" value="slurred" {% if individual_note.speech == 'slurred' %}checked{% endif %} /> slurred
+                            </div>
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="speech" value="rapid" {% if individual_note.speech == 'rapid' %}checked{% endif %}/> rapid
+                            </div>
+                        </td>
+                   
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="speech" value="slow" {% if individual_note.speech == 'slow' %}checked{% endif %}/> slow
+                            </div>
+                        </td>
+                    </tr>
+                    <tr >
+                        <td class="p-2 min-w-150px">
+                            
+                        </td>
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="speech"  value="pressured" {% if individual_note.speech == 'pressured' %}checked{% endif %}/> pressured
+                            </div>
+                            
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="speech" value="soft" {% if individual_note.speech == 'soft' %}checked{% endif %}/> soft
+                            </div>
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="speech" value="loud" {% if individual_note.speech == 'loud' %}checked{% endif %}/> loud
+                            </div>
+                        </td>
+                   
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="speech" value="monotone" {% if individual_note.speech == 'monotone' %}checked{% endif %}/> monotone
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row mt-5">
+        
+        <div class="table-responsive">
+            <table class="table table-bordered table- table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 my-0">
+                <thead>
+                    <tr class="fw-bold text-gray-800  ">
+                        <th class="p-2">Thought Content:</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                     
+                  
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr >
+                        <td class="p-2 min-w-150px">
+                            <span class="fw-bold fs-6 text-gray-800">
+                                Delusions
+                            </span>
+                        </td>
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="delusions"  value="none reported" {% if individual_note.delusions == 'none reported' %}checked{% endif %}/> none reported
+                            </div>
+                            
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="delusions" value="grandiose" {% if individual_note.delusions == 'grandiose' %}checked{% endif %}/> grandiose
+                            </div>
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="delusions" value="persecutory" {% if individual_note.delusions == 'persecutory' %}checked{% endif %}/> persecutory
+                            </div>
+                        </td>
+                   
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="delusions" value="somatic" {% if individual_note.delusions == 'somatic' %}checked{% endif %}/> somatic
+                            </div>
+                        </td>
+                    </tr>
+                    <tr >
+                        <td class="p-2 min-w-150px">
+                            
+                        </td>
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="delusions"  value="bizarre" {% if individual_note.delusions == 'bizarre' %}checked{% endif %}/> bizarre
+                            </div>
+                            
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="delusions" value="nihilist" {% if individual_note.delusions == 'nihilist' %}checked{% endif %}/> nihilist
+                            </div>
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="delusions" value="religious" {% if individual_note.delusions == 'religious' %}checked{% endif %}/> religious
+                            </div>
+                        </td>
+                   
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="delusions" value="paranoia" {% if individual_note.delusions == 'paranoia' %}checked{% endif %}/> paranoia
+                            </div>
+                        </td>
+                    </tr>
+                    <tr >
+                        <td class="p-2 min-w-150px">
+                            Describe:
+                        </td>
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <textarea class="form-control" name="thought_content_describe"  />{% if individual_note.thought_content_describe %}{{individual_note.thought_content_describe}}{% endif %}</textarea>
+                            </div>
+                            
+                        </td>
+                        
+                    </tr>
+                    <tr >
+                        <td class="p-2 min-w-150px">
+                            <span class="fw-bold fs-6 text-gray-800">
+                                Other
+                            </span>
+                        </td>
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="other"  value="none reported" {% if individual_note.other == 'none reported' %}checked{% endif %}/> none reported
+                            </div>
+                            
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="other" value="guilt " {% if individual_note.other == 'guilt' %}checked{% endif %}/> guilt 
+                            </div>
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="other" value="obsessions" {% if individual_note.other == 'obsessions' %}checked{% endif %} /> obsessions
+                            </div>
+                        </td>
+                   
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="other" value="compulsions" {% if individual_note.other == 'compulsions' %}checked{% endif %}/> compulsions
+                            </div>
+                        </td>
+                    </tr>
+                    <tr >
+                        <td class="p-2 min-w-150px">
+                            
+                        </td>
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="other"  value="phobias" {% if individual_note.other == 'phobias' %}checked{% endif %}/> phobias
+                            </div>
+                            
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="other" value="poverty of content" {% if individual_note.other == 'poverty of content' %}checked{% endif %}/> poverty of content
+                            </div>
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="other" value="anhedonia" {% if individual_note.other == 'anhedonia' %}checked{% endif %}/> anhedonia
+                            </div>
+                        </td>
+                   
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="other" value="thought insertion" {% if individual_note.other == 'thought insertion' %}checked{% endif %}/> thought insertion
+                            </div>
+                        </td>
+                    </tr>
+                    <tr >
+                        <td class="p-2 min-w-150px">
+                            
+                        </td>
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="other"  value="ideas of reference" {% if individual_note.other == 'ideas of reference' %}checked{% endif %}/> ideas of reference
+                            </div>
+                            
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="other" value="thought broadcasting" {% if individual_note.other == 'thought broadcasting' %}checked{% endif %}/> thought broadcasting
+                            </div>
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            
+                        </td>
+                   
+                        <td class=" p-2 min-w-100px ">
+                            
+                        </td>
+                         
+                    </tr>
+                    <tr>
+                        <td class="p-2 min-w-150px">
+                            Describe:
+                        </td>
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <textarea class="form-control" name="other_describe"  />{% if individual_note.other_describe %}{{individual_note.other_describe}}{% endif %}</textarea>
+                            </div>
+                            
+                        </td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row mt-5">
+        
+        <div class="table-responsive">
+            <table class="table table-bordered table- table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 my-0">
+                <thead>
+                    <tr class="fw-bold text-gray-800  ">
+                        
+                        <th class="p-2">Thought Process:</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                     
+                  
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr >
+                        
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="thought_process"  value="logical" {% if individual_note.thought_process == 'logical' %}checked{% endif %}/> logical
+                            </div>
+                            
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="thought_process" value="flight of ideas" {% if individual_note.thought_process == 'flight of ideas' %}checked{% endif %}/> flight of ideas
+                            </div>
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="thought_process" value="goal oriented" {% if individual_note.thought_process == 'goal oriented' %}checked{% endif %}/> goal oriented
+                            </div>
+                        </td>
+                   
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="thought_process" value="circumstantial" {% if individual_note.thought_process == 'circumstantial' %}checked{% endif %}/> circumstantial
+                            </div>
+                        </td>
+                    </tr>
+                    <tr >
+                        
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="thought_process"  value="incoherent" {% if individual_note.thought_process == 'incoherent' %}checked{% endif %}/> incoherent
+                            </div>
+                            
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="thought_process" value="loose associations" {% if individual_note.thought_process == 'loose associations' %}checked{% endif %} /> loose associations
+                            </div>
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="thought_process" value="rapid thoughts" {% if individual_note.thought_process == 'rapid thoughts' %}checked{% endif %}/> rapid thoughts
+                            </div>
+                        </td>
+                   
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="thought_process" value="tangential" {% if individual_note.thought_process == 'tangential' %}checked{% endif %}/> tangential
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <tr >
+                        
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="thought_process"  value="blocked" {% if individual_note.thought_process == 'blocked' %}checked{% endif %}/> blocked
+                            </div>
+                            
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="thought_process" value="derailment " {% if individual_note.thought_process == 'derailment' %}checked{% endif %}/> derailment 
+                            </div>
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="thought_process" value="ruminative" {% if individual_note.thought_process == 'ruminative' %}checked{% endif %}/> ruminative
+                            </div>
+                        </td>
+                   
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="thought_process" value="concrete" {% if individual_note.thought_process == 'concrete' %}checked{% endif %}/> concrete
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="p-2 min-w-150px">
+                            Describe:
+                        </td>
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <textarea class="form-control" name="thought_process_describe"  />{% if individual_note.thought_process_describe %}{{individual_note.thought_process_describe}}{% endif %}</textarea>
+                            </div>
+                            
+                        </td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div class="row mt-5">
+        
+        <div class="table-responsive">
+            <table class="table table-bordered table- table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 my-0">
+                <thead>
+                    <tr class="fw-bold text-gray-800  ">
+                        
+                        <th class="p-2">Perception:</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                  
+                     
+                  
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr >
+                        <td class="p-2 min-w-150px">
+                            <span class="fw-bold fs-6 text-gray-800">
+                                Hallucinations
+                            </span>
+                        </td>
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="hallucinations"  value="none reported" {% if individual_note.hallucinations == 'none reported' %}checked{% endif %}/> none reported
+                            </div>
+                            
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="hallucinations" value="auditory" {% if individual_note.hallucinations == 'auditory' %}checked{% endif %}/> auditory
+                            </div>
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="hallucinations" value="visual" {% if individual_note.hallucinations == 'visual' %}checked{% endif %}/> visual
+                            </div>
+                        </td>
+                   
+                        
+                    </tr>
+                    <tr >
+                        <td class="p-2 min-w-150px">
+                            
+                        </td>
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="hallucinations"  value="gustatory" {% if individual_note.hallucinations == 'gustatory' %}checked{% endif %}/> gustatory
+                            </div>
+                            
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="hallucinations" value="tactile" {% if individual_note.hallucinations == 'tactile' %}checked{% endif %}/> tactile
+                            </div>
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="hallucinations" value="olfactory" {% if individual_note.hallucinations == 'olfactory' %}checked{% endif %}/> olfactory
+                            </div>
+                        </td>
+                   
+                        
+                    </tr>
+                    
+                    <tr >
+                        <td class="p-2 min-w-150px">
+                            
+                        </td>
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="hallucinations"  value="Illusions" {% if individual_note.hallucinations == 'Illusions' %}checked{% endif %}/> Illusions
+                            </div>
+                            
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                           
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="hallucinations" value="Depersonalization" {% if individual_note.hallucinations == 'Depersonalization' %}checked{% endif %}/> Depersonalization
+                            </div>
+                        </td>
+                   
+                        
+                    </tr>
+                    
+                    <tr>
+                        <td class="p-2 min-w-150px">
+                            Describe:
+                        </td>
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <textarea class="form-control" name="perception_describe"  />{% if individual_note.perception_describe %}{{individual_note.perception_describe}}{% endif %}</textarea>
+                            </div>
+                            
+                        </td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row mt-5">
+        
+        <div class="table-responsive">
+            <table class="table table-bordered table- table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 my-0">
+                <thead>
+                    <tr class="fw-bold text-gray-800  ">
+                        
+                        <th class="p-2">Mood:</th>
+                        <th></th>
+                        <th></th>
+                      
+                  
+                     
+                  
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr >
+                        
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="mood"  value="euthymic" {% if individual_note.mood == 'euthymic' %}checked{% endif %}/> euthymic
+                            </div>
+                            
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="mood" value="anxious" {% if individual_note.mood == 'anxious' %}checked{% endif %}/> anxious
+                            </div>
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="mood" value="angry" {% if individual_note.mood == 'angry' %}checked{% endif %}/> angry
+                            </div>
+                        </td>
+                   
+                        
+                    </tr>
+                    <tr >
+                       
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="mood"  value="euphoric" {% if individual_note.mood == 'euphoric' %}checked{% endif %}/> euphoric
+                            </div>
+                            
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="mood" value="depressed" {% if individual_note.mood == 'depressed' %}checked{% endif %}/> depressed
+                            </div>
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="mood" value="irritable" {% if individual_note.mood == 'irritable' %}checked{% endif %}/> irritable
+                            </div>
+                        </td>
+                   
+                        
+                    </tr>
+                    
+                    
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row mt-5">
+        
+        <div class="table-responsive">
+            <table class="table table-bordered table- table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 my-0">
+                <thead>
+                    <tr class="fw-bold text-gray-800  ">
+                        
+                        <th class="p-2">Affect:</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                      
+                  
+                     
+                  
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr >
+                        
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="affect"  value="flat" {% if individual_note.affect == 'flat' %}checked{% endif %}/> flat
+                            </div>
+                            
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="affect" value="inappropriate" {% if individual_note.affect == 'inappropriate' %}checked{% endif %}/> inappropriate
+                            </div>
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="affect" value="labile" {% if individual_note.affect == 'labile' %}checked{% endif %}/> labile
+                            </div>
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="affect" value="blunted" {% if individual_note.affect == 'blunted' %}checked{% endif %}/> blunted
+                            </div>
+                        </td>
+                   
+                        
+                    </tr>
+                    <tr >
+                       
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="affect"  value="full" {% if individual_note.affect == 'full' %}checked{% endif %}/> full
+                            </div>
+                            
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="affect" value="congruent with mood" {% if individual_note.affect == 'congruent with mood' %}checked{% endif %}/> congruent with mood
+                            </div>
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="affect" value="constricted" {% if individual_note.affect == 'constricted' %}checked{% endif %}/> constricted
+                            </div>
+                        </td>
+                        
+                        
+                    </tr>
+                    
+                    
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="row mt-5">
+        
+        <div class="table-responsive">
+            <table class="table table-bordered table- table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 my-0">
+                <thead>
+                    <tr class="fw-bold text-gray-800  ">
+                        
+                        <th class="p-2">Behavior:</th>
+                        <th></th>
+                        <th></th>
+         
+                      
+                  
+                     
+                  
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr >
+                        
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="behavior"  value="no behavior issues" {% if individual_note.behavior == 'no behavior issues' %}checked{% endif %}/> no behavior issues
+                            </div>
+                            
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="behavior" value="assaultive" {% if individual_note.behavior == 'assaultive' %}checked{% endif %}/> assaultive
+                            </div>
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="behavior" value="resistant" {% if individual_note.behavior == 'resistant' %}checked{% endif %}/> resistant
+                            </div>
+                        </td>
+                   
+                   
+                        
+                    </tr>
+                    <tr >
+                       
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="behavior"  value="agitated" {% if individual_note.behavior == 'agitated' %}checked{% endif %}/> agitated
+                            </div>
+                            
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="behavior" value="restless" {% if individual_note.behavior == 'restless' %}checked{% endif %}/> restless
+                            </div>
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="behavior" value="hyperactive" {% if individual_note.behavior == 'hyperactive' %}checked{% endif %}/> hyperactive
+                            </div>
+                        </td>
+                        
+                        
+                    </tr>
+                    
+                    <tr >
+                       
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="behavior"  value="intrusive" {% if individual_note.behavior == 'intrusive' %}checked{% endif %}/> intrusive
+                            </div>
+                            
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="behavior" value="sleepy" {% if individual_note.behavior == 'sleepy' %}checked{% endif %}/> sleepy
+                            </div>
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="behavior" value="aggressive" {% if individual_note.behavior == 'aggressive' %}checked{% endif %}/> aggressive
+                            </div>
+                        </td>
+                        
+                        
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div class="row mt-5">
+        
+        <div class="table-responsive">
+            <table class="table table-bordered table- table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 my-0">
+                <thead>
+                    <tr class="fw-bold text-gray-800  ">
+                        
+                        <th class="p-2">Movement:</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                  
+                     
+                  
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr >
+                        
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="movement"  value="Akathisia" {% if individual_note.movement == 'Akathisia' %}checked{% endif %}/> Akathisia
+                            </div>
+                            
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="movement" value="Dystonia" {% if individual_note.movement == 'Dystonia' %}checked{% endif %}/> Dystonia
+                            </div>
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="movement" value="Tardive dyskinesia" {% if individual_note.movement == 'Tardive dyskinesia' %}checked{% endif %}/> Tardive dyskinesia
+                            </div>
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="movement" value="Tics" {% if individual_note.movement == 'Tics' %}checked{% endif %}/> Tics
+                            </div>
+                        </td>
+                   
+                        
+                    </tr>
+                    
+                    <tr>
+                        <td class="p-2 min-w-150px">
+                            Describe:
+                        </td>
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <textarea class="form-control" name="movement_describe"  />{% if individual_note.movement_describe %}{{individual_note.movement_describe}}{% endif %}</textarea>
+                            </div>
+                            
+                        </td>
+                        
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div class="row mt-5">
+        
+        <div class="table-responsive">
+            <table class="table table-bordered table- table-row-dashed table-row-gray-300 align-middle gs-0 gy-4 my-0">
+                <thead>
+                    <tr class="fw-bold text-gray-800  ">
+                        
+                        <th class="p-2">Cognition:</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                     
+                  
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr >
+                        
+                        <td class=" p-2  min-w-150px">
+                            <span class="fw-bold fs-6 text-gray-800">
+                                Impairment of
+                            </span>
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="impairment_of" value="none reported" {% if individual_note.impairment_of == 'none reported' %}checked{% endif %}/> none reported
+                            </div>
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="impairment_of" value="orientation" {% if individual_note.impairment_of == 'orientation' %}checked{% endif %}/> orientation
+                            </div>
+                        </td>
+                   
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="impairment_of" value="memory" {% if individual_note.impairment_of == 'memory' %}checked{% endif %}/> memory
+                            </div>
+                        </td>
+                    </tr>
+                    <tr >
+                        
+                        <td class=" p-2  min-w-150px">
+                            
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="impairment_of" value="ability to abstract" {% if individual_note.impairment_of == 'ability to abstract' %}checked{% endif %}/> ability to abstract
+                            </div>
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="impairment_of" value="attention/concentration" {% if individual_note.impairment_of == 'attention/concentration' %}checked{% endif %}/> attention/concentration
+                            </div>
+                        </td>
+                   
+                        
+                    </tr>
+                    <tr>
+                        <td class="p-2 min-w-150px">
+                            Describe:
+                        </td>
+                        <td class=" p-2  min-w-150px">
+                            <div class="d-flex align-items-center gap-2">
+                                <textarea class="form-control" name="cognition_describe"  />{% if individual_note.cognition_describe %}{{individual_note.cognition_describe}}{% endif %}</textarea>
+                            </div>
+                            
+                        </td>
+                        
+                    </tr>
+                    <tr >
+                        
+                        <td class=" p-2  min-w-150px">
+                            <span class="fw-bold fs-6 text-gray-800">
+                                Impulse control
+                            </span>
+                            
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="impulse_control" value="good" {% if individual_note.impulse_control == 'good' %}checked{% endif %} /> good 
+                            </div>
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="impulse_control" value="fair" {% if individual_note.impulse_control == 'fair' %}checked{% endif %} /> fair
+                            </div>
+                        </td>
+                   
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="impulse_control" value="poor" {% if individual_note.impulse_control == 'poor' %}checked{% endif %}/> poor
+                            </div>
+                        </td>
+                    </tr>
+                    <tr >
+                        
+                        <td class=" p-2  min-w-150px">
+                            <span class="fw-bold fs-6 text-gray-800">
+                                Insight
+                            </span>
+                            
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="insight" value="good" {% if individual_note.insight == 'good' %}checked{% endif %}/> good 
+                            </div>
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="insight" value="fair" {% if individual_note.insight == 'fair' %}checked{% endif %}/> fair
+                            </div>
+                        </td>
+                   
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="insight" value="poor" {% if individual_note.insight == 'poor' %}checked{% endif %}/> poor
+                            </div>
+                        </td>
+                    </tr>
+                    <tr >
+                        
+                        <td class=" p-2  min-w-150px">
+                            <span class="fw-bold fs-6 text-gray-800">
+                                Judgment
+                            </span>
+                            
+                        </td>
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="judgment" value="good" {% if individual_note.judgment == 'good' %}checked{% endif %} /> good 
+                            </div>
+                        </td>
+                       
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="judgment" value="fair" {% if individual_note.judgment == 'fair' %}checked{% endif %} /> fair
+                            </div>
+                        </td>
+                   
+                        <td class=" p-2 min-w-100px ">
+                            <div class="d-flex align-items-center gap-2">
+                                <input type="radio" name="judgment" value="poor" {% if individual_note.judgment == 'poor' %}checked{% endif %} /> poor
+                            </div>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div class="row mt-5">
+        <span class="fw-bold fs-6 text-gray-800">
+            GOALS/OBJECTIVES ADDRESSED FOR CLIENT’S TREATMENT PLAN: 
+        </span>
+        <div class="col-12 d-flex justify-content-end my-4">
+            <div class="m-0" data-select2-id="select2-data-123-9c37">
+                <!--begin::Menu toggle-->
+                    <button 
+                    type="button"
+                    data-bs-toggle="modal" data-bs-target="#exampleModal"
+                    class="btn btn-sm  btn-flex btn-success fw-bold" >
+                    Create</button>
+                    <!--end::Menu toggle-->
+                   
+            </div>
+        </div>
+        <div class="col-12" id="GoalIndividualTherapySectionsResult">
+            {% include "pages/sections_successfully/individual_therapy_section/partials/goalsAndObjctiveList.html" %}
+        </div>
+    </div>
+    
+    <div class="row mt-5 g-4">
+        <span class="col-12 fw-bold fs-6 text-gray-800">
+            INTERVENTION(S) METHOD PROVIDED: 
+        </span>
+        <div class="col-4">
+            <div class="form-check form-check-custom form-check-solid">
+                <input class="form-check-input me-2" type="checkbox"  value="1" name="family_systemic" {% if individual_note.family_systemic %}checked{% endif %} >
+                <label for="flexCheckDefault">Family/Systemic</label>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-check form-check-custom form-check-solid">
+                <input class="form-check-input me-2" type="checkbox"  value="1" name="role_playing" {% if individual_note.role_playing %}checked{% endif %} >
+                <label for="flexCheckDefault">Role Playing</label>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-check form-check-custom form-check-solid">
+                <input class="form-check-input me-2" type="checkbox"  value="1" name="cognitive_behavioral" {% if individual_note.cognitive_behavioral %}checked{% endif %} >
+                <label for="flexCheckDefault">Cognitive Behavioral</label>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-check form-check-custom form-check-solid">
+                <input class="form-check-input me-2" type="checkbox"  value="1" name="psychoeducation" {% if individual_note.psychoeducation %}checked{% endif %} >
+                <label for="flexCheckDefault">Psychoeducation</label>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-check form-check-custom form-check-solid">
+                <input class="form-check-input me-2" type="checkbox"  value="1" name="psychodynamic" {% if individual_note.psychodynamic %}checked{% endif %} >
+                <label for="flexCheckDefault">Psychodynamic</label>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-check form-check-custom form-check-solid">
+                <input class="form-check-input me-2" type="checkbox"  value="1" name="motivational_intervention" {% if individual_note.motivational_intervention %}checked{% endif %} >
+                <label for="flexCheckDefault">Motivational Intervention</label>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-check form-check-custom form-check-solid">
+                <input class="form-check-input me-2" type="checkbox"  value="1" name="relaxation_technique" {% if individual_note.relaxation_technique %}checked{% endif %} >
+                <label for="flexCheckDefault">Relaxation Technique</label>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-check form-check-custom form-check-solid">
+                <input class="form-check-input me-2" type="checkbox"  value="1" name="existential_therapy" {% if individual_note.existential_therapy %}checked{% endif %} >
+                <label for="flexCheckDefault">Other (Specify): Existential Therapy </label>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="form-check form-check-custom form-check-solid">
+                <input class="form-check-input me-2" type="checkbox"  value="1" name="active_listening" {% if individual_note.active_listening %}checked{% endif %} >
+                <label for="flexCheckDefault">Active Listening</label>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-5 g-4">
+        <span class="col-12 fw-bold fs-6 text-gray-800">
+            SESSION CONTENT: 
+        </span>
+        <div class="col-12">
+            <div class="form-check form-check-custom form-check-solid">
+                <textarea class="form-control" rows="7"  name="session_content" >{% if individual_note.session_content %}{{individual_note.session_content}}{% endif %}</textarea>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+    <div class="row mt-5 g-4">
+        <span class="col-12 fw-bold fs-6 text-gray-800">
+            CLIENT’S RESPONSE TO THE INTERVENTION: 
+        </span>
+        <div class="col-12">
+            <div class="form-check form-check-custom form-check-solid">
+                <textarea class="form-control" rows="7"   name="clients_response_to_the_intervention" >{% if individual_note.clients_response_to_the_intervention %}{{individual_note.clients_response_to_the_intervention}}{% endif %}</textarea>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+    <div class="row mt-5 g-4">
+        <span class="col-12 fw-bold fs-6 text-gray-800">
+            CLIENT’S PROGRESS TOWARD GOALS AND OBJECTIVES: 
+        </span>
+        <div class="col-12">
+            <div class="form-check form-check-custom form-check-solid">
+                <textarea class="form-control" rows="7"   name="clients_progress_toward_goals_and_objectives" >{% if individual_note.clients_progress_toward_goals_and_objectives %}{{individual_note.clients_progress_toward_goals_and_objectives}}{% endif %}</textarea>
+                
+            </div>
+        </div>
+        
+    </div>
+    
+    <div class="row mt-5 g-4">
+        <span class="col-12 fw-bold fs-6 text-gray-800">
+            PLAN FOR NEXT SESSION: 
+        </span>
+        <div class="col-12">
+            <div class="form-check form-check-custom form-check-solid">
+                <textarea class="form-control" rows="7"   name="plan_for_next_session" >{% if individual_note.plan_for_next_session %}{{individual_note.plan_for_next_session}}{% endif %}</textarea>
+                
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="d-flex mt-5 g-4 justify-content-end">
+        <div >
+            <button type="submit" class="text-end btn btn-primary btn-sm d-flex justify-content-center align-items-center" id="kt_account_profile_details_submit">
+                <span id="individualTherapySectionFormCheckSpinner" class="htmx-indicator spinner-border spinner-border-sm me-2" ></span>
+                Save Changes
+            </button>
+        </div>
+        
+        
+    </div>
+    
+    
+</form>
+<div class="row mt-5 g-4">
+    <span class="col-12 fw-bold fs-6 text-gray-800">
+        Date of Next Session: Next Week: 
+    </span>
+    <div class="col-12">
+        <div class="mb-5">
+            <div class="row mt-10 align-items-end">
+                <div class="col-12 col-md-4">
+                    <div class="border-bottom border-2 border-gray-300 mb-3 justify-content-center d-flex">
+                        <img class="" width="130" src="{% if therapist.sign %}{{therapist.sign.url}}{% endif %}"/> 
+                    </div>
+                    <h6 class="text-gray-900 mb-5 text-center">Therapist Signature </h6>
+                    
+                </div>
+                <div class="col-12 col-md-4 ">
+                    <c-input_text inputType="text" helpText="Name/Credentials" disabled="disabled" inputValue="{{therapist.first_name}} {{therapist.last_name}}">
+                    </c-input_text>
+                </div>
+                <div class="col-12 col-md-4 ">
+                    <c-input_text inputType="date" helpText="Date" disabled="disabled" inputValue="{{individual_therapy.create_at|date:'Y-m-d'}}">
+                    </c-input_text>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="mb-5">
+            <div class="row mt-10 align-items-end" id="LicencsedPractitionerSignature">
+                {% include "pages/sections_successfully/individual_therapy_section/partials/LicencsedPractitionerSignature.html" %}
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        {% if not user.is_licensed %}
+        <form
+            
+            hx-post="{% url 'sign_individual_note_view' pk=individual_note.pk %}"
+            hx-target="#LicencsedPractitionerSignature"
+            hx-trigger="submit"
+            hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}'
+            class="row mb-6 justify-content-center"
+            id="singatureForm">
+
+            <!--begin::Label-->
+            <!-- En tu template HTML -->
+            <div id="signature-pad" class="d-flex flex-column justify-content-center align-items-center">
+                <canvas id="signature-canvas" class="border w-225px  h-225px border-body border-1 rounded bg-light-primary" width="450" style="touch-action: none;" height="450"></canvas>
+                <input type="hidden" name="sign" id="signature-data">
+            </div>
+            <div class="d-flex justify-content-center mt-6 gap-3">
+                <button type="button" class="btn btn-danger btn-sm" id="clear-button">Clear</button>
+                <button type="submit" class="btn btn-primary btn-sm d-flex justify-content-center align-items-center" id="kt_account_profile_details_submit">
+                    <span id="addGoalspinner" class="htmx-indicator spinner-border spinner-border-sm me-2" ></span>
+                    Save Changes
+                </button>
+            </div>
+            
+            <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+            <script>
+                const canvas = document.getElementById('signature-canvas');
+                const signaturePad = new SignaturePad(canvas);
+                const form = document.getElementById('singatureForm');
+                const signatureData = document.getElementById('signature-data');
+                
+                // Ajustar canvas para alta resolución
+                function resizeCanvas() {
+                    const ratio = Math.max(window.devicePixelRatio || 1, 1);
+                    canvas.width = canvas.offsetWidth * ratio;
+                    canvas.height = canvas.offsetHeight * ratio;
+                    canvas.getContext('2d').scale(ratio, ratio);
+                    signaturePad.clear();
+                }
+                
+                window.addEventListener('resize', resizeCanvas);
+                resizeCanvas();
+                
+                                                        
+                document.getElementById('clear-button').addEventListener('click', () => {
+                    signaturePad.clear();
+                });
+                
+                // Antes de enviar el formulario, guardar la firma
+                form.addEventListener('submit', function(e) {
+                    if (!signaturePad.isEmpty()) {
+                        // Convertir a PNG y guardar en el campo oculto
+                        signatureData.value = signaturePad.toDataURL('image/png');
+                    }
+                });
+                
+            </script> 
+            
+            <!--begin::Label-->
+        </form>
+        {% else %}
+        <div class="alert alert-danger">
+            <div class="alert-text"> 
+                You are not a licensed practitioner. Please contact the administrator to get access to this feature.
+            </div>
+
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+
+
+
+{% endblock content %}

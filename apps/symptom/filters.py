@@ -1,5 +1,5 @@
 from apps.accounts.models import User
-from apps.symptom.models import Customer, Diagnostic, IndividualTherapy, Symptom,Insurance, EncryptedFile, TherapistsGroups, EncryptedFileUser
+from apps.symptom.models import Customer, Diagnostic, IndividualTherapy, IndividualTherapySection, Symptom,Insurance, EncryptedFile, TherapistsGroups, EncryptedFileUser, GroupsPSRSections
 import django_filters
 from django.db.models.functions import Substr, Length
 
@@ -10,8 +10,6 @@ class SymptomFilter(django_filters.FilterSet):
     class Meta:
         model = Symptom
         fields = [ 'code']
-        
-
             
 class InsuranceFilter(django_filters.FilterSet):
     abbreviated =  django_filters.CharFilter(lookup_expr='icontains')
@@ -22,7 +20,11 @@ class InsuranceFilter(django_filters.FilterSet):
     class Meta:
         model = Insurance
         fields = [ 'abbreviated','name', 'available', 'auth_required']
-        
+     
+     
+
+     
+   
 class DiagnosticFilter(django_filters.FilterSet):
     code =  django_filters.CharFilter(lookup_expr='icontains')
    
@@ -97,3 +99,21 @@ class IndividualTherapyFilter(django_filters.FilterSet):
     class Meta:
         model = IndividualTherapy
         fields = ['therapist','customer']
+
+class GroupsPSRSectionsFilter(django_filters.FilterSet):
+    create_at = django_filters.DateFilter(lookup_expr='exact')
+    is_active = django_filters.BooleanFilter()
+
+    class Meta:
+        model = GroupsPSRSections
+        fields = ['create_at', 'is_active']
+        
+        
+class IndividualTherapySectionFilter(django_filters.FilterSet):
+    therapist_full_name =  django_filters.CharFilter(lookup_expr='icontains')
+    customer = django_filters.ModelChoiceFilter(queryset=Customer.objects.all())
+    create_at =  django_filters.DateFilter(lookup_expr='exact')
+    
+    class Meta:
+        model = IndividualTherapySection
+        fields = [ 'therapist_full_name','customer', 'create_at']

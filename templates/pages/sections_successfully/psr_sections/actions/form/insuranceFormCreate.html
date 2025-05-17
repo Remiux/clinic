@@ -1,0 +1,111 @@
+<form 
+                    hx-post="{% url 'create_insurance_view' %}"
+                    hx-target="#InsuranceFormCreate"
+                    hx-trigger="submit"
+                    hx-indicator="#spinnerCreate"
+                    class=""
+                    >
+                    {% csrf_token %}    
+                        <!--begin::Header-->
+                        <div class="px-7 py-5">
+                            <div class="fs-5 text-gray-900 fw-bold">Create insurance</div>
+                        </div>
+                        
+                        <!--end::Header-->
+                        <!--begin::Form-->
+                        <div class="overflow-hidden  overflow-y-auto px-5 py-3 h-225px">
+                            
+                            <div class="mb-3">
+                                <!--begin::Label-->
+                                <label class="form-label fw-semibold">Abbreviated:</label>
+                                <!--end::Label-->
+                                <!--begin::Switch-->
+                                <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                                    <input type="text" required value="{% if form.abbreviated.value %}{{form.abbreviated.value}}{% endif %}" name="abbreviated" class="form-control  form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="Abbreviated"  />
+                                </div>
+                                {% if form.code.errors %}
+                                    <div class="alert alert-danger mt-2 py-1 px-2">
+                                        
+                                        {% for error in form.code.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <!--end::Switch-->
+                            </div>
+                            <div class="mb-3">
+                                <!--begin::Label-->
+                                <label class="form-label fw-semibold">Name:</label>
+                                <!--end::Label-->
+                                <!--begin::Switch-->
+                                <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                                    <input type="text" required value="{% if form.name.value %}{{form.name.value}}{% endif %}" name="name" class="form-control  form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="Name"  />
+                                </div>
+                                {% if form.code.errors %}
+                                    <div class="alert alert-danger mt-2 py-1 px-2">
+                                        
+                                        {% for error in form.code.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <!--end::Switch-->
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Available:</label>
+                                <!--begin::Options-->
+                                <div class="d-flex align-items-center mt-3">
+                                    <!--begin::Option-->
+                                    <div class="form-check form-check-solid form-switch form-check-custom fv-row">
+                                        <input class="form-check-input w-25px h-15px" name="available" type="checkbox" id="allowmarketing" checked />
+                                        <label class="form-check-label" for="allowmarketing"></label>
+                                    </div>
+                                    <label class="fs-8 text-small">Available insurance</label>
+                                    <!--end::Option-->
+                                </div>
+                                <!--end::Options-->
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-semibold">Authorization:</label>
+                                <!--begin::Options-->
+                                <div class="d-flex align-items-center mt-3">
+                                    <!--begin::Option-->
+                                    <div class="form-check form-check-solid form-switch form-check-custom fv-row">
+                                        <input class="form-check-input w-25px h-15px" name="auth_required" type="checkbox" id="allowmarketing" checked />
+                                        <label class="form-check-label" for="allowmarketing"></label>
+                                    </div>
+                                    <label class="fs-8 text-small">Insurance required authorization </label>
+                                    <!--end::Option-->
+                                </div>
+                                <!--end::Options-->
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="px-5 py-3">
+                            <!--begin::Input group-->
+                            
+                           
+                            <!--begin::Actions-->
+                            {% if  message %}
+                                <div class="alert alert-success mt-2 py-1 px-2">
+                                    {{message}}
+                                </div>
+                                <div
+                                hx-get="{% url 'filter_insurances_view' %}"
+                                hx-target="#insuranceTableResult"
+                                hx-trigger="load"
+                                >
+                                </div>
+                            {% endif %}
+                            <div class="d-flex justify-content-end">
+                                <button type="reset" class="btn btn-sm btn-light btn-active-light-danger me-2" >Reset</button>
+                                <button type="submit" class="btn btn-sm btn-primary d-flex justify-content-center align-items-center " >
+                                    <span id="spinnerCreate" class="htmx-indicator spinner-border spinner-border-sm me-2" ></span>
+                                    Create
+                                </button>
+                            </div>
+                            <!--end::Actions-->
+                        </div>
+                        <!--end::Form-->
+                    </form>

@@ -1,0 +1,26 @@
+<form class="col-md-12 "
+hx-post="{% url 'update_initial_discharge_criteria_master_view' pk=master.pk %}"
+hx-trigger="submit"
+hx-target="#initialDischargeCriteriaForm" 
+hx-indicator="#spinnerInitialDischargeCriteriaForm"
+>
+    {% csrf_token %}
+    <textarea rows="4" class="form-control input-group" name="initial_discharge_criteria">{% if master.initial_discharge_criteria %}{{master.initial_discharge_criteria}}{% endif %}</textarea>
+    <div class="d-flex justify-content-end align-items-center mt-2">
+        <button type="submit" class="d-flex justify-content-center align-items-center btn btn-sm btn-light-primary">
+            <span id="spinnerInitialDischargeCriteriaForm" class="htmx-indicator spinner-border spinner-border-sm me-2" ></span>           
+            save
+        </button>
+    </div>
+</form>
+{% if message %}
+    <script>                
+        Swal.fire({
+            position: "top-center",
+            icon: 'success',
+            title: "{{message}}",
+            showConfirmButton: false,
+            timer: 3000
+        });
+    </script>
+{% endif %}

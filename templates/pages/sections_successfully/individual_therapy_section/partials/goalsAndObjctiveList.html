@@ -1,0 +1,22 @@
+{% if goals_note %}
+    {% for goal_note in goals_note %}
+        {% include "pages/sections_successfully/individual_therapy_section/partials/goalAndObjectiveCard.html" %}
+    {% endfor %}
+{% else %}
+<div class="alert alert-danger d-flex align-items-center p-5">
+        No goals and objectives have been added yet.
+
+</div>
+{% endif %}
+
+{% if message %}
+                            <script>                
+                                Swal.fire({
+                                    position: "top-center",
+                                    icon: '{% if "error" in tags %}error{% elif "success" in tags %}success{% elif "info" in tags %}info{% elif "warning" in tags %}warning{% else %}question{% endif %}',
+                                    title: "{{message}}",
+                                    showConfirmButton: false,
+                                    timer: 3000
+                                });
+            </script>
+{% endif %}

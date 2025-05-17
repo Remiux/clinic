@@ -1,0 +1,178 @@
+<div id="kt_app_content_container" class="app-container container-fluid">
+  <!--begin::Products-->
+
+  <!--begin::Card body-->
+  <div class="card-body pt-0">
+    <!--begin::Table-->
+    <div
+      id="kt_ecommerce_products_table_wrapper"
+      class="dt-container dt-bootstrap5 dt-empty-footer"
+    >
+      <div id="" class="table-responsive">
+        <table
+          class="table align-middle table-row-dashed fs-6 gy-5 dataTable"
+          id="kt_ecommerce_products_table"
+          style="width: 100%"
+        >
+          <colgroup>
+            <col data-dt-column="0" style="width: 36.4px" />
+            <col data-dt-column="1" style="width: 320px" />
+            <col data-dt-column="2" style="width: 36.4px" />
+            <col data-dt-column="3" style="width: 36.4px" />
+            <col data-dt-column="4" style="width: 36.4px" />
+            
+          
+          </colgroup>
+          <thead>
+            <tr
+              class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0"
+            >
+            
+            <th
+                class="min-w-200px dt-orderable-asc dt-orderable-desc"
+                data-dt-column="1"
+                rowspan="1"
+                colspan="1"
+                
+                tabindex="0"
+              >
+                <span class="dt-column-title text-gray-800" role="button">Date</span
+                ><span class="dt-column-order"></span>
+              </th>
+              <th
+                class="min-w-200px dt-orderable-asc dt-orderable-desc"
+                data-dt-column="1"
+                rowspan="1"
+                colspan="1"
+                
+                tabindex="0"
+              >
+                <span class="dt-column-title text-gray-800" role="button">Init-End-Date</span
+                ><span class="dt-column-order"></span>
+              </th>
+              <th
+                class="text-end dt-orderable-asc dt-orderable-desc"
+                data-dt-column="1"
+                rowspan="1"
+                colspan="1"
+                
+                tabindex="0"
+              >
+                <span class="dt-column-title text-gray-800" role="button">Therapist</span
+                ><span class="dt-column-order"></span>
+              </th>
+              <th
+                class="text-end dt-orderable-asc dt-orderable-desc"
+                data-dt-column="1"
+                rowspan="1"
+                colspan="1"
+                
+                tabindex="0"
+              >
+                <span class="dt-column-title text-gray-800" role="button">Customer</span
+                ><span class="dt-column-order"></span>
+              </th>
+              
+              <th
+                class="text-end min-w-70px dt-type-numeric dt-orderable-asc dt-orderable-desc"
+                data-dt-column="2"
+                rowspan="1"
+                colspan="1"
+                
+                tabindex="0"
+              >
+                <span class="dt-column-title text-gray-800" role="button">Actions</span
+                ><span class="dt-column-order"></span>
+              </th>
+              
+            </tr>
+            {% if paginator %}
+            
+            <tbody class="fw-semibold text-gray-600">
+              {% for insurance in paginator %}
+              <tr>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div class="">
+                      <!--begin::Title-->
+                      <a
+                        href="{% url "detail_insurance_view" pk=insurance.pk %}"
+                        class="text-gray-800 text-hover-primary fs-5 fw-bold"
+                        data-kt-ecommerce-product-filter="insurance_abbreviated"
+                        >{{insurance.abbreviated}}</a
+                      >
+                      <!--end::Title-->
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div class="d-flex align-items-center">
+                    <div class="">
+                      <!--begin::Title-->
+                      <a
+                        href="{% url "detail_insurance_view" pk=insurance.pk %}"
+                        class="text-gray-800 text-hover-primary fs-5 fw-bold"
+                        data-kt-ecommerce-product-filter="insurance_name"
+                        >{{insurance.name}}</a
+                      >
+                      <!--end::Title-->
+                    </div>
+                  </div>
+                </td>
+                <td class="text-end pe-0">
+                  <!--begin::Badges-->
+                  {% if  insurance.available %}
+                  <div class="badge badge-light-success badge-lg">enabled</div>
+                  {% else %}
+                  <div class="badge badge-light-danger badge-lg">disabled</div>
+                  {% endif %}
+                  
+                  <!--end::Badges-->
+                </td>
+                <td class="text-end pe-0">
+                  <!--begin::Badges-->
+                  {% if  insurance.auth_required %}
+                  <div class="badge badge-light-success badge-lg">authorized</div>
+                  {% else %}
+                  <div class="badge badge-light-danger badge-lg">unauthorized</div>
+                  {% endif %}
+                  
+                  <!--end::Badges-->
+                </td>
+                <td class=" d-flex flex-nowrap justify-content-end gap-1 text-end">
+                  <a
+                     href="{% url "detail_insurance_view" pk=insurance.pk %}" 
+                    class="badge badge-light-primary bi-eye btn btn-sm btn-outline-primary btn-flex btn-center fs-5 px-2"
+                    data-kt-menu-trigger="click"
+                    data-kt-menu-placement="bottom-end"
+                    ></a>
+                  <a
+                     href="{% url "update_insurance_view" pk=insurance.pk %}" 
+                    class="badge badge-light-warning bi-pencil-square btn btn-sm btn-outline-warning btn-flex btn-center fs-5 px-2"
+                    data-kt-menu-trigger="click"
+                    data-kt-menu-placement="bottom-end"
+                    ></a>
+                    
+                 
+                  </div>
+                  <!--end::Menu-->
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+            
+            {% endif %}
+            
+          </thead>
+          
+          <tfoot></tfoot>
+        </table>
+      </div>
+      
+    </div>
+    <!--end::Table-->
+  </div>
+  <!--end::Card body-->
+
+  <!--end::Products-->
+</div>
