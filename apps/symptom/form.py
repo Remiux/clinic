@@ -39,7 +39,17 @@ class CustomerSignForm(forms.ModelForm):
         model = Customer
         fields = ['sign']
         
-
+class SignIndividualTherapySectionNoteForm(forms.ModelForm):
+    
+    class Meta:
+        model = IndividualTherapySectionNote
+        fields = ['sign']
+        
+class IndividualTherapySectionNoteForm(forms.ModelForm):
+    
+    class Meta:
+        model = IndividualTherapySectionNote
+        exclude = ['individual_therapy_section','create_at','therapist','sign','date_sign','licensed_practitioner','licensed_practitioner_pk']
 
 from apps.symptom.models import EncryptedFile
 

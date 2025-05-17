@@ -599,6 +599,7 @@ class IndividualTherapySectionNote(models.Model):
         ('slurred', 'slurred'),
         ('rapid', 'rapid'),
         ('slow', 'slow'),
+        ('pressured', 'pressured'),
         ('soft', 'soft'),
         ('loud', 'loud'),
         ('monotone', 'monotone'),
@@ -632,7 +633,7 @@ class IndividualTherapySectionNote(models.Model):
         
     ]
     DELUSIONS = [
-        ('monotone', 'monotone'),
+        ('none reported', 'none reported'),
         ('grandiose', 'grandiose'),
         ('persecutory', 'persecutory'),
         ('somatic', 'somatic'),
@@ -732,11 +733,12 @@ class IndividualTherapySectionNote(models.Model):
     individual_therapy_section = models.OneToOneField(IndividualTherapySection, on_delete=models.CASCADE)
     create_at = models.DateField(auto_created=True,default=timezone.now)
     session_content = models.TextField(null=True, blank=True)
-    thought_content_describe = models.TextField(null=True, blank=True)
-    thought_process_describe = models.TextField(null=True, blank=True)
-    perception_describe = models.TextField(null=True, blank=True)
-    movement_describe = models.TextField(null=True, blank=True)
-    cognition_describe = models.TextField(null=True, blank=True)
+    thought_content_describe = models.TextField(null=True, blank=True,default="N/A")
+    thought_process_describe = models.TextField(null=True, blank=True,default="N/A")
+    perception_describe = models.TextField(null=True, blank=True,default="N/A")
+    other_describe = models.TextField(null=True, blank=True,default="N/A")
+    movement_describe = models.TextField(null=True, blank=True,default="N/A")
+    cognition_describe = models.TextField(null=True, blank=True,default="N/A")
     clients_response_to_the_intervention = models.TextField(null=True, blank=True)
     clients_progress_toward_goals_and_objectives = models.TextField(null=True, blank=True)
     plan_for_next_session = models.TextField(null=True, blank=True)
@@ -750,20 +752,26 @@ class IndividualTherapySectionNote(models.Model):
     relaxation_technique = models.BooleanField(default=False)
     existential_therapy = models.BooleanField(default=False)
     active_listening = models.BooleanField(default=False)
+    sign = models.ImageField(upload_to='customer_sign',blank=True,null=True)
+    date_sign = models.DateField(null=True, blank=True)
+    licensed_practitioner = models.CharField(max_length=80, null=True, blank=True)
+    licensed_practitioner_pk = models.CharField(max_length=20, null=True, blank=True)
     
     def __str__(self):
         return f"{self.pk}"
 
 class GoalNoteIndividualTherapySections(models.Model):
-    individual_note = models.ForeignKey(IndividualTherapySectionNote, on_delete=models.CASCADE, related_name='individual_note')
-    goal = models.ForeignKey(Goal, on_delete=models.CASCADE, related_name='goal_individual_therapy_note')
+    individual_note = models.ForeignKey(IndividualTherapySectionNote, on_delete=models.CASCADE, related_name='goal_note_individual_therapy_note')
+    goal_number = models.PositiveIntegerField()
+    goal_title = models.CharField(max_length=255)
 
     def __str__(self):
         return f"{self.pk}"
 
 class ObjectiveNoteIndividualTherapySections(models.Model):
-    objective = models.ForeignKey(Objective, on_delete=models.CASCADE, related_name='individual_note')
-    goal_note = models.ForeignKey(GoalNoteIndividualTherapySections, on_delete=models.CASCADE, related_name='goal_note_individual_therapy_note')
+    objective_number = models.PositiveIntegerField()
+    objective_description = models.CharField(max_length=255)
+    goal_note = models.ForeignKey(GoalNoteIndividualTherapySections, on_delete=models.CASCADE, related_name='objective_goal_note_individual_therapy_note')
 
     def __str__(self):
         return f"{self.pk}"

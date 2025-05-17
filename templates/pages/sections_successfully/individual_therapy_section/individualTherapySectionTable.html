@@ -135,7 +135,7 @@
                 <td class="text-end pe-0">
                   
                         {% if  individual_therapy_section.have_note %}
-                          <a href="#"
+                          <a href="{% url "detail_successfully_individual_therapy_view" pk=individual_therapy_section.pk %}"
                         
                             
                           class="badge badge-light-warning bi-journal btn btn-sm btn-outline-warning btn-flex btn-center fs-2 px-2"
@@ -143,7 +143,7 @@
                           data-kt-menu-placement="bottom-end"
                           ></a>
                         {% else %}
-                          <a href="#"
+                          <a href="{% url "detail_successfully_individual_therapy_view" pk=individual_therapy_section.pk %}"
                         
                             
                           class="badge badge-light-success bi-journal-plus btn btn-sm btn-outline-success btn-flex btn-center fs-2 px-2"
@@ -168,6 +168,73 @@
     <!--end::Table-->
   </div>
   <!--end::Card body-->
+  {% if paginator.has_next or paginator.has_previous%}
+  <nav aria-label="Page navigation example ">
+    <ul class="pagination justify-content-center justify-content-md-end mt-2">
+      {% if paginator.has_previous %}
+      <li class="page-item">
+        <a
+          class="page-link cursor-pointer"
+          hx-get="{% url 'filter_successfully_individual_therapy_section_view' %}?page=1&{{ parameters }}"
+          hx-target="#individualTherapySectionsTableResult"
+          hx-indicator="#spinner"
+        >
+          Inicio
+        </a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+        <a class="page-link cursor-pointer">Inicio</a>
+      </li>
 
+      {% endif %} {% for page_number in paginator.paginator.page_range %} 
+      {%if paginator.number|add:'-2' <= page_number and paginator.number|add:"2" >= page_number%} {%if paginator.number == paginator.paginator.num_pages %}
+      <li
+        class="page-item {% if page_number == paginator.number %}active{% endif %}"
+      >
+        
+        <a
+          class="page-link cursor-pointer"
+          hx-get="{% url 'filter_successfully_individual_therapy_section_view' %}?page={{ page_number }}&{{ parameters }}"
+          hx-target="#individualTherapySectionsTableResult"
+          hx-indicator="#spinner"
+        >
+          {{ page_number }}
+        </a>
+      </li>
+      {% else %}
+      <li
+        class="page-item {% if page_number == paginator.number %}active{% endif %}"
+      >
+        <a
+          class="page-link cursor-pointer"
+          hx-get="{% url 'filter_successfully_individual_therapy_section_view' %}?page={{ page_number }}&{{ parameters }}"
+          hx-target="#individualTherapySectionsTableResult"
+          hx-indicator="#spinner"
+        >
+          {{ page_number }}
+        </a>
+        
+      </li>
+      {% endif %} {% endif %} {% endfor %} {% if paginator.has_next %}
+      <li class="page-item">
+        <a
+          class="page-link cursor-pointer"
+          hx-get="{% url 'filter_successfully_individual_therapy_section_view' %}?page={{ paginator.paginator.num_pages }}&{{ parameters }}"
+          hx-target="#individualTherapySectionsTableResult"
+          hx-indicator="#spinner"
+        >
+          Fin
+        </a>
+      </li>
+      {% else %}
+      <li class="page-item disabled">
+        <a class="page-link cursor-pointer">Fin</a>
+      </li>
+
+      {% endif %}
+    </ul>
+  </nav>
+  {% endif %}
   <!--end::Products-->
 </div>

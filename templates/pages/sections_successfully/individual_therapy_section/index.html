@@ -26,9 +26,77 @@
             <!--end::Breadcrumb-->
         </div>
     </div>
-
+    <div class="col-12  d-flex justify-content-end align-items-center">
+        <div class="m-0" data-select2-id="select2-data-123-9c37">
+            <!--begin::Menu toggle-->
+            <a href="#" class="btn btn-sm  btn-flex btn-secondary fw-bold" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+            <i class="ki-duotone ki-filter fs-6 text-muted me-1">
+                <span class="path1"></span>
+                <span class="path2"></span>
+            </i>Filter</a>
+            <!--end::Menu toggle-->
+            <!--begin::Menu 1-->
+            <form 
+            hx-get="{% url 'filter_successfully_individual_therapy_section_view' %}"
+            hx-target="#individualTherapySectionsTableResult"
+            hx-trigger="submit"
+            hx-indicator="#spinnerFilter"
+            class="menu menu-sub menu-sub-dropdown w-250px w-md-300px" data-kt-menu="true" id="kt_menu_673c0c868c157" style="" data-select2-id="select2-data-kt_menu_673c0c868c157">
+            {% csrf_token %}    
+            <!--begin::Header-->
+                <div class="px-7 py-5">
+                    <div class="fs-5 text-gray-900 fw-bold">Filter Options</div>
+                </div>
+                <!--end::Header-->
+                <!--begin::Menu separator-->
+                <div class="separator border-gray-200"></div>
+                <!--end::Menu separator-->
+                <!--begin::Form-->
+                <div class="px-7 py-3">
+                    <!--begin::Input group-->
+                    <div class="mb-3">
+                        <!--begin::Label-->
+                        <label class="form-label fw-semibold">Therapist:</label>
+                        <!--end::Label-->
+                        <!--begin::Switch-->
+                        <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                            <input type="text" name="therapist_full_name" class="form-control  form-control-sm form-control-solid mb-3 mb-lg-0" placeholder="Full Name"  />
+                        </div>
+                        <!--end::Switch-->
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Customer:</label>
+                        <select name="customer"  data-control="select2"  class="form-select form-select-solid form-select-sm fw-semibold">
+                            <option value="" selected >Select a customer...</option>
+                            {% for customer in customers %}
+                                <option value="{{customer.pk}}" >{{customer.full_name}}</option>
+                            {% endfor %}
+                        </select>
+                        
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-semibold">Date:</label>
+                        <div class="form-check form-switch form-switch-sm form-check-custom form-check-solid">
+                            <input type="date" name="create_at" class="form-control  form-control-sm form-control-solid mb-3 mb-lg-0"  />
+                        </div>
+                    </div>
+                    <!--begin::Actions-->
+                    <div class="d-flex justify-content-end">
+                        <button type="reset" class="btn btn-sm btn-light btn-active-light-danger me-2" >Reset</button>
+                        <button type="submit" class="btn btn-sm btn-primary d-flex justify-content-center align-items-center " >
+                            <span id="spinnerFilter" class="htmx-indicator spinner-border spinner-border-sm me-2" ></span>
+                            Apply
+                        </button>
+                    </div>
+                    <!--end::Actions-->
+                </div>
+                <!--end::Form-->
+            </form>
+            <!--end::Menu 1-->
+        </div>
+    </div>
     <div class="col-12 ">
-        <div id="psrSectionsTableResult">
+        <div id="individualTherapySectionsTableResult">
             {% include "pages/sections_successfully/individual_therapy_section/individualTherapySectionTable.html" %}
         </div>
     </div>
