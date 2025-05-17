@@ -24,7 +24,7 @@ def section_four_view(request, pk):
     # Verificar si el cliente está en un terapia PSR
     is_in_group_customer = GroupCustomer.objects.filter(customer=customer).exists()
     
-    focus_areas = FocusArea.objects.prefetch_related('goal_set__objective_set', 'goal_set__intervention_set').order_by('-focus_area_type')
+    focus_areas = FocusArea.objects.prefetch_related('goal__objective_set').order_by('-focus_area_type')
     context = {
         'master':master,
         'customer': customer,
